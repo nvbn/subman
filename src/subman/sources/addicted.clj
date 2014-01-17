@@ -94,19 +94,19 @@
 (defn- get-seasons
   "Get season with episodes"
   [lines] (reduce (fn [buffer line]
-                       (cond
-                        (is-title? line) (list* {:number (get-season-number line)
-                                                :episodes []}
-                                               buffer)
-                        (is-episode? line) (list*
-                                            (let [season (first buffer)
-                                                  episodes (:episodes season)]
-                                              (assoc season
-                                                :episodes (list* (get-episode line)
-                                                                episodes)))
-                                            (rest buffer))
-                        :else buffer))
-                     [] lines))
+                    (cond
+                     (is-title? line) (list* {:number (get-season-number line)
+                                              :episodes []}
+                                             buffer)
+                     (is-episode? line) (list*
+                                         (let [season (first buffer)
+                                               episodes (:episodes season)]
+                                           (assoc season
+                                             :episodes (list* (get-episode line)
+                                                              episodes)))
+                                         (rest buffer))
+                     :else buffer))
+                  [] lines))
 
 (defn get-episodes
   "Get episodes for show"
