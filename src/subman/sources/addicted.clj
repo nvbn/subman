@@ -1,7 +1,7 @@
 (ns subman.sources.addicted
   (:require [net.cgrand.enlive-html :as html]))
 
-(defn- fetch
+(defn fetch
   "Fetch url content"
   [url] (-> url
             java.net.URL.
