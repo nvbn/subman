@@ -47,12 +47,19 @@
 
 (defn- is-episode?
   "Is line a episode"
-  [line] (some-> line
-                 :content
-                 first
-                 :attrs
-                 :align
-                 (= "left")))
+  [line] (let [content (:content line)]
+           (and (some-> content
+                        first
+                        :attrs
+                        :align
+                        (= "left"))
+                (some-> content
+                        vec
+                        (get 10)
+                        :content
+                        first
+                        :tag
+                        (= :a)))))
 
 (defn- get-season-number
   "Get season number from line"
@@ -70,7 +77,7 @@
   "Get episode name holder element"
   [line] (-> line
              :content
-             (nth 6)
+             last
              :content
              first))
 
@@ -89,7 +96,8 @@
           :url (-> line
                    get-episode-name-element
                    :attrs
-                   :href)})
+                   :href
+                   make-url)})
 
 (defn- get-seasons
   "Get season with episodes"
