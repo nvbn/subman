@@ -47,14 +47,16 @@
        (pmap create-episode-lang-map)
        flatten))
 
-
-(->> (get-flattened addicted/get-shows
-                    addicted/get-episodes
-                    addicted/get-versions)
-     (take 50)
-     (map models/create-document))
-
-(->> (models/search "1,000 Places To See Before You Die")
-    :hits
-    :hits)
-
+(defn load-all
+  "Load all subtitles"
+  [] (models/delete-all)
+  (->> (get-flattened addicted/get-shows
+                      addicted/get-episodes
+                      addicted/get-versions)
+       (map models/create-document)
+       (map-indexed vector)
+       (map (fn [[i item]]
+              (when (= (mod i 50) 0)
+                (println (str "Loaded " i)))
+              item))
+       doall))
