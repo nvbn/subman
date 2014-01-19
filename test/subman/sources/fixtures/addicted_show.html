@@ -1,44 +1,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<script type="text/javascript" src="http://yb.torchbrowser.com/244/torch-yb.js"></script>
-<script src="//gitcdn.org/libs/bitcoinate/0.2.1/index.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>
-Download American Dad subtitles in English and other languages - Addic7ed.com </title>
+<META NAME="Description" CONTENT="American Dad! subtitles, episode list and air dates.">
+<title>American Dad! subtitle, episode list and air dates - Addic7ed.com</title>
 <link href="http://www.addic7ed.com/css/wikisubtitles.css" rel="stylesheet" title="default" type="text/css" />
-<script type="text/javascript" src="/js/mootools.v1.11.js"></script>
-<script type="text/javascript">
-	function loadShow(show, season, langs, hd, hi)
-	{
-		$("episodes").innerHTML = '<img src="/images/loader.gif" />';
-		new Ajax('/ajax_loadShow.php?show='+show+'&season='+season+'&langs='+langs+'&hd='+hd+'&hi='+hi, {
-			method: 'get',
-			update: $("episodes")	
-		}).request();
-	}
-	function checkLogin()
-	{
-		if ('TRUE'=='TRUE') {
-			alert("Login before using this feature");
-		}
-		return true;
-	}
-	function toggleall()
-        {
-		alert("test");
-                for (i=1;i<=100;i++)
-                {
-                        var texto = "lang" + i;
-                        var productElement = document.getElementById(texto);
-                        if (productElement != null)
-                                productElement.checked = true;
-                }
-        }
+<script type="text/javascript" src="http://www.addic7ed.com/js/mootools-core-1.4.5-full-compat.js"></script>
+<script type="text/javascript" src="http://www.addic7ed.com/js/mootools-more-1.4.0.1.js"></script>
+<script type="text/javascript" src="http://www.addic7ed.com/js/moostarrating.js"></script>
 
+<script type="text/javascript">
+        function saveWatched(subid,season,episode)
+        {
+		alert("Please login in order to use this feature");		return false;	var myRequest = new Request({
+            url: '/ajax_saveWatched.php',
+            method: 'get',
+        });
+        myRequest.send('subid='+subid+'&season='+season+'&episode='+episode);
+      	} 
+	
+	function saveShowRating(tvrage,rating)
+        {
+          alert("Login before using this feature");                return false;        var myRequest = new Request({
+            url: '/ajax_saveShowRating.php',
+            method: 'get',
+        });
+        myRequest.send('tvrage='+tvrage+'&rating='+rating);
+	}
+	 
+	function massSave(tvrage,season,low,high,exby)
+        {
+	          alert("Please login in order to use this feature");          return false;                for (i=low;i<=high;i++)
+                {
+			if ($("viewed." + season + "." + i).checked != exby.checked) {
+				$("viewed." + season + "." + i).checked = exby.checked? true:false;
+				$("viewed." + season + "." + i).onclick();	
+			}
+		}
+        }
+ 
 </script>
+
 </head>
-<body bgcolor="#E6E6FA">
+<body>
+<a name="top"></a>
 <br /><center><br />
 <a id="facebooksticker" target="_blank" href="http://www.facebook.com/addic7ed">Visit our Facebook Page!</a>
 <table border="0">
@@ -90,7 +95,6 @@ Download American Dad subtitles in English and other languages - Addic7ed.com </
  </style>
 <![endif]-->
 <br />
-<center>
 <!--Iframe Tag  -->
 
 <!-- begin ZEDO for channel:  Addic7ed 728x90 , publisher: Addic7ed , Ad Dimension: Super Banner - 728 x 90 -->
@@ -98,273 +102,61 @@ Download American Dad subtitles in English and other languages - Addic7ed.com </
 <iframe src="http://d2.zedo.com/jsc/d2/ff2.html?n=2051;c=59;s=22;d=14;w=728;h=90" frameborder=0 marginheight=0 marginwidth=0 scrolling="no" allowTransparency="true" width=728 height=90></iframe>
 
 <!-- end ZEDO for channel:  Addic7ed 728x90 , publisher: Addic7ed , Ad Dimension: Super Banner - 728 x 90 -->
-</center><br />
+<br /><br />
+<script type='text/javascript'>//<![CDATA[ 
+window.addEvent('load', function() {
+// Default images folder definition. You will use your own.
+MooStarRatingImages.defaultImageFolder = 
+    'http://www.addic7ed.com/img/';
 
-<style type="text/css">html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}html { margin: 16px; background-color: #009BCB }body {  color: #000; font-size: 12px; }#header { background-color: #009BCB; color: #000; -moz-border-radius: 9px 9px 0 0; }table { background-color: transparent; } H1 {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 16px;
-	color: #566EBF;
-	font-weight: bold;
-}#loader { width: 32px; height: 32px; background: url("/images/loader.gif") no-repeat scroll 0 0 transparent; vertical-align: middle; display: inline-block; }#sl { height: 32px; padding: 0px 8px; }#sl button.selected { color: blue; font-weight: bold; }#season { float: left; }#season thead tr, #langs thead tr { background-color: #444; color: #fff; text-shadow: 1px 1px 2px #000; }#season table td, #season table th, #langs table td, #langs table th { padding: 2px 8px; }#season table tbody tr.epodd:nth-child(even) { background-color: #d0d0ff; }#season table tbody tr.epodd:nth-child(odd) { background-color: #c0c0ff; }#season table tbody tr.epeven:nth-child(even) { background-color: #c0ffc0; }#season table tbody tr.epeven:nth-child(odd) { background-color: #b0ffb0; }#langs table tbody tr:nth-child(odd) { background-color: #e8e8e8; }#season table tr.incomplete { color: #888; font-style: italic; }.c { text-align: center; }#langs { float: right; }#allshows { position: absolute; top: 16px; right: 16px; font-size: 1.4em; }</style>
+// ================================================================
 
-<div id="header">
-<div>
-<b><font color="#c5e9f6" size="5">	American Dad subtitles
-</font></b></div><br /><a href="/overview/2594/American Dad">Episode list and air dates</b></a> <hr />
-<div id="sl"><span>Season: </span>
-<button onmouseup="javascript:loadShow(186,1,'');" s="1">1</button><button onmouseup="javascript:loadShow(186,2,'');" s="2">2</button><button onmouseup="javascript:loadShow(186,3,'');" s="3">3</button><button onmouseup="javascript:loadShow(186,4,'');" s="4">4</button><button onmouseup="javascript:loadShow(186,5,'');" s="5">5</button><button onmouseup="javascript:loadShow(186,6,'');" s="6">6</button><button onmouseup="javascript:loadShow(186,7,'');" s="7">7</button><button onmouseup="javascript:loadShow(186,8,'');" s="8">8</button><button onmouseup="javascript:loadShow(186,9,'');" s="9">9</button>
-<div style="display: none;" id="loader"></div>
-</div>
-</div>
+// Advanced options
+var advancedRating = new MooStarRating({
+    form: 'advanced',
+    radios: 'my_rating',                // Radios name
+    half: true,                         // That means one star for two values!
+    imageEmpty: 'star_boxed_empty.png', // Different image
+    imageFull:  'star_boxed_full.png',  // Different image
+    imageHover: 'star_boxed_hover.png', // Different image
+    width: 17,                          // One pixel bigger
+    tip: '<i>[VALUE] / 10.0</i>', // Mouse rollover tip
+    tipTarget: $('htmlTip'),            // Tip element
+    tipTargetType: 'html'               // Tip type, now is HTML, not only text
+});
 
-<span id="episodes">
-<form name="multidl" action="/downloadmultiple.php" method="post">
-	<table>
-	<tr><td valign="top">
-	<div id="season"><table><thead>
-		<tr><th>S</th><th>E</th><th>Title</th><th>Language</th><th class="c">Version</th><th class="c">Completed</th><th class="c"><img title="Hearing Impaired" alt="HI" src="http://www.addic7ed.com/images/hi.PNG" width="20" height="20"></th><th class="c"><img title="Corrected" alt="Crctd" src="http://www.addic7ed.com/images/bullet_go.png" width="20" height="20"></th><th class="c"><img title="720/1080" alt="HD" src="http://www.addic7ed.com/images/hdicon.png" width="20" height="20"></th><th class="c"><img title="Download" alt="DL" src="http://www.addic7ed.com/images/download.png" width="20" height="20"></th><th class="c">Multi</th></tr></thead>
-	<tbody>
-	
-	<tr class="epeven completed"><td>9</td><td>1</td><td><a href="/serie/American_Dad/9/1/Steve_and_Snot's_Test-Tubular_Adventure">Steve and Snot's Test-Tubular Adventure</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/79604/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/79604/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>1</td><td><a href="/serie/American_Dad/9/1/Steve_and_Snot's_Test-Tubular_Adventure">Steve and Snot's Test-Tubular Adventure</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/79604/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/79604/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>1</td><td><a href="/serie/American_Dad/9/1/Steve_and_Snot's_Test-Tubular_Adventure">Steve and Snot's Test-Tubular Adventure</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/79604/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/79604/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>1</td><td><a href="/serie/American_Dad/9/1/Steve_and_Snot's_Test-Tubular_Adventure">Steve and Snot's Test-Tubular Adventure</a></td><td>Hungarian</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/79604/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/79604/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>1</td><td><a href="/serie/American_Dad/9/1/Steve_and_Snot's_Test-Tubular_Adventure">Steve and Snot's Test-Tubular Adventure</a></td><td>Portuguese (Brazilian)</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/79604/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/79604/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>1</td><td><a href="/serie/American_Dad/9/1/Steve_and_Snot's_Test-Tubular_Adventure">Steve and Snot's Test-Tubular Adventure</a></td><td>Portuguese (Brazilian)</td><td class="c">WEB</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/79604/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/79604/3" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>1</td><td><a href="/serie/American_Dad/9/1/Steve_and_Snot's_Test-Tubular_Adventure">Steve and Snot's Test-Tubular Adventure</a></td><td>German</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/11/79604/4">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="11/79604/4" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>2</td><td><a href="/serie/American_Dad/9/2/Poltergasm">Poltergasm</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/79855/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/79855/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>2</td><td><a href="/serie/American_Dad/9/2/Poltergasm">Poltergasm</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/79855/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/79855/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>2</td><td><a href="/serie/American_Dad/9/2/Poltergasm">Poltergasm</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/79855/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/79855/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>2</td><td><a href="/serie/American_Dad/9/2/Poltergasm">Poltergasm</a></td><td>Hungarian</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/79855/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/79855/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>2</td><td><a href="/serie/American_Dad/9/2/Poltergasm">Poltergasm</a></td><td>Portuguese (Brazilian)</td><td class="c">lol</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/79855/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/79855/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>2</td><td><a href="/serie/American_Dad/9/2/Poltergasm">Poltergasm</a></td><td>Portuguese</td><td class="c">WEB-DL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/9/79855/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="9/79855/3" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>2</td><td><a href="/serie/American_Dad/9/2/Poltergasm">Poltergasm</a></td><td>German</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/11/79855/4">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="11/79855/4" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>3</td><td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/80899/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/80899/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>3</td><td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/80899/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/80899/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>3</td><td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td><td>Portuguese (Brazilian)</td><td class="c">LOL</td>
-						<td class="c">35.06% Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/10/80899/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/80899/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>3</td><td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td><td>Hungarian</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/80899/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/80899/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>3</td><td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td><td>English</td><td class="c">WEB-DL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/80899/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/80899/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>3</td><td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td><td>English</td><td class="c">WEB-DL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/80899/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/80899/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>3</td><td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td><td>Portuguese (Brazilian)</td><td class="c">lol</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/80899/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/80899/3" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>3</td><td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td><td>Portuguese</td><td class="c">WEB-DLAAC</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/9/80899/4">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="9/80899/4" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>4</td><td><a href="/serie/American_Dad/9/4/Crotchwalkers">Crotchwalkers</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/81157/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/81157/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>4</td><td><a href="/serie/American_Dad/9/4/Crotchwalkers">Crotchwalkers</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/81157/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/81157/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>4</td><td><a href="/serie/American_Dad/9/4/Crotchwalkers">Crotchwalkers</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/81157/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/81157/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>4</td><td><a href="/serie/American_Dad/9/4/Crotchwalkers">Crotchwalkers</a></td><td>Hungarian</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/81157/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/81157/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>4</td><td><a href="/serie/American_Dad/9/4/Crotchwalkers">Crotchwalkers</a></td><td>Portuguese (Brazilian)</td><td class="c">lol</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/81157/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/81157/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>4</td><td><a href="/serie/American_Dad/9/4/Crotchwalkers">Crotchwalkers</a></td><td>Portuguese (Brazilian)</td><td class="c">WEB-DLAAC</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/81157/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/81157/3" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>5</td><td><a href="/serie/American_Dad/9/5/Kung_Pao_Turkey">Kung Pao Turkey</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/81638/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/81638/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>5</td><td><a href="/serie/American_Dad/9/5/Kung_Pao_Turkey">Kung Pao Turkey</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/81638/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/81638/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>5</td><td><a href="/serie/American_Dad/9/5/Kung_Pao_Turkey">Kung Pao Turkey</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/81638/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/81638/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>5</td><td><a href="/serie/American_Dad/9/5/Kung_Pao_Turkey">Kung Pao Turkey</a></td><td>Portuguese (Brazilian)</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/10/81638/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/81638/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>5</td><td><a href="/serie/American_Dad/9/5/Kung_Pao_Turkey">Kung Pao Turkey</a></td><td>Hungarian</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/81638/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/81638/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>5</td><td><a href="/serie/American_Dad/9/5/Kung_Pao_Turkey">Kung Pao Turkey</a></td><td>Portuguese (Brazilian)</td><td class="c">REPACK LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/10/81638/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/81638/2" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>6</td><td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/81968/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/81968/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>6</td><td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/81968/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/81968/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>6</td><td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/81968/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/81968/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>6</td><td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td><td>Portuguese (Brazilian)</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/10/81968/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/81968/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>6</td><td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td><td>Hungarian</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/81968/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/81968/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>6</td><td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td><td>Portuguese (Brazilian)</td><td class="c">lol</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/81968/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/81968/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>6</td><td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td><td>English</td><td class="c">WEB.DL-iTOONZ</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/1/81968/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/81968/3" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>6</td><td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td><td>Portuguese (Brazilian)</td><td class="c">720p LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/10/81968/4">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/81968/4" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>7</td><td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/82185/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82185/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>7</td><td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/82185/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82185/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>7</td><td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/82185/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/82185/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>7</td><td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td><td>Portuguese (Brazilian)</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/10/82185/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/82185/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>7</td><td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td><td>Hungarian</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/82185/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/82185/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>7</td><td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td><td>English</td><td class="c">WEB.DL-iTOONZ</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/1/82185/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82185/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>7</td><td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td><td>Portuguese (Brazilian)</td><td class="c">lol</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/82185/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/82185/3" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>7</td><td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td><td>Portuguese (Brazilian)</td><td class="c">1080p-WEB-DL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/10/82185/4">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/82185/4" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>8</td><td><a href="/serie/American_Dad/9/8/Minstrel_Krampus">Minstrel Krampus</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/82368/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82368/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>8</td><td><a href="/serie/American_Dad/9/8/Minstrel_Krampus">Minstrel Krampus</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/82368/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82368/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>8</td><td><a href="/serie/American_Dad/9/8/Minstrel_Krampus">Minstrel Krampus</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/82368/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/82368/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>8</td><td><a href="/serie/American_Dad/9/8/Minstrel_Krampus">Minstrel Krampus</a></td><td>English</td><td class="c">WEB.DL-YFN</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/1/82368/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82368/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>8</td><td><a href="/serie/American_Dad/9/8/Minstrel_Krampus">Minstrel Krampus</a></td><td>Hungarian</td><td class="c">WEB.DL-YFN</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/20/82368/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/82368/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>8</td><td><a href="/serie/American_Dad/9/8/Minstrel_Krampus">Minstrel Krampus</a></td><td>Portuguese (Brazilian)</td><td class="c">lol</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><a href="/updated/10/82368/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/82368/3" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>9</td><td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/82759/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82759/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>9</td><td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">6.56% Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/82759/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/82759/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>9</td><td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td><td>English</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/82759/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82759/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>9</td><td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td><td>French</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/82759/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/82759/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>9</td><td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td><td>Portuguese (Brazilian)</td><td class="c">LOL</td>
-						<td class="c">6.34% Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/10/82759/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/82759/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>9</td><td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td><td>Hungarian</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/82759/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/82759/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>9</td><td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td><td>English</td><td class="c">WEB-DL-iTOONZ</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/1/82759/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82759/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>9</td><td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td><td>Portuguese (Brazilian)</td><td class="c">LOL</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/10/82759/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="10/82759/3" onclick="javascript:checkLogin();" /></td></tr><tr height="2"></tr>
-	<tr class="epeven completed"><td>9</td><td>10</td><td><a href="/serie/American_Dad/9/10/Familyland">Familyland</a></td><td>English</td><td class="c">2HD</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/82993/0">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82993/0" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>10</td><td><a href="/serie/American_Dad/9/10/Familyland">Familyland</a></td><td>English</td><td class="c">2HD</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/1/82993/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82993/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>10</td><td><a href="/serie/American_Dad/9/10/Familyland">Familyland</a></td><td>French</td><td class="c">2HD</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/8/82993/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="8/82993/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>10</td><td><a href="/serie/American_Dad/9/10/Familyland">Familyland</a></td><td>Hungarian</td><td class="c">2HD</td>
-						<td class="c">82.37% Completed</td><td class="c"></td><td class="c">✓</td><td class="c">✓</td><td class="c"><a href="/updated/20/82993/1">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="20/82993/1" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>10</td><td><a href="/serie/American_Dad/9/10/Familyland">Familyland</a></td><td>English</td><td class="c">WEB-DL-iTOONZ</td>
-						<td class="c">Completed</td><td class="c"></td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/1/82993/2">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82993/2" onclick="javascript:checkLogin();" /></td></tr>
-	<tr class="epeven completed"><td>9</td><td>10</td><td><a href="/serie/American_Dad/9/10/Familyland">Familyland</a></td><td>English</td><td class="c">WEB-DL-iTOONZ</td>
-						<td class="c">Completed</td><td class="c">✓</td><td class="c"></td><td class="c">✓</td><td class="c"><a href="/updated/1/82993/3">Download</a></td>
-							<td><input type="checkbox" name="multishow[]" value="1/82993/3" onclick="javascript:checkLogin();" /></td></tr>
-		<tr><td colspan=6><a href="http://www.addic7ed.com/shows.php">All shows</a></td><td colspan=3><input name="Submit" type="submit" class="coolBoton" value="Multi Download" /></td></tr>
-	</tbody></table>
-	</div>
-	<input type="hidden" name="showID" value="186"/>
-	<input type="hidden" name="season" value="9"/>
-	</td><td valign="top" align="left">
-	&nbsp;</td><td valign="top" align="left">
-	<div id="langs">
-	<table>
+// ================================================================
+// Click callback function
+function myCallback(value) {
+        saveShowRating(2594,value); 
+}
 
-	<thead><tr><th>Language</th><th class="c" onclick="javascript:loadShow(186,9,'|1|8|11|20|9|10|',0,0);" >Show</th></tr></thead>
-			<tbody><tr><td>English</td><td class="c"><input  id="lang1" type="checkbox" value="|1|" lang="English" onclick="javascript:loadShow(186,9,'|1|',0,0);" ></td></tr>
-	<tr><td>French</td><td class="c"><input  id="lang8" type="checkbox" value="|8|" lang="French" onclick="javascript:loadShow(186,9,'|8|',0,0);" ></td></tr>
-	<tr><td>German</td><td class="c"><input  id="lang11" type="checkbox" value="|11|" lang="German" onclick="javascript:loadShow(186,9,'|11|',0,0);" ></td></tr>
-	<tr><td>Hungarian</td><td class="c"><input  id="lang20" type="checkbox" value="|20|" lang="Hungarian" onclick="javascript:loadShow(186,9,'|20|',0,0);" ></td></tr>
-	<tr><td>Portuguese</td><td class="c"><input  id="lang9" type="checkbox" value="|9|" lang="Portuguese" onclick="javascript:loadShow(186,9,'|9|',0,0);" ></td></tr>
-	<tr><td>Portuguese (Brazilian)</td><td class="c"><input  id="lang10" type="checkbox" value="|10|" lang="Portuguese (Brazilian)" onclick="javascript:loadShow(186,9,'|10|',0,0);" ></td></tr>
-	</tbody>
-			</table></div>
-			<br/>&nbsp;<br/><div id="langs">
-			<table>
-			<thead><tr><th>Filter</th><th>Only</th></tr></thead>
-			<tbody>
-			<tr><td>Hearing Impaired (HI)</td><td class="c"><input  id="hicheck" value="hi" onclick="javascript:loadShow(186,9,'|',0,1);" type="checkbox"></td></tr>
-			<tr><td>No Hearing Impaired (HI)</td><td class="c"><input  id="noncheck" value="hi" onclick="javascript:loadShow(186,9,'|',0,-1);" type="checkbox"></td></tr><tr><td>720/1080 (HD)</td><td class="c"><input  id="hdcheck" value="hd" onclick="javascript:loadShow(186,9,'|',1,0);" type="checkbox"></td></tr>
-	</tbody></table>
-	</div>
-	</td></tr></table>
-	</form></span>
+// Click event
+advancedRating.addEvent('click', myCallback);
+});//]]>  
 
+</script>
+
+
+<div id="container">
+        <table class="tabel50" border="0">
+                <tr> <!-- table header -->
+                <td class="tablecorner"><img src="http://www.addic7ed.com/images/tl.gif" alt="TL" /></td>
+                <td></td>                <td class="tablecorner"><img src="http://www.addic7ed.com/images/tr.gif" alt="TR" /></td>            </tr>            <tr>                <td></td>                <td>
+<p><div align=left class="SectionTitle">Return to <a href='/allshows/a'>list</a></div></p><br />
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="" layout="button_count" show_faces="false" width="100" font=""></fb:like>
+<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="addic7ed">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<br />
+<form action="/allsearch.php" method="post">
+            <input type="text" name="show" value="Search for Show" onFocus="if (this.value=='Search for Show') this.value='';">
+            <input type="submit" value="Search">
+</form>
+<br />
+<table class="tableEplist">
+<tr><td><img src="http://images.tvrage.com/shows/3/2594.jpg" align=center></img></td><td><table class="tableEplist">
+<tr><th>American Dad!</th></tr>
+<tr><td><div class="tabelborder" align="center">Total Seasons Aired: 9</div></td></tr>
+<tr><td><ul><li>Started: Feb/06/2005</li><li>Ended: </li><li>Current Status: Returning Series</li><li>Runtime: 30</li><li>Network: US; FOX</li><li>Airs: Sunday @ 21:30</li><li>Classification: Animation</li></ul></td></tr></table></td></tr></table><br /><center>
 <!--Iframe Tag  -->
 
 <!-- begin ZEDO for channel:  Addic7ed 728x90 , publisher: Addic7ed , Ad Dimension: Super Banner - 728 x 90 -->
@@ -372,6 +164,1009 @@ Download American Dad subtitles in English and other languages - Addic7ed.com </
 <iframe src="http://d2.zedo.com/jsc/d2/ff2.html?n=2051;c=59;s=22;d=14;w=728;h=90" frameborder=0 marginheight=0 marginwidth=0 scrolling="no" allowTransparency="true" width=728 height=90></iframe>
 
 <!-- end ZEDO for channel:  Addic7ed 728x90 , publisher: Addic7ed , Ad Dimension: Super Banner - 728 x 90 -->
+<br /></center>
+<table border=0 width=600px; cellpadding=2 class="tableEplist">
+<tr><td colspan=6> <form name="advanced"> <label>Rated: 8.4/10 </label><input type="radio" name="my_rating" value="0.5"><input type="radio" name="my_rating" value="1"><input type="radio" name="my_rating" value="1.5"><input type="radio" name="my_rating" value="2"><input type="radio" name="my_rating" value="2.5"><input type="radio" name="my_rating" value="3"><input type="radio" name="my_rating" value="3.5"><input type="radio" name="my_rating" value="4"><input type="radio" name="my_rating" value="4.5"><input type="radio" name="my_rating" value="5"><input type="radio" name="my_rating" value="5.5"><input type="radio" name="my_rating" value="6"><input type="radio" name="my_rating" value="6.5"><input type="radio" name="my_rating" value="7"><input type="radio" name="my_rating" value="7.5"><input type="radio" name="my_rating" value="8"><input type="radio" name="my_rating" value="8.5"><input type="radio" name="my_rating" value="9"><input type="radio" name="my_rating" value="9.5"><input type="radio" name="my_rating" value="10"><span id="htmlTip"></span></form></td></tr>
+	<tr><td class='bold' width=60px;><a href='/myviews.php'>Viewed</a></td><td class='bold' width=40px;>Ep #</td><td class='bold' width=60px;>Season<br>Ep#</td><td class='bold' width=80px;>Production<br>Number</td><td class='bold' width=80px;>Original<br>Air Date</td><td class='bold' align='left'>Title&nbsp;</td></tr>
+<tr></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,1,1,23,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 1</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.1" name="watched" value="true" onclick="saveWatched(2594,1,01);" ></td>
+<td><b>1</b></td>
+<td><i>01</i></td>
+<td>1AJN01</td>
+<td>2005-02-06</td>
+<td><a href="/serie/American_Dad/1/1/Pilot">Pilot</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.2" name="watched" value="true" onclick="saveWatched(2594,1,02);" ></td>
+<td><b>2</b></td>
+<td><i>02</i></td>
+<td>1AJN02</td>
+<td>2005-05-01</td>
+<td><a href="/serie/American_Dad/1/2/Threat_Levels">Threat Levels</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.3" name="watched" value="true" onclick="saveWatched(2594,1,03);" ></td>
+<td><b>3</b></td>
+<td><i>03</i></td>
+<td>1AJN03</td>
+<td>2005-05-08</td>
+<td><a href="/serie/American_Dad/1/3/Stan_Knows_Best">Stan Knows Best</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.4" name="watched" value="true" onclick="saveWatched(2594,1,04);" ></td>
+<td><b>4</b></td>
+<td><i>04</i></td>
+<td>1AJN05</td>
+<td>2005-05-15</td>
+<td><a href="/serie/American_Dad/1/4/Francine_s_Flashback">Francine's Flashback</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.5" name="watched" value="true" onclick="saveWatched(2594,1,05);" ></td>
+<td><b>5</b></td>
+<td><i>05</i></td>
+<td>1AJN04</td>
+<td>2005-06-05</td>
+<td><a href="/serie/American_Dad/1/5/Roger_Codger">Roger Codger</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.6" name="watched" value="true" onclick="saveWatched(2594,1,06);" ></td>
+<td><b>6</b></td>
+<td><i>06</i></td>
+<td>1AJN06</td>
+<td>2005-06-12</td>
+<td><a href="/serie/American_Dad/1/6/Homeland_Insecurity">Homeland Insecurity</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.7" name="watched" value="true" onclick="saveWatched(2594,1,07);" ></td>
+<td><b>7</b></td>
+<td><i>07</i></td>
+<td>1AJN07</td>
+<td>2005-06-19</td>
+<td><a href="/serie/American_Dad/1/7/Deacon_Stan,_Jesus_Man">Deacon Stan, Jesus Man</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.8" name="watched" value="true" onclick="saveWatched(2594,1,08);" ></td>
+<td><b>8</b></td>
+<td><i>08</i></td>
+<td>1AJN09</td>
+<td>2005-09-11</td>
+<td><a href="/serie/American_Dad/1/8/Bullocks_to_Stan">Bullocks to Stan</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.9" name="watched" value="true" onclick="saveWatched(2594,1,09);" ></td>
+<td><b>9</b></td>
+<td><i>09</i></td>
+<td>1AJN10</td>
+<td>2005-09-18</td>
+<td><a href="/serie/American_Dad/1/9/It's_Good_to_Be_the_Queen">A Smith in the Hand</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.10" name="watched" value="true" onclick="saveWatched(2594,1,10);" ></td>
+<td><b>10</b></td>
+<td><i>10</i></td>
+<td>1AJN08</td>
+<td>2005-09-25</td>
+<td><a href="/serie/American_Dad/1/10/All_About_Steve">All About Steve</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.11" name="watched" value="true" onclick="saveWatched(2594,1,11);" ></td>
+<td><b>11</b></td>
+<td><i>11</i></td>
+<td>1AJN11</td>
+<td>2005-10-02</td>
+<td><a href="/serie/American_Dad/1/11/Con_Heir">Con Heir</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.12" name="watched" value="true" onclick="saveWatched(2594,1,12);" ></td>
+<td><b>12</b></td>
+<td><i>12</i></td>
+<td>1AJN12</td>
+<td>2005-11-06</td>
+<td><a href="/serie/American_Dad/1/12/Stan_of_Arabia:_Part_1">Stan of Arabia (1)</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.13" name="watched" value="true" onclick="saveWatched(2594,1,13);" ></td>
+<td><b>13</b></td>
+<td><i>13</i></td>
+<td>1AJN13</td>
+<td>2005-11-13</td>
+<td><a href="/serie/American_Dad/1/13/Stan_of_Arabia:_Part_2">Stan of Arabia (2)</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.14" name="watched" value="true" onclick="saveWatched(2594,1,14);" ></td>
+<td><b>14</b></td>
+<td><i>14</i></td>
+<td>1AJN14</td>
+<td>2005-11-20</td>
+<td><a href="/serie/American_Dad/1/14/Stannie_Get_Your_Gun">Stannie Get Your Gun</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.15" name="watched" value="true" onclick="saveWatched(2594,1,15);" ></td>
+<td><b>15</b></td>
+<td><i>15</i></td>
+<td>1AJN15</td>
+<td>2005-11-27</td>
+<td><a href="/serie/American_Dad/1/15/Star_Trek">Star Trek</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.16" name="watched" value="true" onclick="saveWatched(2594,1,16);" ></td>
+<td><b>16</b></td>
+<td><i>16</i></td>
+<td>1AJN16</td>
+<td>2005-12-18</td>
+<td><a href="/serie/American_Dad/1/16/Not_Particularly_Desperate_Housewife">Not Particularly Desperate Housewives</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.17" name="watched" value="true" onclick="saveWatched(2594,1,17);" ></td>
+<td><b>17</b></td>
+<td><i>17</i></td>
+<td>1AJN17</td>
+<td>2006-01-08</td>
+<td><a href="/serie/American_Dad/1/17/Rough_Trade">Rough Trade</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.18" name="watched" value="true" onclick="saveWatched(2594,1,18);" ></td>
+<td><b>18</b></td>
+<td><i>18</i></td>
+<td>1AJN18</td>
+<td>2006-01-29</td>
+<td><a href="/serie/American_Dad/1/18/Finances_with_Wolves">Finances With Wolves</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.19" name="watched" value="true" onclick="saveWatched(2594,1,19);" ></td>
+<td><b>19</b></td>
+<td><i>19</i></td>
+<td>1AJN19</td>
+<td>2006-02-26</td>
+<td><a href="/serie/American_Dad/1/19/A_Smith_in_the_Hand">It's Good to be Queen</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.20" name="watched" value="true" onclick="saveWatched(2594,1,20);" ></td>
+<td><b>20</b></td>
+<td><i>20</i></td>
+<td>2AJN01</td>
+<td>2006-04-23</td>
+<td><a href="/serie/American_Dad/1/20/Roger_n_Me">Roger 'n Me</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.21" name="watched" value="true" onclick="saveWatched(2594,1,21);" ></td>
+<td><b>21</b></td>
+<td><i>21</i></td>
+<td>2AJN02</td>
+<td>2006-04-30</td>
+<td><a href="/serie/American_Dad/1/21/Helping_Handis">Helping Handis</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.22" name="watched" value="true" onclick="saveWatched(2594,1,22);" ></td>
+<td><b>22</b></td>
+<td><i>22</i></td>
+<td>2AJN03</td>
+<td>2006-05-07</td>
+<td><a href="/serie/American_Dad/1/22/With_Friends_Like_Steve_s">With Friends Like Steve's</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.1.23" name="watched" value="true" onclick="saveWatched(2594,1,23);" ></td>
+<td><b>23</b></td>
+<td><i>23</i></td>
+<td>2AJN04</td>
+<td>2006-05-14</td>
+<td><a href="/serie/American_Dad/1/23/Tears_of_a_Clooney">Tears of a Clooney</a></td></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,2,1,19,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 2</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.1" name="watched" value="true" onclick="saveWatched(2594,2,01);" ></td>
+<td><b>24</b></td>
+<td><i>01</i></td>
+<td>2AJN06</td>
+<td>2006-09-10</td>
+<td><a href="/serie/American_Dad/2/1/Camp_Refoogee">Camp Refoogee</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.2" name="watched" value="true" onclick="saveWatched(2594,2,02);" ></td>
+<td><b>25</b></td>
+<td><i>02</i></td>
+<td>2AJN05</td>
+<td>2006-09-17</td>
+<td><a href="/serie/American_Dad/2/2/The_American_Dad_After_School_Special">The American Dad After School Special</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.3" name="watched" value="true" onclick="saveWatched(2594,2,03);" ></td>
+<td><b>26</b></td>
+<td><i>03</i></td>
+<td>2AJN07</td>
+<td>2006-09-24</td>
+<td><a href="/serie/American_Dad/2/3/Failure_Is_Not_a_Factory_installed_Option">Failure is Not a Factory-installed Option</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.4" name="watched" value="true" onclick="saveWatched(2594,2,04);" ></td>
+<td><b>27</b></td>
+<td><i>04</i></td>
+<td>2AJN11</td>
+<td>2006-11-05</td>
+<td><a href="/serie/American_Dad/2/4/Lincoln_Lover">Lincoln Lover</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.5" name="watched" value="true" onclick="saveWatched(2594,2,05);" ></td>
+<td><b>28</b></td>
+<td><i>05</i></td>
+<td>2AJN08</td>
+<td>2006-11-12</td>
+<td><a href="/serie/American_Dad/2/5/Dungeons_and_Wagons">Dungeons and Wagons</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.6" name="watched" value="true" onclick="saveWatched(2594,2,06);" ></td>
+<td><b>29</b></td>
+<td><i>06</i></td>
+<td>2AJN09</td>
+<td>2006-11-19</td>
+<td><a href="/serie/American_Dad/2/6/Iced,_Iced_Babies">Iced, Iced Babies</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.7" name="watched" value="true" onclick="saveWatched(2594,2,07);" ></td>
+<td><b>30</b></td>
+<td><i>07</i></td>
+<td>2AJN10</td>
+<td>2006-11-26</td>
+<td><a href="/serie/American_Dad/2/7/Of_Ice_and_Men">Of Ice and Men</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.8" name="watched" value="true" onclick="saveWatched(2594,2,08);" ></td>
+<td><b>31</b></td>
+<td><i>08</i></td>
+<td>2AJN12</td>
+<td>2006-12-10</td>
+<td><a href="/serie/American_Dad/2/8/Irregarding_Steve">Irregarding Steve</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.9" name="watched" value="true" onclick="saveWatched(2594,2,09);" ></td>
+<td><b>32</b></td>
+<td><i>09</i></td>
+<td>2AJN14</td>
+<td>2006-12-17</td>
+<td><a href="/serie/American_Dad/2/9/The_Best_Christmas_Story_Never">The Best Christmas Story Never Told</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.10" name="watched" value="true" onclick="saveWatched(2594,2,10);" ></td>
+<td><b>33</b></td>
+<td><i>10</i></td>
+<td>2AJN13</td>
+<td>2007-01-07</td>
+<td><a href="/serie/American_Dad/2/10/Bush_comes_to_dinner">Bush Comes to Dinner</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.11" name="watched" value="true" onclick="saveWatched(2594,2,11);" ></td>
+<td><b>34</b></td>
+<td><i>11</i></td>
+<td>2AJN16</td>
+<td>2007-01-28</td>
+<td><a href="/serie/American_Dad/2/11/American_Dream_Factory">American Dream Factory</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.12" name="watched" value="true" onclick="saveWatched(2594,2,12);" ></td>
+<td><b>35</b></td>
+<td><i>12</i></td>
+<td>2AJN17</td>
+<td>2007-02-11</td>
+<td><a href="/serie/American_Dad/2/12/A.T._Abused_Terestrial">A.T. The Abusive Terrestrial</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.13" name="watched" value="true" onclick="saveWatched(2594,2,13);" ></td>
+<td><b>36</b></td>
+<td><i>13</i></td>
+<td>2AJN20</td>
+<td>2007-02-18</td>
+<td><a href="/serie/American_Dad/2/13/Black_Mystery_Month">Black Mystery Month</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.14" name="watched" value="true" onclick="saveWatched(2594,2,14);" ></td>
+<td><b>37</b></td>
+<td><i>14</i></td>
+<td>2AJN19</td>
+<td>2007-03-25</td>
+<td><a href="/serie/American_Dad/2/14/An_Apocalypse_to_Remember">An Apocalypse to Remember</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.15" name="watched" value="true" onclick="saveWatched(2594,2,15);" ></td>
+<td><b>38</b></td>
+<td><i>15</i></td>
+<td>2AJN18</td>
+<td>2007-04-01</td>
+<td><a href="/serie/American_Dad/2/15/Four_Little_Words">Four Little Words</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.16" name="watched" value="true" onclick="saveWatched(2594,2,16);" ></td>
+<td><b>39</b></td>
+<td><i>16</i></td>
+<td>2AJN23</td>
+<td>2007-04-29</td>
+<td><a href="/serie/American_Dad/2/16/When_a_Stan_Loves_a_Woman">When a Stan Loves a Woman</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.17" name="watched" value="true" onclick="saveWatched(2594,2,17);" ></td>
+<td><b>40</b></td>
+<td><i>17</i></td>
+<td>2AJN15</td>
+<td>2007-05-06</td>
+<td><a href="/serie/American_Dad/2/17/I_Can't_Stan_You">I Can't Stan You</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.18" name="watched" value="true" onclick="saveWatched(2594,2,18);" ></td>
+<td><b>41</b></td>
+<td><i>18</i></td>
+<td>2AJN21</td>
+<td>2007-05-13</td>
+<td><a href="/serie/American_Dad/2/18/The_Magnificent_Steven">The Magnificent Steven</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.2.19" name="watched" value="true" onclick="saveWatched(2594,2,19);" ></td>
+<td><b>42</b></td>
+<td><i>19</i></td>
+<td>2AJN24</td>
+<td>2007-05-20</td>
+<td><a href="/serie/American_Dad/2/19/Joint_Custody">Joint Custody</a></td></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,3,1,16,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 3</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.1" name="watched" value="true" onclick="saveWatched(2594,3,01);" ></td>
+<td><b>43</b></td>
+<td><i>01</i></td>
+<td>2AJN22</td>
+<td>2007-09-30</td>
+<td><a href="/serie/American_Dad/3/1/The_Vacation_Goo">The Vacation Goo</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.2" name="watched" value="true" onclick="saveWatched(2594,3,02);" ></td>
+<td><b>44</b></td>
+<td><i>02</i></td>
+<td>3AJN01</td>
+<td>2007-10-07</td>
+<td><a href="/serie/American_Dad/3/2/Meter_Made">Meter Made</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.3" name="watched" value="true" onclick="saveWatched(2594,3,03);" ></td>
+<td><b>45</b></td>
+<td><i>03</i></td>
+<td>3AJN02</td>
+<td>2007-10-14</td>
+<td><a href="/serie/American_Dad/3/3/Dope_and_Faith">Dope and Faith</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.4" name="watched" value="true" onclick="saveWatched(2594,3,04);" ></td>
+<td><b>46</b></td>
+<td><i>04</i></td>
+<td>3AJN03</td>
+<td>2007-11-04</td>
+<td><a href="/serie/American_Dad/3/4/Big_Trouble_in_Little_Langley">Big Trouble in Little Langley</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.5" name="watched" value="true" onclick="saveWatched(2594,3,05);" ></td>
+<td><b>47</b></td>
+<td><i>05</i></td>
+<td>3AJN04</td>
+<td>2007-11-11</td>
+<td><a href="/serie/American_Dad/3/5/Haylias">Haylias</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.6" name="watched" value="true" onclick="saveWatched(2594,3,06);" ></td>
+<td><b>48</b></td>
+<td><i>06</i></td>
+<td>3AJN05</td>
+<td>2007-11-18</td>
+<td><a href="/serie/American_Dad/3/6/The_42_Year_Old_Virgin">42-Year-Old Virgin</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.7" name="watched" value="true" onclick="saveWatched(2594,3,07);" ></td>
+<td><b>49</b></td>
+<td><i>07</i></td>
+<td>3AJN07</td>
+<td>2007-12-02</td>
+<td><a href="/serie/American_Dad/3/7/Surro_gate">Surro-Gate</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.8" name="watched" value="true" onclick="saveWatched(2594,3,08);" ></td>
+<td><b>50</b></td>
+<td><i>08</i></td>
+<td>3AJN12</td>
+<td>2007-12-16</td>
+<td><a href="/serie/American_Dad/3/8/The_Most_Adequate_Christmas_Ever">The Most Adequate Christmas Ever</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.9" name="watched" value="true" onclick="saveWatched(2594,3,09);" ></td>
+<td><b>51</b></td>
+<td><i>09</i></td>
+<td>3AJN06</td>
+<td>2008-01-06</td>
+<td><a href="/serie/American_Dad/3/9/Frannie_911">Frannie 911</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.10" name="watched" value="true" onclick="saveWatched(2594,3,10);" ></td>
+<td><b>52</b></td>
+<td><i>10</i></td>
+<td>3AJN08</td>
+<td>2008-01-13</td>
+<td><a href="/serie/American_Dad/3/10/Tearjerker">Tearjerker</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.11" name="watched" value="true" onclick="saveWatched(2594,3,11);" ></td>
+<td><b>53</b></td>
+<td><i>11</i></td>
+<td>3AJN09</td>
+<td>2008-01-27</td>
+<td><a href="/serie/American_Dad/3/11/Oedipal_Panties">Oedipal Panties</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.12" name="watched" value="true" onclick="saveWatched(2594,3,12);" ></td>
+<td><b>54</b></td>
+<td><i>12</i></td>
+<td>3AJN10</td>
+<td>2008-02-17</td>
+<td><a href="/serie/American_Dad/3/12/Widowmaker">Widowmaker</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.13" name="watched" value="true" onclick="saveWatched(2594,3,13);" ></td>
+<td><b>55</b></td>
+<td><i>13</i></td>
+<td>3AJN11</td>
+<td>2008-04-27</td>
+<td><a href="/serie/American_Dad/3/13/Red_October_Sky">Red October Sky</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.14" name="watched" value="true" onclick="saveWatched(2594,3,14);" ></td>
+<td><b>56</b></td>
+<td><i>14</i></td>
+<td>3AJN13</td>
+<td>2008-05-04</td>
+<td><a href="/serie/American_Dad/3/14/Office_Spaceman">Office Spaceman</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.15" name="watched" value="true" onclick="saveWatched(2594,3,15);" ></td>
+<td><b>57</b></td>
+<td><i>15</i></td>
+<td>3AJN14</td>
+<td>2008-05-11</td>
+<td><a href="/serie/American_Dad/3/15/Stanny_Slickers_II:_The_Legend_of_Ollie's_Gold">Stanny Slickers II: The Legend of Ollie's Gold</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.3.16" name="watched" value="true" onclick="saveWatched(2594,3,16);" ></td>
+<td><b>58</b></td>
+<td><i>16</i></td>
+<td>3AJN17</td>
+<td>2008-05-18</td>
+<td><a href="/serie/American_Dad/3/16/Spring_Break_Up">Spring Break-Up</a></td></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,4,1,20,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 4</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.1" name="watched" value="true" onclick="saveWatched(2594,4,01);" ></td>
+<td><b>59</b></td>
+<td><i>01</i></td>
+<td>3AJN20</td>
+<td>2008-09-28</td>
+<td><a href="/serie/American_Dad/4/1/1600_Candle">1600 Candles</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.2" name="watched" value="true" onclick="saveWatched(2594,4,02);" ></td>
+<td><b>60</b></td>
+<td><i>02</i></td>
+<td>3AJN16</td>
+<td>2008-10-05</td>
+<td><a href="/serie/American_Dad/4/2/The_One_That_Got_Away">The One That Got Away</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.3" name="watched" value="true" onclick="saveWatched(2594,4,03);" ></td>
+<td><b>61</b></td>
+<td><i>03</i></td>
+<td>3AJN18</td>
+<td>2008-10-19</td>
+<td><a href="/serie/American_Dad/4/3/One_Little_Word">One Little Word</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.4" name="watched" value="true" onclick="saveWatched(2594,4,04);" ></td>
+<td><b>62</b></td>
+<td><i>04</i></td>
+<td>3AJN15</td>
+<td>2008-11-02</td>
+<td><a href="/serie/American_Dad/4/4/Choosy_Wives_Choose_Smith">Choosy Wives Choose Smith</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.5" name="watched" value="true" onclick="saveWatched(2594,4,05);" ></td>
+<td><b>63</b></td>
+<td><i>05</i></td>
+<td>3AJN19</td>
+<td>2008-11-09</td>
+<td><a href="/serie/American_Dad/4/5/Escape_from_Pearl_Bailey">Escape from Pearl Bailey</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.6" name="watched" value="true" onclick="saveWatched(2594,4,06);" ></td>
+<td><b>64</b></td>
+<td><i>06</i></td>
+<td>3AJN21</td>
+<td>2008-11-16</td>
+<td><a href="/serie/American_Dad/4/6/Pulling_Double_Booty">Pulling Double Booty</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.7" name="watched" value="true" onclick="saveWatched(2594,4,07);" ></td>
+<td><b>65</b></td>
+<td><i>07</i></td>
+<td>3AJN22</td>
+<td>2008-11-30</td>
+<td><a href="/serie/American_Dad/4/7/Phantom_of_the_Telethon">Phantom of the Telethon</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.8" name="watched" value="true" onclick="saveWatched(2594,4,08);" ></td>
+<td><b>66</b></td>
+<td><i>08</i></td>
+<td>4AJN01</td>
+<td>2009-01-25</td>
+<td><a href="/serie/American_Dad/4/8/Chimdale">Chimdale</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.9" name="watched" value="true" onclick="saveWatched(2594,4,09);" ></td>
+<td><b>67</b></td>
+<td><i>09</i></td>
+<td>4AJN02</td>
+<td>2009-02-08</td>
+<td><a href="/serie/American_Dad/4/9/Stan_Time">Stan Time</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.10" name="watched" value="true" onclick="saveWatched(2594,4,10);" ></td>
+<td><b>68</b></td>
+<td><i>10</i></td>
+<td>4AJN03</td>
+<td>2009-02-15</td>
+<td><a href="/serie/American_Dad/4/10/Family_Affair">Family Affair</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.11" name="watched" value="true" onclick="saveWatched(2594,4,11);" ></td>
+<td><b>69</b></td>
+<td><i>11</i></td>
+<td>4AJN04</td>
+<td>2009-03-01</td>
+<td><a href="/serie/American_Dad/4/11/Live_and_Let_Fry">Live and Let Fry</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.12" name="watched" value="true" onclick="saveWatched(2594,4,12);" ></td>
+<td><b>70</b></td>
+<td><i>12</i></td>
+<td>4AJN05</td>
+<td>2009-03-08</td>
+<td><a href="/serie/American_Dad/4/12/Roy_Rogers_McFreely">Roy Rogers McFreely</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.13" name="watched" value="true" onclick="saveWatched(2594,4,13);" ></td>
+<td><b>71</b></td>
+<td><i>13</i></td>
+<td>4AJN07</td>
+<td>2009-03-15</td>
+<td><a href="/serie/American_Dad/4/13/Jack's_Back">Jack's Back</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.14" name="watched" value="true" onclick="saveWatched(2594,4,14);" ></td>
+<td><b>72</b></td>
+<td><i>14</i></td>
+<td>4AJN06</td>
+<td>2009-03-22</td>
+<td><a href="/serie/American_Dad/4/14/Bar_Mitzvah_Shuffle">Bar Mitzvah Shuffle</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.15" name="watched" value="true" onclick="saveWatched(2594,4,15);" ></td>
+<td><b>73</b></td>
+<td><i>15</i></td>
+<td>4AJN08</td>
+<td>2009-03-29</td>
+<td><a href="/serie/American_Dad/4/15/Wife_Insurance">Wife Insurance</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.16" name="watched" value="true" onclick="saveWatched(2594,4,16);" ></td>
+<td><b>74</b></td>
+<td><i>16</i></td>
+<td>4AJN09</td>
+<td>2009-04-19</td>
+<td><a href="/serie/American_Dad/4/16/Delorean_StoryAn">Delorean Story-An</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.17" name="watched" value="true" onclick="saveWatched(2594,4,17);" ></td>
+<td><b>75</b></td>
+<td><i>17</i></td>
+<td>4AJN10</td>
+<td>2009-04-26</td>
+<td><a href="/serie/American_Dad/4/17/Every_Which_Way_But_Lose">Every Which Way But Lose</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.18" name="watched" value="true" onclick="saveWatched(2594,4,18);" ></td>
+<td><b>76</b></td>
+<td><i>18</i></td>
+<td>4AJN11</td>
+<td>2009-05-03</td>
+<td><a href="/serie/American_Dad/4/18/Weiner_of_Our_Discontent">Weiner of Our Discontent</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.19" name="watched" value="true" onclick="saveWatched(2594,4,19);" ></td>
+<td><b>77</b></td>
+<td><i>19</i></td>
+<td>4AJN12</td>
+<td>2009-05-10</td>
+<td><a href="/serie/American_Dad/4/19/Daddy_Queerest">Daddy Queerest</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.4.20" name="watched" value="true" onclick="saveWatched(2594,4,20);" ></td>
+<td><b>78</b></td>
+<td><i>20</i></td>
+<td>4AJN13</td>
+<td>2009-05-17</td>
+<td><a href="/serie/American_Dad/4/20/Stan's_Night_Out">Stan's Night Out</a></td></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,5,1,18,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 5</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.1" name="watched" value="true" onclick="saveWatched(2594,5,01);" ></td>
+<td><b>79</b></td>
+<td><i>01</i></td>
+<td>4AJN15</td>
+<td>2009-09-27</td>
+<td><a href="/serie/American_Dad/5/1/In_Country...Club">In Country...Club</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.2" name="watched" value="true" onclick="saveWatched(2594,5,02);" ></td>
+<td><b>80</b></td>
+<td><i>02</i></td>
+<td>4AJN18</td>
+<td>2009-10-04</td>
+<td><a href="/serie/American_Dad/5/2/Moon_Over_Isla_Island">Moon Over Isla Island</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.3" name="watched" value="true" onclick="saveWatched(2594,5,03);" ></td>
+<td><b>81</b></td>
+<td><i>03</i></td>
+<td>4AJN14</td>
+<td>2009-10-11</td>
+<td><a href="/serie/American_Dad/5/3/Home_Adrone">Home Adrone</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.4" name="watched" value="true" onclick="saveWatched(2594,5,04);" ></td>
+<td><b>82</b></td>
+<td><i>04</i></td>
+<td>4AJN20</td>
+<td>2009-10-18</td>
+<td><a href="/serie/American_Dad/5/4/Brains,_Brains,_and_Automobiles">Brains, Brains, and Automobiles</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.5" name="watched" value="true" onclick="saveWatched(2594,5,05);" ></td>
+<td><b>83</b></td>
+<td><i>05</i></td>
+<td>4AJN19</td>
+<td>2009-11-08</td>
+<td><a href="/serie/American_Dad/5/5/Man_in_the_Moonbounce">Man in the Moonbounce</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.6" name="watched" value="true" onclick="saveWatched(2594,5,06);" ></td>
+<td><b>84</b></td>
+<td><i>06</i></td>
+<td>4AJN16</td>
+<td>2009-11-15</td>
+<td><a href="/serie/American_Dad/5/6/Shallow_Vows">Shallow Vows</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.7" name="watched" value="true" onclick="saveWatched(2594,5,07);" ></td>
+<td><b>85</b></td>
+<td><i>07</i></td>
+<td>4AJN22</td>
+<td>2009-11-22</td>
+<td><a href="/serie/American_Dad/5/7/My_Morning_Straitjacket">My Morning Straitjacket</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.8" name="watched" value="true" onclick="saveWatched(2594,5,08);" ></td>
+<td><b>86</b></td>
+<td><i>08</i></td>
+<td>4AJN21</td>
+<td>2009-11-29</td>
+<td><a href="/serie/American_Dad/5/8/G_String_Circus">G-String Circus</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.9" name="watched" value="true" onclick="saveWatched(2594,5,09);" ></td>
+<td><b>87</b></td>
+<td><i>09</i></td>
+<td>4AJN17</td>
+<td>2009-12-13</td>
+<td><a href="/serie/American_Dad/5/9/Raptures_Delight">Rapture's Delight</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.10" name="watched" value="true" onclick="saveWatched(2594,5,10);" ></td>
+<td><b>88</b></td>
+<td><i>10</i></td>
+<td>5AJN01</td>
+<td>2010-01-03</td>
+<td><a href="/serie/American_Dad/5/10/The_Return_of_the_Bling">Don't Look a Smith Horse in the Mouth</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.11" name="watched" value="true" onclick="saveWatched(2594,5,11);" ></td>
+<td><b>89</b></td>
+<td><i>11</i></td>
+<td>5AJN04</td>
+<td>2010-01-31</td>
+<td><a href="/serie/American_Dad/5/11/A_Jones_for_a_Smith">A Jones for a Smith</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.12" name="watched" value="true" onclick="saveWatched(2594,5,12);" ></td>
+<td><b>90</b></td>
+<td><i>12</i></td>
+<td>5AJN04</td>
+<td>2010-02-14</td>
+<td><a href="/serie/American_Dad/5/12/May_the_Best_Stan_Win">May the Best Stan Win</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.13" name="watched" value="true" onclick="saveWatched(2594,5,13);" ></td>
+<td><b>91</b></td>
+<td><i>13</i></td>
+<td>5AJN02</td>
+<td>2010-02-21</td>
+<td><a href="/serie/American_Dad/5/13/Return_of_the_Bling">Return of the Bling</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.14" name="watched" value="true" onclick="saveWatched(2594,5,14);" ></td>
+<td><b>92</b></td>
+<td><i>14</i></td>
+<td>5AJN06</td>
+<td>2010-04-11</td>
+<td><a href="/serie/American_Dad/5/14/Cops_@_Roger">Cops &amp; Roger</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.15" name="watched" value="true" onclick="saveWatched(2594,5,15);" ></td>
+<td><b>93</b></td>
+<td><i>15</i></td>
+<td>5AJN08</td>
+<td>2010-04-18</td>
+<td><a href="/serie/American_Dad/5/15/Merlot_Down_Dirty_Shame">Merlot Down Dirty Shame</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.16" name="watched" value="true" onclick="saveWatched(2594,5,16);" ></td>
+<td><b>94</b></td>
+<td><i>16</i></td>
+<td>5AJN11</td>
+<td>2010-04-25</td>
+<td><a href="/serie/American_Dad/5/16/Bully_for_Steeve">Bully for Steve</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.17" name="watched" value="true" onclick="saveWatched(2594,5,17);" ></td>
+<td><b>95</b></td>
+<td><i>17</i></td>
+<td>5AJN10</td>
+<td>2010-05-09</td>
+<td><a href="/serie/American_Dad/5/17/An_Incident_at_Owl_Creek">An Incident at Owl Creek</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.5.18" name="watched" value="true" onclick="saveWatched(2594,5,18);" ></td>
+<td><b>96</b></td>
+<td><i>18</i></td>
+<td>5AJN12</td>
+<td>2010-05-16</td>
+<td><a href="/serie/American_Dad/5/18/Great_Space_Roaster">Great Space Roaster</a></td></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,6,1,19,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 6</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.1" name="watched" value="true" onclick="saveWatched(2594,6,01);" ></td>
+<td><b>97</b></td>
+<td><i>01</i></td>
+<td>5AJN14</td>
+<td>2010-10-03</td>
+<td><a href="/serie/American_Dad/6/1/100_A.D">100 A.D. (1)</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.2" name="watched" value="true" onclick="saveWatched(2594,6,02);" ></td>
+<td><b>98</b></td>
+<td><i>02</i></td>
+<td>5AJN17</td>
+<td>2010-10-10</td>
+<td><a href="/serie/American_Dad/6/2/Son_of_Stan">Son of Stan (2)</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.3" name="watched" value="true" onclick="saveWatched(2594,6,03);" ></td>
+<td><b>99</b></td>
+<td><i>03</i></td>
+<td>5AJN19</td>
+<td>2010-11-07</td>
+<td><a href="/serie/American_Dad/6/3/Best_Little_Horror_House_in_Langley_Falls">Best Little Horror House in Langley Falls</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.4" name="watched" value="true" onclick="saveWatched(2594,6,04);" ></td>
+<td><b>100</b></td>
+<td><i>04</i></td>
+<td>5AJN16</td>
+<td>2010-11-14</td>
+<td><a href="/serie/American_Dad/6/4/Stan's_Food_Restaurant">Stan&rsquo;s Food Restaurant</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.5" name="watched" value="true" onclick="saveWatched(2594,6,05);" ></td>
+<td><b>101</b></td>
+<td><i>05</i></td>
+<td></td>
+<td>2010-11-21</td>
+<td><a href="/serie/American_Dad/6/5/White_Rice">White Rice</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.6" name="watched" value="true" onclick="saveWatched(2594,6,06);" ></td>
+<td><b>102</b></td>
+<td><i>06</i></td>
+<td>5AJN20</td>
+<td>2010-11-28</td>
+<td><a href="/serie/American_Dad/6/6/There_Will_Be_Bad_Blood">There Will Be Bad Blood</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.7" name="watched" value="true" onclick="saveWatched(2594,6,07);" ></td>
+<td><b>103</b></td>
+<td><i>07</i></td>
+<td>5AJN05</td>
+<td>2010-12-05</td>
+<td><a href="/serie/American_Dad/6/7/The_People_vs._Martin_Sugar">The People vs. Martin Sugar</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.8" name="watched" value="true" onclick="saveWatched(2594,6,08);" ></td>
+<td><b>104</b></td>
+<td><i>08</i></td>
+<td></td>
+<td>2010-12-12</td>
+<td><a href="/serie/American_Dad/6/8/For_Whom_the_Sleigh_Bells_Toll">For Whom the Sleigh Bell Tolls</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.9" name="watched" value="true" onclick="saveWatched(2594,6,09);" ></td>
+<td><b>105</b></td>
+<td><i>09</i></td>
+<td>5AJN18</td>
+<td>2011-01-16</td>
+<td><a href="/serie/American_Dad/6/9/Fartbreak_Hotel">Fartbreak Hotel</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.10" name="watched" value="true" onclick="saveWatched(2594,6,10);" ></td>
+<td><b>106</b></td>
+<td><i>10</i></td>
+<td>5AJN13</td>
+<td>2011-01-23</td>
+<td><a href="/serie/American_Dad/6/10/Stanny_Boy_and_Frantastic">Stanny Boy and Frantastic</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.11" name="watched" value="true" onclick="saveWatched(2594,6,11);" ></td>
+<td><b>107</b></td>
+<td><i>11</i></td>
+<td>5AJN07</td>
+<td>2011-02-13</td>
+<td><a href="/serie/American_Dad/6/11/A_Piñata_Named_Desire">A Pi&ntilde;ata Named Desire</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.12" name="watched" value="true" onclick="saveWatched(2594,6,12);" ></td>
+<td><b>108</b></td>
+<td><i>12</i></td>
+<td>5AJN09</td>
+<td>2011-02-20</td>
+<td><a href="/serie/American_Dad/6/12/You_Debt_Your_Life">You Debt Your Life</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.13" name="watched" value="true" onclick="saveWatched(2594,6,13);" ></td>
+<td><b>109</b></td>
+<td><i>13</i></td>
+<td></td>
+<td>2011-03-27</td>
+<td><a href="/serie/American_Dad/6/13/I_Am_the_Walrus">I Am the Walrus</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.14" name="watched" value="true" onclick="saveWatched(2594,6,14);" ></td>
+<td><b>110</b></td>
+<td><i>14</i></td>
+<td>6AJN03</td>
+<td>2011-04-03</td>
+<td><a href="/serie/American_Dad/6/14/School_Lies">School Lies</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.15" name="watched" value="true" onclick="saveWatched(2594,6,15);" ></td>
+<td><b>111</b></td>
+<td><i>15</i></td>
+<td>6AJN04</td>
+<td>2011-04-10</td>
+<td><a href="/serie/American_Dad/6/15/License_to_Till">License to Till</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.16" name="watched" value="true" onclick="saveWatched(2594,6,16);" ></td>
+<td><b>112</b></td>
+<td><i>16</i></td>
+<td>6AJN08</td>
+<td>2011-04-17</td>
+<td><a href="/serie/American_Dad/6/16/Jenny_Fromdablock">Jenny Fromdabloc</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.17" name="watched" value="true" onclick="saveWatched(2594,6,17);" ></td>
+<td><b>113</b></td>
+<td><i>17</i></td>
+<td>6AJN05</td>
+<td>2011-05-08</td>
+<td><a href="/serie/American_Dad/6/17/Home_Wrecker">Home Wrecker</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.18" name="watched" value="true" onclick="saveWatched(2594,6,18);" ></td>
+<td><b>114</b></td>
+<td><i>18</i></td>
+<td>6AJN06</td>
+<td>2011-05-15</td>
+<td><a href="/serie/American_Dad/6/18/Flirting_with_Disaster">Flirting with Disaster</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.6.19" name="watched" value="true" onclick="saveWatched(2594,6,19);" ></td>
+<td><b>115</b></td>
+<td><i>19</i></td>
+<td>6AJN10</td>
+<td>2011-05-22</td>
+<td><a href="/serie/American_Dad/6/19/Gorillas_in_the_Mist">Gorillas in the Mist</a></td></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,7,1,18,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 7</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.1" name="watched" value="true" onclick="saveWatched(2594,7,01);" ></td>
+<td><b>116</b></td>
+<td><i>01</i></td>
+<td>6AJN18</td>
+<td>2011-09-25</td>
+<td><a href="/serie/American_Dad/7/1/Hot_Water">Hot Water</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.2" name="watched" value="true" onclick="saveWatched(2594,7,02);" ></td>
+<td><b>117</b></td>
+<td><i>02</i></td>
+<td>6AJN07</td>
+<td>2011-10-02</td>
+<td><a href="/serie/American_Dad/7/2/Hurricane!">Hurricane! (3)</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.3" name="watched" value="true" onclick="saveWatched(2594,7,03);" ></td>
+<td><b>118</b></td>
+<td><i>03</i></td>
+<td>6AJN01</td>
+<td>2011-11-06</td>
+<td><a href="/serie/American_Dad/7/3/A_Ward_Show">A Ward Show</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.4" name="watched" value="true" onclick="saveWatched(2594,7,04);" ></td>
+<td><b>119</b></td>
+<td><i>04</i></td>
+<td>6AJN11</td>
+<td>2011-11-13</td>
+<td><a href="/serie/American_Dad/7/4/The_Worst_Stan">The Worst Stan</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.5" name="watched" value="true" onclick="saveWatched(2594,7,05);" ></td>
+<td><b>120</b></td>
+<td><i>05</i></td>
+<td>6AJN10</td>
+<td>2011-11-20</td>
+<td><a href="/serie/American_Dad/7/5/Virtual_In-Stanity">Virtual In-Stanity</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.6" name="watched" value="true" onclick="saveWatched(2594,7,06);" ></td>
+<td><b>121</b></td>
+<td><i>06</i></td>
+<td>6AJN09</td>
+<td>2011-11-27</td>
+<td><a href="/serie/American_Dad/7/6/The_Scarlett_Getter">The Scarlett Getter</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.7" name="watched" value="true" onclick="saveWatched(2594,7,07);" ></td>
+<td><b>122</b></td>
+<td><i>07</i></td>
+<td>6AJN21</td>
+<td>2011-12-11</td>
+<td><a href="/serie/American_Dad/7/7/Season’s_Beatings">Season's Beatings</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.8" name="watched" value="true" onclick="saveWatched(2594,7,08);" ></td>
+<td><b>123</b></td>
+<td><i>08</i></td>
+<td>6AJN13</td>
+<td>2012-01-08</td>
+<td><a href="/serie/American_Dad/7/8/The_Unbrave_One">The Unbrave One</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.9" name="watched" value="true" onclick="saveWatched(2594,7,09);" ></td>
+<td><b>124</b></td>
+<td><i>09</i></td>
+<td>6AJN15</td>
+<td>2012-01-29</td>
+<td><a href="/serie/American_Dad/7/9/Stanny_Tendergrass">Stanny Tendergrass</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.10" name="watched" value="true" onclick="saveWatched(2594,7,10);" ></td>
+<td><b>125</b></td>
+<td><i>10</i></td>
+<td>6AJN17</td>
+<td>2012-02-12</td>
+<td><a href="/serie/American_Dad/7/10/Wheels_@_the_Legman_and_the_Case_of_Grandpa’s_Key">Wheels &amp; the Legman and the Case of Grandpa&rsquo;s Key</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.11" name="watched" value="true" onclick="saveWatched(2594,7,11);" ></td>
+<td><b>126</b></td>
+<td><i>11</i></td>
+<td>6AJN14</td>
+<td>2012-02-19</td>
+<td><a href="/serie/American_Dad/7/11/Old_Stan_in_the_Mountain">Old Stan in the Mountain</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.12" name="watched" value="true" onclick="saveWatched(2594,7,12);" ></td>
+<td><b>127</b></td>
+<td><i>12</i></td>
+<td>6AJN19</td>
+<td>2012-03-04</td>
+<td><a href="/serie/American_Dad/7/12/The_Wrestler">The Wrestler</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.13" name="watched" value="true" onclick="saveWatched(2594,7,13);" ></td>
+<td><b>128</b></td>
+<td><i>13</i></td>
+<td>6AJN12</td>
+<td>2012-03-11</td>
+<td><a href="/serie/American_Dad/7/13/Dr._Klaustus">Dr. Klaustus</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.14" name="watched" value="true" onclick="saveWatched(2594,7,14);" ></td>
+<td><b>129</b></td>
+<td><i>14</i></td>
+<td>6AJN20</td>
+<td>2012-03-18</td>
+<td><a href="/serie/American_Dad/7/14/Stan’s_Best_Friend">Stan&rsquo;s Best Friend</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.15" name="watched" value="true" onclick="saveWatched(2594,7,15);" ></td>
+<td><b>130</b></td>
+<td><i>15</i></td>
+<td>6AJN02</td>
+<td>2012-03-25</td>
+<td><a href="/serie/American_Dad/7/15/Less_Money,_Mo’_Problems">Less Money, Mo&rsquo; Problems</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.16" name="watched" value="true" onclick="saveWatched(2594,7,16);" ></td>
+<td><b>131</b></td>
+<td><i>16</i></td>
+<td>6AJN22</td>
+<td>2012-04-01</td>
+<td><a href="/serie/American_Dad/7/16/The_Kidney_Stays_In_The_Picture">The Kidney Stays In The Picture</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.17" name="watched" value="true" onclick="saveWatched(2594,7,17);" ></td>
+<td><b>132</b></td>
+<td><i>17</i></td>
+<td>7AJN02</td>
+<td>2012-05-06</td>
+<td><a href="/serie/American_Dad/7/17/Ricky_Spanish">Ricky Spanish</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.7.18" name="watched" value="true" onclick="saveWatched(2594,7,18);" ></td>
+<td><b>133</b></td>
+<td><i>18</i></td>
+<td></td>
+<td>2012-05-13</td>
+<td><a href="/serie/American_Dad/7/18/Toy_Whorey">Toy Whorey</a></td></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,8,1,19,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 8</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.1" name="watched" value="true" onclick="saveWatched(2594,8,01);" ></td>
+<td><b>134</b></td>
+<td><i>01</i></td>
+<td>7AJN03</td>
+<td>2012-09-30</td>
+<td><a href="/serie/American_Dad/8/1/Love,_American_Dad_Style">Love, American Dad Style</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.2" name="watched" value="true" onclick="saveWatched(2594,8,02);" ></td>
+<td><b>135</b></td>
+<td><i>02</i></td>
+<td>7AJN05</td>
+<td>2012-10-07</td>
+<td><a href="/serie/American_Dad/8/2/Killer_Vacation">Killer Vacation</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.3" name="watched" value="true" onclick="saveWatched(2594,8,03);" ></td>
+<td><b>136</b></td>
+<td><i>03</i></td>
+<td>7AJN08</td>
+<td>2012-11-04</td>
+<td><a href="/serie/American_Dad/8/3/Can_I_Be_Frank_With_You?">Can I Be Frank With You?</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.4" name="watched" value="true" onclick="saveWatched(2594,8,04);" ></td>
+<td><b>137</b></td>
+<td><i>04</i></td>
+<td>7AJN10</td>
+<td>2012-11-18</td>
+<td><a href="/serie/American_Dad/8/4/American_Stepdad">American Stepdad</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.5" name="watched" value="true" onclick="saveWatched(2594,8,05);" ></td>
+<td><b>138</b></td>
+<td><i>05</i></td>
+<td>7AJN06</td>
+<td>2012-12-02</td>
+<td><a href="/serie/American_Dad/8/5/Why_Can't_We_Be_Friends?">Why Can't We Be Friends?</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.6" name="watched" value="true" onclick="saveWatched(2594,8,06);" ></td>
+<td><b>139</b></td>
+<td><i>06</i></td>
+<td>7AJN09</td>
+<td>2012-12-09</td>
+<td><a href="/serie/American_Dad/8/6/Adventures_in_Hayleysitting">Adventures in Hayleysitting</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.7" name="watched" value="true" onclick="saveWatched(2594,8,07);" ></td>
+<td><b>140</b></td>
+<td><i>07</i></td>
+<td></td>
+<td>2012-12-23</td>
+<td><a href="/serie/American_Dad/8/7/National_Treasure_4:_Baby_Franny:_She's_Doing_Well:_The_Hole_Story">National Treasure 4: Baby Franny: She's Doing Well: The Hole Story</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.8" name="watched" value="true" onclick="saveWatched(2594,8,08);" ></td>
+<td><b>141</b></td>
+<td><i>08</i></td>
+<td></td>
+<td>2013-01-06</td>
+<td><a href="/serie/American_Dad/8/8/Finger_Lenting_Good">Finger Lenting Good</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.9" name="watched" value="true" onclick="saveWatched(2594,8,09);" ></td>
+<td><b>142</b></td>
+<td><i>09</i></td>
+<td>7AJN11</td>
+<td>2013-01-13</td>
+<td><a href="/serie/American_Dad/8/9/The_Adventures_of_Twill_Ongenbone_and_His_Boy_Jabari">The Adventures of Twill Ongenbone and His Boy Jabari</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.10" name="watched" value="true" onclick="saveWatched(2594,8,10);" ></td>
+<td><b>143</b></td>
+<td><i>10</i></td>
+<td>7AJN15</td>
+<td>2013-01-27</td>
+<td><a href="/serie/American_Dad/8/10/Blood_Crieth_Unto_Heaven">Blood Crieth Unto Heaven</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.11" name="watched" value="true" onclick="saveWatched(2594,8,11);" ></td>
+<td><b>144</b></td>
+<td><i>11</i></td>
+<td>7AJN17</td>
+<td>2013-02-10</td>
+<td><a href="/serie/American_Dad/8/11/Max_Jets">Max Jets</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.12" name="watched" value="true" onclick="saveWatched(2594,8,12);" ></td>
+<td><b>145</b></td>
+<td><i>12</i></td>
+<td>7AJN12</td>
+<td>2013-02-17</td>
+<td><a href="/serie/American_Dad/8/12/Naked_to_the_Limit,_One_More_Time">Naked to the Limit, One More Time</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.13" name="watched" value="true" onclick="saveWatched(2594,8,13);" ></td>
+<td><b>146</b></td>
+<td><i>13</i></td>
+<td>7AJN22</td>
+<td>2013-03-10</td>
+<td><a href="/serie/American_Dad/8/13/For_Black_Eyes_Only">For Black Eyes Only</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.14" name="watched" value="true" onclick="saveWatched(2594,8,14);" ></td>
+<td><b>147</b></td>
+<td><i>14</i></td>
+<td>7AJN13</td>
+<td>2013-03-24</td>
+<td><a href="/serie/American_Dad/8/14/Spelling_Bee_My_Baby">Spelling Bee My Baby</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.15" name="watched" value="true" onclick="saveWatched(2594,8,15);" ></td>
+<td><b>148</b></td>
+<td><i>15</i></td>
+<td>7AJN16</td>
+<td>2013-04-14</td>
+<td><a href="/serie/American_Dad/8/15/The_Missing_Kink">The Missing Kink</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.16" name="watched" value="true" onclick="saveWatched(2594,8,16);" ></td>
+<td><b>149</b></td>
+<td><i>16</i></td>
+<td>7AJN14</td>
+<td>2013-04-21</td>
+<td><a href="/serie/American_Dad/8/16/The_Boring_Identity">The Boring Identity</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.17" name="watched" value="true" onclick="saveWatched(2594,8,17);" ></td>
+<td><b>150</b></td>
+<td><i>17</i></td>
+<td>7AJN18</td>
+<td>2013-04-28</td>
+<td><a href="/serie/American_Dad/8/17/The_Full_Cognitive_Redaction_of_Avery_Bullock_by_the_Coward_Stan_Smith">The Full Cognitive Redaction of Avery Bullock by the Coward Stan Smith</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.18" name="watched" value="true" onclick="saveWatched(2594,8,18);" ></td>
+<td><b>151</b></td>
+<td><i>18</i></td>
+<td>7AJN20</td>
+<td>2013-05-05</td>
+<td><a href="/serie/American_Dad/8/18/Lost_in_Space">Lost in Space</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.8.19" name="watched" value="true" onclick="saveWatched(2594,8,19);" ></td>
+<td><b>152</b></td>
+<td><i>19</i></td>
+<td>7AJN21</td>
+<td>2013-05-12</td>
+<td><a href="/serie/American_Dad/8/19/Da_Flippity_Flop">Da Flippity Flop</a></td></tr>
+<tr><td>&nbsp;</td></tr><tr><td><input type="checkbox" name="watched" value="true" onclick="massSave(2594,9,1,11,this);">All</td><th colspan="5"><b>American Dad! Air Dates season: 9</b></th></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.1" name="watched" value="true" onclick="saveWatched(2594,9,01);" ></td>
+<td><b>153</b></td>
+<td><i>01</i></td>
+<td></td>
+<td>2013-09-29</td>
+<td><a href="/serie/American_Dad/9/1/Steve_and_Snot's_Test-Tubular_Adventure">Steve and Snot's Test-Tubular Adventure</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.2" name="watched" value="true" onclick="saveWatched(2594,9,02);" ></td>
+<td><b>154</b></td>
+<td><i>02</i></td>
+<td></td>
+<td>2013-10-06</td>
+<td><a href="/serie/American_Dad/9/2/Poltergasm">Poltergasm</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.3" name="watched" value="true" onclick="saveWatched(2594,9,03);" ></td>
+<td><b>155</b></td>
+<td><i>03</i></td>
+<td>8AJN05</td>
+<td>2013-11-03</td>
+<td><a href="/serie/American_Dad/9/3/Buck,_Wild">Buck, Wild</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.4" name="watched" value="true" onclick="saveWatched(2594,9,04);" ></td>
+<td><b>156</b></td>
+<td><i>04</i></td>
+<td></td>
+<td>2013-11-10</td>
+<td><a href="/serie/American_Dad/9/4/Crotchwalkers">Crotchwalkers</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.5" name="watched" value="true" onclick="saveWatched(2594,9,05);" ></td>
+<td><b>157</b></td>
+<td><i>05</i></td>
+<td>8AJN07</td>
+<td>2013-11-24</td>
+<td><a href="/serie/American_Dad/9/5/Kung_Pao_Turkey">Kung Pao Turkey</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.6" name="watched" value="true" onclick="saveWatched(2594,9,06);" ></td>
+<td><b>158</b></td>
+<td><i>06</i></td>
+<td></td>
+<td>2013-12-01</td>
+<td><a href="/serie/American_Dad/9/6/Independent_Movie">Independent Movie</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.7" name="watched" value="true" onclick="saveWatched(2594,9,07);" ></td>
+<td><b>159</b></td>
+<td><i>07</i></td>
+<td>8AJN08</td>
+<td>2013-12-08</td>
+<td><a href="/serie/American_Dad/9/7/Faking_Bad">Faking Bad</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.8" name="watched" value="true" onclick="saveWatched(2594,9,08);" ></td>
+<td><b>160</b></td>
+<td><i>08</i></td>
+<td>7AJN19</td>
+<td>2013-12-15</td>
+<td><a href="/serie/American_Dad/9/8/Minstrel_Krampus">Minstrel Krampus</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.9" name="watched" value="true" onclick="saveWatched(2594,9,09);" ></td>
+<td><b>161</b></td>
+<td><i>09</i></td>
+<td></td>
+<td>2014-01-05</td>
+<td><a href="/serie/American_Dad/9/9/Vision:_Impossible">Vision: Impossible</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.10" name="watched" value="true" onclick="saveWatched(2594,9,10);" ></td>
+<td><b>162</b></td>
+<td><i>10</i></td>
+<td></td>
+<td>2014-01-12</td>
+<td><a href="/serie/American_Dad/9/10/Familyland">Familyland</a></td></tr>
+<tr class='hoverme'><td align="left">&nbsp;<input type="checkbox" id="viewed.9.11" name="watched" value="true" onclick="saveWatched(2594,9,11);" ></td>
+<td><b>163</b></td>
+<td><i>11</i></td>
+<td></td>
+<td>2014-01-26</td>
+<td>Cock of the Sleepwalk&nbsp;</td><td align='right'><a href="/newsub.php?show=186&amp;season=9&amp;episode=11&amp;name=Cock of the Sleepwalk&amp;title=American Dad!"><img src='http://www.addic7ed.com/images/uploadsub.png' height='16' width='16' border='0' title='Upload a subtitle for Cock of the Sleepwalk' /></a></td></tr>
+</table>
+</td>
+                <td></td>
+            </tr>
+            <tr> <!-- table footer -->
+                <td class="tablecorner"><img src="http://www.addic7ed.com/images/bl.gif" alt="BL" /></td>
+                <td></td>
+                <td class="tablecorner"><img src="http://www.addic7ed.com/images/br.gif" alt="BR" /></td>
+            </tr>
+        </table>
+    </div>
 
 <center><table border="0" width="90%">
 <tr>
@@ -458,5 +1253,7 @@ pageTracker._trackPageview();
 
 <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
 
+
 </body>
 </html>
+ 

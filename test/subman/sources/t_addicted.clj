@@ -26,3 +26,14 @@
                  (#(and (contains? % :name)
                         (contains? % :url)))) => true
              (provided (addicted/fetch anything) => (get-shows))))
+
+(facts "single show parser"
+       (fact "return all seasons"
+             (count (addicted/get-episodes {:url ""})) => 9
+             (provided (addicted/fetch anything) => (get-single-show)))
+       (fact "return all episodes"
+             (-> (addicted/get-episodes {:url ""})
+                 first
+                 :episodes
+                 count) => 10
+             (provided (addicted/fetch anything) => (get-single-show))))
