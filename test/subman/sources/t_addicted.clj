@@ -16,6 +16,10 @@
   "Get parsed html for single show"
   [] (get-from-file "test/subman/sources/fixtures/addicted_show.html"))
 
+(defn get-single-episode
+  "Get parsed html for single episode"
+  [] (get-from-file "test/subman/sources/fixtures/addicted_episode.html"))
+
 (facts "shows list parser"
        (fact "return all shows"
              (count (addicted/get-shows)) => 2741
@@ -37,3 +41,14 @@
                  :episodes
                  count) => 10
              (provided (addicted/fetch anything) => (get-single-show))))
+
+(facts "single episode parser"
+       (fact "return all versions"
+             (count (addicted/get-versions {:url ""})) => 2
+             (provided (addicted/fetch anything) => (get-single-episode)))
+       (fact "return all languages"
+             (-> (addicted/get-versions {:url ""})
+                 first
+                 :langs
+                 count) => 3
+             (provided (addicted/fetch anything) => (get-single-episode))))
