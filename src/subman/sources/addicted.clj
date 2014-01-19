@@ -88,7 +88,8 @@
                       (nth 2)
                       :content
                       first
-                      :content)
+                      :content
+                      first)
           :name (-> line
                     get-episode-name-element
                     :content

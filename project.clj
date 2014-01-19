@@ -13,6 +13,7 @@
                  [com.novemberain/monger "1.7.0-beta1"]
                  [enlive "1.1.5"]
                  [clj-http "0.7.8"]
-                 [lein-bower "0.1.0"]]
+                 [lein-bower "0.1.0"]
+                 [clojurewerkz/elastisch "1.5.0-beta1"]]
   :profiles {:dev {:dependencies [[midje "1.6.0"]]}}
   :bower {:directory "resources/public/"})
