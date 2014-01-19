@@ -30,7 +30,7 @@
 (defn search
   "Search for documents"
   [query] (->> (esd/search index "subtitle"
-                           :query (q/fuzzy-like-this :like_text "1")
+                           :query (q/fuzzy-like-this :like_text query)
                            :size 100)
                :hits
                :hits
