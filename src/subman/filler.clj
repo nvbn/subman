@@ -35,23 +35,16 @@
                         :url (:url %)))
                  (:langs episode)))
 
-(defn- make-safe
-  "Make fnc call safe"
-  [fnc fallback] (fn [x]
-          (try (fnc x)
-            (catch Exception e (do
-                                 (println e)
-                                 fallback)))))
 
 (defn get-flattened
   "Get flattened subs maps"
   [get-shows get-episodes get-versions source-type]
   (->> (get-shows)
-       (pmap #(create-show-season-map % (make-safe get-episodes [])))
+       (pmap #(create-show-season-map % (helpers/make-safe get-episodes [])))
        flatten
        (pmap create-show-episode-map)
        flatten
-       (pmap #(create-episode-version-map % (make-safe get-versions [])))
+       (pmap #(create-episode-version-map % (helpers/make-safe get-versions [])))
        flatten
        (pmap create-episode-lang-map)
        flatten

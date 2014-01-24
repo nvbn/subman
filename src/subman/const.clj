@@ -5,3 +5,5 @@
 (def index-name "subman-3")
 
 (def type-addicted 0)
+
+(def type-podnapisi 1)
