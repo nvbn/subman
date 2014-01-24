@@ -24,4 +24,5 @@
                        :target "_blank"}
                    "{{result.show}} - {{result.name}} (S{{result.season}}E{{result.episode}})"]]
              [:p "Language: {{result.lang}}"]
-             [:p "Version: {{result.version}}"]]]]]))
+             [:p "Version: {{result.version}}"]
+             [:p "Source: {{{0: 'Addicted'}[result.source]}}"]]]]]))

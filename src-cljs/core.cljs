@@ -7,7 +7,7 @@
 
 (def.module subman [])
 
-(defn success [promise fnc] (promise/success fnc))
+(defn- success [promise fnc] (promise/success fnc))
 
 (def.controller subman.Search [$scope $http]
   (! $scope.updateFilter (fn [] (-> (str "/api/search/?query=" $scope.query)
