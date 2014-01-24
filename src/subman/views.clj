@@ -28,6 +28,6 @@
                                :ng-repeat "result in results"}
              [:h3
               "{{result.show}} - {{result.name}} (S{{result.season}}E{{result.episode}})"]
-             [:p.pull-right "Source: {{{0: 'Addicted'}[result.source]}}"]
+             [:p.pull-right "Source: {{{0: 'Addicted', 1: 'Podnapisi'}[result.source]}}"]
              [:p "Language: {{result.lang}}"]
              [:p "Version: {{result.version}}"]]]]]))
