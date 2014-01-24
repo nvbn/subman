@@ -27,10 +27,14 @@
   "Delete all documents"
   [] (esd/delete-by-query-across-all-types index (q/match-all)))
 
+(defn- prepare-query
+  "Prepare query for search"
+  [query] (clojure.string/replace query #"\." " "))
+
 (defn search
   "Search for documents"
   [query] (->> (esd/search index "subtitle"
-                           :query (q/fuzzy-like-this :like_text query)
+                           :query (q/fuzzy-like-this :like_text (prepare-query query))
                            :size 100)
                :hits
                :hits
