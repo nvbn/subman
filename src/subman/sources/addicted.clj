@@ -155,7 +155,7 @@
                     first
                     :content
                     vec
-                    (nth 1))
+                    (get 1 ""))
           :langs []})
 
 (defn- get-lang

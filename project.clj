@@ -13,7 +13,14 @@
                  [com.novemberain/monger "1.7.0-beta1"]
                  [enlive "1.1.5"]
                  [clj-http "0.7.8"]
-                 [lein-bower "0.1.0"]
-                 [clojurewerkz/elastisch "1.5.0-beta1"]]
+                 [clojurewerkz/elastisch "1.5.0-beta1"]
+                 [org.clojure/data.json "0.2.3"]]
+  :ring {:handler subman.routes/app}
+  :plugins [[lein-ring "0.8.10"]
+            [lein-cljsbuild "1.0.1"]]
   :profiles {:dev {:dependencies [[midje "1.6.0"]]}}
-  :bower {:directory "resources/public/"})
+  :cljsbuild {
+              :builds [{
+                        :source-paths ["src-cljs"]
+                        :compiler {
+                                   :output-to "resources/public/main.js"}}]})

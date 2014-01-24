@@ -10,4 +10,5 @@ pom.xml.asc
 .lein-deps-sum
 .lein-repl-history
 .lein-plugins/
-
+/resources/public/components/
+/esources/public/main.js

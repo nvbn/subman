@@ -1,0 +1,8 @@
+{
+  "name": "subman",
+  "version": "0.1",
+  "dependencies": {
+    "angular": "1.2.7",
+    "bootstrap": "3.0.3"
+  }
+}

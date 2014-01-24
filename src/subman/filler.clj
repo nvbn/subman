@@ -34,15 +34,23 @@
                         :url (:url %)))
                  (:langs episode)))
 
+(defn- make-safe
+  "Make fnc call safe"
+  [fnc fallback] (fn [x]
+          (try (fnc x)
+            (catch Exception e (do
+                                 (println e)
+                                 fallback)))))
+
 (defn get-flattened
   "Get flattened subs maps"
   [get-shows get-episodes get-versions]
   (->> (get-shows)
-       (pmap #(create-show-season-map % get-episodes))
+       (pmap #(create-show-season-map % (make-safe get-episodes [])))
        flatten
        (pmap create-show-episode-map)
        flatten
-       (pmap #(create-episode-version-map % get-versions))
+       (pmap #(create-episode-version-map % (make-safe get-versions [])))
        flatten
        (pmap create-episode-lang-map)
        flatten))
@@ -53,7 +61,8 @@
   (->> (get-flattened addicted/get-shows
                       addicted/get-episodes
                       addicted/get-versions)
-       (map models/create-document)
+       (map (make-safe models/create-document nil))
+       (remove nil?)
        (map-indexed vector)
        (map (fn [[i item]]
               (when (= (mod i 50) 0)
