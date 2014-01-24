@@ -65,10 +65,10 @@
                     :content
                     first
                     clojure.string/trim)
-          :page-url (-> (download-element item)
-                        :attrs
-                        :href
-                        make-url)
+          :url (-> (download-element item)
+                   :attrs
+                   :href
+                   make-url)
           :season (season-episode-part item 1)
           :episode (season-episode-part item 2)
           :version (-> item
@@ -87,26 +87,17 @@
             ((fn [page] (map #(create-subtitle-map %)
                             page)))))
 
-(defn- get-download-url
-  "Get subtitle download url"
-  [page-url] (-> (helpers/fetch page-url)
-                 (html/select [:a.download])
-                 first
-                 :attrs
-                 :href
-                 make-url))
-
 (defn get-all-flat
   "Get all subtitles as flat list"
   [] (->> (pmap (fn [lang]
                  (->> (get-lang-letters lang)
-                      (pmap get-pages-urls)
+                      (pmap (helpers/make-safe get-pages-urls nil))
+                      (remove nil?)
                       flatten
-                      (pmap parse-list-page)
+                      (pmap (helpers/make-safe parse-list-page nil))
+                      (remove nil?)
                       flatten
-                      (pmap #(assoc % :lang (:lang lang)
-                          :url (get-download-url (:page-url %))
-                          :source const/type-podnapisi))
-                      (pmap #(dissoc % :page-url))))
+                      (map #(assoc % :lang (:lang lang)
+                          :source const/type-podnapisi))))
                (get-langs))
           flatten))
