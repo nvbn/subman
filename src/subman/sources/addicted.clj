@@ -2,12 +2,6 @@
   (:require [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers]))
 
-(defn fetch
-  "Fetch url content"
-  [url] (-> url
-            java.net.URL.
-            html/html-resource))
-
 (defn- make-url
   "Make url for addicted"
   [end-part] (str "http://www.addic7ed.com" end-part))
@@ -27,7 +21,7 @@
   "Get all available shows from addicted"
   [] (-> "/shows.php"
          make-url
-         fetch
+         helpers/fetch
          (html/select [:td.version :h3 :a])
          create-shows))
 
@@ -124,13 +118,13 @@
   "Get episodes for show"
   [show] (-> show
              :url
-             fetch
+             helpers/fetch
              get-episode-list-elements
              first
              :attrs
              :href
              make-url
-             fetch
+             helpers/fetch
              (html/select [:table.tableEplist :tr])
              get-seasons))
 
@@ -199,6 +193,6 @@
   "Get versions of subtitles for single episode"
   [episode] (-> episode
                 :url
-                fetch
+                helpers/fetch
                 (html/select [:table.tabel95 :table.tabel95 :tr])
                 get-subtitles))
