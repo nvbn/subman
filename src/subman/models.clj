@@ -3,14 +3,13 @@
             [clojurewerkz.elastisch.rest.index :as esi]
             [clojurewerkz.elastisch.rest.document :as esd]
             [clojurewerkz.elastisch.query :as q]
-            [subman.helpers :as helpers]))
+            [subman.helpers :as helpers]
+            [subman.const :as const]))
 
-(esr/connect! "http://127.0.0.1:9200")
+(esr/connect! const/db-host)
 
-(def index "subman1")
-
-(defn create-index [i-name]
-  (esi/create i-name :mappings {"subtitle"
+(defn create-index []
+  (esi/create const/index-name :mappings {"subtitle"
                                 {:properties {
                                               :show {:type "string"}
                                               :season {:type "string"}
@@ -18,15 +17,16 @@
                                               :name {:type "string"}
                                               :lang {:type "string"}
                                               :version {:type "string"}
-                                              :url {:type "string"}}}}))
+                                              :url {:type "string"}
+                                              :source {:type "integer"}}}}))
 
 (defn create-document
   "Put document into elastic"
-  [doc] (esd/create index "subtitle" doc))
+  [doc] (esd/create const/index-name "subtitle" doc))
 
 (defn delete-all
   "Delete all documents"
-  [] (esd/delete-by-query-across-all-types index (q/match-all)))
+  [] (esd/delete-by-query-across-all-types const/index-name (q/match-all)))
 
 (defn- remove-dots
   "Remove dots from query"
@@ -55,7 +55,7 @@
 
 (defn search
   "Search for documents"
-  [query] (->> (apply esd/search index "subtitle" (build-query query))
+  [query] (->> (apply esd/search const/index-name "subtitle" (build-query query))
                :hits
                :hits
                (map :_source)))
