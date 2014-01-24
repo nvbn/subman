@@ -24,10 +24,15 @@
           [:div.container.col-xs-12
            [:div.search-result-list.list-group
             [:a.list-group-item.search-result {:href "{{result.url}}"
-                               :target "_blank"
-                               :ng-repeat "result in results"}
+                                               :target "_blank"
+                                               :ng-repeat "result in results"}
              [:h3
-              "{{result.show}} - {{result.name}} (S{{result.season}}E{{result.episode}})"]
+              "{{result.show}}"
+              [:span {:ng-show "result.name"} " - {{result.name}}"]
+              [:span {:ng-show "result.season || result.episode"}
+               " (" [:span {:ng-show "result.season"} "S{{result.season}}"]
+               [:span {:ng-show "result.episode"} "E{{result.episode}}"]
+               ")"]]
              [:p.pull-right "Source: {{{0: 'Addicted', 1: 'Podnapisi'}[result.source]}}"]
              [:p "Language: {{result.lang}}"]
-             [:p "Version: {{result.version}}"]]]]]))
+             [:p {:ng-show "result.version"} "Version: {{result.version}}"]]]]]))
