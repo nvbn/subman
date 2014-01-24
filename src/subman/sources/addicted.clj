@@ -1,5 +1,6 @@
 (ns subman.sources.addicted
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [subman.helpers :as helpers]))
 
 (defn fetch
   "Fetch url content"
@@ -71,7 +72,8 @@
              :content
              first
              (clojure.string/split  #" ")
-             last))
+             last
+             helpers/remove-first-0))
 
 (defn- get-episode-name-element
   "Get episode name holder element"
@@ -89,7 +91,8 @@
                       :content
                       first
                       :content
-                      first)
+                      first
+                      helpers/remove-first-0)
           :name (-> line
                     get-episode-name-element
                     :content
