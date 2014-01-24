@@ -1,6 +1,7 @@
 (ns subman.sources.t-addicted
   (:use midje.sweet)
   (:require [subman.sources.addicted :as addicted]
+            [subman.helpers :as helpers]
             [net.cgrand.enlive-html :as html]))
 
 (defn- get-from-file
@@ -23,32 +24,32 @@
 (facts "shows list parser"
        (fact "return all shows"
              (count (addicted/get-shows)) => 2741
-             (provided (addicted/fetch anything) => (get-shows)))
+             (provided (helpers/fetch anything) => (get-shows)))
        (fact "return correct show maps"
              (-> (addicted/get-shows)
                  first
                  (#(and (contains? % :name)
                         (contains? % :url)))) => true
-             (provided (addicted/fetch anything) => (get-shows))))
+             (provided (helpers/fetch anything) => (get-shows))))
 
 (facts "single show parser"
        (fact "return all seasons"
              (count (addicted/get-episodes {:url ""})) => 9
-             (provided (addicted/fetch anything) => (get-single-show)))
+             (provided (helpers/fetch anything) => (get-single-show)))
        (fact "return all episodes"
              (-> (addicted/get-episodes {:url ""})
                  first
                  :episodes
                  count) => 10
-             (provided (addicted/fetch anything) => (get-single-show))))
+             (provided (helpers/fetch anything) => (get-single-show))))
 
 (facts "single episode parser"
        (fact "return all versions"
              (count (addicted/get-versions {:url ""})) => 2
-             (provided (addicted/fetch anything) => (get-single-episode)))
+             (provided (helpers/fetch anything) => (get-single-episode)))
        (fact "return all languages"
              (-> (addicted/get-versions {:url ""})
                  first
                  :langs
                  count) => 3
-             (provided (addicted/fetch anything) => (get-single-episode))))
+             (provided (helpers/fetch anything) => (get-single-episode))))
