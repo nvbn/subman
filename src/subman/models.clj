@@ -54,7 +54,10 @@
 
 (defn search
   "Search for documents"
-  [query] (->> (apply esd/search const/index-name "subtitle" (build-query query))
-               :hits
-               :hits
-               (map :_source)))
+  [& {:keys [query offset]}] (->> (apply esd/search const/index-name
+                                         "subtitle"
+                                         :from offset
+                                         (build-query query))
+                                  :hits
+                                  :hits
+                                  (map :_source)))
