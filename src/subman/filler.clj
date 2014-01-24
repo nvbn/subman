@@ -1,6 +1,7 @@
 (ns subman.filler
   (:require [subman.sources.addicted :as addicted]
-            [subman.models :as models]))
+            [subman.models :as models]
+            [subman.const :as const]))
 
 (defn- create-show-season-map
   "Create show-season mapping"
@@ -44,7 +45,7 @@
 
 (defn get-flattened
   "Get flattened subs maps"
-  [get-shows get-episodes get-versions]
+  [get-shows get-episodes get-versions source-type]
   (->> (get-shows)
        (pmap #(create-show-season-map % (make-safe get-episodes [])))
        flatten
@@ -53,14 +54,16 @@
        (pmap #(create-episode-version-map % (make-safe get-versions [])))
        flatten
        (pmap create-episode-lang-map)
-       flatten))
+       flatten
+       (pmap #(assoc % :source source-type))))
 
 (defn load-all
   "Load all subtitles"
   [] (models/delete-all)
   (->> (get-flattened addicted/get-shows
                       addicted/get-episodes
-                      addicted/get-versions)
+                      addicted/get-versions
+                      const/type-addicted)
        (map (make-safe models/create-document nil))
        (remove nil?)
        (map-indexed vector)
