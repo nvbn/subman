@@ -1,7 +1,9 @@
 (ns subman.filler
   (:require [subman.sources.addicted :as addicted]
+            [subman.sources.podnapisi :as podnapisi]
             [subman.models :as models]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.helpers :as helpers]))
 
 (defn- create-show-season-map
   "Create show-season mapping"
@@ -57,7 +59,8 @@
                       addicted/get-episodes
                       addicted/get-versions
                       const/type-addicted)
-       (map (make-safe models/create-document nil))
+       (concat (podnapisi/get-all-flat))
+       (map (helpers/make-safe models/create-document nil))
        (remove nil?)
        (map-indexed vector)
        (map (fn [[i item]]

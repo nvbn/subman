@@ -10,15 +10,14 @@
 
 (defn create-index []
   (esi/create const/index-name :mappings {"subtitle"
-                                {:properties {
-                                              :show {:type "string"}
-                                              :season {:type "string"}
-                                              :episode {:type "string"}
-                                              :name {:type "string"}
-                                              :lang {:type "string"}
-                                              :version {:type "string"}
-                                              :url {:type "string"}
-                                              :source {:type "integer"}}}}))
+                                          {:properties {:show {:type "string"}
+                                                        :season {:type "string"}
+                                                        :episode {:type "string"}
+                                                        :name {:type "string"}
+                                                        :lang {:type "string"}
+                                                        :version {:type "string"}
+                                                        :url {:type "string"}
+                                                        :source {:type "integer"}}}}))
 
 (defn create-document
   "Put document into elastic"

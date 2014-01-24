@@ -98,15 +98,15 @@
 
 (defn get-all-flat
   "Get all subtitles as flat list"
-  [] (->> (map (fn [lang]
+  [] (->> (pmap (fn [lang]
                  (->> (get-lang-letters lang)
-                      (map get-pages-urls)
+                      (pmap get-pages-urls)
                       flatten
-                      (map parse-list-page)
+                      (pmap parse-list-page)
                       flatten
-                      (map #(assoc % :lang lang
+                      (pmap #(assoc % :lang (:lang lang)
                           :url (get-download-url (:page-url %))
                           :source const/type-podnapisi))
-                      (map #(dissoc % :page-url))))
+                      (pmap #(dissoc % :page-url))))
                (get-langs))
           flatten))
