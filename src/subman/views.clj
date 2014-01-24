@@ -20,7 +20,8 @@
                                           :ng-change "updateFilter()"}]
            [:div.search-result-list
             [:div.search-result.well {:ng-repeat "result in results"}
-             [:h3 [:a {:href "{{result.url}}"}
+             [:h3 [:a {:href "{{result.url}}"
+                       :target "_blank"}
                    "{{result.show}} - {{result.name}} (S{{result.season}}E{{result.episode}})"]]
              [:p "Language: {{result.lang}}"]
              [:p "Version: {{result.version}}"]]]]]))
