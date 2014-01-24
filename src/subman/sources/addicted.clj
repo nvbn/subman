@@ -85,7 +85,7 @@
   "Get episode from line"
   [line] {:number (-> line
                       :content
-                      (nth 2)
+                      (nth 4)
                       :content
                       first
                       :content
