@@ -11,8 +11,10 @@
 (defn create-index []
   (esi/create const/index-name :mappings {"subtitle"
                                           {:properties {:show {:type "string"}
-                                                        :season {:type "string"}
-                                                        :episode {:type "string"}
+                                                        :season {:type "string"
+                                                                 :index "not_analyzed"}
+                                                        :episode {:type "string"
+                                                                  :index "not_analyzed"}
                                                         :name {:type "string"}
                                                         :lang {:type "string"}
                                                         :version {:type "string"}
