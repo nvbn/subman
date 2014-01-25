@@ -3,9 +3,9 @@
             [subman.models :as models]))
 
 (defn search [params] (let [query (:query params)
-                            offset (get params :offset 0)]
+                            offset (get params :offset 0)
+                            lang (get params :lang "english")]
                         (json/write-str
                          (models/search :query query
-                                        :offset offset))))
-
-(search {:query "cat"})
+                                        :offset offset
+                                        :lang lang))))

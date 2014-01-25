@@ -39,25 +39,30 @@
 (defn- add-season-episode
   "Add season and episode filters"
   [query text] (if-let [nums (re-find #"[sS](\d+)[eE](\d+)" text)]
-                 (assoc query :filter {:term {:season (helpers/remove-first-0 (get nums 1))
-                                              :episode (helpers/remove-first-0 (get nums 2))}})
+                 (assoc query :season (helpers/remove-first-0 (get nums 1))
+                   :episode (helpers/remove-first-0 (get nums 2)))
                  query))
+
+(defn- build-filters
+  "Build filters for search"
+  [text lang] {:term (add-season-episode {:lang lang}
+                                          text)})
 
 (defn- build-query
   "Build search query"
-  [query] (-> (remove-dots query)
+  [query lang] (-> (remove-dots query)
               build-fuzzy
-              (add-season-episode query)
+              (assoc :filter (build-filters query lang))
               (assoc :size 100)
               vec
               flatten))
 
 (defn search
   "Search for documents"
-  [& {:keys [query offset]}] (->> (apply esd/search const/index-name
-                                         "subtitle"
-                                         :from offset
-                                         (build-query query))
-                                  :hits
-                                  :hits
-                                  (map :_source)))
+  [& {:keys [query offset lang]}] (->> (apply esd/search const/index-name
+                                              "subtitle"
+                                              :from offset
+                                              (build-query query lang))
+                                       :hits
+                                       :hits
+                                       (map :_source)))
