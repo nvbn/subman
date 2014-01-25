@@ -7,3 +7,5 @@
 (def type-addicted 0)
 
 (def type-podnapisi 1)
+
+(def update-deep 10)

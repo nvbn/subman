@@ -1,10 +1,14 @@
 (ns subman.sources.addicted
   (:require [net.cgrand.enlive-html :as html]
-            [subman.helpers :as helpers]))
+            [subman.helpers :as helpers]
+            [subman.const :as const]))
 
 (defn- make-url
   "Make url for addicted"
-  [end-part] (str "http://www.addic7ed.com" end-part))
+  [end-part] (str "http://www.addic7ed.com"
+                  (if (nil? (re-find #"^/" end-part))
+                    (str "/" end-part)
+                    end-part)))
 
 (defn- create-shows
   "Create show from html items"
@@ -188,7 +192,6 @@
                      :else buffer))
                   [] lines))
 
-
 (defn get-versions
   "Get versions of subtitles for single episode"
   [episode] (-> episode
@@ -196,3 +199,51 @@
                 helpers/fetch
                 (html/select [:table.tabel95 :table.tabel95 :tr])
                 get-subtitles))
+
+(defn- get-releases-url
+  "Get releases url for page"
+  [page] (str "http://www.addic7ed.com/log.php?mode=versions&page=" page))
+
+(defn- episode-from-release
+  "Episode from release page item"
+  [item] (let [name-parts (-> (:content item)
+                              first
+                              (clojure.string/split #" - "))
+               season-episode (-> name-parts
+                                  (get 1)
+                                  (clojure.string/split #"x"))]
+           {:show (first name-parts)
+            :season (first season-episode)
+            :episodes (last season-episode)
+            :name (last name-parts)
+            :url (-> item :attrs :href make-url)}))
+
+(defn- get-release-page-result
+  "Get release page result"
+  [page] (-> (get-releases-url page)
+             helpers/fetch
+             (html/select [:table.tabel :tr])
+             (#(drop 2 %))
+             (html/select [(html/nth-child 2) :a])
+             flatten
+             (#(map (helpers/make-safe episode-from-release nil) %))
+             (#(remove nil? %))
+             (#(map (fn [episode] (for [version (get-versions episode)
+                                        lang (:langs version)]
+                                    (assoc episode :version (:name version)
+                                      :lang (:name lang)
+                                      :url (:url lang)
+                                      :source const/type-addicted)))
+                    %))
+             flatten))
+
+(defn get-new-before
+  "Get new subtitles before checker"
+  [checker] (loop [page 1 results []]
+              (let [page-result (get-release-page-result page)
+                    new-result (remove checker page-result)]
+                (if (or (empty? new-result)
+                        (> page const/update-deep))
+                  results
+                  (recur (inc page)
+                         (concat new-result results))))))

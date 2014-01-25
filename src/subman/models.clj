@@ -18,7 +18,8 @@
                                                         :name {:type "string"}
                                                         :lang {:type "string"}
                                                         :version {:type "string"}
-                                                        :url {:type "string"}
+                                                        :url {:type "string"
+                                                              :index "not_analyzed"}
                                                         :source {:type "integer"}}}}))
 
 (defn create-document
@@ -68,3 +69,13 @@
                                        :hits
                                        :hits
                                        (map :_source)))
+
+(defn in-db
+  "Check subtitle already in db"
+  [subtitle] (-> (let [url (:url subtitle)]
+                 (esd/search const/index-name
+                             "subtitle"
+                             :filter {:term {:url url}}))
+                 :hits
+                 :total
+                 (> 0)))

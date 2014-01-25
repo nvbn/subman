@@ -68,3 +68,15 @@
                 (println (str "Loaded " i)))
               item))
        doall))
+
+(defn update-all
+  "Receive update from all sources"
+  [] (->> (addicted/get-new-before models/in-db)
+          (map (helpers/make-safe models/create-document nil))
+          (remove nil?)
+          (map-indexed vector)
+          (map (fn [[i item]]
+                 (when (= (mod i 50) 0)
+                   (println (str "Updated " i)))
+                 item))
+          doall))
