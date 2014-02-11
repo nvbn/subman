@@ -5,7 +5,7 @@
 (defn search [params] (let [query (:query params)
                             offset (get params :offset 0)
                             lang (get params :lang "english")]
-                        (json/write-str
+                        (prn-str
                          (models/search :query query
                                         :offset offset
                                         :lang lang))))

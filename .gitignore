@@ -10,5 +10,6 @@ pom.xml.asc
 .lein-deps-sum
 .lein-repl-history
 .lein-plugins/
+hs_err*
 /resources/public/components/
 /resources/public/main.js

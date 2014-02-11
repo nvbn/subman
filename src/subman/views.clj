@@ -10,9 +10,8 @@
                        "/components/font-awesome/css/font-awesome.css")
           (include-js "/components/jquery/jquery.js"
                       "/components/bootstrap/dist/js/bootstrap.js"
-                      "/components/angular/angular.js"
                       "/main.js")]
-         [:body {:ng-controller "Search"}
+         [:body
           [:div.input-group.input-group-lg.col-xs-12 {:data-spy "affix"
                                                       :data-offset-top "40"
                                                       :style "z-index: 100"}
@@ -35,4 +34,5 @@
                ")"]]
              [:p.pull-right "Source: {{{0: 'Addicted', 1: 'Podnapisi'}[result.source]}}"]
              [:p "Language: {{result.lang}}"]
-             [:p {:ng-show "result.version"} "Version: {{result.version}}"]]]]]))
+             [:p {:ng-show "result.version"} "Version: {{result.version}}"]]]]
+          [:script "subman.core.run();"]]))
