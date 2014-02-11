@@ -118,7 +118,8 @@
 
 (defn get-release-page-result
   "Get release page result"
-  [page] (-> (get-release-page-url page)
-             parse-list-page
-             flatten
-             (map #(assoc % :source const/type-podnapisi))))
+  [page] (map #(assoc % :source const/type-podnapisi)
+              (-> (get-release-page-url page)
+                  parse-list-page
+                  flatten)))
+

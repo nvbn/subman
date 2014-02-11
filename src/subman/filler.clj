@@ -72,14 +72,14 @@
 (defn get-new-before
   "Get new subtitles before checker"
   [getter checker] (loop [page 1 results []]
-              (let [page-result (getter page)
-                    new-result (remove checker page-result)]
-                (println new-result)
-                (if (or (empty? new-result)
-                        (> page const/update-deep))
-                  results
-                  (recur (inc page)
-                         (concat new-result results))))))
+                     (let [page-result (getter page)
+                           new-result (remove checker page-result)]
+                       (println page-result)
+                       (if (or (empty? new-result)
+                               (> page const/update-deep))
+                         results
+                         (recur (inc page)
+                                (concat new-result results))))))
 
 (defn update-all
   "Receive update from all sources"
