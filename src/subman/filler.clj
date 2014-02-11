@@ -74,7 +74,6 @@
   [getter checker] (loop [page 1 results []]
                      (let [page-result (getter page)
                            new-result (remove checker page-result)]
-                       (println page-result)
                        (if (or (empty? new-result)
                                (> page const/update-deep))
                          results

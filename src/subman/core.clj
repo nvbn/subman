@@ -1,7 +1,14 @@
 (ns subman.core
-  (:use compojure.core [hiccup.middleware :only (wrap-base-url)])
+  (:use [hiccup.middleware :only (wrap-base-url)])
   (:require [compojure.handler :as handler]
-            [subman.routes :as routes]))
+            [overtone.at-at :as at-at]
+            [subman.routes :as routes]
+            [subman.filler :as filler]
+            [subman.const :as const]))
+
+(def pool (at-at/mk-pool))
+
+(at-at/every const/update-period filler/update-all pool)
 
 (def app
   (-> (handler/site routes/main-routes)

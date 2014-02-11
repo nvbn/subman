@@ -14,7 +14,8 @@
                  [org.clojure/data.json "0.2.3"]
                  [reagent "0.3.0"]
                  [cljs-http "0.1.7"]
-                 [org.clojure/core.async "0.1.267.0-0d7780-alpha"]]
+                 [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
+                 [overtone/at-at "1.2.0"]]
   :ring {:handler subman.core/app}
   :plugins [[lein-ring "0.8.10"]
             [lein-cljsbuild "1.0.1"]
