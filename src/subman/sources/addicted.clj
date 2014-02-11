@@ -218,7 +218,7 @@
             :name (last name-parts)
             :url (-> item :attrs :href make-url)}))
 
-(defn- get-release-page-result
+(defn get-release-page-result
   "Get release page result"
   [page] (-> (get-releases-url page)
              helpers/fetch
@@ -236,14 +236,3 @@
                                       :source const/type-addicted)))
                     %))
              flatten))
-
-(defn get-new-before
-  "Get new subtitles before checker"
-  [checker] (loop [page 1 results []]
-              (let [page-result (get-release-page-result page)
-                    new-result (remove checker page-result)]
-                (if (or (empty? new-result)
-                        (> page const/update-deep))
-                  results
-                  (recur (inc page)
-                         (concat new-result results))))))

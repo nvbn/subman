@@ -83,10 +83,9 @@
   [url] (-> (helpers/fetch url)
             (html/select [:div#content_left
                           :table.list
-                          :td.sort_column])
+                          [:td html/first-child]])
             ((fn [page] (map #(create-subtitle-map %)
                             page)))))
-
 (defn get-all-flat
   "Get all subtitles as flat list"
   [] (->> (pmap (fn [lang]
@@ -101,3 +100,15 @@
                           :source const/type-podnapisi))))
                (get-langs))
           flatten))
+
+(defn- get-release-page-url
+  "Get release page url"
+  [page] (-> "/en/ppodnapisi/search/sJ/-1/sS/time/sO/desc/sT/-1/sM/0/sA/0/sK//sOA/0/sOT/0/sOL/0/sOI/0/sOE/0/sOD/0/sOH/0/sY//sOCS/0/sFT/0/sR//sTS//sTE//sAKA/1/sH//sI//tbsl/1/asdp/0/page//page/"
+             (str page)
+             make-url))
+
+(defn get-release-page-result
+  "Get release page result"
+  [page] (-> (get-release-page-url page)
+             parse-list-page
+             flatten))
