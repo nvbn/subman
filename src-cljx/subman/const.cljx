@@ -9,3 +9,5 @@
 (def type-podnapisi 1)
 
 (def update-deep 10)
+
+(def update-period (* 5 60 60))
