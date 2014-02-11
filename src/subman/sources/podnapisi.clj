@@ -46,13 +46,14 @@
 (defn- download-element
   "Get download element"
   [item] (-> item
-             (html/select [:a.subtitle_page_link])
+             (html/select [[:td html/first-child] :a.subtitle_page_link])
              first))
 
 (defn- season-episode-part
   "Get item from season episode part"
   [item pos] (helpers/nil-to-blank (some-> item
-                                           (html/select [:div.list_div2 :b])
+                                           (html/select [[:td html/first-child]
+                                                         :div.list_div2 :b])
                                            vec
                                            (get pos)
                                            :content
@@ -72,18 +73,26 @@
           :season (season-episode-part item 1)
           :episode (season-episode-part item 2)
           :version (-> item
-                       (html/select [:span.release])
+                       (html/select [[:td html/first-child] :span.release])
                        first
                        :content
                        last)
-          :name ""})
+          :name ""
+          :lang (-> item
+                    (html/select [[:td (html/nth-child 3)]
+                                  :div.flag])
+                    first
+                    :attrs
+                    :alt
+                    (clojure.string/split #" ")
+                    first)})
 
 (defn- parse-list-page
   "Parse page with subtitles list"
   [url] (-> (helpers/fetch url)
             (html/select [:div#content_left
                           :table.list
-                          [:td html/first-child]])
+                          [:tr (html/has [:td])]])
             ((fn [page] (map #(create-subtitle-map %)
                             page)))))
 (defn get-all-flat
@@ -111,4 +120,5 @@
   "Get release page result"
   [page] (-> (get-release-page-url page)
              parse-list-page
-             flatten))
+             flatten
+             (map #(assoc % :source const/type-podnapisi))))

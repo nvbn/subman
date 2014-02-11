@@ -72,11 +72,10 @@
 
 (defn in-db
   "Check subtitle already in db"
-  [subtitle] (some-> (if-let [url (:url subtitle)]
-                       (esd/search const/index-name
-                                   "subtitle"
-                                   :filter {:term {:url url}})
-                       nil)
-                     :hits
-                     :total
-                     (> 0)))
+  [subtitle] (-> (let [url (:url subtitle)]
+                   (esd/search const/index-name
+                               "subtitle"
+                               :filter {:term {:url url}}))
+                 :hits
+                 :total
+                 (> 0)))

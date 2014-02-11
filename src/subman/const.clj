@@ -2,7 +2,7 @@
 
 (def db-host "http://127.0.0.1:9200")
 
-(def index-name "subman4")
+(def index-name "subman5")
 
 (def type-addicted 0)
 
