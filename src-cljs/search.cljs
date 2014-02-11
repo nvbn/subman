@@ -19,7 +19,7 @@
 
 (defn result-line
   "Search result line"
-  [{:keys [url, name, show, season, episode, source, lang, version]}]
+  [{:keys [url name show season episode source lang version]}]
   [:a.list-group-item.search-result {:href url
                                      :target "_blank"}
    [:h3
