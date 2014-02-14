@@ -1,6 +1,7 @@
 (ns subman.filler
   (:require [subman.sources.addicted :as addicted]
             [subman.sources.podnapisi :as podnapisi]
+            [subman.sources.opensubtitles :as opensubtitles]
             [subman.models :as models]
             [subman.const :as const]
             [subman.helpers :as helpers]))
@@ -80,10 +81,17 @@
                          (recur (inc page)
                                 (concat new-result results))))))
 
+(defn get-all-new
+  "Get all new from callers with checker"
+  [checker & callers] (apply concat (map #(get-new-before % checker)
+                                         callers)))
+
 (defn update-all
   "Receive update from all sources"
-  [] (->> (get-new-before addicted/get-release-page-result models/in-db)
-          (concat (get-new-before podnapisi/get-release-page-result models/in-db))
+  [] (->> (get-all-new models/in-db
+                       opensubtitles/get-release-page-result
+                       addicted/get-release-page-result
+                       podnapisi/get-release-page-result)
           (map (helpers/make-safe models/create-document nil))
           (remove nil?)
           (map-indexed vector)

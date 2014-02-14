@@ -8,8 +8,11 @@
 
 (def type-podnapisi 1)
 
+(def type-opensubtitles 2)
+
 (def type-names {type-addicted "Addicted"
-                 type-podnapisi "Podnapisi"})
+                 type-podnapisi "Podnapisi"
+                 type-opensubtitles "OpenSubtitles"})
 
 (def update-deep 10)
 
