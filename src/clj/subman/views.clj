@@ -2,8 +2,7 @@
   (:use [hiccup core page]))
 
 (defn index-page []
-  (html5 {:ng-app "subman"}
-         [:head
+  (html5 [:head
           [:title "Subman - subtitle search service with api"]
           (include-css "/components/bootstrap/dist/css/bootstrap.min.css"
                        "/components/bootstrap/dist/css/bootstrap-theme.min.css"
