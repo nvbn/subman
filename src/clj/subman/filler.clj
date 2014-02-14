@@ -10,7 +10,7 @@
   [show getter] (map #(hash-map :show (:name show)
                                 :season (:number %)
                                 :episodes (:episodes %))
-              (getter show)))
+                     (getter show)))
 
 (defn- create-show-episode-map
   "Create show-episode mapping"

@@ -28,7 +28,6 @@
 (defn make-safe
   "Make fnc call safe"
   [fnc fallback] (fn [x]
-          (try (fnc x)
-            (catch Exception e (do
-                                 (println e)
-                                 fallback)))))
+                   (try (fnc x)
+                     (catch Exception e (do (println e)
+                                          fallback)))))
