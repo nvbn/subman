@@ -9,9 +9,9 @@
 
 (defn search-box
   "Search box"
-  [{:keys [value]}] [:div.input-group.input-group-lg.col-xs-12 {:data-spy "affix"
-                                                                :data-offset-top "40"
-                                                                :style {:z-index 100}}
+  [{:keys [value]}] [:div.input-group.input-group-lg.col-xs-12.search-inpu
+                     {:data-spy "affix"
+                      :data-offset-top "40"}
                      [:span.input-group-addon [:i.fa.fa-search]]
                      [:input.form-control {:type "text"
                                            :placeholder "Type search query"
@@ -39,7 +39,7 @@
    (> (count @items) 0) [:div.container.col-xs-12
                          [:div.search-result-list.list-group (map result-line @items)]]
    (or (= @counter 0)
-       (= (count @query) 0)) [:div.container.col-xs-12 {:style {:text-align "center"}}
+       (= (count @query) 0)) [:div.container.col-xs-12.info-box
                               [:h2 "Welcome to subman!"]
                               [:p "We indexing "
                                [:a {:href "http://www.addic7ed.com/"
@@ -51,7 +51,7 @@
                               [:a {:href "https://github.com/nvbn/subman"
                                    :target "_blank"}
                                [:i.fa.fa-github] " github"]]
-   :else [:div.container.col-xs-12 {:style {:text-align "center"}}
+   :else [:div.container.col-xs-12.info-box
           [:h2 "Nothing found for \"" @query "\""]]))
 
 (defn search-page

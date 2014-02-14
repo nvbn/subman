@@ -12,11 +12,13 @@
                  [reagent "0.3.0"]
                  [cljs-http "0.1.7"]
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
-                 [overtone/at-at "1.2.0"]]
+                 [overtone/at-at "1.2.0"]
+                 [garden "1.1.5"]]
   :ring {:handler subman.core/app}
   :plugins [[lein-ring "0.8.10"]
             [lein-cljsbuild "1.0.1"]
-            [com.keminglabs/cljx "0.3.2"]]
+            [com.keminglabs/cljx "0.3.2"]
+            [lein-garden "0.1.5"]]
   :profiles {:dev {:dependencies [[midje "1.6.0"]]}}
   :source-paths ["src/clj"]
   :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
@@ -31,5 +33,7 @@
                   {:source-paths ["src/cljx"]
                    :output-path "target/generated-cljs"
                    :rules :cljs}]}
+  :garden {:builds [{:stylesheet subman.style/main
+                     :compiler {:output-to "resources/public/main.css"}}]}
   :hooks [cljx.hooks
           leiningen.cljsbuild])
