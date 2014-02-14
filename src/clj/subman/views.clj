@@ -8,7 +8,7 @@
           (include-css "/components/bootstrap/dist/css/bootstrap.css"
                        "/components/bootstrap/dist/css/bootstrap-theme.css"
                        "/components/font-awesome/css/font-awesome.css")
-          (include-js "/components/jquery/jquery.js"
-                      "/components/bootstrap/dist/js/bootstrap.js"
+          (include-js "/components/jquery/jquery.min.js"
+                      "/components/bootstrap/dist/js/bootstrap.min.js"
                       "/main.js")]
          [:body [:script "subman.core.run();"]]))
