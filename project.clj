@@ -24,10 +24,13 @@
   :source-paths ["src/clj"]
   :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                         :compiler {:preamble ["reagent/react.js"]
-                                   :output-to "resources/public/main.js"}}]}
+                                   :output-to "resources/public/main.js"}
+                        :jar true}]}
   :cljx {:builds [{:source-paths ["src/cljx"]
                    :output-path "target/classes"
                    :rules :clj}
                   {:source-paths ["src/cljx"]
                    :output-path "target/generated-cljs"
-                   :rules :cljs}]})
+                   :rules :cljs}]}
+  :hooks [cljx.hooks
+          leiningen.cljsbuild])
