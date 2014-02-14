@@ -30,35 +30,22 @@
   "Delete all documents"
   [] (esd/delete-by-query-across-all-types const/index-name (q/match-all)))
 
-(defn- remove-dots
-  "Remove dots from query"
-  [query] (clojure.string/replace query #"\." " "))
-
-(defn- build-fuzzy
-  "Build default fuzzy query"
-  [query] {:query (q/fuzzy-like-this :like_text query)})
-
-
-(defn- add-season-episode
+(defn- get-season-episode
   "Add season and episode filters"
-  [query text] (if-let [nums (re-find #"[sS](\d+)[eE](\d+)" text)]
-                 (assoc query :season (helpers/remove-first-0 (get nums 1))
-                   :episode (helpers/remove-first-0 (get nums 2)))
-                 query))
-
-(defn- build-filters
-  "Build filters for search"
-  [text lang] {:term (add-season-episode {:lang lang}
-                                          text)})
+  [text] (if-let [nums (re-find #"[sS](\d+)[eE](\d+)" text)]
+           [(q/term :season (helpers/remove-first-0 (get nums 1)))
+            (q/term :episode (helpers/remove-first-0 (get nums 2)))]
+           []))
 
 (defn- build-query
   "Build search query"
-  [query lang] (-> (remove-dots query)
-              build-fuzzy
-              (assoc :filter (build-filters query lang))
-              (assoc :size 100)
-              vec
-              flatten))
+  [query lang] (-> (let [prepared (clojure.string/replace query #"\." " ")]
+                     {:query (q/bool :must (q/fuzzy-like-this :like_text prepared)
+                                     :should (get-season-episode prepared))
+                      :filter (q/term :lang lang)
+                      :size const/result-size})
+                   vec
+                   flatten))
 
 (defn search
   "Search for documents"
