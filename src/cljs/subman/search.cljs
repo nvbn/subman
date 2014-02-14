@@ -34,8 +34,25 @@
 
 (defn result-list
   "Search result list"
-  [{:keys [items]}] [:div.container.col-xs-12
-                     [:div.search-result-list.list-group (map result-line @items)]])
+  [{:keys [query items counter]}]
+  (cond
+   (> (count @items) 0) [:div.container.col-xs-12
+                         [:div.search-result-list.list-group (map result-line @items)]]
+   (or (= @counter 0)
+       (= (count @query) 0)) [:div.container.col-xs-12 {:style {:text-align "center"}}
+                              [:h2 "Welcome to subman!"]
+                              [:p "We indexing "
+                               [:a {:href "http://www.addic7ed.com/"
+                                    :target "_blank"} "addic7ed.com"]
+                               " and "
+                               [:a {:href "http://www.podnapisi.net/"
+                                    :target "_blank"} "podnapisi.net"]
+                               "."]
+                              [:a {:href "https://github.com/nvbn/subman"
+                                   :target "_blank"}
+                               [:i.fa.fa-github] " github"]]
+   :else [:div.container.col-xs-12 {:style {:text-align "center"}}
+          [:h2 "Nothing found for \"" @query "\""]]))
 
 (defn search-page
   "Search page view"
@@ -50,4 +67,6 @@
                             (when (= current @counter)
                               (reset! results (read-string (:body response)))))))))
        [:div [search-box {:value query}]
-        [result-list {:items results}]]))
+        [result-list {:items results
+                      :query query
+                      :counter counter}]]))
