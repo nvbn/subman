@@ -27,9 +27,7 @@
     (when (some is-filled? [season episode])
       [:span " " (when (is-filled? season) (str "S" season))
        (when (is-filled? episode) (str "E" episode))])]
-   [:p.pull-right "Source: " (cond
-                              (= source const/type-addicted) "Addicted"
-                              (= source const/type-podnapisi) "Podnapisi")]
+   [:p.pull-right "Source: " (const/type-names source)]
    [:p "Language:" lang]
    (when (is-filled? version)
      [:p "Version: " version])])

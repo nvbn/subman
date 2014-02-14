@@ -8,6 +8,9 @@
 
 (def type-podnapisi 1)
 
+(def type-names {type-addicted "Addicted"
+                 type-podnapisi "Podnapisi"})
+
 (def update-deep 10)
 
 (def update-period (* 5 60 60))
