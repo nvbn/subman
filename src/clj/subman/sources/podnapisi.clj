@@ -58,7 +58,8 @@
                                            (get pos)
                                            :content
                                            first
-                                           clojure.string/trim)))
+                                           clojure.string/trim
+                                           helpers/remove-first-0)))
 
 (defn- create-subtitle-map
   "Create subtitle map from list page item"

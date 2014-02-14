@@ -213,8 +213,8 @@
                                   (get 1)
                                   (clojure.string/split #"x"))]
            {:show (first name-parts)
-            :season (first season-episode)
-            :episodes (last season-episode)
+            :season (-> season-episode first helpers/remove-first-0)
+            :episodes (-> season-episode last helpers/remove-first-0)
             :name (last name-parts)
             :url (-> item :attrs :href make-url)}))
 
