@@ -37,17 +37,19 @@
 (defn result-list
   "Search result list"
   [{:keys [items]}] [:div.container.col-xs-12
-                     [:div.search-result-list.list-group (for [item @items]
-                                                           (result-line item))]])
+                     [:div.search-result-list.list-group (map result-line @items)]])
 
 (defn search-page
   "Search page view"
   [] (let [query (atom "")
-           results (atom [])]
+           results (atom [])
+           counter (atom 0)]
        (add-watch query :search-request
                   (fn [key ref old-value new-value]
-                    (go (let [url (str "/api/search/?query=" new-value)
-                              response (<! (http/get url))]
-                          (reset! results (read-string (:body response)))))))
+                    (let [current (swap! counter inc)]
+                      (go (let [url (str "/api/search/?query=" new-value)
+                                response (<! (http/get url))]
+                            (when (= current @counter)
+                              (reset! results (read-string (:body response)))))))))
        [:div [search-box {:value query}]
         [result-list {:items results}]]))
