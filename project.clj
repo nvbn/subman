@@ -20,8 +20,10 @@
   :profiles {:dev {:dependencies [[midje "1.6.0"]]}}
   :source-paths ["src/clj"]
   :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
-                        :compiler {:preamble ["reagent/react.js"]
-                                   :output-to "resources/public/main.js"}
+                        :compiler {:preamble ["reagent/react.min.js"]
+                                   :output-to "resources/public/main.js"
+                                   :optimizations :advanced
+                                   :pretty-print false}
                         :jar true}]}
   :cljx {:builds [{:source-paths ["src/cljx"]
                    :output-path "target/classes"
