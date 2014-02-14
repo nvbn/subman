@@ -28,7 +28,7 @@
       [:span " " (when (is-filled? season) (str "S" season))
        (when (is-filled? episode) (str "E" episode))])]
    [:p.pull-right "Source: " (const/type-names source)]
-   [:p "Language:" lang]
+   [:p "Language: " lang]
    (when (is-filled? version)
      [:p "Version: " version])])
 
