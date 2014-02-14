@@ -6,15 +6,13 @@ Service for fast subtitle searching.
 Installation
 ------------
 
-First you need to install lein, bower, redis and elasticsearch.
-Than create db in repl:
+First you need to install lein, bower and elasticsearch.
 
-.. code-block:: clojure
+Then install deps:
 
-    (require 'subman.models)
-    (subman.models/create-index)
-    (require 'subman.filler)
-    (subman.filler/load-all)
+.. code-block:: bash
+
+    lein deps
 
 Prepare assets:
 
@@ -22,10 +20,12 @@ Prepare assets:
 
     bower install
     lein cljsbuild once
+    lein cljx
+    lein garden once
 
 And run with:
 
 .. code-block:: bash
 
-    lein ring server-headless
+    lein ring server
 
