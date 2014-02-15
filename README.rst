@@ -10,7 +10,7 @@ For using api send GET request like:
 
 .. code-block:: bash
 
-    http://subman.io/?query=file-name&format=json&lang=english
+    http://subman.io/api/search/?query=file-name&format=json&lang=english
 
 
 Installation
