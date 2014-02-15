@@ -3,6 +3,16 @@ Sbuman
 
 Service for fast subtitle searching.
 
+Api
+----
+
+For using api send GET request like:
+
+.. code-block:: bash
+
+    http://subman.io/?query=file-name&format=json&lang=english
+
+
 Installation
 ------------
 
