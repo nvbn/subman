@@ -8,4 +8,5 @@
 (defroutes main-routes
   (GET "/" [] (views/index-page))
   (GET "/api/search/" {params :params} (api/search params))
-  (route/resources "/"))
+  (route/resources "/")
+  (route/not-found (views/index-page)))

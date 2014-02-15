@@ -2,7 +2,6 @@
   "name": "subman",
   "version": "0.1",
   "dependencies": {
-    "angular": "1.2.7",
     "bootstrap": "3.0.3",
     "font-awesome": "4.0.3"
   }

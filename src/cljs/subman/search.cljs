@@ -1,7 +1,8 @@
 (ns subman.search
   (:use [cljs.reader :only [read-string]]
         [reagent.core :only [atom]]
-        [subman.helpers :only [is-filled?]])
+        [subman.helpers :only [is-filled?]]
+        [subman.history :only [init-history]])
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
@@ -15,7 +16,8 @@
                      [:span.input-group-addon [:i.fa.fa-search]]
                      [:input.form-control {:type "text"
                                            :placeholder "Type search query"
-                                           :on-change #(reset! value (-> % .-target .-value))}]])
+                                           :on-change #(reset! value (-> % .-target .-value))
+                                           :value @value}]])
 
 (defn result-line
   "Search result line"
@@ -66,6 +68,7 @@
                                 response (<! (http/get url))]
                             (when (= current @counter)
                               (reset! results (read-string (:body response)))))))))
+       (init-history query)
        [:div [search-box {:value query}]
         [result-list {:items results
                       :query query
