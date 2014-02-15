@@ -14,31 +14,52 @@
   [page] (make-url (str "/en/search/sublanguageid-eng/offset-"
                         (* 40 (dec page)))))
 
+(defmacro get-from-part
+  "Get from part using getter"
+  [re part default & getter]
+  `(if (or (nil? ~part)
+           (not (string? ~part)))
+     ~default
+     (let [result# (some-> (re-find ~re ~part)
+                           last
+                           ~@getter)]
+       (if (or (nil? result#)
+               (= "" result#))
+         ~default
+         result#))))
+
 (defn- get-from-season-part
   "Get from season part"
-  [re part] (if (or (nil? part)
-                    (not (string? part)))
-              ""
-              (if-let [result (some-> (re-find re part)
-                                      last
-                                      helpers/remove-first-0)]
-                      result
-                      "")))
+  [re part] (get-from-part re part "" helpers/remove-first-0))
+
+(defn- remove-brs
+  "Remove <br> from item"
+  [item] (clojure.string/replace item #"<br */*>" " "))
+
+(defn- get-from-show-part
+  "Get matched form show part"
+  ([re part] (get-from-show-part re part ""))
+  ([re part default] (get-from-part re part default)))
 
 (defn- create-subtitle
   "Create subtitle map from tr"
   [line] (let [tds (html/select line [:td])
-               titles-td (first tds)
+               titles-td (-> line
+                             (html/select [:td])
+                             first)
                main-link (-> titles-td
                              (html/select [:strong :a])
                              first)
                seasons-part (some-> titles-td
                                     :content
                                     vec
-                                    (get 2))]
-           {:show (-> main-link
-                      :content
-                      first)
+                                    (get 2))
+               show-part (-> main-link
+                             :content
+                             first
+                             remove-brs)]
+           {:show (get-from-show-part #"\"(.+)\"" show-part show-part)
+            :name (get-from-show-part #"\".+\" (.+)" show-part)
             :url (-> main-link
                      :attrs
                      :href
@@ -60,4 +81,3 @@
              (html/select [:table#search_results
                            [:tr.expandable (html/has [:strong])]])
              (#(map create-subtitle %))))
-
