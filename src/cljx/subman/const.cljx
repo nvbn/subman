@@ -16,6 +16,6 @@
 
 (def update-deep 10)
 
-(def update-period (* 5 60 60))
+(def update-period (* 5 60 1000))
 
 (def result-size 100)
