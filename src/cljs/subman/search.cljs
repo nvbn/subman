@@ -10,7 +10,7 @@
 
 (defn search-box
   "Search box"
-  [{:keys [value]}] [:div.input-group.input-group-lg.col-xs-12.search-inpu
+  [{:keys [value]}] [:div.input-group.input-group-lg.col-xs-12.search-input
                      {:data-spy "affix"
                       :data-offset-top "40"}
                      [:span.input-group-addon [:i.fa.fa-search]]
