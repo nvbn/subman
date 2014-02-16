@@ -47,11 +47,16 @@
                               [:p "We indexing "
                                [:a {:href "http://www.addic7ed.com/"
                                     :target "_blank"} "addic7ed.com"]
+                               ", "
+                               [:a {:href "http://www.opensubtitles.org/"
+                                    :target "_blank"} "www.opensubtitles.org"]
                                " and "
                                [:a {:href "http://www.podnapisi.net/"
                                     :target "_blank"} "podnapisi.net"]
                                "."]
-                              [:p "Total indexed subtitles count: " @total-count]
+                              [:p "Total indexed subtitles count: "
+                               @total-count
+                               "."]
                               [:a {:href "https://github.com/nvbn/subman"
                                    :target "_blank"}
                                [:i.fa.fa-github] " github"]]
