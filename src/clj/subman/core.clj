@@ -14,16 +14,18 @@
              wrap-base-url
              wrap-reload))
 
-(def pool (at-at/mk-pool))
+(defn init-pool []
+  (let [pool (at-at/mk-pool)]
+    (at-at/every const/update-period
+                 (fn [] filler/update-all
+                   models/update-total-count)
+                 pool)))
 
 (defn -main [& args]
   (try (models/create-index)
     (catch Exception e (println e)))
   (models/update-total-count)
-  (at-at/every const/update-period
-               (fn [] filler/update-all
-                 models/update-total-count)
-               pool)
+  (future (init-pool))
   (let [port (Integer/parseInt
               (or (System/getenv "PORT") const/default-port))]
     (server/run-server app {:port port})))
