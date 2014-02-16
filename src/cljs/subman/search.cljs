@@ -36,7 +36,7 @@
 
 (defn result-list
   "Search result list"
-  [{:keys [query items counter]}]
+  [{:keys [query items counter total-count]}]
   (cond
    (> (count @items) 0) [:div.container.col-xs-12
                          [:div.search-result-list.list-group (map result-line @items)]]
@@ -50,26 +50,43 @@
                                [:a {:href "http://www.podnapisi.net/"
                                     :target "_blank"} "podnapisi.net"]
                                "."]
+                              [:p "Total indexed subtitles count: " @total-count]
                               [:a {:href "https://github.com/nvbn/subman"
                                    :target "_blank"}
                                [:i.fa.fa-github] " github"]]
    :else [:div.container.col-xs-12.info-box
           [:h2 "Nothing found for \"" @query "\""]]))
 
+(defn watch-to-query
+  "Watch to search query"
+  [query results counter]
+  (add-watch query :search-request
+             (fn [key ref old-value new-value]
+               (let [current (swap! counter inc)]
+                 (go (let [url (str "/api/search/?query=" new-value)
+                           response (<! (http/get url))]
+                       (when (= current @counter)
+                         (reset! results (read-string (:body response))))))))))
+
+(defn update-total-count
+  "Update total count value"
+  [total-count] (go (->> (http/get "/api/count/")
+                         <!
+                         :body
+                         read-string
+                         (reset! total-count))))
+
 (defn search-page
   "Search page view"
   [] (let [query (atom "")
            results (atom [])
-           counter (atom 0)]
-       (add-watch query :search-request
-                  (fn [key ref old-value new-value]
-                    (let [current (swap! counter inc)]
-                      (go (let [url (str "/api/search/?query=" new-value)
-                                response (<! (http/get url))]
-                            (when (= current @counter)
-                              (reset! results (read-string (:body response)))))))))
+           counter (atom 0)
+           total-count (atom 0)]
+       (watch-to-query query results counter)
+       (update-total-count total-count)
        (init-history query)
        [:div [search-box {:value query}]
         [result-list {:items results
                       :query query
-                      :counter counter}]]))
+                      :counter counter
+                      :total-count total-count}]]))
