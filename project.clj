@@ -24,12 +24,16 @@
   :profiles {:dev {:dependencies [[midje "1.6.0"]]}
              :uberjar {:aot :all}}
   :source-paths ["src/clj"]
-  :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
-                        :compiler {:preamble ["reagent/react.min.js"]
-                                   :output-to "resources/public/main.js"
-                                   :optimizations :advanced
-                                   :pretty-print false}
-                        :jar true}]}
+  :cljsbuild {:builds {:uberjar {:source-paths ["src/cljs" "target/generated-cljs"]
+                                 :compiler {:preamble ["reagent/react.min.js"]
+                                            :output-to "resources/public/main.js"
+                                            :optimizations :advanced
+                                            :pretty-print false}
+                                 :jar true}
+                       :dev {:source-paths ["src/cljs" "target/generated-cljs"]
+                             :compiler {:preamble ["reagent/react.js"]
+                                        :output-to "resources/public/main.js"
+                                        :pretty-print true}}}}
   :cljx {:builds [{:source-paths ["src/cljx"]
                    :output-path "target/classes"
                    :rules :clj}
