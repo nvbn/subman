@@ -2,7 +2,8 @@
   (:use [cljs.reader :only [read-string]]
         [reagent.core :only [atom]]
         [subman.helpers :only [is-filled?]]
-        [subman.history :only [init-history]])
+        [subman.history :only [init-history]]
+        [subman.push :only [init-push]])
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
@@ -85,6 +86,7 @@
        (watch-to-query query results counter)
        (update-total-count total-count)
        (init-history query)
+       (init-push total-count)
        [:div [search-box {:value query}]
         [result-list {:items results
                       :query query

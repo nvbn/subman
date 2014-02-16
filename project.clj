@@ -26,7 +26,7 @@
   :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                         :compiler {:preamble ["reagent/react.min.js"]
                                    :output-to "resources/public/main.js"
-                                   ;:optimizations :advanced
+                                   :optimizations :advanced
                                    :pretty-print false}
                         :jar true}]}
   :cljx {:builds [{:source-paths ["src/cljx"]
