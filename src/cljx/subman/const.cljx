@@ -19,3 +19,5 @@
 (def update-period (* 5 60 1000))
 
 (def result-size 100)
+
+(def default-port "3000")

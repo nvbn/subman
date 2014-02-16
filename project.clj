@@ -14,18 +14,19 @@
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
                  [overtone/at-at "1.2.0"]
                  [garden "1.1.5"]
-                 [org.clojure/data.json "0.2.4"]]
-  :ring {:handler subman.core/app}
-  :plugins [[lein-ring "0.8.10"]
-            [lein-cljsbuild "1.0.1"]
+                 [org.clojure/data.json "0.2.4"]
+                 [http-kit "2.1.17"]
+                 [ring "1.2.1"]]
+  :plugins [[lein-cljsbuild "1.0.1"]
             [com.keminglabs/cljx "0.3.2"]
             [lein-garden "0.1.5"]]
+  :main subman.core
   :profiles {:dev {:dependencies [[midje "1.6.0"]]}}
   :source-paths ["src/clj"]
   :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                         :compiler {:preamble ["reagent/react.min.js"]
                                    :output-to "resources/public/main.js"
-                                   :optimizations :advanced
+                                   ;:optimizations :advanced
                                    :pretty-print false}
                         :jar true}]}
   :cljx {:builds [{:source-paths ["src/cljx"]
