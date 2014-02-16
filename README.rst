@@ -29,7 +29,7 @@ Prepare assets:
 .. code-block:: bash
 
     bower install
-    lein cljsbuild once
+    lein cljsbuild once dev
     lein cljx
     lein garden once
 
@@ -37,5 +37,11 @@ And run with:
 
 .. code-block:: bash
 
-    lein ring server
+    lein run
+
+For building jar run:
+
+.. code-block:: bash
+
+    lein uberjar
 
