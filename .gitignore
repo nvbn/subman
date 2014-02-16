@@ -13,3 +13,4 @@ pom.xml.asc
 hs_err*
 /resources/public/components/
 /resources/public/main.js
+/resources/public/main.css
