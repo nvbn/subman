@@ -1,5 +1,5 @@
 (ns subman.style
-  (:use [garden.def :only [defstyles]]))
+  (:require [garden.def :refer [defstyles]]))
 
 (defstyles main
   [:.search-input {:z-index 100}]

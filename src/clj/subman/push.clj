@@ -1,8 +1,6 @@
 (ns subman.push
-  (:use [org.httpkit.server :only [with-channel
-                                   on-close
-                                   send!]]
-        [subman.models :only [total-count]]))
+  (:require [org.httpkit.server :refer [with-channel on-close send!]]
+            [subman.models :refer [total-count]]))
 
 (def subscribers (atom #{}))
 

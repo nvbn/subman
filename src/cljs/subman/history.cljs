@@ -1,6 +1,6 @@
 (ns subman.history
-  (:use [cljs.reader :only [read-string]])
-  (:require [goog.events :as gevents]
+  (:require [cljs.reader :refer [read-string]]
+            [goog.events :as gevents]
             [goog.history.EventType :as history-event]
             [goog.string :as string]
             [goog.history.Html5History :as history5]))

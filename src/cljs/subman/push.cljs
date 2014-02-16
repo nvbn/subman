@@ -1,6 +1,6 @@
 (ns subman.push
-  (:use [cljs.reader :only [read-string]])
-  (:require [goog.net.WebSocket]
+  (:require [cljs.reader :refer [read-string]]
+            [goog.net.WebSocket]
             [goog.events :as gevents]))
 
 (defn init-push

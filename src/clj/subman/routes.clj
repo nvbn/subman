@@ -1,6 +1,6 @@
 (ns subman.routes
-  (:use [compojure.core :only [defroutes GET]])
   (:require [compojure.route :as route]
+            [compojure.core :refer [defroutes GET]]
             [subman.models :as models]
             [subman.api :as api]
             [subman.views :as views]

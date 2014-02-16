@@ -1,13 +1,13 @@
 (ns subman.search
-  (:use [cljs.reader :only [read-string]]
-        [reagent.core :only [atom]]
-        [subman.helpers :only [is-filled?]]
-        [subman.history :only [init-history]]
-        [subman.push :only [init-push]])
   (:require-macros [cljs.core.async.macros :refer [go]])
-  (:require [cljs-http.client :as http]
+  (:require [cljs.reader :refer [read-string]]
+            [reagent.core :refer [atom]]
+            [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.helpers :refer [is-filled?]]
+            [subman.history :refer [init-history]]
+            [subman.push :refer [init-push]]))
 
 (defn search-box
   "Search box"

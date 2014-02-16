@@ -1,5 +1,5 @@
 (ns subman.views
-  (:use [hiccup core page]))
+  (:require [hiccup.page :refer [html5 include-css include-js]]))
 
 (defn index-page []
   (html5 [:head

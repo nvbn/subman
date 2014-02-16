@@ -1,10 +1,10 @@
 (ns subman.core
   (:gen-class)
-  (:use [hiccup.middleware :only [wrap-base-url]]
-        [ring.middleware.reload :only [wrap-reload]])
   (:require [compojure.handler :as handler]
             [overtone.at-at :as at-at]
             [org.httpkit.server :as server]
+            [hiccup.middleware :refer [wrap-base-url]]
+            [ring.middleware.reload :refer [wrap-reload]]
             [subman.routes :as routes]
             [subman.filler :as filler]
             [subman.const :as const]
