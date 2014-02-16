@@ -21,7 +21,8 @@
             [com.keminglabs/cljx "0.3.2"]
             [lein-garden "0.1.5"]]
   :main subman.core
-  :profiles {:dev {:dependencies [[midje "1.6.0"]]}}
+  :profiles {:dev {:dependencies [[midje "1.6.0"]]}
+             :uberjar {:aot :all}}
   :source-paths ["src/clj"]
   :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                         :compiler {:preamble ["reagent/react.min.js"]
