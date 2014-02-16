@@ -9,10 +9,14 @@
 
 (def pool (at-at/mk-pool))
 
-(at-at/every const/update-period filler/update-all pool)
+(at-at/every const/update-period (fn [] filler/update-all
+                                   models/update-total-count)
+             pool)
 
 (try (models/create-index)
   (catch Exception e (println e)))
+
+(models/update-total-count)
 
 (def app
   (-> (handler/site routes/main-routes)

@@ -8,6 +8,15 @@
 
 (esr/connect! const/db-host)
 
+(def total-count (atom 0))
+
+(defn update-total-count
+  "Update total count of subtitles"
+  [] (->> (esd/search const/index-name "subtitle" :filter {})
+          :hits
+          :total
+          (reset! total-count)))
+
 (defn create-index []
   (esi/create const/index-name :mappings {"subtitle"
                                           {:properties {:show {:type "string"}

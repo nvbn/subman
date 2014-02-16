@@ -9,4 +9,5 @@
   (GET "/" [] (views/index-page))
   (GET "/search/*" [] (views/index-page))
   (GET "/api/search/" {params :params} (api/search params))
+  (GET "/api/count/" {params :params} (api/total-count params))
   (route/resources "/"))
