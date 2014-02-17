@@ -17,10 +17,10 @@
 (defn init-pool []
   (let [pool (at-at/mk-pool)]
     (at-at/every const/update-period
-                 (fn [] (println "start update")
-                   (filler/update-all)
-                   (models/update-total-count)
-                   (println "update finished"))
+                 (fn [] (future (println "start update")
+                          (filler/update-all)
+                          (models/update-total-count)
+                          (println "update finished")))
                  pool)))
 
 (defn -main [& args]
