@@ -16,7 +16,9 @@
                       :data-offset-top "40"}
                      [:span.input-group-addon (if (= "" @value)
                                                 [:i.fa.fa-search]
-                                                [:a {:on-click #(reset! value "")
+                                                [:a {:on-click (fn [e]
+                                                                 (.preventDefault e)
+                                                                 (reset! value ""))
                                                      :href "#"}
                                                  [:i.fa.fa-chevron-left]])]
                      [:input.form-control {:type "text"
