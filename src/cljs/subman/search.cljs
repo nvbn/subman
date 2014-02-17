@@ -43,7 +43,7 @@
   "Search result list"
   [{:keys [query items counter total-count]}]
   (cond
-   (> (count @items) 0) [:div.container.col-xs-12
+   (> (count @items) 0) [:div.container.col-xs-12.search-result-holder
                          [:div.search-result-list.list-group (map result-line @items)]]
    (or (= @counter 0)
        (= (count @query) 0)) [:div.container.col-xs-12.info-box
