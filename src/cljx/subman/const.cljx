@@ -10,9 +10,12 @@
 
 (def type-opensubtitles 2)
 
+(def type-subscene 3)
+
 (def type-names {type-addicted "Addicted"
                  type-podnapisi "Podnapisi"
-                 type-opensubtitles "OpenSubtitles"})
+                 type-opensubtitles "OpenSubtitles"
+                 type-subscene "Subscene"})
 
 (def update-deep 10)
 

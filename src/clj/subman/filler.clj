@@ -2,6 +2,7 @@
   (:require [subman.sources.addicted :as addicted]
             [subman.sources.podnapisi :as podnapisi]
             [subman.sources.opensubtitles :as opensubtitles]
+            [subman.sources.subscene :as subscene]
             [subman.models :as models]
             [subman.const :as const]
             [subman.helpers :as helpers]))
@@ -89,6 +90,7 @@
 (defn update-all
   "Receive update from all sources"
   [] (->> (get-all-new models/in-db
+                       subscene/get-release-page-result
                        opensubtitles/get-release-page-result
                        addicted/get-release-page-result
                        podnapisi/get-release-page-result)
