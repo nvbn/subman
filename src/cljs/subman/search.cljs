@@ -50,9 +50,12 @@
                                ", "
                                [:a {:href "http://www.opensubtitles.org/"
                                     :target "_blank"} "www.opensubtitles.org"]
-                               " and "
+                               ", "
                                [:a {:href "http://www.podnapisi.net/"
                                     :target "_blank"} "podnapisi.net"]
+                               " and "
+                               [:a {:href "http://subscene.com/"
+                                    :target "_blank"} "subscene.com"]
                                "."]
                               [:p "Total indexed subtitles count: "
                                @total-count
