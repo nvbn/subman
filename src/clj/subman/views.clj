@@ -3,6 +3,7 @@
 
 (defn index-page []
   (html5 [:head
+          [:link {:rel "icon" :type "image/png" :href "/favicon.png"}]
           [:title "Subman - subtitle search service with api"]
           (include-css "/components/bootstrap/dist/css/bootstrap.min.css"
                        "/components/bootstrap/dist/css/bootstrap-theme.min.css"
