@@ -1,4 +1,4 @@
-(ns subman.views
+(ns subman.web.views
   (:require [hiccup.page :refer [html5 include-css include-js]]))
 
 (defn index-page []

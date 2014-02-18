@@ -5,7 +5,7 @@
             [org.httpkit.server :as server]
             [hiccup.middleware :refer [wrap-base-url]]
             [ring.middleware.reload :refer [wrap-reload]]
-            [subman.routes :as routes]
+            [subman.web.routes :as routes]
             [subman.filler :as filler]
             [subman.const :as const]
             [subman.models :as models]))

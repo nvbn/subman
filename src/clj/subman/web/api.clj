@@ -1,4 +1,4 @@
-(ns subman.api
+(ns subman.web.api
   (:require [clojure.data.json :as json]
             [subman.models :as models]))
 

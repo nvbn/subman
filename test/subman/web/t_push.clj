@@ -1,8 +1,8 @@
-(ns subman.t-push
+(ns subman.web.t-push
   (:require [midje.sweet :refer [fact => provided with-state-changes
                                  before after truthy]]
             [org.httpkit.server :as server]
-            [subman.push :as push]
+            [subman.web.push :as push]
             [subman.models :as models]))
 
 (deftype FakeChannel [calls]

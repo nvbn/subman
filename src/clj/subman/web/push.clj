@@ -1,4 +1,4 @@
-(ns subman.push
+(ns subman.web.push
   (:require [org.httpkit.server :refer [with-channel on-close send!]]
             [subman.models :refer [total-count]]))
 

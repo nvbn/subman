@@ -1,10 +1,10 @@
-(ns subman.routes
+(ns subman.web.routes
   (:require [compojure.route :as route]
             [compojure.core :refer [defroutes GET]]
             [subman.models :as models]
-            [subman.api :as api]
-            [subman.views :as views]
-            [subman.push :as push]))
+            [subman.web.api :as api]
+            [subman.web.views :as views]
+            [subman.web.push :as push]))
 
 (defroutes main-routes
   (GET "/" [] (views/index-page))

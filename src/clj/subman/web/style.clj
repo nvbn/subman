@@ -1,4 +1,4 @@
-(ns subman.style
+(ns subman.web.style
   (:require [garden.def :refer [defstyles]]))
 
 (defstyles main

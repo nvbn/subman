@@ -1,10 +1,10 @@
-(ns subman.t-api
+(ns subman.web.t-api
   (:require [midje.sweet :refer [fact facts => provided anything
                                  truthy with-state-changes
                                  before after]]
             [clojure.data.json :as json]
             [subman.models :as models]
-            [subman.api :as api]))
+            [subman.web.api :as api]))
 
 (facts "get writer"
        (fact "should be json if format = json"
