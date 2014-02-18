@@ -21,19 +21,21 @@
             [com.keminglabs/cljx "0.3.2"]
             [lein-garden "0.1.5"]]
   :main subman.core
-  :profiles {:dev {:dependencies [[midje "1.6.2"]]}
-             :uberjar {:aot :all}}
+  :profiles {:dev {:dependencies [[midje "1.6.2"]]
+                   :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
+                                         :compiler {:preamble ["reagent/react.js"]
+                                                    :output-to "resources/public/main.js"
+                                                    :pretty-print true}}]}}
+             :uberjar {:aot :all
+                       :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
+                                             :compiler {:preamble ["reagent/react.min.js"]
+                                                        :output-to "resources/public/main.js"
+                                                        :optimizations :advanced
+                                                        :pretty-print false}
+                                             :jar true}]}
+                       :hooks [cljx.hooks
+                               leiningen.cljsbuild]}}
   :source-paths ["src/clj"]
-  :cljsbuild {:builds {:uberjar {:source-paths ["src/cljs" "target/generated-cljs"]
-                                 :compiler {:preamble ["reagent/react.min.js"]
-                                            :output-to "resources/public/main.js"
-                                            :optimizations :advanced
-                                            :pretty-print false}
-                                 :jar true}
-                       :dev {:source-paths ["src/cljs" "target/generated-cljs"]
-                             :compiler {:preamble ["reagent/react.js"]
-                                        :output-to "resources/public/main.js"
-                                        :pretty-print true}}}}
   :cljx {:builds [{:source-paths ["src/cljx"]
                    :output-path "target/classes"
                    :rules :clj}
@@ -41,6 +43,4 @@
                    :output-path "target/generated-cljs"
                    :rules :cljs}]}
   :garden {:builds [{:stylesheet subman.style/main
-                     :compiler {:output-to "resources/public/main.css"}}]}
-  :hooks [cljx.hooks
-          leiningen.cljsbuild])
+                     :compiler {:output-to "resources/public/main.css"}}]})
