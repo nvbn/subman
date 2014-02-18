@@ -34,3 +34,13 @@
           :show) => "Lab Rats"
       (provided (helpers/fetch anything) => (get-from-file
                                              "test/subman/sources/fixtures/podnapisi_release.html")))
+
+(fact "should get release page url"
+      (#'podnapisi/get-release-page-url 1) => "http://www.podnapisi.net/en/ppodnapisi/search/sJ/-1/sS/time/sO/desc/sT/-1/sM/0/sA/0/sK//sOA/0/sOT/0/sOL/0/sOI/0/sOE/0/sOD/0/sOH/0/sY//sOCS/0/sFT/0/sR//sTS//sTE//sAKA/1/sH//sI//tbsl/1/asdp/0/page//page/1")
+
+(fact "should set source when getting release page results"
+      (-> (#'podnapisi/get-release-page-result 1)
+          first
+          :source) => const/type-podnapisi
+      (provided (helpers/fetch anything) => (get-from-file
+                                             "test/subman/sources/fixtures/podnapisi_release.html")))
