@@ -1,5 +1,5 @@
 (ns subman.t-views
-  (:require [midje.sweet :refer [fact truthy]]
+  (:require [midje.sweet :refer [fact truthy =>]]
             [subman.views :as views]))
 
 (fact "index page should be ok"
