@@ -6,7 +6,7 @@
 
 (defn get-single-episode
   "Get parsed html for single episode"
-  [] (get-from-file "test/subman/sources/fixtures/addicted_episode.html"))
+  [] (get-from-file "test/fixtures/subman/sources/addicted_episode.html"))
 
 (facts "should make correct url"
        (fact "when start with /"
@@ -86,7 +86,7 @@
 
 (fact "get episode from release line"
       (#'addicted/episode-from-release
-       (-> (get-from-file "test/subman/sources/fixtures/addicted_line.html")
+       (-> (get-from-file "test/fixtures/subman/sources/addicted_line.html")
            (html/select [:a])
            first)) => {:episode "6"
                        :name "Episode Six"
@@ -100,6 +100,6 @@
           :name) => "Family Affair"
       (provided
        (helpers/fetch (#'addicted/get-releases-url 1))
-       => (get-from-file "test/subman/sources/fixtures/addicted_release.html")
+       => (get-from-file "test/fixtures/subman/sources/addicted_release.html")
        (helpers/fetch anything)
-       => (get-from-file "test/subman/sources/fixtures/addicted_episode.html")))
+       => (get-from-file "test/fixtures/subman/sources/addicted_episode.html")))

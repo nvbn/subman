@@ -31,7 +31,7 @@
 
 (fact "should create subtitle map"
       (#'opensubtitles/create-subtitle
-       (-> (get-from-file "test/subman/sources/fixtures/opensubtitles_line.html")
+       (-> (get-from-file "test/fixtures/subman/sources/opensubtitles_line.html")
            (html/select [:tr])
            first)) => {:episode "17"
                        :lang "English"
@@ -48,4 +48,4 @@
           :show) => "Community"
       (provided
        (helpers/fetch anything) => (get-from-file
-                                    "test/subman/sources/fixtures/opensubtitles_release.html")))
+                                    "test/fixtures/subman/sources/opensubtitles_release.html")))

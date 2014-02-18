@@ -11,7 +11,7 @@
 (facts "get item from season-episode part"
        (fact "when can"
              (#'podnapisi/season-episode-part
-              (get-from-file "test/subman/sources/fixtures/podnapisi_line.html")
+              (get-from-file "test/fixtures/subman/sources/podnapisi_line.html")
               2) => "6")
        (fact "when can't"
              (#'podnapisi/season-episode-part
@@ -20,7 +20,7 @@
 (fact "should create subtitle map from line"
       (#'podnapisi/create-subtitle-map
        (get-from-file
-        "test/subman/sources/fixtures/podnapisi_line.html")) => {:episode "6"
+        "test/fixtures/subman/sources/podnapisi_line.html")) => {:episode "6"
                                                                  :lang "English"
                                                                  :name ""
                                                                  :season "1"
@@ -33,7 +33,7 @@
           first
           :show) => "Lab Rats"
       (provided (helpers/fetch anything) => (get-from-file
-                                             "test/subman/sources/fixtures/podnapisi_release.html")))
+                                             "test/fixtures/subman/sources/podnapisi_release.html")))
 
 (fact "should get release page url"
       (#'podnapisi/get-release-page-url 1) => "http://www.podnapisi.net/en/ppodnapisi/search/sJ/-1/sS/time/sO/desc/sT/-1/sM/0/sA/0/sK//sOA/0/sOT/0/sOL/0/sOI/0/sOE/0/sOD/0/sOH/0/sY//sOCS/0/sFT/0/sR//sTS//sTE//sAKA/1/sH//sI//tbsl/1/asdp/0/page//page/1")
@@ -43,4 +43,4 @@
           first
           :source) => const/type-podnapisi
       (provided (helpers/fetch anything) => (get-from-file
-                                             "test/subman/sources/fixtures/podnapisi_release.html")))
+                                             "test/fixtures/subman/sources/podnapisi_release.html")))

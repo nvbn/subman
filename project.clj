@@ -37,7 +37,7 @@
                                              :jar true}]}
                        :hooks [cljx.hooks
                                leiningen.cljsbuild]}}
-  :source-paths ["src/clj"]
+  :source-paths ["src/clj" "test/clj"]
   :cljx {:builds [{:source-paths ["src/cljx"]
                    :output-path "target/classes"
                    :rules :clj}

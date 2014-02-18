@@ -45,9 +45,16 @@ For building jar run:
 
     lein uberjar
 
-For running tests run:
+For running server side tests run:
 
 .. code-block:: bash
 
     lein midje
+
+For client side:
+
+.. code-block:: bash
+
+    npm install -g karma
+    karma
 
