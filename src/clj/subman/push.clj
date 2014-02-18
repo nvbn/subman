@@ -13,5 +13,5 @@
 
 (add-watch total-count :notifications
            (fn [key ref old-value new-value]
-             (for [con @subscribers]
+             (doseq [con @subscribers]
                (send! con (prn-str {:total-count new-value})))))
