@@ -22,6 +22,7 @@
             [lein-garden "0.1.5"]]
   :main subman.core
   :profiles {:dev {:dependencies [[midje "1.6.2"]]
+                   :plugins [[lein-midje "3.1.3"]]
                    :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                          :compiler {:preamble ["reagent/react.js"]
                                                     :output-to "resources/public/main.js"

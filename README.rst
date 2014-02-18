@@ -1,4 +1,4 @@
-Sbuman
+Subman
 =======
 
 Service for fast subtitle searching.
@@ -44,4 +44,10 @@ For building jar run:
 .. code-block:: bash
 
     lein uberjar
+
+For running tests run:
+
+.. code-block:: bash
+
+    lein midje
 
