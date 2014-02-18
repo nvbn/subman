@@ -1,5 +1,6 @@
 (ns subman.sources.opensubtitles
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [swiss.arrows :refer [-<>]]
+            [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers]
             [subman.const :as const]))
 
@@ -74,8 +75,8 @@
 
 (defn get-release-page-result
   "Get release page result"
-  [page] (-> (get-page-url page)
-             helpers/fetch
-             (html/select [:table#search_results
-                           [:tr.expandable (html/has [:strong])]])
-             (#(map create-subtitle %))))
+  [page] (-<> (get-page-url page)
+              helpers/fetch
+              (html/select [:table#search_results
+                            [:tr.expandable (html/has [:strong])]])
+              (map create-subtitle <>)))
