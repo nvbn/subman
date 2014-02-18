@@ -4,9 +4,9 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [org.clojure/clojurescript "0.0-2138"]
+                 [org.clojure/clojurescript "0.0-2156"]
                  [compojure "1.1.6"]
-                 [hiccup "1.0.4"]
+                 [hiccup "1.0.5"]
                  [enlive "1.1.5"]
                  [clojurewerkz/elastisch "1.5.0-beta1"]
                  [reagent "0.3.0"]
@@ -21,7 +21,7 @@
             [com.keminglabs/cljx "0.3.2"]
             [lein-garden "0.1.5"]]
   :main subman.core
-  :profiles {:dev {:dependencies [[midje "1.6.0"]]}
+  :profiles {:dev {:dependencies [[midje "1.6.2"]]}
              :uberjar {:aot :all}}
   :source-paths ["src/clj"]
   :cljsbuild {:builds {:uberjar {:source-paths ["src/cljs" "target/generated-cljs"]
