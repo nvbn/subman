@@ -1,6 +1,5 @@
 (ns subman.t-filler
   (:require [midje.sweet :refer [fact facts => provided anything truthy]]
-            [clojure.data.json :as json]
             [subman.models :as models]
             [subman.sources.addicted :as addicted]
             [subman.sources.podnapisi :as podnapisi]
