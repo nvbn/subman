@@ -1,14 +1,6 @@
 (ns subman.helpers
   (:require [net.cgrand.enlive-html :as html]))
 
-(defn print-first [arg fnc & args]
-  (println arg)
-  (apply fnc arg args))
-
-(defn print-identity [item]
-  (println item)
-  item)
-
 (defn remove-first-0
   "Remove first 0 from string"
   [query] (clojure.string/replace query #"^(0+)" ""))
