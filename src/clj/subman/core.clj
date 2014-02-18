@@ -24,6 +24,7 @@
                  pool)))
 
 (defn -main [& args]
+  (models/connect!)
   (try (models/create-index)
     (catch Exception e (println e)))
   (models/update-total-count)

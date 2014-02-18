@@ -6,7 +6,9 @@
             [subman.helpers :as helpers]
             [subman.const :as const]))
 
-(esr/connect! const/db-host)
+(defn connect!
+  "Connect to elastic"
+  [] (esr/connect! const/db-host))
 
 (def total-count (atom 0))
 
