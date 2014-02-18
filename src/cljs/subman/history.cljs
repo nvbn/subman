@@ -12,7 +12,7 @@
                      (.setPathPrefix "/search/")
                      (.setEnabled true))]
        (gevents/unlisten (.-window_ history) (.-POPSTATE gevents/EventType)
-                         (.-onHistoryEvent_ history), false, history)
+                         (.-onHistoryEvent_ history) false history)
        history))
 
 (defn init-history
