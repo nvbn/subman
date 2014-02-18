@@ -39,9 +39,14 @@
   "Delete all documents"
   [] (esd/delete-by-query-across-all-types const/index-name (q/match-all)))
 
+(defn- get-season-episode-parts
+  "Get season episode parts"
+  [text] (or (re-find #"[sS](\d+)[eE](\d+)" text)
+             (re-find #"(\d+)[xX](\d+)" text)))
+
 (defn- get-season-episode
   "Add season and episode filters"
-  [text] (if-let [nums (re-find #"[sS](\d+)[eE](\d+)" text)]
+  [text] (if-let [nums (get-season-episode-parts text)]
            [(q/term :season (helpers/remove-first-0 (get nums 1)))
             (q/term :episode (helpers/remove-first-0 (get nums 2)))]
            []))
