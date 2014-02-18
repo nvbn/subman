@@ -1,5 +1,6 @@
 (ns subman.sources.podnapisi
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [swiss.arrows :refer [-<>]]
+            [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers]
             [subman.const :as const]))
 
@@ -67,8 +68,7 @@
 
 (defn get-release-page-result
   "Get release page result"
-  [page] (map #(assoc % :source const/type-podnapisi)
-              (-> (get-release-page-url page)
-                  parse-list-page
-                  flatten)))
-
+  [page] (-<> (get-release-page-url page)
+              parse-list-page
+              flatten
+              (map #(assoc % :source const/type-podnapisi) <>)))
