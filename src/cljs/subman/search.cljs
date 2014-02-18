@@ -1,6 +1,7 @@
 (ns subman.search
   (:require-macros [cljs.core.async.macros :refer [go]])
-  (:require [cljs.reader :refer [read-string]]
+  (:require [clojure.string :as string]
+            [cljs.reader :refer [read-string]]
             [reagent.core :refer [atom]]
             [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
@@ -72,14 +73,21 @@
    :else [:div.container.col-xs-12.info-box
           [:h2 "Nothing found for \"" @query "\""]]))
 
+(defn create-search-request
+  "Create search request from query"
+  [query] (str "/api/search/" (if (re-find #" :lang " query)
+                                (let [parts (string/split query #" :lang ")]
+                                  (str "?query=" (get parts 0) "&lang=" (get parts 1)))
+                                (str "?query=" query))))
+
 (defn watch-to-query
   "Watch to search query"
   [query results counter]
   (add-watch query :search-request
              (fn [key ref old-value new-value]
-               (let [current (swap! counter inc)]
-                 (go (let [url (str "/api/search/?query=" new-value)
-                           response (<! (http/get url))]
+               (let [current (swap! counter inc)
+                     url (create-search-request new-value)]
+                 (go (let [response (<! (http/get url))]
                        (when (= current @counter)
                          (reset! results (read-string (:body response))))))))))
 
