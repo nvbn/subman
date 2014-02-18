@@ -1,5 +1,6 @@
 (ns subman.sources.subscene
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [swiss.arrows :refer [-<>>]]
+            [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers]
             [subman.const :as const]))
 
@@ -57,12 +58,12 @@
 
 (defn get-release-page-result
   "Get release page result"
-  [page] (->> (get-page-url page)
-              helpers/fetch
-              (#(html/select % [:table :td.a1 :a]))
-              (map #(-> %
-                        :attrs
-                        :href
-                        make-url))
-              set
-              (map create-subtitle)))
+  [page] (-<>> (get-page-url page)
+               helpers/fetch
+               (html/select <> [:table :td.a1 :a])
+               (map #(-> %
+                         :attrs
+                         :href
+                         make-url))
+               set
+               (map create-subtitle)))
