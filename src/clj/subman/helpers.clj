@@ -38,3 +38,12 @@
            [(remove-first-0 (get nums 1))
             (remove-first-0 (get nums 2))]
            ["" ""]))
+
+(defn get-from-file
+  "Get parsed html from file"
+  [path] (html/html-resource (java.io.StringReader.
+                              (slurp path))))
+
+(defn get-from-line
+  "Get parsed html from line"
+  [line] (html/html-resource (java.io.StringReader. line)))

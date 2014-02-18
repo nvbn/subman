@@ -70,7 +70,7 @@
                      :else buffer))
                   [] lines))
 
-(defn get-versions
+(defn- get-versions
   "Get versions of subtitles for single episode"
   [episode] (-> episode
                 :url
