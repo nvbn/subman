@@ -1,4 +1,4 @@
-(ns subman.t-helpres
+(ns subman.t-models
   (:require [midje.sweet :refer [fact facts => provided anything
                                  with-state-changes before after]]
             [clojurewerkz.elastisch.rest.document :as esd]

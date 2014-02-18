@@ -1,4 +1,4 @@
-(ns subman.t-helpres
+(ns subman.t-helpers
   (:require [midje.sweet :refer [fact facts => provided anything]]
             [subman.helpers :as helpers]))
 
