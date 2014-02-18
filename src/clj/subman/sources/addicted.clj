@@ -1,5 +1,6 @@
 (ns subman.sources.addicted
   (:require [net.cgrand.enlive-html :as html]
+            [swiss.arrows :refer [-<>>]]
             [subman.helpers :as helpers]
             [subman.const :as const]))
 
@@ -91,26 +92,29 @@
                                   (get 1)
                                   (clojure.string/split #"x"))]
            {:show (first name-parts)
-            :season (-> season-episode first helpers/remove-first-0)
-            :episode (-> season-episode last helpers/remove-first-0)
+            :season (-> season-episode
+                        first
+                        helpers/remove-first-0)
+            :episode (-> season-episode
+                         last
+                         helpers/remove-first-0)
             :name (last name-parts)
             :url (-> item :attrs :href make-url)}))
 
 (defn get-release-page-result
   "Get release page result"
-  [page] (-> (get-releases-url page)
-             helpers/fetch
-             (html/select [:table.tabel :tr])
-             (#(drop 2 %))
-             (html/select [(html/nth-child 2) :a])
-             flatten
-             (#(map (helpers/make-safe episode-from-release nil) %))
-             (#(remove nil? %))
-             (#(map (fn [episode] (for [version (get-versions episode)
-                                        lang (:langs version)]
-                                    (assoc episode :version (:name version)
-                                      :lang (:name lang)
-                                      :url (:url lang)
-                                      :source const/type-addicted)))
-                    %))
-             flatten))
+  [page] (-<>> (get-releases-url page)
+               helpers/fetch
+               (html/select <> [:table.tabel :tr])
+               (drop 2)
+               (html/select <> [(html/nth-child 2) :a])
+               flatten
+               (map (helpers/make-safe episode-from-release nil))
+               (remove nil?)
+               (map #(for [version (get-versions %)
+                            lang (:langs version)]
+                        (assoc % :version (:name version)
+                          :lang (:name lang)
+                          :url (:url lang)
+                          :source const/type-addicted)))
+               flatten))
