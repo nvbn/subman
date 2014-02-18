@@ -1,5 +1,5 @@
 (ns subman.sources.t-addicted
-  (:require [midje.sweet :refer [facts fact anything =>]]
+  (:require [midje.sweet :refer [facts fact anything => provided]]
             [net.cgrand.enlive-html :as html]
             [subman.sources.addicted :as addicted]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))

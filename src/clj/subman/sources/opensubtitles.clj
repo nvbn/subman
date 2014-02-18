@@ -44,9 +44,7 @@
 (defn- create-subtitle
   "Create subtitle map from tr"
   [line] (let [tds (html/select line [:td])
-               titles-td (-> line
-                             (html/select [:td])
-                             first)
+               titles-td (first tds)
                main-link (-> titles-td
                              (html/select [:strong :a])
                              first)
