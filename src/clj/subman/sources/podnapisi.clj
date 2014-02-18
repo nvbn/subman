@@ -5,44 +5,6 @@
 
 (defn- make-url [url] (str "http://www.podnapisi.net" url))
 
-(defn- get-langs
-  "Get langs with links"
-  [] (->> (make-url "/en/ppodnapisi/")
-          helpers/fetch
-          (#(html/select % [:div#content :table :td.lang :a]))
-          (drop 3)
-          (map #(hash-map :lang (-> (:content %)
-                                    first
-                                    clojure.string/trim)
-                          :lang-url (-> (:attrs %)
-                                        :href
-                                        make-url)))))
-
-(defn- get-lang-letters
-  "Get lang letters urls"
-  [lang] (map #(str (:lang-url lang) "/sS/movie/sO/desc/crka/" %)
-              (list* "*" (map #(-> % char str)
-                              (range 65 91)))))
-
-(defn- get-pages-count
-  "Get pages count for letter"
-  [url] (-> (helpers/fetch url)
-            (html/select [:div#content_left
-                          :div.buttons
-                          :div.left
-                          :button.selector])
-            first
-            :attrs
-            :pages
-            read-string))
-
-(defn- get-pages-urls
-  "Get pages urls for letter"
-  [url] (->> (get-pages-count url)
-             inc
-             (range 1)
-             (map #(str url "/page/" %))))
-
 (defn- download-element
   "Get download element"
   [item] (-> item
@@ -96,20 +58,6 @@
                           [:tr (html/has [:td])]])
             ((fn [page] (map #(create-subtitle-map %)
                             page)))))
-(defn get-all-flat
-  "Get all subtitles as flat list"
-  [] (->> (pmap (fn [lang]
-                 (->> (get-lang-letters lang)
-                      (pmap (helpers/make-safe get-pages-urls nil))
-                      (remove nil?)
-                      flatten
-                      (pmap (helpers/make-safe parse-list-page nil))
-                      (remove nil?)
-                      flatten
-                      (map #(assoc % :lang (:lang lang)
-                          :source const/type-podnapisi))))
-               (get-langs))
-          flatten))
 
 (defn- get-release-page-url
   "Get release page url"
