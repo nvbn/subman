@@ -1,5 +1,5 @@
 (ns subman.t-components
-  (:require-macros [purnam.test.sweet :refer [fact facts]])
+  (:require-macros [purnam.test.sweet :refer [fact]])
   (:require [reagent.core :refer [atom]]
             [subman.helpers :refer [truthy]]
             [subman.const :as const]
