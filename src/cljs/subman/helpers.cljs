@@ -9,7 +9,7 @@
 (defn truthy
   "If x is truthy"
   [x]
-  (or (not= "" x)
-      (not= [] x)
-      (not= nil x)
-      (not= false x)))
+  (and (not= "" x)
+       (not= [] x)
+       (not= nil x)
+       (not= false x)))

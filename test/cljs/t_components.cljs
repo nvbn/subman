@@ -1,7 +1,6 @@
 (ns subman.t-components
   (:require-macros [purnam.test.sweet :refer [fact facts]])
-  (:require [purnam.cljs]
-            [reagent.core :refer [atom]]
+  (:require [reagent.core :refer [atom]]
             [subman.helpers :refer [truthy]]
             [subman.const :as const]
             [subman.components :as components]))
