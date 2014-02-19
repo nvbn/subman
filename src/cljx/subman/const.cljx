@@ -24,3 +24,5 @@
 (def result-size 100)
 
 (def default-port "3000")
+
+(def conection-timeout 1000)

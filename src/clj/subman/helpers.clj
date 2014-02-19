@@ -1,17 +1,26 @@
 (ns subman.helpers
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [org.httpkit.client :as http]
+            [subman.const :as const]))
 
 (defn remove-first-0
   "Remove first 0 from string"
   [query]
   (clojure.string/replace query #"^(0+)" ""))
 
+(defn get-from-line
+  "Get parsed html from line"
+  [line]
+  (html/html-resource (java.io.StringReader. line)))
+
 (defn fetch
   "Fetch url content"
   [url]
   (-> url
-      java.net.URL.
-      html/html-resource))
+      (http/get {:timeout const/conection-timeout})
+      deref
+      :body
+      get-from-line))
 
 (defn nil-to-blank
   "Replace nil with blank string"
@@ -41,8 +50,3 @@
   [path]
   (html/html-resource (java.io.StringReader.
                        (slurp path))))
-
-(defn get-from-line
-  "Get parsed html from line"
-  [line]
-  (html/html-resource (java.io.StringReader. line)))
