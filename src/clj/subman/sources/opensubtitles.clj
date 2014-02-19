@@ -46,33 +46,50 @@
   ([re part] (get-from-show-part re part ""))
   ([re part default] (get-from-part re part default)))
 
+(defn- get-seasons-part
+  "Get season part from td"
+  [titles-td]
+  (some-> (:content titles-td)
+          vec
+          (get 2)))
+
+(defn- get-show-part
+  "Get show part from main link"
+  [main-link]
+  (-> main-link
+      :content
+      first
+      remove-brs))
+
+(defn- get-url
+  "Get url from main link"
+  [main-link]
+  (-> main-link
+      :attrs
+      :href
+      make-url))
+
+(defn- get-version
+  "Get version from titles"
+  [titles-td]
+  (helpers/nil-to-blank (some-> titles-td
+                                (html/select [:span])
+                                first
+                                :content
+                                first)))
+
 (defn- create-subtitle
   "Create subtitle map from tr"
   [line]
   (let [tds (html/select line [:td])
         titles-td (first tds)
-        main-link (-> titles-td
-                      (html/select [:strong :a])
-                      first)
-        seasons-part (some-> titles-td
-                             :content
-                             vec
-                             (get 2))
-        show-part (-> main-link
-                      :content
-                      first
-                      remove-brs)]
+        main-link (first (html/select titles-td [:strong :a]))
+        seasons-part (get-seasons-part titles-td)
+        show-part (get-show-part main-link)]
     {:show (get-from-show-part #"\"(.+)\"" show-part show-part)
      :name (get-from-show-part #"\".+\" (.+)" show-part)
-     :url (-> main-link
-              :attrs
-              :href
-              make-url)
-     :version (or (some-> titles-td
-                          (html/select [:span])
-                          first
-                          :content
-                          first) "")
+     :url (get-url main-link)
+     :version (get-version titles-td)
      :season (get-from-season-part #"\[S(\d+)" seasons-part)
      :episode (get-from-season-part #"E(\d+)\]" seasons-part)
      :lang force-lang
