@@ -30,7 +30,7 @@
   [& args]
   (models/connect!)
   (try (models/create-index)
-    (catch Exception e (println e)))
+    (catch Exception e))
   (models/update-total-count)
   (future (init-pool))
   (let [port (Integer/parseInt
