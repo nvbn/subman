@@ -56,5 +56,7 @@ For client side:
 .. code-block:: bash
 
     npm install -g karma
+    npm install -g jasmine-core
+    lein cljsbuild once test
     karma start --single-run
 

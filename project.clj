@@ -17,17 +17,24 @@
                  [org.clojure/data.json "0.2.4"]
                  [http-kit "2.1.17"]
                  [ring "1.2.1"]
-                 [swiss-arrows "1.0.0"]]
+                 [swiss-arrows "1.0.0"]
+                 [im.chit/purnam "0.1.8"]]
   :plugins [[lein-cljsbuild "1.0.1"]
             [com.keminglabs/cljx "0.3.2"]
             [lein-garden "0.1.5"]]
   :main subman.core
   :profiles {:dev {:dependencies [[midje "1.6.2"]]
                    :plugins [[lein-midje "3.1.3"]]
-                   :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
-                                         :compiler {:preamble ["reagent/react.js"]
-                                                    :output-to "resources/public/main.js"
-                                                    :pretty-print true}}]}}
+                   :cljsbuild {:builds
+                               {:main {:source-paths ["src/cljs" "target/generated-cljs"]
+                                       :compiler {:preamble ["reagent/react.js"]
+                                                  :output-to "resources/public/main.js"
+                                                  :pretty-print true}}
+                                :test {:source-paths ["src/cljs" "test/cljs"
+                                                      "target/generated-cljs"]
+                                       :compiler {:preamble ["reagent/react.js"]
+                                                  :output-to "target/karma-test.js"
+                                                  :pretty-print true}}}}}
              :uberjar {:aot :all
                        :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                              :compiler {:preamble ["reagent/react.min.js"]
