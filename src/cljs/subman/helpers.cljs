@@ -2,5 +2,6 @@
 
 (defn is-filled?
   "Is field filled"
-  [value] (and (not (nil? value))
-               (not= "" value)))
+  [value]
+  (and (not (nil? value))
+       (not= "" value)))

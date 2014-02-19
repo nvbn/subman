@@ -14,7 +14,9 @@
              wrap-base-url
              wrap-reload))
 
-(defn init-pool []
+(defn init-pool
+  "Init pull for running periodic tasks"
+  []
   (let [pool (at-at/mk-pool)]
     (at-at/every const/update-period
                  (fn [] (future (println "start update")
@@ -23,7 +25,9 @@
                           (println "update finished")))
                  pool)))
 
-(defn -main [& args]
+(defn -main
+  "Run application"
+  [& args]
   (models/connect!)
   (try (models/create-index)
     (catch Exception e (println e)))

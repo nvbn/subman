@@ -9,10 +9,11 @@
 
 (defn new-getter
   "Fake getter for tests"
-  [page] (case page
-           3 [:exists]
-           2 [:fresh :exists]
-           1 [:fresh :fresh]))
+  [page]
+  (case page
+    3 [:exists]
+    2 [:fresh :exists]
+    1 [:fresh :fresh]))
 
 (fact "should get new before"
       (-> (filler/get-new-before new-getter #(= % :exists))

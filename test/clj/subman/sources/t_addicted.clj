@@ -6,7 +6,8 @@
 
 (defn get-single-episode
   "Get parsed html for single episode"
-  [] (get-from-file "test/fixtures/subman/sources/addicted_episode.html"))
+  []
+  (get-from-file "test/fixtures/subman/sources/addicted_episode.html"))
 
 (facts "should make correct url"
        (fact "when start with /"
@@ -36,23 +37,23 @@
        (fact "when has name"
              (#'addicted/get-version (get-from-line
                                       "<td class='NewsTitle'>
-                                        <b><span></span>test</b>
+                                      <b><span></span>test</b>
                                       </td>")) => {:name "test"
                                                    :langs []})
        (fact "when not"
              (#'addicted/get-version (get-from-line
                                       "<td class='NewsTitle'>
-                                        <b><span></span></b>
+                                      <b><span></span></b>
                                       </td>")) => {:name ""
                                                    :langs []}))
 
 (fact "get language"
       (#'addicted/get-lang (get-from-line
                             "<td class='language'><span>test</span></td>
-                             <td>
-                              <a href='test-url' class='buttonDownload'></a>
-                             </td>")) => {:name "test"
-                                          :url "http://www.addic7ed.com/test-url"})
+                            <td>
+                            <a href='test-url' class='buttonDownload'></a>
+                            </td>")) => {:name "test"
+                                         :url "http://www.addic7ed.com/test-url"})
 
 (fact "adding lang to version"
       (#'addicted/add-lang "" {:langs []}) => {:langs ["test"]}

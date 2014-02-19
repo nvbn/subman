@@ -9,7 +9,7 @@
                    "test/fixtures/subman/sources/subscene_page.html"))
 
 (def release-content (get-from-file
-                   "test/fixtures/subman/sources/subscene_release.html"))
+                      "test/fixtures/subman/sources/subscene_release.html"))
 
 (fact "should make absolute url"
       (#'subscene/make-url "/test") => "http://subscene.com/test")

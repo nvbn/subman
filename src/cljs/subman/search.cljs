@@ -11,10 +11,11 @@
 
 (defn create-search-request
   "Create search request from query"
-  [query] (str "/api/search/" (if (re-find #" :lang " query)
-                                (let [parts (string/split query #" :lang ")]
-                                  (str "?query=" (get parts 0) "&lang=" (get parts 1)))
-                                (str "?query=" query))))
+  [query]
+  (str "/api/search/" (if (re-find #" :lang " query)
+                        (let [parts (string/split query #" :lang ")]
+                          (str "?query=" (get parts 0) "&lang=" (get parts 1)))
+                        (str "?query=" query))))
 
 (defn watch-to-query
   "Watch to search query"
@@ -29,24 +30,26 @@
 
 (defn update-total-count
   "Update total count value"
-  [total-count] (go (->> (http/get "/api/count/")
-                         <!
-                         :body
-                         read-string
-                         (reset! total-count))))
+  [total-count]
+  (go (->> (http/get "/api/count/")
+           <!
+           :body
+           read-string
+           (reset! total-count))))
 
 (defn search-page
   "Search page view"
-  [] (let [query (atom "")
-           results (atom [])
-           counter (atom 0)
-           total-count (atom 0)]
-       (watch-to-query query results counter)
-       (update-total-count total-count)
-       (init-history query)
-       (init-push total-count)
-       [:div [components/search-box {:value query}]
-        [components/result-list {:items results
-                      :query query
-                      :counter counter
-                      :total-count total-count}]]))
+  []
+  (let [query (atom "")
+        results (atom [])
+        counter (atom 0)
+        total-count (atom 0)]
+    (watch-to-query query results counter)
+    (update-total-count total-count)
+    (init-history query)
+    (init-push total-count)
+    [:div [components/search-box {:value query}]
+     [components/result-list {:items results
+                              :query query
+                              :counter counter
+                              :total-count total-count}]]))
