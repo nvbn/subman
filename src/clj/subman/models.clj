@@ -48,9 +48,9 @@
 
 (defn- get-season-episode
   "Add season and episode filters"
-  [text] (if-let [nums (get-season-episode-parts text)]
-           [(q/term :season (helpers/remove-first-0 (get nums 1)))
-            (q/term :episode (helpers/remove-first-0 (get nums 2)))]
+  [text] (if-let [[_ season episode] (get-season-episode-parts text)]
+           [(q/term :season (helpers/remove-first-0 season))
+            (q/term :episode (helpers/remove-first-0 episode))]
            []))
 
 (defn- build-query

@@ -20,8 +20,7 @@
 
 (defn get-all-new
   "Get all new from callers with checker"
-  [checker & callers] (apply concat (map #(get-new-before % checker)
-                                         callers)))
+  [checker & callers] (mapcat #(get-new-before % checker) callers))
 
 (defn update-all
   "Receive update from all sources"
@@ -34,7 +33,7 @@
           (remove nil?)
           (map-indexed vector)
           (map (fn [[i item]]
-                 (when (= (mod i 50) 0)
+                 (when (zero? (mod i 50))
                    (println (str "Updated " i)))
                  item))
           doall))

@@ -53,12 +53,11 @@
 
 (defn- parse-list-page
   "Parse page with subtitles list"
-  [url] (-> (helpers/fetch url)
-            (html/select [:div#content_left
-                          :table.list
-                          [:tr (html/has [:td])]])
-            ((fn [page] (map #(create-subtitle-map %)
-                            page)))))
+  [url] (-<> (helpers/fetch url)
+             (html/select [:div#content_left
+                           :table.list
+                           [:tr (html/has [:td])]])
+             (map create-subtitle-map <>)))
 
 (defn- get-release-page-url
   "Get release page url"

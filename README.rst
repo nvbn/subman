@@ -56,5 +56,5 @@ For client side:
 .. code-block:: bash
 
     npm install -g karma
-    karma
+    karma start --single-run
 
