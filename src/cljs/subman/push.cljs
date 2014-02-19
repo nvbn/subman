@@ -15,4 +15,5 @@
                     false ws)
     (.open ws (str "ws://" (.-hostname js/location)
                    ":" (.-port js/location)
-                   "/notifications/"))))
+                   "/notifications/"))
+    ws))
