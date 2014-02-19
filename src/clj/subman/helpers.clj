@@ -40,9 +40,9 @@
 (defn get-season-episode
   "Add season and episode filters"
   [text]
-  (if-let [nums (re-find #"[sS](\d+)[eE](\d+)" text)]
-    [(remove-first-0 (get nums 1))
-     (remove-first-0 (get nums 2))]
+  (if-let [[_ season episode] (re-find #"[sS](\d+)[eE](\d+)" text)]
+    [(remove-first-0 season)
+     (remove-first-0 episode)]
     ["" ""]))
 
 (defn get-from-file
