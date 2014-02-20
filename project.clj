@@ -52,5 +52,5 @@
                   {:source-paths ["src/cljx"]
                    :output-path "target/generated-cljs"
                    :rules :cljs}]}
-  :garden {:builds [{:stylesheet subman.style/main
+  :garden {:builds [{:stylesheet subman.web.style/main
                      :compiler {:output-to "resources/public/main.css"}}]})
