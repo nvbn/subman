@@ -26,3 +26,5 @@
 (def default-port "3000")
 
 (def conection-timeout 1000)
+
+(def static-path "/static/")

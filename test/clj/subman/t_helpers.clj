@@ -1,5 +1,6 @@
 (ns subman.t-helpers
   (:require [midje.sweet :refer [fact facts => provided anything]]
+            [subman.const :as const]
             [subman.helpers :as helpers]))
 
 (fact "should remove first 0"
@@ -16,3 +17,10 @@
              (helpers/get-season-episode "s01E12") => ["1" "12"])
        (fact "when not"
              (helpers/get-season-episode "0202") => ["" ""]))
+
+(fact "should make paths static"
+      (helpers/make-static "test" "path") => [(str const/static-path "test")
+                                              (str const/static-path "path")])
+
+(fact "sholud apply with static paths"
+      (helpers/as-static identity "test") => (str const/static-path "test"))
