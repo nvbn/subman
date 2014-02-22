@@ -23,12 +23,14 @@
   "Watch to search query"
   [query results counter]
   (add-watch query :search-request
-             (fn [key ref old-value new-value]
+             (fn [_ _ _ new-value]
                (let [current (swap! counter inc)
                      url (create-search-request new-value)]
                  (go (let [response (<! (http/get url))]
                        (when (= current @counter)
-                         (reset! results (read-string (:body response))))))))))
+                         (->> (:body response)
+                              read-string
+                              (reset! results)))))))))
 
 (defn update-total-count
   "Update total count value"

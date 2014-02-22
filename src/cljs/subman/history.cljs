@@ -22,7 +22,7 @@
   (when (history5/isSupported)
     (let [history (get-history)]
       (add-watch value :history
-                 (fn [key ref old-value new-value]
+                 (fn [_ _ _ new-value]
                    (.setToken history new-value)))
       (gevents/listen history history-event/NAVIGATE
                       #(let [token (.-token %)]
