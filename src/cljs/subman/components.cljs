@@ -66,3 +66,12 @@
                                [:i.fa.fa-github] " github"]]
    :else [:div.container.col-xs-12.info-box
           [:h2 "Nothing found for \"" @query "\""]]))
+
+(defn search-page
+  "Search component"
+  [{:keys [query results counter total-count]}]
+  [:div [search-box {:value query}]
+   [result-list {:items results
+                 :query query
+                 :counter counter
+                 :total-count total-count}]])

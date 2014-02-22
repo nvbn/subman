@@ -39,8 +39,8 @@
              :uberjar {:aot :all
                        :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                              :compiler {:preamble ["reagent/react.min.js"]
-                                                        :externs ["resources/public/components/jquery/dist/jquery.js"
-                                                                  "resources/public/components/bootstrap/dist/js/bootstrap.js"]
+                                                        :externs ["resources/public/components/jquery/dist/jquery.min.js"
+                                                                  "resources/public/components/bootstrap/dist/js/bootstrap.min.js"]
                                                         :output-to "resources/public/main.js"
                                                         :optimizations :advanced
                                                         :pretty-print false}

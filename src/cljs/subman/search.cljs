@@ -2,35 +2,59 @@
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [clojure.string :as string]
             [cljs.reader :refer [read-string]]
-            [reagent.core :refer [atom]]
+            [reagent.core :refer [atom render-component]]
             [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
             [jayq.core :refer [$]]
             [jayq.util :refer [wait]]
             [subman.history :refer [init-history]]
             [subman.push :refer [init-push]]
-            [subman.components :as components]))
+            [subman.components :as components]
+            [subman.const :as const]))
 
 (defn create-search-request
   "Create search request from query"
-  [query]
+  [query offset]
   (str "/api/search/" (if (re-find #" :lang " query)
                         (let [parts (string/split query #" :lang ")]
                           (str "?query=" (get parts 0) "&lang=" (get parts 1)))
-                        (str "?query=" query))))
+                        (str "?query=" query)) "&offset=" offset))
+
+(defn update-result
+  "Update search result"
+  [url results counter than]
+  (let [current (swap! counter inc)]
+    (go (let [response (<! (http/get url))]
+          (when (= current @counter)
+            (->> (:body response)
+                 read-string
+                 than))))))
 
 (defn watch-to-query
   "Watch to search query"
-  [query results counter]
+  [query results counter offset]
   (add-watch query :search-request
              (fn [_ _ _ new-value]
-               (let [current (swap! counter inc)
-                     url (create-search-request new-value)]
-                 (go (let [response (<! (http/get url))]
-                       (when (= current @counter)
-                         (->> (:body response)
-                              read-string
-                              (reset! results)))))))))
+               (reset! offset 0)
+               (update-result (create-search-request new-value @offset)
+                              results
+                              counter
+                              #(reset! results %)))))
+
+(defn watch-to-scroll
+  "Watch to scroll"
+  [query results counter offset]
+  (.scroll ($ js/window) #(when (and (= (- (-> js/document $ .height)
+                                           (-> js/window $ .height))
+                                        (-> js/window $ .scrollTop))
+                                     (= (count @results) const/result-size))
+                         (swap! offset + const/result-size)))
+  (add-watch offset :scroll
+             (fn [_ _ _ new-value]
+               (update-result (create-search-request @query new-value)
+                              results
+                              counter
+                              #(swap! results concat %)))))
 
 (defn update-total-count
   "Update total count value"
@@ -46,20 +70,22 @@
   []
   (wait 0 #(.focus ($ "#search-input"))))
 
-(defn search-page
-  "Search page view"
+(defn search-controller
+  "Search page controller"
   []
   (let [query (atom "")
         results (atom [])
         counter (atom 0)
-        total-count (atom 0)]
-    (watch-to-query query results counter)
+        total-count (atom 0)
+        offset (atom 0)]
+    (watch-to-query query results counter offset)
+    (watch-to-scroll query results counter offset)
     (update-total-count total-count)
     (init-history query)
     (init-push total-count)
     (set-focus)
-    [:div [components/search-box {:value query}]
-     [components/result-list {:items results
-                              :query query
-                              :counter counter
-                              :total-count total-count}]]))
+    (render-component [components/search-page {:query query
+                                               :results results
+                                               :counter counter
+                                               :total-count total-count}]
+                      (.-body js/document))))
