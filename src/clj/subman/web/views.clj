@@ -14,7 +14,7 @@
                      "components/font-awesome/css/font-awesome.min.css"
                      "main.css")
           (as-static include-js
-                     "components/jquery/jquery.min.js"
+                     "components/jquery/dist/jquery.min.js"
                      "components/bootstrap/dist/js/bootstrap.min.js"
                      "main.js")]
          [:body [:script "subman.core.run();"]]))
