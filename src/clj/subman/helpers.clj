@@ -53,8 +53,10 @@
 
 (defn make-static
   "Make paths static"
-  [& paths] (map #(str const/static-path %) paths))
+  [& paths]
+  (map #(str const/static-path %) paths))
 
 (defn as-static
   "Call as static"
-  [callable & paths] (apply callable (apply make-static paths)))
+  [callable & paths]
+  (apply callable (apply make-static paths)))

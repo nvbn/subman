@@ -1,15 +1,20 @@
 (ns subman.web.views
-  (:require [hiccup.page :refer [html5 include-css include-js]]))
+  (:require [hiccup.page :refer [html5 include-css include-js]]
+            [subman.helpers :refer [as-static make-static]]))
 
 (defn index-page []
   (html5 [:head
-          [:link {:rel "icon" :type "image/png" :href "/favicon.png"}]
+          [:link {:rel "icon"
+                  :type "image/png"
+                  :href (first (make-static "favicon.png"))}]
           [:title "Subman - subtitle search service with api"]
-          (include-css "/components/bootstrap/dist/css/bootstrap.min.css"
-                       "/components/bootstrap/dist/css/bootstrap-theme.min.css"
-                       "/components/font-awesome/css/font-awesome.min.css"
-                       "/main.css")
-          (include-js "/components/jquery/jquery.min.js"
-                      "/components/bootstrap/dist/js/bootstrap.min.js"
-                      "/main.js")]
+          (as-static include-css
+                     "components/bootstrap/dist/css/bootstrap.min.css"
+                     "components/bootstrap/dist/css/bootstrap-theme.min.css"
+                     "components/font-awesome/css/font-awesome.min.css"
+                     "main.css")
+          (as-static include-js
+                     "components/jquery/jquery.min.js"
+                     "components/bootstrap/dist/js/bootstrap.min.js"
+                     "main.js")]
          [:body [:script "subman.core.run();"]]))
