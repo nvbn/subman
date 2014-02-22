@@ -18,7 +18,8 @@
                  [http-kit "2.1.17"]
                  [ring "1.2.1"]
                  [swiss-arrows "1.0.0"]
-                 [im.chit/purnam "0.1.8"]]
+                 [im.chit/purnam "0.1.8"]
+                 [jayq "2.5.0"]]
   :plugins [[lein-cljsbuild "1.0.1"]
             [com.keminglabs/cljx "0.3.2"]
             [lein-garden "0.1.5"]]
@@ -38,6 +39,8 @@
              :uberjar {:aot :all
                        :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                              :compiler {:preamble ["reagent/react.min.js"]
+                                                        :externs ["resources/public/components/jquery/dist/jquery.js"
+                                                                  "resources/public/components/bootstrap/dist/js/bootstrap.js"]
                                                         :output-to "resources/public/main.js"
                                                         :optimizations :advanced
                                                         :pretty-print false}

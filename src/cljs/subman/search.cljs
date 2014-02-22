@@ -5,6 +5,8 @@
             [reagent.core :refer [atom]]
             [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
+            [jayq.core :refer [$]]
+            [jayq.util :refer [wait]]
             [subman.history :refer [init-history]]
             [subman.push :refer [init-push]]
             [subman.components :as components]))
@@ -37,6 +39,11 @@
            read-string
            (reset! total-count))))
 
+(defn set-focus
+  "Set focus after timeout"
+  []
+  (wait 0 #(.focus ($ "#search-input"))))
+
 (defn search-page
   "Search page view"
   []
@@ -48,6 +55,7 @@
     (update-total-count total-count)
     (init-history query)
     (init-push total-count)
+    (set-focus)
     [:div [components/search-box {:value query}]
      [components/result-list {:items results
                               :query query

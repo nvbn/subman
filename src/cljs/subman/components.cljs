@@ -18,7 +18,8 @@
    [:input.form-control {:type "text"
                          :placeholder "Type search query. You can specifie language with :lang name, by default used english."
                          :on-change #(reset! value (-> % .-target .-value))
-                         :value @value}]])
+                         :value @value
+                         :id "search-input"}]])
 
 (defn result-line
   "Search result line"
