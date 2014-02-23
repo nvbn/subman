@@ -8,7 +8,7 @@
                  [compojure "1.1.6"]
                  [hiccup "1.0.5"]
                  [enlive "1.1.5"]
-                 [clojurewerkz/elastisch "1.5.0-beta1"]
+                 [clojurewerkz/elastisch "1.5.0-beta3"]
                  [reagent "0.4.1"]
                  [cljs-http "0.1.7"]
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
