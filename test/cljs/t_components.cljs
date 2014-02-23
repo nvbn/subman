@@ -6,7 +6,7 @@
             [subman.components :as components]))
 
 (fact "search box should be ok"
-      (components/search-box {:value (atom "test")}) => truthy)
+      (components/search-box (atom "test")) => truthy)
 
 (fact "result line should be ok"
       (components/result-line {:name "name"

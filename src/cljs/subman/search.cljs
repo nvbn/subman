@@ -84,8 +84,5 @@
     (init-history query)
     (init-push total-count)
     (set-focus)
-    (render-component [components/search-page {:query query
-                                               :results results
-                                               :counter counter
-                                               :total-count total-count}]
+    (render-component [components/search-page query results counter total-count]
                       (.-body js/document))))

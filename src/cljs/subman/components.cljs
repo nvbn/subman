@@ -4,7 +4,7 @@
 
 (defn search-box
   "Search box"
-  [{:keys [value]}]
+  [value]
   [:div.input-group.input-group-lg.col-xs-12.search-input
    {:data-spy "affix"
     :data-offset-top "40"}
@@ -38,7 +38,7 @@
 
 (defn result-list
   "Search result list"
-  [{:keys [query items counter total-count]}]
+  [query items counter total-count]
   (cond
    (> (count @items) 0) [:div.container.col-xs-12.search-result-holder
                          [:div.search-result-list.list-group (map result-line @items)]]
@@ -69,9 +69,6 @@
 
 (defn search-page
   "Search component"
-  [{:keys [query results counter total-count]}]
-  [:div [search-box {:value query}]
-   [result-list {:items results
-                 :query query
-                 :counter counter
-                 :total-count total-count}]])
+  [query results counter total-count]
+  [:div [search-box query]
+   [result-list query results counter total-count]])
