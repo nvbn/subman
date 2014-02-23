@@ -2,7 +2,6 @@
   (:require [cljs.reader :refer [read-string]]
             [goog.events :as gevents]
             [goog.history.EventType :as history-event]
-            [goog.string :as string]
             [goog.history.Html5History :as history5]
             [jayq.util :refer [wait]]))
 
@@ -24,10 +23,10 @@
                    (wait 500 #(when (= new-value @value)
                                 (.setToken history new-value)))))
       (gevents/listen history history-event/NAVIGATE
-                      #(let [token (.-token %)]
+                      #(let [token (-> % .-token js/decodeURIComponent)]
                          (when (and (= (.-isNavigatopn %))
                                     (not= token @value))
                            (reset! value token))))
       (->> (.getToken history)
-           string/urlDecode
+           js/decodeURIComponent
            (reset! value)))))
