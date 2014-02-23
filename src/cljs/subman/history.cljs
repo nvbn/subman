@@ -9,13 +9,10 @@
 (defn get-history
   "Get html5 history obj or fallback"
   []
-  (let [history (doto (goog.history.Html5History.)
-                  (.setUseFragment false)
-                  (.setPathPrefix "/search/")
-                  (.setEnabled true))]
-    (gevents/unlisten (.-window_ history) (.-POPSTATE gevents/EventType)
-                      (.-onHistoryEvent_ history) false history)
-    history))
+  (doto (goog.history.Html5History.)
+    (.setUseFragment false)
+    (.setPathPrefix "/search/")
+    (.setEnabled true)))
 
 (defn init-history
   "Init history and spy to atom"
@@ -28,7 +25,8 @@
                                 (.setToken history new-value)))))
       (gevents/listen history history-event/NAVIGATE
                       #(let [token (.-token %)]
-                         (when-not (= token @value)
+                         (when (and (= (.-isNavigatopn %))
+                                    (not= token @value))
                            (reset! value token))))
       (->> (.getToken history)
            string/urlDecode
