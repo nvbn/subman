@@ -10,6 +10,7 @@ pom.xml.asc
 .lein-deps-sum
 .lein-repl-history
 .lein-plugins/
+resources/public/cljs-target/
 hs_err*
 /resources/public/components/
 /resources/public/main.js

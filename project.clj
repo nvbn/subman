@@ -30,7 +30,9 @@
                                {:main {:source-paths ["src/cljs" "target/generated-cljs"]
                                        :compiler {:preamble ["reagent/react.js"]
                                                   :output-to "resources/public/main.js"
-                                                  :pretty-print true}}
+                                                  :pretty-print true
+                                                  :source-map "resources/public/main.js.map"
+                                                  :output-dir "resources/public/cljs-target"}}
                                 :test {:source-paths ["src/cljs" "test/cljs"
                                                       "target/generated-cljs"]
                                        :compiler {:preamble ["reagent/react.js"]
