@@ -18,7 +18,7 @@
                                :version "hd"}) => truthy)
 
 (fact "result list should be ok"
-      (components/result-list {:query (atom "test")
-                               :items (atom [])
-                               :counter (atom 1)
-                               :totla-count (atom 10)}))
+      (components/result-list (atom "test")
+                              (atom [])
+                              (atom 1)
+                              (atom 10)))
