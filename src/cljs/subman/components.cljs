@@ -16,7 +16,7 @@
                                    :href "#"}
                                [:i.fa.fa-chevron-left]])]
    [:input.form-control {:type "text"
-                         :placeholder "Type search query. You can specifie language with :lang name, by default used english."
+                         :placeholder "Type search query"
                          :on-change #(reset! value (-> % .-target .-value))
                          :value @value
                          :id "search-input"}]])
@@ -58,6 +58,10 @@
                                [:a {:href "http://subscene.com/"
                                     :target "_blank"} "subscene.com"]
                                "."]
+                              [:p "In query you can specifie language with "
+                               [:code ":lang name"]
+                               ", by default used english."]
+                              [:p "And you can use exact match with " [:code ":exact"] "."]
                               [:p "Total indexed subtitles count: "
                                @total-count
                                "."]
