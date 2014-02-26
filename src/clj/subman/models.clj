@@ -63,22 +63,25 @@
 
 (defn- build-query
   "Build search query"
-  [query lang]
+  [query lang exact]
   (-> (let [prepared (clojure.string/replace query #"\." " ")]
         {:query (q/bool :must (q/fuzzy-like-this :like_text prepared)
                         :should (get-season-episode prepared))
-         :filter (q/term :lang lang)
+         :filter (if exact
+                   {:and  (conj (get-season-episode prepared)
+                                (q/term :lang lang))}
+                   (q/term :lang lang))
          :size const/result-size})
       vec
       flatten))
 
 (defn search
   "Search for documents"
-  [& {:keys [query offset lang]}]
+  [& {:keys [query offset lang exact]}]
   (->> (apply esd/search const/index-name
               "subtitle"
               :from offset
-              (build-query query lang))
+              (build-query query lang exact))
        :hits
        :hits
        (map :_source)))

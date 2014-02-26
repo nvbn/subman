@@ -48,7 +48,7 @@
                                            (-> js/window $ .height))
                                         (-> js/window $ .scrollTop))
                                      (= (count @results) const/result-size))
-                         (swap! offset + const/result-size)))
+                            (swap! offset + const/result-size)))
   (add-watch offset :scroll
              (fn [_ _ _ new-value]
                (update-result (create-search-request @query new-value)

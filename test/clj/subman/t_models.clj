@@ -33,20 +33,35 @@
        (fact "without"
              (#'models/get-season-episode "test") => []))
 
-(fact "should build search query"
-      (#'models/build-query
-       "Dads.2013.S01E18.HDTV.x264-EXCELLENCE[rartv]"
-       "en") => [:query {:bool {:must {:fuzzy_like_this
-                                       {:like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
-                                :should [{:term {:season "1"}}
-                                         {:term {:episode "18"}}]}}
-                 :filter {:term {:lang "en"}}
-                 :size const/result-size])
+(facts "search query"
+       (fact "should build query"
+             (#'models/build-query
+              "Dads.2013.S01E18.HDTV.x264-EXCELLENCE[rartv]"
+              "en"
+              false) => [:query {:bool {:must {:fuzzy_like_this
+                                               {:like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
+                                        :should [{:term {:season "1"}}
+                                                 {:term {:episode "18"}}]}}
+                         :filter {:term {:lang "en"}}
+                         :size const/result-size])
+       (fact "should build exact query"
+             (#'models/build-query
+              "Dads.2013.S01E18.HDTV.x264-EXCELLENCE[rartv]"
+              "en"
+              true) => [:query {:bool {:must {:fuzzy_like_this
+                                               {:like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
+                                        :should [{:term {:season "1"}}
+                                                 {:term {:episode "18"}}]}}
+                         :filter {:and [{:term {:season "1"}}
+                                        {:term {:episode "18"}}
+                                        {:term {:lang "en"}}]}
+                         :size const/result-size]))
 
 (fact "should return search result"
       (models/search :query "test"
                      :offset 10
-                     :lang "en") => ["test"]
+                     :lang "en"
+                     :exact false) => ["test"]
       (provided
        (esd/search anything anything
                    :from 10
