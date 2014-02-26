@@ -10,7 +10,7 @@
                  [enlive "1.1.5"]
                  [clojurewerkz/elastisch "1.5.0-beta3"]
                  [reagent "0.4.1"]
-                 [cljs-http "0.1.7"]
+                 [cljs-http "0.1.8"]
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
                  [overtone/at-at "1.2.0"]
                  [garden "1.1.5"]
