@@ -12,7 +12,7 @@
             [subman.components :as components]
             [subman.const :as const]))
 
-(defn- lang-query-part
+(defn lang-query-part
   "Get lang query part"
   [[api-query query]]
   (if (re-find #" :lang " query)
@@ -21,7 +21,7 @@
        (get parts 1)])
     [api-query query]))
 
-(defn- exact-query-part
+(defn exact-query-part
   "Get exact query part"
   [[api-query query]]
   (if (re-find #":exact" query)
@@ -29,7 +29,7 @@
      (string/replace query #":exact" "")]
     [api-query query]))
 
-(defn- query-offset-query-part
+(defn query-offset-query-part
   "Query and offset query part"
   [[api-query query] offset]
   (str api-query "query=" query "&offset=" offset))
