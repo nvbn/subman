@@ -31,12 +31,14 @@
                                        :compiler {:preamble ["reagent/react.js"]
                                                   :output-to "resources/public/main.js"
                                                   :pretty-print true
+                                                  :optimizations :none
                                                   :source-map "resources/public/main.js.map"
                                                   :output-dir "resources/public/cljs-target"}}
                                 :test {:source-paths ["src/cljs" "test/cljs"
                                                       "target/generated-cljs"]
                                        :compiler {:preamble ["reagent/react.js"]
                                                   :output-to "target/karma-test.js"
+                                                  :optimizations :none
                                                   :pretty-print true}}}}}
              :uberjar {:aot :all
                        :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]

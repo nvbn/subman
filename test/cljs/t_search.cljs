@@ -9,10 +9,13 @@
              (search/create-search-request "test" 0) => "/api/search/?query=test&offset=0")
        (fact "with query and lang"
              (search/create-search-request
-              "test :lang ru" 0) => "/api/search/?query=test&lang=ru&offset=0")
+              "test :lang ru" 0) => "/api/search/?lang=ru&query=ru&offset=0")
        (fact "with offset"
              (search/create-search-request
-              "test" 100) => "/api/search/?query=test&offset=100"))
+              "test" 100) => "/api/search/?query=test&offset=100")
+       (fact "with excact and lang"
+             (search/create-search-request
+              "test :exact :lang ru" 0) => "/api/search/?exact=1&lang=ru&query=ru&offset=0"))
 
 (fact "watch to query should be ok"
       (search/watch-to-query (atom "")

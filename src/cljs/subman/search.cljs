@@ -12,13 +12,35 @@
             [subman.components :as components]
             [subman.const :as const]))
 
+(defn- lang-query-part
+  "Get lang query part"
+  [[api-query query]]
+  (if (re-find #" :lang " query)
+    (let [parts (string/split query #" :lang ")]
+      [(str api-query "lang=" (get parts 1) "&")
+       (get parts 1)])
+    [api-query query]))
+
+(defn- exact-query-part
+  "Get exact query part"
+  [[api-query query]]
+  (if (re-find #":exact" query)
+    [(str api-query "exact=1&")
+     (string/replace query #":exact" "")]
+    [api-query query]))
+
+(defn- query-offset-query-part
+  "Query and offset query part"
+  [[api-query query] offset]
+  (str api-query "query=" query "&offset=" offset))
+
 (defn create-search-request
   "Create search request from query"
   [query offset]
-  (str "/api/search/" (if (re-find #" :lang " query)
-                        (let [parts (string/split query #" :lang ")]
-                          (str "?query=" (get parts 0) "&lang=" (get parts 1)))
-                        (str "?query=" query)) "&offset=" offset))
+  (-> ["/api/search/?" query]
+      exact-query-part
+      lang-query-part
+      (query-offset-query-part offset)))
 
 (defn update-result
   "Update search result"
