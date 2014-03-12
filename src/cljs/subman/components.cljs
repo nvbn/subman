@@ -36,9 +36,15 @@
    (when (is-filled? version)
      [:p "Version: " version])])
 
+(defn info-box
+  "Show info box"
+  [text]
+  [:div.container.col-xs-12.info-box
+   [:h2 text]])
+
 (defn result-list
   "Search result list"
-  [query items counter total-count]
+  [query items counter total-count in-progress]
   (cond
    (> (count @items) 0) [:div.container.col-xs-12.search-result-holder
                          [:div.search-result-list.list-group (map result-line @items)]]
@@ -68,11 +74,16 @@
                               [:a {:href "https://github.com/nvbn/subman"
                                    :target "_blank"}
                                [:i.fa.fa-github] " github"]]
-   :else [:div.container.col-xs-12.info-box
-          [:h2 "Nothing found for \"" @query "\""]]))
+   (true? @in-progress) [info-box "Searching..."]
+   :else [info-box (str "Nothing found for \"" @query "\"")]))
 
 (defn search-page
   "Search component"
-  [query results counter total-count]
+  [query results counter total-count in-progress]
   [:div [search-box query]
-   [result-list query results counter total-count]])
+   [result-list
+    query
+    results
+    counter
+    total-count
+    in-progress]])

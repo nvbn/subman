@@ -54,14 +54,17 @@
 
 (defn watch-to-query
   "Watch to search query"
-  [query results counter offset]
+  [query results counter offset in-progress]
   (add-watch query :search-request
              (fn [_ _ _ new-value]
                (reset! offset 0)
+               (reset! in-progress true)
                (update-result (create-search-request new-value @offset)
                               results
                               counter
-                              #(reset! results %)))))
+                              (fn [value]
+                                (reset! in-progress false)
+                                (reset! results value))))))
 
 (defn watch-to-scroll
   "Watch to scroll"
@@ -99,12 +102,18 @@
         results (atom [])
         counter (atom 0)
         total-count (atom 0)
-        offset (atom 0)]
-    (watch-to-query query results counter offset)
+        offset (atom 0)
+        in-progress (atom false)]
+    (watch-to-query query results counter offset in-progress)
     (watch-to-scroll query results counter offset)
     (update-total-count total-count)
     (init-history query)
     (init-push total-count)
     (set-focus)
-    (render-component [components/search-page query results counter total-count]
+    (render-component [components/search-page
+                       query
+                       results
+                       counter
+                       total-count
+                       in-progress]
                       (.-body js/document))))
