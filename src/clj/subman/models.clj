@@ -68,12 +68,12 @@
         {:query (q/bool :must (concat [(q/fuzzy-like-this
                                         :like_text prepared
                                         :fields [:show :name]
-                                        :boost const/show-name-boost)
-                                       (q/fuzzy-like-this
-                                        :like_text prepared
-                                        :fields [:version]
-                                        :boost const/version-boost)]
-                                      (get-season-episode prepared)))
+                                        :boost const/show-name-boost)]
+                                      (get-season-episode prepared))
+                        :should (q/fuzzy-like-this
+                                 :like_text prepared
+                                 :fields [:version]
+                                 :boost const/version-boost))
          :filter (q/term :lang lang)
          :size const/result-size})
       vec
