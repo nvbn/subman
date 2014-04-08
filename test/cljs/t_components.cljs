@@ -21,4 +21,5 @@
       (components/result-list (atom "test")
                               (atom [])
                               (atom 1)
-                              (atom 10)))
+                              (atom 10)
+                              (atom false)))
