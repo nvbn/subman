@@ -21,14 +21,6 @@
        (get parts 1)])
     [api-query query]))
 
-(defn exact-query-part
-  "Get exact query part"
-  [[api-query query]]
-  (if (re-find #":exact" query)
-    [(str api-query "exact=1&")
-     (string/replace query #":exact" "")]
-    [api-query query]))
-
 (defn query-offset-query-part
   "Query and offset query part"
   [[api-query query] offset]
@@ -38,7 +30,6 @@
   "Create search request from query"
   [query offset]
   (-> ["/api/search/?" query]
-      exact-query-part
       lang-query-part
       (query-offset-query-part offset)))
 

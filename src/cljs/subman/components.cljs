@@ -67,7 +67,6 @@
                               [:p "In query you can specifie language with "
                                [:code ":lang name"]
                                ", by default used english."]
-                              [:p "And you can use exact match with " [:code ":exact"] "."]
                               [:p "Total indexed subtitles count: "
                                @total-count
                                "."]
