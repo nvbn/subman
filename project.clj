@@ -32,7 +32,6 @@
                                                   :output-to "resources/public/main.js"
                                                   :pretty-print true
                                                   :optimizations :simple
-                                                  :source-map "resources/public/main.js.map"
                                                   :output-dir "resources/public/cljs-target"}}
                                 :test {:source-paths ["src/cljs" "test/cljs"
                                                       "target/generated-cljs"]
