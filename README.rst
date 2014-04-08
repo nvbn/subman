@@ -12,12 +12,6 @@ For using api send GET request like:
 
     http://subman.io/api/search/?query=file-name&format=json&lang=english
 
-For exact match use:
-
-.. code-block:: bash
-
-    http://subman.io/api/search/?query=file-name&format=json&lang=english&exact=true
-
 Installation
 ------------
 
