@@ -28,3 +28,7 @@
 (def conection-timeout 1000)
 
 (def static-path "/static/")
+
+(def show-name-boost 5)
+
+(def version-boost 2)
