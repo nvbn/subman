@@ -1,6 +1,6 @@
 (ns subman.components
   (:require [subman.const :as const]
-            [subman.helpers :refer [is-filled?]]))
+            [subman.helpers :refer [is-filled? format-season-episode]]))
 
 (defn search-box
   "Search box"
@@ -29,8 +29,7 @@
    [:h3
     show (when (is-filled? name) (str " - " name))
     (when (some is-filled? [season episode])
-      [:span " " (when (is-filled? season) (str "S" season))
-       (when (is-filled? episode) (str "E" episode))])]
+      [:span " " (format-season-episode season episode)])]
    [:p.pull-right "Source: " (const/type-names source)]
    [:p "Language: " lang]
    (when (is-filled? version)
