@@ -63,7 +63,7 @@
 
 (defn- build-query
   "Build search query"
-  [query lang exact]
+  [query lang]
   (-> (let [prepared (clojure.string/replace query #"\." " ")]
         {:query (q/bool :must (concat [(q/fuzzy-like-this
                                         :like_text prepared
@@ -81,11 +81,11 @@
 
 (defn search
   "Search for documents"
-  [& {:keys [query offset lang exact]}]
+  [& {:keys [query offset lang]}]
   (->> (apply esd/search const/index-name
               "subtitle"
               :from offset
-              (build-query query lang exact))
+              (build-query query lang))
        :hits
        :hits
        (map :_source)))

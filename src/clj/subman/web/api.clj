@@ -21,12 +21,10 @@
   [params]
   (let [query (:query params)
         offset (get params :offset 0)
-        lang (get params :lang "english")
-        exact (get params :exact false)]
+        lang (get params :lang "english")]
     (models/search :query query
                    :offset offset
-                   :lang lang
-                   :exact exact)))
+                   :lang lang)))
 
 (defapi total-count
   "Get total subtitles count"

@@ -37,31 +37,21 @@
        (fact "should build query"
              (#'models/build-query
               "Dads.2013.S01E18.HDTV.x264-EXCELLENCE[rartv]"
-              "en"
-              false) => [:query {:bool {:must {:fuzzy_like_this
-                                               {:like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
-                                        :should [{:term {:season "1"}}
-                                                 {:term {:episode "18"}}]}}
-                         :filter {:term {:lang "en"}}
-                         :size const/result-size])
-       (fact "should build exact query"
-             (#'models/build-query
-              "Dads.2013.S01E18.HDTV.x264-EXCELLENCE[rartv]"
-              "en"
-              true) => [:query {:bool {:must {:fuzzy_like_this
-                                               {:like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
-                                        :should [{:term {:season "1"}}
-                                                 {:term {:episode "18"}}]}}
-                         :filter {:and [{:term {:season "1"}}
-                                        {:term {:episode "18"}}
-                                        {:term {:lang "en"}}]}
-                         :size const/result-size]))
+              "en") => [:query {:bool {:must
+                                       [{:fuzzy_like_this {:boost 5
+                                                           :fields [:show :name]
+                                                           :like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
+                                        {:fuzzy_like_this {:boost 2
+                                                           :fields [:version]
+                                                           :like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
+                                        {:term {:season "1"}}
+                                        {:term {:episode "18"}}]}}
+                        :filter {:term {:lang "en"}} :size 100]))
 
 (fact "should return search result"
       (models/search :query "test"
                      :offset 10
-                     :lang "en"
-                     :exact false) => ["test"]
+                     :lang "en") => ["test"]
       (provided
        (esd/search anything anything
                    :from 10

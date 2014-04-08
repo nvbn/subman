@@ -16,20 +16,17 @@
        (fact "should pass correct values"
              (api/search {:query "test"
                           :offset 100
-                          :lang "ru"
-                          :exact true}) => truthy
+                          :lang "ru"}) => truthy
              (provided
               (models/search :query "test"
                              :offset 100
-                             :lang "ru"
-                             :exact true) => true))
+                             :lang "ru") => true))
        (fact "should set default values"
              (api/search {:query "test"}) => truthy
              (provided
               (models/search :query "test"
                              :offset 0
-                             :lang "english"
-                             :exact false) => true)))
+                             :lang "english") => true)))
 
 (let [orig (atom 0)]
   (with-state-changes [(before :facts (do (reset! orig @models/total-count)
