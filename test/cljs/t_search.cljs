@@ -1,5 +1,5 @@
 (ns subman.t-search
-  (:require-macros [purnam.test.sweet :refer [facts fact]])
+  (:require-macros [purnam.test :refer [facts fact]])
   (:require [reagent.core :refer [atom]]
             [subman.helpers :refer [truthy]]
             [subman.search :as search]))

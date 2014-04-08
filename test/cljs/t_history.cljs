@@ -1,5 +1,5 @@
 (ns subman.t-history
-  (:require-macros [purnam.test.sweet :refer [fact]])
+  (:require-macros [purnam.test :refer [fact]])
   (:require [reagent.core :refer [atom]]
             [subman.helpers :refer [truthy]]
             [subman.history :as history]))

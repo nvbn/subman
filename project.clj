@@ -18,7 +18,6 @@
                  [http-kit "2.1.18"]
                  [ring "1.2.2"]
                  [swiss-arrows "1.0.0"]
-                 [im.chit/purnam "0.4.3"]
                  [im.chit/purnam.test "0.4.3"]
                  [jayq "2.5.0"]]
   :plugins [[lein-cljsbuild "1.0.3"]

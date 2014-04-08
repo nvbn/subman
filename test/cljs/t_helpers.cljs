@@ -1,5 +1,5 @@
 (ns subman.t-helpers
-  (:require-macros [purnam.test.sweet :refer [fact facts]])
+  (:require-macros [purnam.test :refer [fact facts]])
   (:require [subman.helpers :as helpers]))
 
 (facts "is filled?"
