@@ -61,9 +61,16 @@
      (q/term :episode (helpers/remove-first-0 episode))]
     []))
 
+(defn- get-source-filter
+  "Get filter by source or blank vector"
+  [source]
+  (if (= source const/type-all)
+    [(q/term :source source)]
+    []))
+
 (defn- build-query
   "Build search query"
-  [query lang]
+  [query lang source]
   (-> (let [prepared (clojure.string/replace query #"\." " ")]
         {:query (q/bool :must (concat [(q/fuzzy-like-this
                                         :like_text prepared
@@ -81,11 +88,11 @@
 
 (defn search
   "Search for documents"
-  [& {:keys [query offset lang]}]
+  [& {:keys [query offset lang source]}]
   (->> (apply esd/search const/index-name
               "subtitle"
               :from offset
-              (build-query query lang))
+              (build-query query lang source))
        :hits
        :hits
        (map :_source)))
@@ -96,7 +103,7 @@
   (-> (let [url (:url subtitle)]
         (esd/search const/index-name
                     "subtitle"
-                    :filter {:term {:url url}}))
+                    :filter (q/term :url url)))
       :hits
       :total
       (> 0)))

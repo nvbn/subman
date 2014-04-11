@@ -4,7 +4,8 @@
                                  before after]]
             [clojure.data.json :as json]
             [subman.models :as models]
-            [subman.web.api :as api]))
+            [subman.web.api :as api]
+            [subman.const :as const]))
 
 (facts "get writer"
        (fact "should be json if format = json"
@@ -16,17 +17,20 @@
        (fact "should pass correct values"
              (api/search {:query "test"
                           :offset 100
-                          :lang "ru"}) => truthy
+                          :lang "ru"
+                          :source const/type-podnapisi}) => truthy
              (provided
               (models/search :query "test"
                              :offset 100
-                             :lang "ru") => true))
+                             :lang "ru"
+                             :source const/type-podnapisi) => true))
        (fact "should set default values"
              (api/search {:query "test"}) => truthy
              (provided
               (models/search :query "test"
                              :offset 0
-                             :lang "english") => true)))
+                             :lang "english"
+                             :source const/type-all) => true)))
 
 (let [orig (atom 0)]
   (with-state-changes [(before :facts (do (reset! orig @models/total-count)

@@ -1,6 +1,7 @@
 (ns subman.web.api
   (:require [clojure.data.json :as json]
-            [subman.models :as models]))
+            [subman.models :as models]
+            [subman.const :as const]))
 
 (defn- get-writer
   "Get writer from params"
@@ -21,10 +22,12 @@
   [params]
   (let [query (:query params)
         offset (get params :offset 0)
-        lang (get params :lang "english")]
+        lang (get params :lang "english")
+        source (get params :source const/type-all)]
     (models/search :query query
                    :offset offset
-                   :lang lang)))
+                   :lang lang
+                   :source source)))
 
 (defapi total-count
   "Get total subtitles count"

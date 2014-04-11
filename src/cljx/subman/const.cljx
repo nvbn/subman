@@ -4,6 +4,8 @@
 
 (def index-name "subman7")
 
+(def type-all -1)
+
 (def type-addicted 0)
 
 (def type-podnapisi 1)

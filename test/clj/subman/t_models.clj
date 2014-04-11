@@ -37,16 +37,33 @@
        (fact "should build query"
              (#'models/build-query
               "Dads.2013.S01E18.HDTV.x264-EXCELLENCE[rartv]"
-              "en") => [:query {:bool {:must
-                                       [{:fuzzy_like_this {:boost 5
-                                                           :fields [:show :name]
-                                                           :like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
-                                        {:fuzzy_like_this {:boost 2
+              "en"
+              const/type-all) => [:query {:bool {:must
+                                                 [{:fuzzy_like_this
+                                                   {:boost 5
+                                                    :fields [:show :name]
+                                                    :like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
+                                                  {:term {:season "1"}}
+                                                  {:term {:episode "18"}}]
+                                                 :should {:fuzzy_like_this
+                                                          {:boost 2
                                                            :fields [:version]
-                                                           :like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}
-                                        {:term {:season "1"}}
-                                        {:term {:episode "18"}}]}}
-                        :filter {:term {:lang "en"}} :size 100]))
+                                                           :like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}}}
+                                  :filter {:term {:lang "en"}} :size 100])
+       (fact "should build query with filter by source"
+             (#'models/build-query
+              "query"
+              "ru"
+              const/type-addicted) => [:query {:bool {:must
+                                                      [{:fuzzy_like_this
+                                                        {:boost 5
+                                                         :fields [:show :name]
+                                                         :like_text "query"}}]
+                                                      :should {:fuzzy_like_this
+                                                               {:boost 2
+                                                                :fields [:version]
+                                                                :like_text "query"}}}}
+                                       :filter {:term {:lang "ru"}} :size 100]))
 
 (fact "should return search result"
       (models/search :query "test"
