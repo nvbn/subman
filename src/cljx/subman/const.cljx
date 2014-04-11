@@ -14,6 +14,8 @@
 
 (def type-subscene 3)
 
+(def type-none -2)
+
 (def type-names {type-addicted "Addicted"
                  type-podnapisi "Podnapisi"
                  type-opensubtitles "OpenSubtitles"

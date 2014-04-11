@@ -17,13 +17,20 @@
      ((get-writer (first ~args))
       ~@body)))
 
+(defn- read-source
+  [source]
+  (if (string? source)
+    (read-string source)
+    source))
+
 (defapi search
   "Search for subtitles with params"
   [params]
   (let [query (:query params)
         offset (get params :offset 0)
         lang (get params :lang "english")
-        source (get params :source const/type-all)]
+        source (read-source
+                (get params :source (str const/type-all)))]
     (models/search :query query
                    :offset offset
                    :lang lang

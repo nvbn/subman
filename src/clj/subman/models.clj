@@ -64,7 +64,7 @@
 (defn- get-source-filter
   "Get filter by source or blank vector"
   [source]
-  (if (= source const/type-all)
+  (if (not= source const/type-all)
     [(q/term :source source)]
     []))
 
@@ -76,7 +76,8 @@
                                         :like_text prepared
                                         :fields [:show :name]
                                         :boost const/show-name-boost)]
-                                      (get-season-episode prepared))
+                                      (get-season-episode prepared)
+                                      (get-source-filter source))
                         :should (q/fuzzy-like-this
                                  :like_text prepared
                                  :fields [:version]

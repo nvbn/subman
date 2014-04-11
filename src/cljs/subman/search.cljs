@@ -12,14 +12,43 @@
             [subman.components :as components]
             [subman.const :as const]))
 
+(defn ?-query-part
+  [part-name part-formatter [api-query query]]
+  (let [pattern (re-pattern (str " :" part-name " (\\w*)"))
+        search-result (re-find pattern query)]
+    (if search-result
+      (let [value (last search-result)
+            query (string/replace query (first search-result) "")]
+        [(str api-query part-name "="
+              (part-formatter value) "&")
+         query])
+      [api-query query])))
+
 (defn lang-query-part
   "Get lang query part"
-  [[api-query query]]
-  (if (re-find #" :lang " query)
-    (let [parts (string/split query #" :lang ")]
-      [(str api-query "lang=" (get parts 1) "&")
-       (get parts 1)])
-    [api-query query]))
+  [param]
+  (?-query-part "lang" identity param))
+
+(defn get-source-id
+  "Get identifier of source from name"
+  [source]
+  (let [prepared (string/lower-case source)]
+    (if (= prepared "all")
+      -1
+      (get (apply merge
+                  (map (fn [el]
+                         {(-> el val str string/lower-case)
+                          (key el)})
+                       const/type-names))
+           (string/lower-case source)
+           const/type-none))))
+
+(defn source-query-part
+  "Get source query part"
+  [param]
+  (?-query-part "source"
+                get-source-id
+                param))
 
 (defn query-offset-query-part
   "Query and offset query part"
@@ -31,6 +60,7 @@
   [query offset]
   (-> ["/api/search/?" query]
       lang-query-part
+      source-query-part
       (query-offset-query-part offset)))
 
 (defn update-result

@@ -58,7 +58,8 @@
                                                       [{:fuzzy_like_this
                                                         {:boost 5
                                                          :fields [:show :name]
-                                                         :like_text "query"}}]
+                                                         :like_text "query"}}
+                                                       {:term {:source 0}}]
                                                       :should {:fuzzy_like_this
                                                                {:boost 2
                                                                 :fields [:version]

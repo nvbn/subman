@@ -65,7 +65,14 @@
                                "."]
                               [:p "In query you can specifie language with "
                                [:code ":lang name"]
-                               ", by default used english."]
+                               ", by default used "
+                               [:code "english"]
+                               "."]
+                              [:p "And source using "
+                               [:code ":source name"]
+                               ", by default used "
+                               [:code "all"]
+                               "."]
                               [:p "Total indexed subtitles count: "
                                @total-count
                                "."]
