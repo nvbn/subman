@@ -19,7 +19,8 @@
 (def type-names {type-addicted "Addicted"
                  type-podnapisi "Podnapisi"
                  type-opensubtitles "OpenSubtitles"
-                 type-subscene "Subscene"})
+                 type-subscene "Subscene"
+                 type-all "all"})
 
 (def update-deep 10)
 
