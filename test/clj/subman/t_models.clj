@@ -82,3 +82,16 @@
       (provided
        (esd/search anything anything
                    :filter {:term {:url "test"}}) => {:hits {:total 5}}))
+
+(fact "should list available languages with count"
+      (models/list-languages) => [{:term "english"
+                                   :count 100}
+                                  {:term "russian"
+                                   :count 50}]
+      (provided
+       (esd/search anything anything
+                   :query anything
+                   :facets anything) => {:facets {:tag {:terms [{:term "english"
+                                                                 :count 100}
+                                                                {:term "russian"
+                                                                 :count 50}]}}}))

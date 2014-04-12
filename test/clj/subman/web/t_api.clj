@@ -38,3 +38,13 @@
                        (after :facts (reset! models/total-count @orig))]
     (fact "api should return total count"
           (api/total-count {}) => (prn-str 10))))
+
+(fact "list all languages"
+      (api/list-languages {}) => (prn-str [{:term "english"
+                                            :count 100}
+                                           {:term "russian"
+                                            :count 50}])
+      (provided (models/list-languages) => [{:term "english"
+                                             :count 100}
+                                            {:term "russian"
+                                             :count 50}]))

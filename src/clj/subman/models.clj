@@ -108,3 +108,15 @@
       :hits
       :total
       (> 0)))
+
+(defn list-languages
+  "List languages with count"
+  []
+  (-> (esd/search const/index-name
+                  "subtitle"
+                  :query (q/match-all)
+                  :facets {:tag {:terms {:field "lang"
+                                         :size const/languages-limit}}})
+      :facets
+      :tag
+      :terms))

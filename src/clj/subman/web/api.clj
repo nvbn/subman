@@ -40,3 +40,8 @@
   "Get total subtitles count"
   [params]
   @models/total-count)
+
+(defapi list-languages
+  "List all available languages with counts"
+  [params]
+  (models/list-languages))

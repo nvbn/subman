@@ -36,3 +36,5 @@
 (def show-name-boost 5)
 
 (def version-boost 2)
+
+(def languages-limit 100)

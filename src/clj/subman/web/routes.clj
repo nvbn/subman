@@ -12,5 +12,6 @@
   (GET "/search/*" [] (views/index-page))
   (GET "/api/search/" {params :params} (api/search params))
   (GET "/api/count/" {params :params} (api/total-count params))
+  (GET "/api/list-languages/" {params :params} (api/list-languages params))
   (GET "/notifications/" [] push/notifications)
   (route/resources const/static-path))
