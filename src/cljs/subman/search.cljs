@@ -74,11 +74,20 @@
                  read-string
                  than))))))
 
+(defn update-title
+  "Update coument title"
+  [query]
+  (set! (.-title js/document)
+        (if (= 0 (count query))
+          "Subman - subtitle search service"
+          (str "Subman - " query))))
+
 (defn watch-to-query
   "Watch to search query"
   [query results counter offset in-progress]
   (add-watch query :search-request
              (fn [_ _ _ new-value]
+               (update-title new-value)
                (reset! offset 0)
                (reset! in-progress true)
                (update-result (create-search-request new-value @offset)

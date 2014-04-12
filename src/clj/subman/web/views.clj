@@ -7,7 +7,7 @@
           [:link {:rel "icon"
                   :type "image/png"
                   :href (first (make-static "favicon.png"))}]
-          [:title "Subman - subtitle search service with api"]
+          [:title "Subman - subtitle search service"]
           (as-static include-css
                      "components/bootstrap/dist/css/bootstrap.min.css"
                      "components/bootstrap/dist/css/bootstrap-theme.min.css"
