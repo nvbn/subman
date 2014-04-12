@@ -163,10 +163,10 @@
     (update-total-count total-count)
     (init-history query)
     (init-push total-count)
-    (set-focus)
     (wait 0 #(init-autocomplete query
                                 (:languages props)
                                 (:sources props)))
+    (wait 0 set-focus)
     (render-component [components/search-page
                        query
                        results
