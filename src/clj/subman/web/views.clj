@@ -12,9 +12,11 @@
                      "components/bootstrap/dist/css/bootstrap.min.css"
                      "components/bootstrap/dist/css/bootstrap-theme.min.css"
                      "components/font-awesome/css/font-awesome.min.css"
+                     "components/typeahead.js-bootstrap3.less/typeahead.css"
                      "main.css")
           (as-static include-js
                      "components/jquery/dist/jquery.min.js"
                      "components/bootstrap/dist/js/bootstrap.min.js"
+                     "components/typeahead.js/dist/typeahead.jquery.min.js"
                      "main.js")]
          [:body [:script "subman.core.run();"]]))

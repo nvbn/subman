@@ -43,7 +43,8 @@
                        :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                              :compiler {:preamble ["reagent/react.min.js"]
                                                         :externs ["resources/public/components/jquery/dist/jquery.min.js"
-                                                                  "resources/public/components/bootstrap/dist/js/bootstrap.min.js"]
+                                                                  "resources/public/components/bootstrap/dist/js/bootstrap.min.js"
+                                                                  "resources/public/components/typeahead.js/dist/typeahead.jquery.min.js"]
                                                         :output-to "resources/public/main.js"
                                                         :optimizations :advanced
                                                         :pretty-print false}

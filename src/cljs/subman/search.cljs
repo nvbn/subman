@@ -10,6 +10,7 @@
             [subman.history :refer [init-history]]
             [subman.push :refer [init-push]]
             [subman.components :as components]
+            [subman.autocomplete :refer [init-autocomplete]]
             [subman.const :as const]))
 
 (defn ?-query-part
@@ -131,6 +132,7 @@
     (init-history query)
     (init-push total-count)
     (set-focus)
+    (wait 0 init-autocomplete)
     (render-component [components/search-page
                        query
                        results

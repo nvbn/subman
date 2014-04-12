@@ -38,3 +38,5 @@
 (def version-boost 2)
 
 (def languages-limit 100)
+
+(def autocomplete-limit 5)
