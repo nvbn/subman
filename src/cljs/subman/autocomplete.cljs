@@ -63,10 +63,11 @@
 
 (defn init-autocomplete
   "Initiale autocomplete"
-  []
+  [query]
   (let [langs (get-langugages)
-        sources (get-sources)]
-    (.typeahead ($ "#search-input")
+        sources (get-sources)
+        input ($ "#search-input")]
+    (.typeahead input
                 (js-obj "highlight" true)
                 (js-obj "source"
                         (fn [query cb]
@@ -75,4 +76,6 @@
                                            (map #(js-obj "value" %)
                                                 (get-completion query
                                                                 @langs
-                                                                sources))))))))))
+                                                                sources))))))))
+    (.on input "typeahead:closed" (fn []
+                                    (reset! query (.val input))))))

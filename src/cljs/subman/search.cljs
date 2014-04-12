@@ -132,7 +132,7 @@
     (init-history query)
     (init-push total-count)
     (set-focus)
-    (wait 0 init-autocomplete)
+    (wait 0 #(init-autocomplete query))
     (render-component [components/search-page
                        query
                        results
