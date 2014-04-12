@@ -5,7 +5,8 @@
 (defstyles main
   [:.search-input {:z-index 100
                    :background-color "#fff"}]
-  [:.info-box {:text-align "center"}]
+  [:.info-box {:text-align "center"
+               :font-size (px 18)}]
   [:.search-result-holder {:padding-left 0
                            :padding-right 0}]
   [:.search-result-list {:margin-top (px -5)}]

@@ -41,14 +41,23 @@
   [:div.container.col-xs-12.info-box
    [:h2 text]])
 
+(defn edit-option
+  "Components factory for options"
+  [options options-key current-key]
+  [:select.form-control {:value @(current-key options)
+                         :on-change #(reset! (current-key options)
+                                             (-> % .-target .-value))}
+   (for [val @(options-key options)]
+     [:option {:value val} val])])
+
 (defn result-list
   "Search result list"
-  [query items counter total-count in-progress]
+  [query items counter total-count in-progress options]
   (cond
    (> (count @items) 0) [:div.container.col-xs-12.search-result-holder
                          [:div.search-result-list.list-group (map result-line @items)]]
    (or (= @counter 0)
-       (= (count @query) 0)) [:div.container.col-xs-12.info-box
+       (= (count @query) 0)) [:div.container.col-xs-12.info-box.form-inline
                               [:h2 "Welcome to subman!"]
                               [:p "We indexing "
                                [:a {:href "http://www.addic7ed.com/"
@@ -65,14 +74,12 @@
                                "."]
                               [:p "In query you can specifie language with "
                                [:code ":lang name"]
-                               ", by default used "
-                               [:code "english"]
-                               "."]
+                               ", by default used: "
+                               (edit-option options :languages :current-language)]
                               [:p "And source using "
                                [:code ":source name"]
-                               ", by default used "
-                               [:code "all"]
-                               "."]
+                               ", by default used: "
+                               (edit-option options :sources :current-source)]
                               [:p "Total indexed subtitles count: "
                                @total-count
                                "."]
@@ -84,11 +91,12 @@
 
 (defn search-page
   "Search component"
-  [query results counter total-count in-progress]
+  [query results counter total-count in-progress options]
   [:div [search-box query]
    [result-list
     query
     results
     counter
     total-count
-    in-progress]])
+    in-progress
+    options]])

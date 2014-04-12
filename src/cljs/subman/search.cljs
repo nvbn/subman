@@ -11,7 +11,8 @@
             [subman.push :refer [init-push]]
             [subman.components :as components]
             [subman.autocomplete :refer [init-autocomplete]]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.options :as options]))
 
 (defn ?-query-part
   [part-name part-formatter [api-query query]]
@@ -25,6 +26,14 @@
          query])
       [api-query query])))
 
+(defn set-default-part
+  "Set default query part value if need"
+  [[api-query query] name default]
+  (if (re-find (re-pattern (str name "=")) api-query)
+    [api-query query]
+    [(str api-query name "=" default "&")
+     query]))
+
 (defn lang-query-part
   "Get lang query part"
   [param]
@@ -34,21 +43,19 @@
   "Get identifier of source from name"
   [source]
   (let [prepared (string/lower-case source)]
-    (if (= prepared "all")
-      -1
-      (get (apply merge
-                  (map (fn [el]
-                         {(-> el val str string/lower-case)
-                          (key el)})
-                       const/type-names))
-           (string/lower-case source)
-           const/type-none))))
+    (get (apply merge
+                (map (fn [el]
+                       {(-> el val str string/lower-case)
+                        (key el)})
+                     const/type-names))
+         (string/lower-case source)
+         const/type-none)))
 
 (defn source-query-part
   "Get source query part"
   [param]
   (?-query-part "source"
-                get-source-id
+                #(get-source-id %)
                 param))
 
 (defn query-offset-query-part
@@ -58,10 +65,12 @@
 
 (defn create-search-request
   "Create search request from query"
-  [query offset]
+  [query offset props]
   (-> ["/api/search/?" query]
       lang-query-part
+      (set-default-part "lang" @(:current-language props))
       source-query-part
+      (set-default-part "source" (get-source-id @(:current-source props)))
       (query-offset-query-part offset)))
 
 (defn update-result
@@ -84,13 +93,13 @@
 
 (defn watch-to-query
   "Watch to search query"
-  [query results counter offset in-progress]
+  [query results counter offset in-progress props]
   (add-watch query :search-request
              (fn [_ _ _ new-value]
                (update-title new-value)
                (reset! offset 0)
                (reset! in-progress true)
-               (update-result (create-search-request new-value @offset)
+               (update-result (create-search-request new-value @offset props)
                               results
                               counter
                               (fn [value]
@@ -99,7 +108,7 @@
 
 (defn watch-to-scroll
   "Watch to scroll"
-  [query results counter offset]
+  [query results counter offset props]
   (.scroll ($ js/window) #(when (and (= (- (-> js/document $ .height)
                                            (-> js/window $ .height))
                                         (-> js/window $ .scrollTop))
@@ -107,7 +116,7 @@
                             (swap! offset + const/result-size)))
   (add-watch offset :scroll
              (fn [_ _ _ new-value]
-               (update-result (create-search-request @query new-value)
+               (update-result (create-search-request @query new-value props)
                               results
                               counter
                               #(swap! results concat %)))))
@@ -126,6 +135,14 @@
   []
   (wait 0 #(.focus ($ "#search-input"))))
 
+(defn force-update-on
+  "Fix slow updating in firefox"
+  [query atoms]
+  (doseq [one atoms]
+    (add-watch one :force-update
+               (fn [_ _ _ _]
+                 (reset! query @query)))))
+
 (defn search-controller
   "Search page controller"
   []
@@ -134,18 +151,27 @@
         counter (atom 0)
         total-count (atom 0)
         offset (atom 0)
-        in-progress (atom false)]
-    (watch-to-query query results counter offset in-progress)
-    (watch-to-scroll query results counter offset)
+        in-progress (atom false)
+        storage (options/get-local-storage)
+        props {:languages (options/get-languages)
+               :current-language (options/get-language-option storage)
+               :sources (options/get-sources)
+               :current-source (options/get-source-option storage)}]
+    (force-update-on query (vals props))
+    (watch-to-query query results counter offset in-progress props)
+    (watch-to-scroll query results counter offset props)
     (update-total-count total-count)
     (init-history query)
     (init-push total-count)
     (set-focus)
-    (wait 0 #(init-autocomplete query))
+    (wait 0 #(init-autocomplete query
+                                (:languages props)
+                                (:sources props)))
     (render-component [components/search-page
                        query
                        results
                        counter
                        total-count
-                       in-progress]
+                       in-progress
+                       props]
                       (.-body js/document))))

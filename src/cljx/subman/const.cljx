@@ -41,3 +41,7 @@
 (def languages-limit 100)
 
 (def autocomplete-limit 5)
+
+(def default-language "english")
+
+(def default-type type-all)

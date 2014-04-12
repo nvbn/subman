@@ -28,9 +28,9 @@
   [params]
   (let [query (:query params)
         offset (get params :offset 0)
-        lang (get params :lang "english")
+        lang (get params :lang const/default-language)
         source (read-source
-                (get params :source (str const/type-all)))]
+                (get params :source (str const/default-type)))]
     (models/search :query query
                    :offset offset
                    :lang lang

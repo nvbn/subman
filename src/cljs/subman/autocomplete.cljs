@@ -7,22 +7,6 @@
             [jayq.core :refer [$]]
             [subman.const :as const]))
 
-(defn get-langugages
-  "Get atom with all languages list"
-  []
-  (let [languages (atom [])]
-    (go (let [response (<! (http/get "/api/list-languages/"))]
-          (->> (:body response)
-               read-string
-               (map #(:term %))
-               (reset! languages))))
-    languages))
-
-(defn get-sources
-  "Get all sources list"
-  []
-  (map string/lower-case (vals const/type-names)))
-
 (defn only-contains
   "Get only contains from list"
   [items needle]
@@ -63,10 +47,8 @@
 
 (defn init-autocomplete
   "Initiale autocomplete"
-  [query]
-  (let [langs (get-langugages)
-        sources (get-sources)
-        input ($ "#search-input")]
+  [query langs sources]
+  (let [input ($ "#search-input")]
     (.typeahead input
                 (js-obj "highlight" true)
                 (js-obj "source"
@@ -76,6 +58,6 @@
                                            (map #(js-obj "value" %)
                                                 (get-completion query
                                                                 @langs
-                                                                sources))))))))
+                                                                @sources))))))))
     (.on input "typeahead:closed" (fn []
                                     (reset! query (.val input))))))
