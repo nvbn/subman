@@ -3,6 +3,7 @@
             [subman.sources.podnapisi :as podnapisi]
             [subman.sources.opensubtitles :as opensubtitles]
             [subman.sources.subscene :as subscene]
+            [subman.sources.notabenoid :as notabenoid]
             [subman.models :as models]
             [subman.const :as const]
             [subman.helpers :as helpers]))
@@ -31,7 +32,8 @@
                     subscene/get-release-page-result
                     opensubtitles/get-release-page-result
                     addicted/get-release-page-result
-                    podnapisi/get-release-page-result)
+                    podnapisi/get-release-page-result
+                    notabenoid/get-release-page-result)
        (map (helpers/make-safe models/create-document nil))
        (remove nil?)
        (map-indexed vector)

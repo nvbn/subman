@@ -14,12 +14,15 @@
 
 (def type-subscene 3)
 
+(def type-notabenoid 4)
+
 (def type-none -2)
 
 (def type-names {type-addicted "Addicted"
                  type-podnapisi "Podnapisi"
                  type-opensubtitles "OpenSubtitles"
                  type-subscene "Subscene"
+                 type-notabenoid "Notabenoid"
                  type-all "all"})
 
 (def update-deep 10)

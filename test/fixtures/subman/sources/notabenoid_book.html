@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="/assets/18e5a374/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/assets/18e5a374/css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="/assets/18e5a374/css/bootstrap-yii.css" />
+<link rel="stylesheet" type="text/css" href="/css/ui-lightness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="/css/v3.1.css?3" />
+<style type="text/css">
+/*<![CDATA[*/
+body {
+	background-color: #ffffff;
+	color: #000000;
+}
+body, label, input, button, select, textarea {
+	font-size: 13px;
+	line-height: 18px;
+}
+#chat-box {
+	height: 300px;
+}.comments .comment .meta, .comments .comment .meta a, .translator .info, .translator .info a { color: #bbb; }
+.comments .comment:hover .meta, .comments .comment:hover .meta a, .translator tr:hover .info, .translator tr:hover .info a { color: #888; }
+/*]]>*/
+</style>
+<script type="text/javascript" src="/assets/4a54b90d/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/18e5a374/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/jquery.form.js"></script>
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/js/global.js?16"></script>
+<script type="text/javascript" src="/js/jquery.scrollTo.js"></script>
+<script type="text/javascript" src="/js/book.js?1"></script>
+<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?49"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+var User = new CUser({id: 0, login: 'anonymous'});
+
+var Book = new CBook({
+	id: 38401,
+	owner_id: 53477,
+	facecontrol: 1,
+	s_lang: 2,
+	t_lang: 1,
+	n_verses: 5252,
+	n_vars: 5529,
+	d_vars: 5252,
+	typ: 'S',
+	s_title: 'Shetland',
+	t_title: '1 СЕЗОН / 2 СЕЗОН',
+	membership: {status: 0}
+});
+
+VK.init({apiId: 3013223, onlyWidgets: true});
+/*]]>*/
+</script>
+<title>Shetland / 1 СЕЗОН / 2 СЕЗОН :: Notabenoid.Com</title>
+	<meta name="description" content="Коллективные переводы субтитров и книжек" />
+	<meta name="language" content="ru" />
+	<meta name="keywords" content="перевод, translation, коллективный перевод, кино с субтитрами, кино по-английски с русскими субтитрами, кино по-немецки с русскими субтитрами, кино по-испански с русскими субтитрами, примеры перевода, краудсорсинг, crowdsourcing, нотабеноид" />
+	<link rel='icon' href='/i/favicon.ico' type='image/x-icon'>
+	<link rel='shortcut icon' href='/i/favicon.ico' type='image/x-icon'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<!--[if IE]>
+		<script type="text/javascript" src="/js/jquery.input-placeholder.js"></script>
+		<link rel='stylesheet' href="/css/jquery.input-placeholder.css" />
+		<script type="text/javascript">
+			$(function() { $('input[placeholder]').inputDefault(); });
+		</script>
+	<![endif]-->
+
+	<style type="text/css">
+		.banner-poll { margin:5px 0; padding: 10px; text-align: center; border:1px solid #bbb; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,.3) inset; background:#f0f0f0; font-size:10px; }
+		.banner-poll i {}
+		.banner-poll b {}
+		.banner-poll a { text-decoration: underline; }
+	</style>
+</head><body>
+
+<header>
+<div class="container" style="background-color:#fff;">
+	<a href="/" id="header-logo"><img src="/i/logo-v3.gif" width="124" height="130" alt="Notabenoid.com" title="3.0" /></a>
+
+	<nav>
+	<ul id="header-menu">
+		<li><a href="/catalog/1">ФИЛЬМЫ</a></li>
+		<li><a href="/catalog/2">ТЕКСТЫ</a></li>
+		<li><a href="/catalog/3">ПРОГРАММЫ</a></li>
+		<li><a href="/users">ПЕРЕВОДЧИКИ</a></li>
+		<li><a href="/blog">БЛОГ</a></li>
+		<li><a href="/announces">АНОНСЫ</a></li>
+		<li class="search">
+			<form class="form-search" method="get" action="/search">
+								<input type="text" name="t" class="input-medium search-query span3" placeholder="Поиск переводов" />
+				<input type="submit" value="&raquo;" class="btn" style="border-radius: 20px;" />
+			</form>
+		</li>
+	</ul>
+
+	<ul id="header-submenu">
+			<li id="header-login">
+			<form method="post" action="/register/login" class="form-inline btn-toolbar">
+				<input type="text" name="User[login]" placeholder="Логин" class="span1" />
+				<input type="password" name="User[pass]" placeholder="Пароль" class="span1" />
+				<input type="submit" value="Войти" class="btn" />
+			</form>
+		</li>
+		<li><a href="/register"><strong>Зарегистрироваться</strong></a></li>
+		<li><a href="/register/remind"><strong>Напомнить пароль</strong></a></li>
+		<li><p>Зарегистрировавшись, вы сможете добавлять свои версии перевода, общаться в блоге, ставить оценки переводам.</p></li>
+		</ul>
+
+	</nav>
+
+</div>
+</header>
+
+
+
+
+
+
+<div class="container">
+<div id="yw0"></div><div class="row">
+	<div class="span8">
+		<style type='text/css'>
+#Info img {float:left; margin:0 20px 20px 0;}
+#Info .cat span {display:none;}
+#Info .cat:hover span {display:inline;}
+#Chapters { width:100%; position:relative; z-index:2; }
+#Chapters td.r {text-align:right;}
+#Chapters .disabled {text-decoration: line-through; color:#aaa;}
+#Chapters td.editing {border-top:10px solid black; border-bottom:10px solid black; background:#fff; margin-right:-10px;}
+#Chapters td.loading {
+	padding:50px;
+	color:#444;
+	background:#d0d0d0 url("/i/pacman-d0d0d0.gif") no-repeat center center;
+}
+#Chapters td, #Chapters th {white-space: nowrap; background:#fff;}
+#Chapters td.t {white-space: normal;}
+#Chapters .editing .b select {
+	height:24px;
+	font-size:14px;
+}
+#Status_Dropdown {
+	position:absolute;
+	width:150px;
+	border:1px solid black;
+	background:white;
+	padding:5px 15px;
+	white-space:normal;
+	z-index:7;
+}
+#Status_Dropdown ul {
+	margin:10px 0; padding:0;
+}
+#Status_Dropdown ul li {
+	list-style:none;
+	margin:5px 0;
+}
+</style>
+
+<ul class='nav nav-tabs'>
+	<li class='active'><a href='/book/38401/'>оглавление</a></li>
+	<li><a href='/book/38401/members'>переводчики</a></li>
+	<li><a href='/book/38401/blog'>блог</a></li>
+	<li><a href='/book/38401/announces'>анонсы</a></li>
+</ul>
+
+<h1>Shetland / 1 СЕЗОН / 2 СЕЗОН</h1>
+<div id='Info'>
+	<img src='/i/book/13/3/24084.jpg' width='200' height='120' alt='' /><p class='cat'><a href='/search?cat=4'><a href='/catalog/1'>Фильмы</a> / <a href='/search?cat=4'>Сериалы</a></a></p><p>Новый британский детектив, действие которого на этот раз происходит на Шетландских островах.</p>
+</div>
+<div class="clear"></div>
+
+<h2 style='clear:both'>Оглавление:</h2><table class="table table-condensed table-striped" id="Chapters">
+<thead><tr>
+	<td></td>	<th class='t'>Название</th>
+	<th title='Устанавливается модераторами.' style='cursor:help;'>Статус</th>
+	<th title='Когда в последний раз была добавлена, удалена или отредактирована последняя версия перевода или изменился оригинальный текст.' style='cursor:help;'>Активность</th>
+	<th title='Фрагментов переведено / всего. Наведите курсор на цифры, чтобы узнать Коэффициент Плюрализма, среднее количество вариантов перевода одного фрагмента.' style='cursor:help; text-align:center;' colspan='2'>Готово</th>
+	</tr></thead>
+<tbody>
+<tr id='c_140024'><td><a href='/book/38401/140024/orig' title='Скачать оригинал'>&laquo;&laquo;&laquo;</a></td><td class='t'><a href='/book/38401/140024'>01x01 - Episode 1 </a></td><td>готово</td><td><span title='26.03.2014, 1:18'>19 дней.</span></td><td title='КП=1.1' class='r'>100% <small>(791 / 791)</small></td><td><a href='/book/38401/140024/ready' class='act' title='Получить готовый перевод. Скачали: 148 чел. (сегодня &ndash; 40)'>скачать</a></td></tr><tr id='c_140260'><td><a href='/book/38401/140260/orig' title='Скачать оригинал'>&laquo;&laquo;&laquo;</a></td><td class='t'><a href='/book/38401/140260'>01x02 - Episode 2</a></td><td>готово</td><td><span title='26.03.2014, 1:20'>19 дней.</span></td><td title='КП=1.1' class='r'>100% <small>(737 / 737)</small></td><td><a href='/book/38401/140260/ready' class='act' title='Получить готовый перевод. Скачали: 123 чел. (сегодня &ndash; 28)'>скачать</a></td></tr><tr id='c_204663'><td><a href='/book/38401/204663/orig' title='Скачать оригинал'>&laquo;&laquo;&laquo;</a></td><td class='t'><a href='/book/38401/204663'>02x01 - Raven Black (Part 1) (HDTV x264-TLA)</a></td><td>готово</td><td><span title='26.03.2014, 20:38'>18 дней.</span></td><td title='КП=1.0' class='r'>100% <small>(738 / 738)</small></td><td><a href='/book/38401/204663/ready' class='act' title='Получить готовый перевод. Скачали: 90 чел. (сегодня &ndash; 90)'>скачать</a></td></tr><tr id='c_206073'><td><a href='/book/38401/206073/orig' title='Скачать оригинал'>&laquo;&laquo;&laquo;</a></td><td class='t'><a href='/book/38401/206073'>02x02 - Raven Black - Part 2 (720p.HDTV-MOS)</a></td><td>готово</td><td><span title='26.03.2014, 22:58'>18 дней.</span></td><td title='КП=1.0' class='r'>100% <small>(773 / 773)</small></td><td><a href='/book/38401/206073/ready' class='act' title='Получить готовый перевод. Скачали: 75 чел. (сегодня &ndash; 75)'>скачать</a></td></tr><tr id='c_207603'><td><a href='/book/38401/207603/orig' title='Скачать оригинал'>&laquo;&laquo;&laquo;</a></td><td class='t'><a href='/book/38401/207603'>02x03 - Dead Water (Part 1)</a></td><td>готово</td><td><span title='11.04.2014, 15:08'>2 дней.</span></td><td title='КП=1.0' class='r'>100% <small>(705 / 705)</small></td><td><a href='/book/38401/207603/ready' class='act' title='Получить готовый перевод. Скачали: 74 чел. (сегодня &ndash; 74)'>скачать</a></td></tr><tr id='c_209212'><td><a href='/book/38401/209212/orig' title='Скачать оригинал'>&laquo;&laquo;&laquo;</a></td><td class='t'><a href='/book/38401/209212'>02x04 - Dead Water - Part 2 (RiVER)</a></td><td>готово</td><td><span title='11.04.2014, 15:09'>2 дней.</span></td><td title='КП=1.0' class='r'>100% <small>(777 / 777)</small></td><td><a href='/book/38401/209212/ready' class='act' title='Получить готовый перевод. Скачали: 57 чел. (сегодня &ndash; 57)'>скачать</a></td></tr><tr id='c_210731'><td><a href='/book/38401/210731/orig' title='Скачать оригинал'>&laquo;&laquo;&laquo;</a></td><td class='t'><a href='/book/38401/210731'>02x05 - Blue Lightning - Part 1 (RIVER)</a></td><td>переводится</td><td><span title='13.04.2014, 17:46'>5 час.</span></td><td title='КП=1.1' class='r'>100% <small>(731 / 731)</small></td><td><a href='/book/38401/210731/ready' class='act' title='Получить готовый перевод. Скачали: 28 чел. (сегодня &ndash; 28)'>скачать</a></td></tr></tbody>
+</table>
+
+
+		<div style='margin-top:30px'>
+		<!-- A: 1 --><script charset="UTF-8" src="//cdn.rollad.ru/rollad.js"></script>
+<div><script type="text/javascript">RRoller.load(1316205)</script></div>		</div>
+	</div>
+
+	<div class="span4 sr">
+		<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div class='tools'>
+	<h5>Перевод</h5>
+
+	<dl class='info'>
+		<dt>Перевод:</dt>
+		<dd>субтитры с английского на русский</dd>
+
+		<dt>Создан:</dt>
+		<dd>11.03.2013, владелец: <a href='/users/53477' class='user'>Podruga</a></dd>
+
+				<dt>Скачали:</dt>
+		<dd>
+			<span rel='popover' data-content='Учитываются только загрузки с уникальных IP-адресов. Иногда компьютеры из одной домашней или корпоративной сети имеют один и тот же IP-адрес, поэтому относитесь к этим цифрам как к примерной заниженной оценке.' data-title="Откуда берутся эти цифры?">
+			595 чел. (сегодня &ndash; 392)			</span>
+			<script type='text/javascript'>$("span[rel=popover]").popover();</script>
+		</dd>
+		
+		<dt>Права доступа:</dt>
+		<dd>
+			<div id="ac_icons">
+			<i class='ac_read a'></i> <i class='ac_trread a'></i> <i class='ac_gen a'></i> <i class='ac_rate a'></i> <i class='ac_comment a'></i> <i class='ac_tr a'></i> 			<a href="#" class='more_btn' onclick="$('#side_ac_more').show(); $('#ac_icons').hide(); $(this.parentNode).hide(); return false;">подробнее...</a>
+			</div>
+			<div class="more" id="side_ac_more" style="display:none;">
+				<table class="t">
+				<tr><td><i class='ac_read a'></i> войти</td><td class='d'>все</td></tr><tr><td><i class='ac_trread a'></i> видеть все версии</td><td class='d'>все</td></tr><tr><td><i class='ac_gen a'></i> скачивать</td><td class='d'>все</td></tr><tr><td><i class='ac_rate a'></i> оценивать</td><td class='d'>все</td></tr><tr><td><i class='ac_comment a'></i> комментировать</td><td class='d'>все</td></tr><tr><td><i class='ac_tr a'></i> переводить</td><td class='d'>все</td></tr><tr><td>читать блог</td><td class='d'>все</td></tr><tr><td>комментировать в блоге</td><td class='d'>все</td></tr><tr><td>писать посты в блоге</td><td class='d'>все</td></tr><tr><td>создавать анонсы перевода</td><td class='d'>модераторы</td></tr><tr><td>управлять членством в группе перевода</td><td class='d'>модераторы</td></tr><tr><td>редактировать оригинал</td><td class='d'>модераторы</td></tr><tr><td>редактировать описание перевода</td><td class='d'>никто</td></tr>				<tr>
+					<td>Участие в группе</td>
+					<td class='d'>после подтверждения модераторами</td>
+				</tr>
+				</table>
+							</div>
+		</dd>
+
+		<dt>Готово:</dt>
+		<dd><div class='progress progress-striped progress-success' style='margin-bottom:2px;'><div class='bar' style='width: 100%;'></div><div class='text'><span title='глав: 7, фрагментов: 5252, переведено: 5252'>100.00%</span> <abbr title='Коэффициент Плюрализма: среднее количество вариантов перевода каждого фрагмента'>КП</abbr> = 1.1</div></div></dd>
+
+		    </dl>
+</div>
+
+
+<div class='tools'>
+	<h5>Инструментарий</h5>
+	
+	<ul style="margin-top:10px"><li><a href='http://www.imdb.com/find?q=Shetland&s=tt' target='_blank' rel='nofollow'>Искать на IMDb</a></li><li><a href='http://www.kinopoisk.ru/index.php?first=no&what=&kp_query=Shetland&s=tt' target='_blank' rel='nofollow'>Искать на kinopoisk.ru</a></li></ul>
+
+
+<script type="text/javascript">(function() {
+  if (window.pluso)if (typeof window.pluso.start == "function") return;
+  if (window.ifpluso==undefined) { window.ifpluso = 1;
+    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+    s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+    s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+    var h=d[g]('body')[0];
+    h.appendChild(s);
+  }})();</script>
+<div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,counter,theme=04" data-services="vkontakte,facebook,twitter,pinterest,livejournal"></div>
+
+
+</div>
+<!-- A: 2 --><script charset="UTF-8" src="//cdn.rollad.ru/rollad.js"></script>
+<div><script type="text/javascript">RRoller.load(1316206)</script></div>	</div>
+</div>
+</div>
+
+
+
+<footer>
+    <div class="container"><div class="row">
+        <div class="span5">
+            &copy; <a href="http://romakhin.ru/" rel="nofollow">Дмитрий Ромахин</a> 2008&ndash;2014            <br />
+            <a href="/site/help">Справка</a> |
+            <a href="/blog?topic=65">Техподдержка</a> |
+            <a href="mailto:abuse@notabenoid.com?subj=%2Fbook%2F38401">Abuse</a> |
+            <!-- <a href="/site/donate">Donate</a> | -->
+            <a href="mailto:support@notabenoid.com">E-mail для справок</a> |
+			<a href="#" onclick="return Chat.toggle()" title="Ctrl + ~">Чат</a>
+        </div>
+        <div class="span5 sape">
+		<style type="text/css">
+div.c4e745-block {                              
+	padding: 0px !important;                    
+	font-size: 10px !important;                 
+	line-height: normal !important;                
+    
+}
+div.c4e745-l {                  
+	display: inline !important;                
+	text-align: left !important;                
+	font-size:inherit !important;               
+        float: left;
+        background: white;
+}
+div.c4e745-l .block-c4e745-l {                  
+	padding: 0px !important;                    
+	text-align: inherit !important;             
+	font-size: inherit !important;              
+	line-height: inherit !important;           
+	display: inline !important;                 
+}
+div.c4e745-l .block-c4e745-l div {
+	display: inline;
+	margin-right: 7px;
+}
+div.c4e745-l a {                                
+	color: gray !important;                  
+	font-weight: normal;                        
+	font-size: inherit !important;              
+	line-height: inherit !important;            
+}
+div.c4e745-l .text-c4e745-l {                   
+	color: gray !important;                  
+	padding: 3px 0 !important;                  
+	font-weight: normal;                        
+	font-size: inherit !important;              
+	line-height: inherit !important;            
+}
+div.c4e745-l .host-c4e745-l {                   
+	color: gray;                             
+	font-weight: normal;                        
+	font-size: inherit !important;              
+	line-height: inherit !important;            
+	font-style: italic;
+}
+div.c4e745-block .clear-c4e745-l {              
+	clear:both;                                 
+}</style>
+<script type="text/javascript">//<![CDATA[
+function chameleon(){var blockClass="c4e745-line";var delimeter="|";var tmp=document.getElementsByTagName("div");var l=tmp.length;var divs=[];var countBlock=0;for(var i=0;i<l;i++){if(tmp[i].className=="c4e745-line"){with(tmp[i]){id="c4e745-l-"+countBlock}countBlock++}if(tmp[i].className=="c4e745-l"){with(tmp[i]){id="c4e745-l-to-"+(countBlock-1)}}}for(var i=0;i<countBlock;i++){var o=document.getElementById("c4e745-l-"+i);if(!o||o==undefined){continue}var to=document.getElementById("c4e745-l-to-"+i);if(!to||to==undefined){continue}var text=this.trim(o.innerHTML);if(text==""){continue}var tmp=text.split(delimeter);var links=[];for(var j=0;j<tmp.length;j++){var l=this.GetContext(tmp[j]);if(l!==null){links[j]=l}}this.ShowBlock(links,o,to)}}chameleon.prototype.ShowBlock=function(links,o,to){var a,hBlock;for(var i=0;i<links.length;i++){hBlock=this.ce("DIV");with(hBlock){className="block-c4e745-l"}tDiv=this.ce("DIV");a=this.ce("A");a.target='_blank';a.href=links[i].url;a.appendChild(this.ctn(links[i].title));tDiv.appendChild(a);hBlock.appendChild(tDiv);tDiv=this.ce("DIV");with(tDiv){className="text-c4e745-l"}tDiv.appendChild(this.ctn(links[i].text));hBlock.appendChild(tDiv);tDiv=this.ce("DIV");with(tDiv){className="host-c4e745-l"}tDiv.appendChild(this.ctn(links[i].site));hBlock.appendChild(tDiv);to.appendChild(hBlock)}o.innerHTML="";o.parentNode.removeChild(o);to.removeAttribute("id")};chameleon.prototype.GetContext=function(a){a=this.trim(a.replace(/\s+/," "));if(a.match(/(.*)<a [^>]*href=["]([^"]+)"[^>]*>([^<]*)<\/a>(.*)/i)===null){return null}var e=RegExp.$1==""?RegExp.$4:RegExp.$1+RegExp.$3+RegExp.$4;var c=RegExp.$2;var d=RegExp.$3;if(e==""){e=d}var b=c.replace(/^http:\/\//i,"");b=b.replace(/\/.*$/i,"");b=b.replace(/^www\./i,"");return{url:c,title:d,text:e,site:b}};chameleon.prototype.trim=function(a){return a.length>0?a.replace(/(^\s+|\s+$)/,""):""};chameleon.prototype.ce=function(a){return document.createElement(a)};chameleon.prototype.ctn=function(a){return document.createTextNode(a)};function myInitLinks(){new chameleon()}if(typeof window.addEventListener!="undefined"){window.addEventListener("load",myInitLinks,false)}else{if(typeof window.attachEvent!="undefined"){window.attachEvent("onload",myInitLinks)}};//]]</script>
+<!--lm_php_ver=1.1--><!-- <ml_code></ml_code> --><!--<ml_code_response><ml_getver>6.3.3</ml_getver></ml_code_response>--><!-- <ml_code></ml_code> --><!--<ml_code_response><ml_getver>6.3.3</ml_getver></ml_code_response>--><!--1149895958400--><!--e22cd59f--><!--1e6ab02a--><!--9c7ec26b--><!--da5bb5de--><!--<ingots><ingots><ingots_version>2.2</ingots_version></ingots></ingots>--><!--<ingots><ingots><ingots_fversion>2.2f</ingots_fversion></ingots></ingots>--><!--<kappusto><kappusto><kappusto_version>1.3.3</kappusto_version></kappusto></kappusto>--><!--<megaindex_noindex></megaindex_noindex>--><!--35aab--><!-- links will appear here --><div class="c4e745-block"><div class="c4e745-l"><script async="async" src="https://w.uptolike.com/widgets/v1/zp.js?pid=51394" type="text/javascript"></script><div class="block-c4e745-l"><div><a href="http://rumika-mebel.ru/Myagkaya-mebel/Kresla-krovati.html" target="_blank">Купить кресла кровати недорого</a></div><div class="text-c4e745-l">Вешалки, диваны, кровати, обеденные группы, комоды и др</div><div class="host-c4e745-l">rumika-mebel.ru</div></div><div class="block-c4e745-l"><div class="text-c4e745-l"><a href="http://nika-telecom.com/uslugi/videonablyudenie/videonablyudenie-dlya-organizatsij.html" target="_blank">Преимущества и способы организации систем видеонаблюдения</a></div><div class="host-c4e745-l">nika-telecom.com</div></div><div class="block-c4e745-l"><div><a href="http://bzsk-invest.ru/" target="_blank">Найти квартиру в новостройке санкт-петербурга</a></div><div class="text-c4e745-l">База квартир, домов, коттеджей и новостроек от собственников</div><div class="host-c4e745-l">bzsk-invest.ru</div></div></div><div class="clear-c4e745-l"></div></div>&nbsp;
+        </div>
+        <div class="span2 counters">
+            <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='http://counter.yadro.ru/hit?t11.2;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' border=0 width=88 height=31 alt='' title='LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня'><\/a>")</script><!--/LiveInternet-->
+	    <script type="text/javascript" src="http://cdn.rollad.ru/rollad.js"></script>
+	    <script type="text/javascript">// <![CDATA[
+		RCounter.load(491067, {});
+	    // ]]></script>
+        </div>
+    </div></div>
+</footer>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+jQuery(function($) {
+jQuery('a.tooltip').tooltip({'placement':'bottom'});
+jQuery('a[rel="popover"]').popover();
+jQuery('#yw0 .alert').alert();
+});
+/*]]>*/
+</script>
+</body></html>

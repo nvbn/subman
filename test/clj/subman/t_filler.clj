@@ -5,6 +5,7 @@
             [subman.sources.podnapisi :as podnapisi]
             [subman.sources.opensubtitles :as opensubtitles]
             [subman.sources.subscene :as subscene]
+            [subman.sources.notabenoid :as notabenoid]
             [subman.filler :as filler]))
 
 (defn new-getter
@@ -31,4 +32,5 @@
        (subscene/get-release-page-result 1) => []
        (opensubtitles/get-release-page-result 1) => []
        (addicted/get-release-page-result 1) => []
-       (podnapisi/get-release-page-result 1) => []))
+       (podnapisi/get-release-page-result 1) => []
+       (notabenoid/get-release-page-result 1) => []))

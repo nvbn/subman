@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="/assets/18e5a374/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/assets/18e5a374/css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="/assets/18e5a374/css/bootstrap-yii.css" />
+<link rel="stylesheet" type="text/css" href="/css/ui-lightness/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="/css/v3.1.css?3" />
+<style type="text/css">
+/*<![CDATA[*/
+body {
+	background-color: #ffffff;
+	color: #000000;
+}
+body, label, input, button, select, textarea {
+	font-size: 13px;
+	line-height: 18px;
+}
+#chat-box {
+	height: 300px;
+}.comments .comment .meta, .comments .comment .meta a, .translator .info, .translator .info a { color: #bbb; }
+.comments .comment:hover .meta, .comments .comment:hover .meta a, .translator tr:hover .info, .translator tr:hover .info a { color: #888; }
+/*]]>*/
+</style>
+<script type="text/javascript" src="/assets/4a54b90d/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/18e5a374/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/jquery.form.js"></script>
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/js/global.js?16"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+var User = new CUser({id: 0, login: 'anonymous'});
+
+/*]]>*/
+</script>
+<title>Поиск :: Notabenoid.Com</title>
+	<meta name="description" content="Коллективные переводы субтитров и книжек" />
+	<meta name="language" content="ru" />
+	<meta name="keywords" content="перевод, translation, коллективный перевод, кино с субтитрами, кино по-английски с русскими субтитрами, кино по-немецки с русскими субтитрами, кино по-испански с русскими субтитрами, примеры перевода, краудсорсинг, crowdsourcing, нотабеноид" />
+	<link rel='icon' href='/i/favicon.ico' type='image/x-icon'>
+	<link rel='shortcut icon' href='/i/favicon.ico' type='image/x-icon'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<!--[if IE]>
+		<script type="text/javascript" src="/js/jquery.input-placeholder.js"></script>
+		<link rel='stylesheet' href="/css/jquery.input-placeholder.css" />
+		<script type="text/javascript">
+			$(function() { $('input[placeholder]').inputDefault(); });
+		</script>
+	<![endif]-->
+
+	<style type="text/css">
+		.banner-poll { margin:5px 0; padding: 10px; text-align: center; border:1px solid #bbb; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,.3) inset; background:#f0f0f0; font-size:10px; }
+		.banner-poll i {}
+		.banner-poll b {}
+		.banner-poll a { text-decoration: underline; }
+	</style>
+</head><body>
+
+<header>
+<div class="container" style="background-color:#fff;">
+	<a href="/" id="header-logo"><img src="/i/logo-v3.gif" width="124" height="130" alt="Notabenoid.com" title="3.0" /></a>
+
+	<nav>
+	<ul id="header-menu">
+		<li><a href="/catalog/1">ФИЛЬМЫ</a></li>
+		<li><a href="/catalog/2">ТЕКСТЫ</a></li>
+		<li><a href="/catalog/3">ПРОГРАММЫ</a></li>
+		<li><a href="/users">ПЕРЕВОДЧИКИ</a></li>
+		<li><a href="/blog">БЛОГ</a></li>
+		<li><a href="/announces">АНОНСЫ</a></li>
+		<li class="search">
+			<form class="form-search" method="get" action="/search">
+								<input type="text" name="t" class="input-medium search-query span3" placeholder="Вы что-то потеряли?" />
+				<input type="submit" value="&raquo;" class="btn" style="border-radius: 20px;" />
+			</form>
+		</li>
+	</ul>
+
+	<ul id="header-submenu">
+			<li id="header-login">
+			<form method="post" action="/register/login" class="form-inline btn-toolbar">
+				<input type="text" name="User[login]" placeholder="Логин" class="span1" />
+				<input type="password" name="User[pass]" placeholder="Пароль" class="span1" />
+				<input type="submit" value="Войти" class="btn" />
+			</form>
+		</li>
+		<li><a href="/register"><strong>Зарегистрироваться</strong></a></li>
+		<li><a href="/register/remind"><strong>Напомнить пароль</strong></a></li>
+		<li><p>Зарегистрировавшись, вы сможете добавлять свои версии перевода, общаться в блоге, ставить оценки переводам.</p></li>
+		</ul>
+
+	</nav>
+
+</div>
+</header>
+
+
+
+
+
+
+<div class="container">
+<div id="yw2"></div><div class="row">
+	<div class="span8">
+		<style type="text/css">
+ul.search-results {list-style:none; padding:0; margin:0;}
+ul.search-results li {margin:10px 0; padding:5px; clear: both;}
+ul.search-results li:hover { background:#eee; }
+ul.search-results li .th {float:left; margin:0 5px 0 0;}
+ul.search-results li .th img {width:50px; height:auto;}
+ul.search-results li p {margin: 0}
+ul.search-results li .ready {float: right;}
+ul.search-results li .meta {font-size:11px;}
+ul.search-results li .meta .cat {float:right;}
+</style>
+<script type="text/javascript">
+$(function() {
+	$("#search-ghost-form [name=t]").bind("change keyup", function() {
+		$("#form-search [name=t]").val($(this).val());
+	});
+	$("#search-ghost-form").submit(function(e) {
+		e.preventDefault();
+		$("#form-search").submit();
+		return false;
+	});
+});
+
+// Размер шрифтов
+var yandex_ad_fontSize = 1;
+
+// Настройки объявлений Директа
+var yandex_direct_fontColor = '000000';
+var yandex_direct_titleColor = '005580';
+var yandex_direct_siteurlColor = '006600';
+var yandex_direct_linkColor = '005580';
+function yandex_direct_print(){ }
+
+// Настройки объявлений Маркета
+var yandex_market_fontColor = '000000';
+var yandex_market_catColor = '666666';
+var yandex_market_offerlinkColor = '005580';
+var yandex_market_linkColor = '005580';
+function yandex_market_print(){ }
+
+var yandex_r = Math.round(Math.random() * 100000);
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/code/102609?rnd=' + yandex_r + '&text=&page-no=0&charset=utf-8"></'+'sc'+'ript>');
+</script>
+
+<h1>Поиск переводов</h1>
+
+<form id="search-ghost-form" class="form-inline" action="/NOWHERE">
+	<input type="text" name="t" value="" class="span7" />
+	<button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i> Найти</button>
+</form>
+
+
+
+<h3>Найдено 4347 переводов</h3><div class='pagination' style='margin-bottom:0'><ul id="yw0" class="yiiPager"><li class="first disabled"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4">&laquo;&laquo;&laquo;</a></li>
+<li class="previous disabled"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4">&laquo;</a></li>
+<li class=" active"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4">1</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/2">2</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/3">3</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/4">4</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/5">5</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/6">6</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/7">7</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/8">8</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/9">9</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/10">10</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/11">11</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/12">12</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/13">13</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/14">14</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/15">15</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/16">16</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/17">17</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/18">18</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/19">19</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/20">20</a></li>
+<li class="next"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/2">&raquo;</a></li>
+<li class="last"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/87">&raquo;&raquo;&raquo;</a></li></ul></div>
+    <!-- Яндекс.Директ должен быть размещен на первом экране страницы с результатами поиска -->
+    <script type="text/javascript">yandex_direct_print()</script>
+
+<ul class='search-results'><li><p><a href='/book/50607'>The Crimson Field / Багряное поле</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/167662' class='user'>Vela</a><br />последняя активность 13.04.2014 21:25</div></li><li><p><a href='/book/44311'>Family Guy 12 season / Гриффины 12 Сезон</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/133681' class='user'>rassvet</a><br />последняя активность 13.04.2014 20:18</div></li><li><p><a href='/book/50635'>Archer s05e11 / Arcer Vice / Арчер / Порочный Арчер</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr o'></i> субтитры с английского на русский от <a href='/users/95979' class='user'>WysiWYG</a><br />последняя активность 13.04.2014 19:51</div></li><li><p><a href='/book/45802'>Raising Hope - season 4 / Воспитывая Хоуп - 4 сезон</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/73522' class='user'>S0phie</a><br />последняя активность 13.04.2014 19:35</div></li><li><p><a href='/book/36436'>Elementary / Элементарно</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/13241' class='user'>Capitan_S</a><br />последняя активность 13.04.2014 18:56</div></li><li><p><a href='/book/38401'>Shetland / 1 СЕЗОН / 2 СЕЗОН</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/53477' class='user'>Podruga</a><br />последняя активность 13.04.2014 17:46</div></li><li><p><a href='/book/49992'>Rev. / Преподобный</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/124565' class='user'>Desire2107</a><br />последняя активность 13.04.2014 17:44</div></li><li><p><a href='/book/44312'>American dad! 9 season / Американский папаша! 9 сезон</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/133681' class='user'>rassvet</a><br />последняя активность 13.04.2014 15:18</div></li><li><p><a href='/book/41972'>When In Rome / Однажды в риме</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/167987' class='user'>arturey</a><br />последняя активность 13.04.2014 15:09</div></li><li><p><a href='/book/36828'>Da Vinci's Demons / Демоны да Винчи (1-2 СЕЗОН, 4 СЕРИЯ - ГОТОВА)</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/151846' class='user'>Mixadencik</a><br />последняя активность 13.04.2014 14:06</div></li><li><p><a href='/book/43718'>Bones - season 9 / Кости - 9 сезон</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/163416' class='user'>Rossalina</a><br />последняя активность 13.04.2014 11:35</div></li><li><p><a href='/book/45125'>Grimm / Гримм (3 сезон)</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/184146' class='user'>Asterope</a><br />последняя активность 13.04.2014 11:11</div></li><li><p><a href='/book/43881'>Criminal minds 9 season / Мыслить как преступник 9 сезон</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/53895' class='user'>even</a><br />последняя активность 13.04.2014 10:49</div></li><li><p><a href='/book/50461'>Goddess Gathering / Собрание богини</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/108276' class='user'>ParNada</a><br />последняя активность 13.04.2014 10:10</div></li><li><p><a href='/book/50532'>Justified S05E13 / Правосудие (5 сезон, 13 серия)</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/252915' class='user'>bagikan</a><br />последняя активность 13.04.2014 10:00</div></li><li><p><a href='/book/43420'>The Big Bang Theory / Теория Большого Взрыва: Сезон 07x20</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/174470' class='user'>dreaMaker7</a><br />последняя активность 13.04.2014 09:08</div></li><li><p><a href='/book/50147'>Hart of Dixie / Сердце Дикси [перевод серии 3х15 - 3х22]</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/254439' class='user'>club16024313</a><br />последняя активность 13.04.2014 06:22</div></li><li><p><a href='/book/50612'>Yes Minister / Да, министр</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr o'></i> субтитры с английского на русский от <a href='/users/167348' class='user'>heymoon</a><br />последняя активность 13.04.2014 04:05</div></li><li><p><a href='/book/44146'>Parenthood Season 5 / Родители 5 сезон</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/90252' class='user'>WaterLove</a><br />последняя активность 13.04.2014 01:57</div></li><li><p><a href='/book/49011'>Those Who Kill (2014) / Те, кто убивают - переводим 4 серию</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/93479' class='user'>prb</a><br />последняя активность 13.04.2014 01:52</div></li><li><p><a href='/book/50385'>Metal Hurlant Chronicles / Военная хроника</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/127223' class='user'>Amnezyna</a><br />последняя активность 13.04.2014 01:38</div></li><li><p><a href='/book/47140'>Shameless (US) / Бесстыжие (Сезон 4)</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr m'></i> субтитры с английского на русский от <a href='/users/22894' class='user'>MuJI</a><br />последняя активность 12.04.2014 23:41</div></li><li><p><a href='/book/49875'>Scandal / Скандал</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/210646' class='user'>angry_fish</a><br />последняя активность 12.04.2014 23:29</div></li><li><p><a href='/book/50500'>The Monkey King (Xi you ji: Da nao tian gong) / Царь обезьян</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/184174' class='user'>Megasmile</a><br />последняя активность 12.04.2014 20:22</div></li><li><p><a href='/book/36958'>Law &amp; Order: Criminal Intent | Season 9 / Закон и порядок: Преступные намерения | Сезон 9</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/46413' class='user'>Nathalie</a><br />последняя активность 12.04.2014 19:53</div></li><li><p><a href='/book/47235'>Hannibal / Ганнибал (2 сезон)</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/154021' class='user'>Anna_Gerts</a><br />последняя активность 12.04.2014 18:47</div></li><li><p><a href='/book/50487'>#Operation Israel / #Операция Израиль</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/35937' class='user'>hoeo</a><br />последняя активность 12.04.2014 18:28</div></li><li><p><a href='/book/49212'>Secrets and Lies / Secrets &amp; Lies / Тайны и ложь</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/140617' class='user'>Sonson</a><br />последняя активность 12.04.2014 18:08</div></li><li><p><a href='/book/50615'>Hannibal season 2 episode 7 / Ганнибал</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/205424' class='user'>redHe11</a><br />последняя активность 12.04.2014 16:35</div></li><li><p><a href='/book/50142'>Hannibal / Ганнибал, 2 сезон, 5-7 серии</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/167699' class='user'>SpotEL</a><br />последняя активность 12.04.2014 16:07</div></li><li><p><a href='/book/50306'>New Worlds / Новый мир</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/16671' class='user'>Alanis</a><br />последняя активность 12.04.2014 12:38</div></li><li><p><a href='/book/49994'>Friends. All Seasons (HD) / Друзья. Все сезоны (HD)</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/77427' class='user'>nitai4andra</a><br />последняя активность 12.04.2014 10:33</div></li><li><p><a href='/book/49951'>The Widower / Вдовец</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/167662' class='user'>Vela</a><br />последняя активность 12.04.2014 06:11</div></li><li><p><a href='/book/46612'>Community, season 5 / Сообщество, 5 сезон.</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/133327' class='user'>Carribean_blue</a><br />последняя активность 12.04.2014 04:14</div></li><li><p><a href='/book/50552'>Trophy Wife / Третья(Трофейная) Жена</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/178534' class='user'>kosmos955</a><br />последняя активность 12.04.2014 03:33</div></li><li><p><a href='/book/44613'>NCIS Los Angeles - 5 season / Морская полиция: Лос Анджелес 5 сезон</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/59216' class='user'>ldinka</a><br />последняя активность 12.04.2014 01:03</div></li><li><p><a href='/book/50496'>Amber / Эмбер / Исчезновение Эмбер</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/56991' class='user'>Dinn2009</a><br />последняя активность 11.04.2014 23:28</div></li><li><p><a href='/book/41291'>Elementary / Элементарно (2 СЕЗОН 20 СЕРИЯ - ПЕРЕВОДИТСЯ)</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/151846' class='user'>Mixadencik</a><br />последняя активность 11.04.2014 22:51</div></li><li><p><a href='/book/43991'>Parks and Recreation - Season 6 / Парки и зоны отдыха - Сезон 6</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/65679' class='user'>Katakimiku</a><br />последняя активность 11.04.2014 22:33</div></li><li><p><a href='/book/41235'>Suits Season 3 / Костюмы в законе / Форс-мажоры / 3 сезон / Перевод группы To4ka Translate / 16 серия (финал) ГОТОВА</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/96437' class='user'>Luizot</a><br />последняя активность 11.04.2014 20:49</div></li><li><p><a href='/book/50129'>Game of Thrones / Игра престолов (сезон 4) / перевод [7kingdoms.ru]</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/79101' class='user'>Narwen</a><br />последняя активность 11.04.2014 20:32</div></li><li><p><a href='/book/49715'>Crisis / Кризис / Кризис</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/106225' class='user'>Dashytkin</a><br />последняя активность 11.04.2014 20:13</div></li><li><p><a href='/book/48856'>The Hundred / The 100 / Сотня</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr g'></i> субтитры с английского на русский от <a href='/users/17194' class='user'>KeRoB</a><br />последняя активность 11.04.2014 16:14</div></li><li><p><a href='/book/50351'>The Mindy Project SEASON 2 / Проект Минди Сезон 2</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/235493' class='user'>jelly_bean</a><br />последняя активность 11.04.2014 15:35</div></li><li><p><a href='/book/33498'>The Big Bang Theory 07x20 / Теория Большого Взрыва 07x20</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/153076' class='user'>Logwon</a><br />последняя активность 11.04.2014 14:46</div></li><li><p><a href='/book/41604'>Fututama Season 7B / Футурама Сезон 7B</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/55901' class='user'>Black_Scorpion</a><br />последняя активность 11.04.2014 14:43</div></li><li><p><a href='/book/44167'>CSI: Crime Scene Investigation / 14 СЕЗОН</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/53477' class='user'>Podruga</a><br />последняя активность 11.04.2014 11:01</div></li><li><p><a href='/book/50340'>Cat Song / Кошачья песня</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/8424' class='user'>Lavrov</a><br />последняя активность 11.04.2014 07:40</div></li><li><p><a href='/book/42904'>Auf den Spuren der Allmächtigen / По Следам Всемогущих</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с немецкого на русский от <a href='/users/91870' class='user'>FewG</a><br />последняя активность 11.04.2014 00:59</div></li><li><p><a href='/book/49241'>Only Lovers Left Alive / Выживут только любовники</a></p><div class='meta'><i class='ac_read a'></i><i class='ac_gen a'></i><i class='ac_tr a'></i> субтитры с английского на русский от <a href='/users/28142' class='user'>shusy</a><br />последняя активность 10.04.2014 23:33</div></li></ul><div class='pagination'><ul id="yw1" class="yiiPager"><li class="first disabled"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4">&laquo;&laquo;&laquo;</a></li>
+<li class="previous disabled"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4">&laquo;</a></li>
+<li class=" active"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4">1</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/2">2</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/3">3</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/4">4</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/5">5</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/6">6</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/7">7</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/8">8</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/9">9</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/10">10</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/11">11</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/12">12</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/13">13</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/14">14</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/15">15</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/16">16</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/17">17</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/18">18</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/19">19</a></li>
+<li class=""><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/20">20</a></li>
+<li class="next"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/2">&raquo;</a></li>
+<li class="last"><a href="/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/87">&raquo;&raquo;&raquo;</a></li></ul></div>
+		<div style='margin-top:30px'>
+		<!-- A: 1 --><script charset="UTF-8" src="//cdn.rollad.ru/rollad.js"></script>
+<div><script type="text/javascript">RRoller.load(1316205)</script></div>		</div>
+	</div>
+
+	<div class="span4 sr">
+		<div class="tools">
+	<h5>Поиск</h5>
+
+	<form class="form-vertical" id="form-search" action="/search" method="get">	<input type="hidden" name="t" value="" />
+	<div class="control-group">
+		<label class="control-label">Из раздела каталога:</label>
+		<div class="controls">
+			<select name="cat">
+				<option value="0">Не важно</option>
+				<option value="1" selected="selected">Фильмы</option>
+<option value="4">...Сериалы</option>
+<option value="32">......Доктор Хаус</option>
+<option value="37">......Косяки (Weeds)</option>
+<option value="38">......Californication</option>
+<option value="39">......Doctor Who</option>
+<option value="43">......Теория большого взрыва (The Big Bang Theory)</option>
+<option value="50">......Декстер (Dexter)</option>
+<option value="51">......Сверхъестественное (Supernatural)</option>
+<option value="53">......The Fades</option>
+<option value="55">......Анатомия Грей (Grey&#039;s Anatomy)</option>
+<option value="5">...Комедии</option>
+<option value="6">...Драмы</option>
+<option value="7">...Фантастика</option>
+<option value="8">...Боевики, приключения</option>
+<option value="9">...Ужасы, триллеры</option>
+<option value="10">...Детективы</option>
+<option value="11">...Мелодрама</option>
+<option value="12">...Мультфильмы</option>
+<option value="33">......Симпсоны</option>
+<option value="34">......Футурама</option>
+<option value="35">......American Dad</option>
+<option value="42">......Family Guy</option>
+<option value="13">...Документальные</option>
+<option value="41">...Телепередачи</option>
+<option value="26">...Прочее</option>
+<option value="54">...Мюзиклы</option>
+<option value="2">Тексты</option>
+<option value="15">...Проза</option>
+<option value="14">......Классика</option>
+<option value="16">......Фантастика</option>
+<option value="17">......Для детей</option>
+<option value="40">......Фэнтези</option>
+<option value="19">...Поэзия</option>
+<option value="24">......Песни</option>
+<option value="20">...Публицистика</option>
+<option value="21">...Научно-техническая литература</option>
+<option value="46">......IT</option>
+<option value="47">......Естественные науки</option>
+<option value="48">......Точные науки</option>
+<option value="49">......Гуманитарные науки</option>
+<option value="23">...Коллективное творчество</option>
+<option value="36">...Комиксы</option>
+<option value="27">...Прочее</option>
+<option value="3">Программы</option>
+<option value="25">...Игры</option>
+<option value="28">...Офисные</option>
+<option value="29">...Компьютерная графика</option>
+<option value="30">...Научные</option>
+<option value="45">...Утилиты</option>
+<option value="44">...Интернет</option>
+<option value="31">...Прочее</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Язык оригинала:</label>
+		<div class="controls">
+			<select name="s_lang">
+				<option value="0">Не важно</option>
+				<optgroup label='Основные'>
+<option value='2'>английский</option>
+<option value='6'>испанский</option>
+<option value='5'>итальянский</option>
+<option value='3'>немецкий</option>
+<option value='1'>русский</option>
+<option value='4'>французский</option>
+</optgroup>
+<optgroup label='Народы СССР'>
+<option value='20'>абхазский</option>
+<option value='21'>аварский</option>
+<option value='22'>азербайджанский</option>
+<option value='30'>армянский</option>
+<option value='40'>башкирский</option>
+<option value='10'>белорусский</option>
+<option value='64'>грузинский</option>
+<option value='83'>казахский</option>
+<option value='235'>калмыцкий</option>
+<option value='93'>киргизский</option>
+<option value='95'>коми</option>
+<option value='233'>лакский</option>
+<option value='111'>латышский</option>
+<option value='112'>лезгинский</option>
+<option value='115'>литовский</option>
+<option value='232'>марийский</option>
+<option value='11'>молдавский</option>
+<option value='147'>осетинский</option>
+<option value='178'>таджикский</option>
+<option value='12'>татарский</option>
+<option value='194'>туркменский</option>
+<option value='196'>удмуртский</option>
+<option value='197'>узбекский</option>
+<option value='9'>украинский</option>
+<option value='213'>чеченский</option>
+<option value='217'>чувашский</option>
+<option value='223'>эскимосский</option>
+<option value='224'>эстонский</option>
+</optgroup>
+<optgroup label='Европа'>
+<option value='25'>албанский</option>
+<option value='28'>арагонский</option>
+<option value='29'>арберешский</option>
+<option value='32'>астурийский</option>
+<option value='36'>баварский</option>
+<option value='39'>баскский</option>
+<option value='45'>болгарский</option>
+<option value='234'>боснийский</option>
+<option value='47'>бретонский</option>
+<option value='48'>валенсийский</option>
+<option value='49'>валлийский</option>
+<option value='50'>валлонский</option>
+<option value='51'>венгерский</option>
+<option value='53'>венетский</option>
+<option value='54'>верхнелужицкий</option>
+<option value='60'>галисийский</option>
+<option value='62'>голландский</option>
+<option value='63'>греческий</option>
+<option value='19'>датский</option>
+<option value='70'>западно-фламандский</option>
+<option value='79'>ирландский</option>
+<option value='80'>исландский</option>
+<option value='87'>каталанский</option>
+<option value='100'>корсиканский</option>
+<option value='113'>лимбургский</option>
+<option value='120'>люксембургский</option>
+<option value='121'>македонский</option>
+<option value='126'>мальтийский</option>
+<option value='139'>неаполитанский</option>
+<option value='18'>норвежский</option>
+<option value='152'>польский</option>
+<option value='153'>португальский</option>
+<option value='158'>румынский</option>
+<option value='164'>сардинский</option>
+<option value='166'>сербохорватский</option>
+<option value='170'>словацкий</option>
+<option value='171'>словенский</option>
+<option value='17'>финский</option>
+<option value='203'>фризский</option>
+<option value='13'>чешский</option>
+<option value='16'>шведский</option>
+<option value='218'>швейцарский немецкий</option>
+<option value='67'>шотландский</option>
+</optgroup>
+<optgroup label='Азия'>
+<option value='27'>арабский</option>
+<option value='31'>ассамский</option>
+<option value='41'>бенгальский</option>
+<option value='42'>бирманский</option>
+<option value='44'>бихари</option>
+<option value='57'>вьетнамский</option>
+<option value='66'>гуджарати</option>
+<option value='68'>дзонг-кэ</option>
+<option value='15'>иврит</option>
+<option value='74'>илоко</option>
+<option value='75'>индонезийский</option>
+<option value='84'>каннада</option>
+<option value='85'>кантонский юэ</option>
+<option value='88'>кашмири</option>
+<option value='7'>китайский</option>
+<option value='97'>конкани</option>
+<option value='98'>корейский</option>
+<option value='105'>курдский</option>
+<option value='107'>кхмерский</option>
+<option value='109'>лаосский</option>
+<option value='123'>малайский</option>
+<option value='125'>мальдивский</option>
+<option value='133'>монгольский</option>
+<option value='209'>мяо (хмонг)</option>
+<option value='230'>пакистанский</option>
+<option value='149'>пенджабский</option>
+<option value='151'>персидский</option>
+<option value='163'>санскрит</option>
+<option value='176'>сунданский</option>
+<option value='177'>тагальский</option>
+<option value='180'>тайваньский</option>
+<option value='181'>тайский</option>
+<option value='182'>тамильский</option>
+<option value='184'>телугу</option>
+<option value='185'>тибетский</option>
+<option value='193'>турецкий</option>
+<option value='198'>уйгурский</option>
+<option value='229'>филиппинский</option>
+<option value='207'>хинди</option>
+<option value='231'>южно-корейский</option>
+<option value='227'>яванский</option>
+<option value='8'>японский</option>
+</optgroup>
+<optgroup label='Америка'>
+<option value='23'>аймара</option>
+<option value='35'>ацтекский</option>
+<option value='59'>гаитянский</option>
+<option value='65'>гуарани</option>
+<option value='77'>инуктитут</option>
+<option value='78'>инупиак</option>
+<option value='90'>кечуа</option>
+<option value='102'>кри</option>
+<option value='135'>навахо</option>
+<option value='225'>юкатекский</option>
+</optgroup>
+<optgroup label='Африка'>
+<option value='24'>акан</option>
+<option value='26'>амхарский</option>
+<option value='33'>афарский</option>
+<option value='34'>африкаанс</option>
+<option value='37'>бамбарийский</option>
+<option value='52'>венда</option>
+<option value='55'>волоф</option>
+<option value='61'>гереро</option>
+<option value='71'>зулу</option>
+<option value='72'>игбо</option>
+<option value='81'>йоруба</option>
+<option value='82'>кабильский</option>
+<option value='86'>канури</option>
+<option value='91'>кикуйю</option>
+<option value='92'>киньяруанда</option>
+<option value='96'>конго</option>
+<option value='114'>лингала</option>
+<option value='118'>луба</option>
+<option value='119'>луганда</option>
+<option value='122'>малагасийский</option>
+<option value='140'>непальский</option>
+<option value='172'>сомали</option>
+<option value='175'>суахили</option>
+<option value='186'>тигринья</option>
+<option value='191'>тсвана</option>
+<option value='192'>тсонга</option>
+<option value='204'>фулах</option>
+<option value='206'>хауса</option>
+<option value='219'>шона</option>
+<option value='221'>эве</option>
+</optgroup>
+<optgroup label='Австралия и Океания'>
+<option value='43'>бислама</option>
+<option value='58'>гавайский</option>
+<option value='127'>маори</option>
+<option value='130'>маршалльский</option>
+<option value='179'>таитянский</option>
+<option value='187'>ток-писин</option>
+<option value='189'>тонганский</option>
+<option value='201'>фиджийский</option>
+<option value='208'>хири-моту</option>
+</optgroup>
+<optgroup label='Прочие'>
+<option value='69'>древнегреческий</option>
+<option value='73'>идиш</option>
+<option value='76'>интерлингва</option>
+<option value='94'>клингонский</option>
+<option value='101'>котава</option>
+<option value='110'>латынь</option>
+<option value='174'>старотурецкий</option>
+<option value='188'>токи пона</option>
+<option value='14'>эсперанто</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Язык перевода:</label>
+		<div class="controls">
+			<select name="t_lang">
+				<option value="0">Не важно</option>
+				<optgroup label='Основные'>
+<option value='2'>английский</option>
+<option value='6'>испанский</option>
+<option value='5'>итальянский</option>
+<option value='3'>немецкий</option>
+<option value='1' selected='selected'>русский</option>
+<option value='4'>французский</option>
+</optgroup>
+<optgroup label='Народы СССР'>
+<option value='20'>абхазский</option>
+<option value='21'>аварский</option>
+<option value='22'>азербайджанский</option>
+<option value='30'>армянский</option>
+<option value='40'>башкирский</option>
+<option value='10'>белорусский</option>
+<option value='64'>грузинский</option>
+<option value='83'>казахский</option>
+<option value='235'>калмыцкий</option>
+<option value='93'>киргизский</option>
+<option value='95'>коми</option>
+<option value='233'>лакский</option>
+<option value='111'>латышский</option>
+<option value='112'>лезгинский</option>
+<option value='115'>литовский</option>
+<option value='232'>марийский</option>
+<option value='11'>молдавский</option>
+<option value='147'>осетинский</option>
+<option value='178'>таджикский</option>
+<option value='12'>татарский</option>
+<option value='194'>туркменский</option>
+<option value='196'>удмуртский</option>
+<option value='197'>узбекский</option>
+<option value='9'>украинский</option>
+<option value='213'>чеченский</option>
+<option value='217'>чувашский</option>
+<option value='223'>эскимосский</option>
+<option value='224'>эстонский</option>
+</optgroup>
+<optgroup label='Европа'>
+<option value='25'>албанский</option>
+<option value='28'>арагонский</option>
+<option value='29'>арберешский</option>
+<option value='32'>астурийский</option>
+<option value='36'>баварский</option>
+<option value='39'>баскский</option>
+<option value='45'>болгарский</option>
+<option value='234'>боснийский</option>
+<option value='47'>бретонский</option>
+<option value='48'>валенсийский</option>
+<option value='49'>валлийский</option>
+<option value='50'>валлонский</option>
+<option value='51'>венгерский</option>
+<option value='53'>венетский</option>
+<option value='54'>верхнелужицкий</option>
+<option value='60'>галисийский</option>
+<option value='62'>голландский</option>
+<option value='63'>греческий</option>
+<option value='19'>датский</option>
+<option value='70'>западно-фламандский</option>
+<option value='79'>ирландский</option>
+<option value='80'>исландский</option>
+<option value='87'>каталанский</option>
+<option value='100'>корсиканский</option>
+<option value='113'>лимбургский</option>
+<option value='120'>люксембургский</option>
+<option value='121'>македонский</option>
+<option value='126'>мальтийский</option>
+<option value='139'>неаполитанский</option>
+<option value='18'>норвежский</option>
+<option value='152'>польский</option>
+<option value='153'>португальский</option>
+<option value='158'>румынский</option>
+<option value='164'>сардинский</option>
+<option value='166'>сербохорватский</option>
+<option value='170'>словацкий</option>
+<option value='171'>словенский</option>
+<option value='17'>финский</option>
+<option value='203'>фризский</option>
+<option value='13'>чешский</option>
+<option value='16'>шведский</option>
+<option value='218'>швейцарский немецкий</option>
+<option value='67'>шотландский</option>
+</optgroup>
+<optgroup label='Азия'>
+<option value='27'>арабский</option>
+<option value='31'>ассамский</option>
+<option value='41'>бенгальский</option>
+<option value='42'>бирманский</option>
+<option value='44'>бихари</option>
+<option value='57'>вьетнамский</option>
+<option value='66'>гуджарати</option>
+<option value='68'>дзонг-кэ</option>
+<option value='15'>иврит</option>
+<option value='74'>илоко</option>
+<option value='75'>индонезийский</option>
+<option value='84'>каннада</option>
+<option value='85'>кантонский юэ</option>
+<option value='88'>кашмири</option>
+<option value='7'>китайский</option>
+<option value='97'>конкани</option>
+<option value='98'>корейский</option>
+<option value='105'>курдский</option>
+<option value='107'>кхмерский</option>
+<option value='109'>лаосский</option>
+<option value='123'>малайский</option>
+<option value='125'>мальдивский</option>
+<option value='133'>монгольский</option>
+<option value='209'>мяо (хмонг)</option>
+<option value='230'>пакистанский</option>
+<option value='149'>пенджабский</option>
+<option value='151'>персидский</option>
+<option value='163'>санскрит</option>
+<option value='176'>сунданский</option>
+<option value='177'>тагальский</option>
+<option value='180'>тайваньский</option>
+<option value='181'>тайский</option>
+<option value='182'>тамильский</option>
+<option value='184'>телугу</option>
+<option value='185'>тибетский</option>
+<option value='193'>турецкий</option>
+<option value='198'>уйгурский</option>
+<option value='229'>филиппинский</option>
+<option value='207'>хинди</option>
+<option value='231'>южно-корейский</option>
+<option value='227'>яванский</option>
+<option value='8'>японский</option>
+</optgroup>
+<optgroup label='Америка'>
+<option value='23'>аймара</option>
+<option value='35'>ацтекский</option>
+<option value='59'>гаитянский</option>
+<option value='65'>гуарани</option>
+<option value='77'>инуктитут</option>
+<option value='78'>инупиак</option>
+<option value='90'>кечуа</option>
+<option value='102'>кри</option>
+<option value='135'>навахо</option>
+<option value='225'>юкатекский</option>
+</optgroup>
+<optgroup label='Африка'>
+<option value='24'>акан</option>
+<option value='26'>амхарский</option>
+<option value='33'>афарский</option>
+<option value='34'>африкаанс</option>
+<option value='37'>бамбарийский</option>
+<option value='52'>венда</option>
+<option value='55'>волоф</option>
+<option value='61'>гереро</option>
+<option value='71'>зулу</option>
+<option value='72'>игбо</option>
+<option value='81'>йоруба</option>
+<option value='82'>кабильский</option>
+<option value='86'>канури</option>
+<option value='91'>кикуйю</option>
+<option value='92'>киньяруанда</option>
+<option value='96'>конго</option>
+<option value='114'>лингала</option>
+<option value='118'>луба</option>
+<option value='119'>луганда</option>
+<option value='122'>малагасийский</option>
+<option value='140'>непальский</option>
+<option value='172'>сомали</option>
+<option value='175'>суахили</option>
+<option value='186'>тигринья</option>
+<option value='191'>тсвана</option>
+<option value='192'>тсонга</option>
+<option value='204'>фулах</option>
+<option value='206'>хауса</option>
+<option value='219'>шона</option>
+<option value='221'>эве</option>
+</optgroup>
+<optgroup label='Австралия и Океания'>
+<option value='43'>бислама</option>
+<option value='58'>гавайский</option>
+<option value='127'>маори</option>
+<option value='130'>маршалльский</option>
+<option value='179'>таитянский</option>
+<option value='187'>ток-писин</option>
+<option value='189'>тонганский</option>
+<option value='201'>фиджийский</option>
+<option value='208'>хири-моту</option>
+</optgroup>
+<optgroup label='Прочие'>
+<option value='69'>древнегреческий</option>
+<option value='73'>идиш</option>
+<option value='76'>интерлингва</option>
+<option value='94'>клингонский</option>
+<option value='101'>котава</option>
+<option value='110'>латынь</option>
+<option value='174'>старотурецкий</option>
+<option value='188'>токи пона</option>
+<option value='14'>эсперанто</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+			<label class="checkbox"><input type="checkbox" value="1" name="ready" checked/>Готовые на 100%</label>
+			<label class="checkbox"><input type="checkbox" value="1" name="gen" checked/>Доступные для скачивания</label>
+			<label class="checkbox"><input type="checkbox" value="1" name="tr" />Доступные для перевода</label>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Сортировка:</label>
+		<div class="controls">
+			<select name="sort" id="sort">
+<option value="0">По степени готовности</option>
+<option value="1">По названию на языке оригинала</option>
+<option value="2">По названию на языке перевода</option>
+<option value="3">По дате создания</option>
+<option value="4" selected="selected">По дате последней активности</option>
+</select>		</div>
+	</div>
+
+	<div class="control-group">
+		<button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i> Найти</button>
+	</div>
+
+	</form>
+</div>
+
+<!-- Вставьте эту строчку туда, где планируется показывать рекламный блок Яндекс.Маркета -->
+<script type="text/javascript">yandex_market_print()</script>
+<!-- A: 2 --><script charset="UTF-8" src="//cdn.rollad.ru/rollad.js"></script>
+<div><script type="text/javascript">RRoller.load(1316206)</script></div>	</div>
+</div>
+</div>
+
+
+
+<footer>
+    <div class="container"><div class="row">
+        <div class="span5">
+            &copy; <a href="http://romakhin.ru/" rel="nofollow">Дмитрий Ромахин</a> 2008&ndash;2014            <br />
+            <a href="/site/help">Справка</a> |
+            <a href="/blog?topic=65">Техподдержка</a> |
+            <a href="mailto:abuse@notabenoid.com?subj=%2Fsearch%2Findex%2Ft%2F%2Fcat%2F1%2Fs_lang%2F0%2Ft_lang%2F1%2Fready%2F1%2Fgen%2F1%2Fsort%2F4%2FBook_page%2F1">Abuse</a> |
+            <!-- <a href="/site/donate">Donate</a> | -->
+            <a href="mailto:support@notabenoid.com">E-mail для справок</a> |
+			<a href="#" onclick="return Chat.toggle()" title="Ctrl + ~">Чат</a>
+        </div>
+        <div class="span5 sape">
+		<!--lm_php_ver=1.1--><!-- <ml_code></ml_code> --><!--<ml_code_response><ml_getver>6.3.3</ml_getver></ml_code_response>--><!-- <ml_code></ml_code> --><!--<ml_code_response><ml_getver>6.3.3</ml_getver></ml_code_response>--><!--1149895958400--><!--e22cd59f--><!--1e6ab02a--><!--9c7ec26b--><!--da5bb5de--><!--<ingots><ingots><ingots_version>2.2</ingots_version></ingots></ingots>--><!--<ingots><ingots><ingots_fversion>2.2f</ingots_fversion></ingots></ingots>--><!--<kappusto><kappusto><kappusto_version>1.3.3</kappusto_version></kappusto></kappusto>--><!--<megaindex_noindex></megaindex_noindex>--><!--35aab--><!-- links will appear here -->&nbsp;
+        </div>
+        <div class="span2 counters">
+            <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='http://counter.yadro.ru/hit?t11.2;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' border=0 width=88 height=31 alt='' title='LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня'><\/a>")</script><!--/LiveInternet-->
+	    <script type="text/javascript" src="http://cdn.rollad.ru/rollad.js"></script>
+	    <script type="text/javascript">// <![CDATA[
+		RCounter.load(491067, {});
+	    // ]]></script>
+        </div>
+    </div></div>
+</footer>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+jQuery(function($) {
+jQuery('a.tooltip').tooltip({'placement':'bottom'});
+jQuery('a[rel="popover"]').popover();
+jQuery('#yw2 .alert').alert();
+});
+/*]]>*/
+</script>
+</body></html>
