@@ -14,7 +14,7 @@
 (defn- get-page-url
   "Get new subtitles page url"
   [page]
-  (make-url (str "/en/search/sublanguageid-eng/offset-"
+  (make-url (str "/en/search/sublanguageid-all/offset-"
                  (* 40 (dec page)))))
 
 (defmacro get-from-part
@@ -78,6 +78,14 @@
                                 :content
                                 first)))
 
+(defn- get-language
+  "Get language from td"
+  [lang-td]
+  (-> (html/select lang-td [:a])
+      first
+      :attrs
+      :title))
+
 (defn- create-subtitle
   "Create subtitle map from tr"
   [line]
@@ -85,14 +93,15 @@
         titles-td (first tds)
         main-link (first (html/select titles-td [:strong :a]))
         seasons-part (get-seasons-part titles-td)
-        show-part (get-show-part main-link)]
+        show-part (get-show-part main-link)
+        lang-td (nth tds 1)]
     {:show (get-from-show-part #"\"(.+)\"" show-part show-part)
      :name (get-from-show-part #"\".+\" (.+)" show-part)
      :url (get-url main-link)
      :version (get-version titles-td)
      :season (get-from-season-part #"\[S(\d+)" seasons-part)
      :episode (get-from-season-part #"E(\d+)\]" seasons-part)
-     :lang force-lang
+     :lang (get-language lang-td)
      :source const/type-opensubtitles}))
 
 (defn get-release-page-result

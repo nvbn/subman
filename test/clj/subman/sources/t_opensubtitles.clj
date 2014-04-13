@@ -20,7 +20,7 @@
 
 (fact "should get page url"
       (#'opensubtitles/get-page-url 2)
-      => "http://www.opensubtitles.org/en/search/sublanguageid-eng/offset-40")
+      => "http://www.opensubtitles.org/en/search/sublanguageid-all/offset-40")
 
 (facts "get from season part"
        (fact "when can get"
