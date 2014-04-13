@@ -22,7 +22,7 @@
                  type-subscene "Subscene"
                  type-all "all"})
 
-(def update-deep 50)
+(def update-deep 10)
 
 (def update-period (* 5 60 1000))
 
