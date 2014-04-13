@@ -68,9 +68,12 @@
                                ", "
                                [:a {:href "http://www.podnapisi.net/"
                                     :target "_blank"} "podnapisi.net"]
-                               " and "
+                               ", "
                                [:a {:href "http://subscene.com/"
                                     :target "_blank"} "subscene.com"]
+                               " and "
+                               [:a {:href "http://notabenoid.com/"
+                                    :target "_blank"} "notabenoid.com"]
                                "."]
                               [:p "In query you can specifie language with "
                                [:code ":lang name"]
