@@ -110,4 +110,5 @@
         (html/select <> [:ul.search-results :li :p :a])
         (map (helpers/make-safe book-from-line nil))
         (remove nil?)
+        (map episodes-from-book)
         flatten))
