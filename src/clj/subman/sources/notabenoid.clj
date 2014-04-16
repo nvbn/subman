@@ -93,22 +93,23 @@
      :version ""
      :source const/type-notabenoid}))
 
-(defn- episodes-from-book
-  "Get episodes from translation book"
-  [book]
-  (let [title (get-book-title book)]
-    (->> (html/select book [:table#Chapters :tbody :tr])
-         (filter episode-ready?)
-         (map episode-from-line)
-         (map #(assoc % :show title)))))
+  (defn- episodes-from-book
+    "Get episodes from translation book"
+    [book]
+    (let [title (get-book-title book)]
+      (->> (html/select book [:table#Chapters :tbody :tr])
+           (filter (helpers/make-safe episode-ready? nil))
+           (map (helpers/make-safe episode-from-line nil))
+           (remove nil?)
+           (map #(assoc % :show title)))))
 
-(defn get-release-page-result
-  "Get release page result"
-  [page]
-  (-<>> (get-release-page-url page)
-        helpers/fetch
-        (html/select <> [:ul.search-results :li :p :a])
-        (map (helpers/make-safe book-from-line nil))
-        (remove nil?)
-        (map episodes-from-book)
-        flatten))
+  (defn get-release-page-result
+    "Get release page result"
+    [page]
+    (-<>> (get-release-page-url page)
+          helpers/fetch
+          (html/select <> [:ul.search-results :li :p :a])
+          (map (helpers/make-safe book-from-line nil))
+          (remove nil?)
+          (map episodes-from-book)
+          flatten))
