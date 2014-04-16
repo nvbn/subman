@@ -91,7 +91,7 @@
      :name (get-episode-name title)
      :url (get-episode-url line)
      :version ""
-     :type const/type-notabenoid}))
+     :source const/type-notabenoid}))
 
 (defn- episodes-from-book
   "Get episodes from translation book"
