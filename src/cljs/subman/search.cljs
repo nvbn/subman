@@ -16,7 +16,7 @@
 
 (defn ?-query-part
   [part-name part-formatter [api-query query]]
-  (let [pattern (re-pattern (str " :" part-name " (\\w*)"))
+  (let [pattern (re-pattern (str ":" part-name " (\\w*)"))
         search-result (re-find pattern query)]
     (if search-result
       (let [value (last search-result)
