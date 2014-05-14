@@ -59,7 +59,7 @@
    (or (= @counter 0)
        (= (count @query) 0)) [:div.container.col-xs-12.info-box.form-inline
                               [:h2 "Welcome to subman!"]
-                              [:p "We indexing "
+                              [:p "We index "
                                [:a {:href "http://www.addic7ed.com/"
                                     :target "_blank"} "addic7ed.com"]
                                ", "
@@ -75,9 +75,9 @@
                                [:a {:href "http://notabenoid.com/"
                                     :target "_blank"} "notabenoid.com"]
                                "."]
-                              [:p "In query you can specifie language with "
+                              [:p "You can specify subtitle language in your query using "
                                [:code ":lang name"]
-                               ", by default used: "
+                               ". Default language used: "
                                (edit-option options :languages :current-language)]
                               [:p "And source using "
                                [:code ":source name"]
