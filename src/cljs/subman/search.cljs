@@ -61,7 +61,7 @@
 (defn query-offset-query-part
   "Query and offset query part"
   [[api-query query] offset]
-  (str api-query "query=" query "&offset=" offset))
+  (str api-query "query=" (string/trim query) "&offset=" offset))
 
 (defn create-search-request
   "Create search request from query"

@@ -43,12 +43,16 @@
 
 (defn edit-option
   "Components factory for options"
-  [options options-key current-key]
+  [options options-key current-key & {:keys [is-sorted] :or {is-sorted false}}]
   [:select.form-control {:value @(current-key options)
                          :on-change #(reset! (current-key options)
                                              (-> % .-target .-value))}
-   (for [val @(options-key options)]
-     [:option {:value val} val])])
+   (let [vals @(options-key options)
+         prepared-vals (if is-sorted
+                         (sort vals)
+                         vals)]
+     (for [val prepared-vals]
+       [:option {:value val} val]))])
 
 (defn result-list
   "Search result list"
@@ -78,7 +82,8 @@
                               [:p "You can specify subtitle language in your query using "
                                [:code ":lang name"]
                                ". Default language used: "
-                               (edit-option options :languages :current-language)]
+                               (edit-option options :languages :current-language
+                                            :is-sorted true)]
                               [:p "And source using "
                                [:code ":source name"]
                                ", by default used: "
