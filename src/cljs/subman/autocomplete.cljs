@@ -45,19 +45,23 @@
                                   [":lang" ":source"])
      :else [])))
 
+(defn completion-source
+  "Source for typeahead autocompletion"
+  [langs sources query cb]
+  (cb (->> (get-completion query
+                           @langs
+                           @sources)
+           (map #(js-obj "value" %))
+           (take const/autocomplete-limit)
+           (apply array))))
+
 (defn init-autocomplete
   "Initiale autocomplete"
   [query langs sources]
   (let [input ($ "#search-input")]
     (.typeahead input
-                (js-obj "highlight" true)
-                (js-obj "source"
-                        (fn [query cb]
-                          (cb (apply array
-                                     (take const/autocomplete-limit
-                                           (map #(js-obj "value" %)
-                                                (get-completion query
-                                                                @langs
-                                                                @sources))))))))
-    (.on input "typeahead:closed" (fn []
-                                    (reset! query (.val input))))))
+                #js {:highlight true}
+                #js {:source (partial completion-source
+                                      langs sources)})
+    (.on input "typeahead:closed"
+         #(reset! query (.val input)))))
