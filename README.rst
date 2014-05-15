@@ -12,7 +12,7 @@ For using api send GET request like:
 
     http://subman.io/api/search/?query=file-name&format=json
     
-You can specifie language by :code:`GET` parameter :code:`lang=name`, by dfeault used :code:`english`.
+You can specifie language by :code:`GET` parameter :code:`lang=name`, by default used :code:`english`.
 
 All languages with subtitles count available in:
 
