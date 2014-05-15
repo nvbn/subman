@@ -43,6 +43,15 @@
        (fact "when exists"
              (#'notabenoid/get-season-episode
               "Bones - 09x18 - The Carrot in the Kudzu") => ["9" "18"])
+       (fact "when in begining of string"
+             (#'notabenoid/get-season-episode
+              "91x18 - The Carrot in the Kudzu") => ["91" "18"])
+       (fact "when in end of string"
+             (#'notabenoid/get-season-episode
+              "Bones - 09x181") => ["9" "181"])
+       (fact "when in S01E01 format"
+             (#'notabenoid/get-season-episode
+              "Family guy S03E12") => ["3" "12"])
        (fact "when not"
              (#'notabenoid/get-season-episode "cat eat") => ["" ""]))
 

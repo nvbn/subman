@@ -57,7 +57,8 @@
 (defn- get-season-episode
   "Get season episode from title"
   [title]
-  (let [matched (re-find #" (\d*)x(\d*) " title)]
+  (let [matched (or (re-find #"(\d*)x(\d*)" title)
+                    (re-find #"[sS](\d*)[eE](\d*)" title))]
     (if (= (count matched) 3)
       (map helpers/remove-first-0 (rest matched))
       ["" ""])))
