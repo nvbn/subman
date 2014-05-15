@@ -7,6 +7,9 @@
           [:link {:rel "icon"
                   :type "image/png"
                   :href (first (make-static "favicon.png"))}]
+          [:link {:type "application/opensearchdescription+xml"
+                  :rel "search"
+                  :href (first (make-static "opensearch.xml"))}]
           [:title "Subman - subtitle search service"]
           (as-static include-css
                      "components/bootstrap/dist/css/bootstrap.min.css"

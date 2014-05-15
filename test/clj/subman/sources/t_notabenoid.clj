@@ -66,7 +66,7 @@
                          :season "9"
                          :url "http://notabenoid.com/book/43718/195318/ready"
                          :version ""
-                         :type const/type-notabenoid})
+                         :source const/type-notabenoid})
 
 (facts "get episodes from book"
        (fact "should create for all ready episodes"
@@ -77,7 +77,7 @@
                  :show) => "Shetland"))
 
 (fact "get release page result should work"
-      (count (notabenoid/get-release-page-result 1)) => 100
+      (count (notabenoid/get-release-page-result 1)) => 350
       (provided
        (helpers/fetch (#'notabenoid/get-release-page-url 1)) => release-page
        (helpers/fetch anything) => book-page))
