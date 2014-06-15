@@ -1,5 +1,6 @@
 (ns subman.helpers
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.stacktrace :refer [print-cause-trace]]
+            [net.cgrand.enlive-html :as html]
             [org.httpkit.client :as http]
             [subman.const :as const]))
 
@@ -34,7 +35,7 @@
   [fnc fallback]
   (fn [x]
     (try (fnc x)
-      (catch Exception e (do (println e)
+      (catch Exception e (do (print-cause-trace e)
                            fallback)))))
 
 (defn get-season-episode
