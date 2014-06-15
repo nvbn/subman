@@ -35,7 +35,10 @@
   [fnc fallback]
   (fn [x]
     (try (fnc x)
-      (catch Exception e (do (print-cause-trace e)
+      (catch Exception e (do
+                           (println (str "FAIL START:\n" fnc " WITH " x))
+                           (print-cause-trace e)
+                           (println (str "FAIL END:\n" fnc " WITH " x))
                            fallback)))))
 
 (defn get-season-episode
