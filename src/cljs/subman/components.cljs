@@ -88,7 +88,7 @@
                                [:code ":source name"]
                                ", by default used: "
                                (edit-option options :sources :current-source)]
-                              [:p "And you can filter by source and season with "
+                              [:p "And you can filter by season and episode with "
                                [:code "S01E01"] " format."]
                               [:p "Total indexed subtitles count: "
                                @total-count
