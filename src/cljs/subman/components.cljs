@@ -8,18 +8,18 @@
   [:div.input-group.input-group-lg.col-xs-12.search-input
    {:data-spy "affix"
     :data-offset-top "40"}
-   [:span.input-group-addon (if (= "" @value)
-                              [:i.fa.fa-search]
-                              [:a {:on-click (fn [e]
-                                               (.preventDefault e)
-                                               (reset! value ""))
-                                   :href "#"}
-                               [:i.fa.fa-chevron-left]])]
-   [:input.form-control {:type "text"
-                         :placeholder "Type search query"
-                         :on-change #(reset! value (-> % .-target .-value))
-                         :value @value
-                         :id "search-input"}]])
+   [:span.input-group-addon.no-border-radius (if (= "" @value)
+                                               [:i.fa.fa-search]
+                                               [:a {:on-click (fn [e]
+                                                                (.preventDefault e)
+                                                                (reset! value ""))
+                                                    :href "#"}
+                                                [:i.fa.fa-chevron-left]])]
+   [:input.form-control.no-border-radius {:type "text"
+                                          :placeholder "Type search query"
+                                          :on-change #(reset! value (-> % .-target .-value))
+                                          :value @value
+                                          :id "search-input"}]])
 
 (defn result-line
   "Search result line"

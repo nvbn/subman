@@ -14,4 +14,5 @@
   [:#search-input {:height (px 46)
                    :font-size (px 18)
                    :line-height 1.33
-                   :margin-bottom (px -5)}])
+                   :margin-bottom (px -5)}]
+  [:.no-border-radius {:border-radius "0 !important"}])
