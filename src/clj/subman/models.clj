@@ -6,17 +6,20 @@
             [subman.helpers :as helpers]
             [subman.const :as const]))
 
+(def connection (atom nil))
+
+(def total-count (atom 0))
+
 (defn connect!
   "Connect to elastic"
   []
-  (esr/connect! const/db-host))
-
-(def total-count (atom 0))
+  (reset! connection
+          (esr/connect const/db-host)))
 
 (defn update-total-count
   "Update total count of subtitles"
   []
-  (->> (esd/search const/index-name "subtitle" :filter {})
+  (->> (esd/search @connection const/index-name "subtitle" :filter {})
        :hits
        :total
        (reset! total-count)))
@@ -40,12 +43,12 @@
 (defn create-document
   "Put document into elastic"
   [doc]
-  (esd/create const/index-name "subtitle" doc))
+  (esd/create @connection const/index-name "subtitle" doc))
 
 (defn delete-all
   "Delete all documents"
   []
-  (esd/delete-by-query-across-all-types const/index-name (q/match-all)))
+  (esd/delete-by-query-across-all-types @connection const/index-name (q/match-all)))
 
 (defn- get-season-episode-parts
   "Get season episode parts"
@@ -90,7 +93,8 @@
 (defn search
   "Search for documents"
   [& {:keys [query offset lang source]}]
-  (->> (apply esd/search const/index-name
+  (->> (apply esd/search @connection
+              const/index-name
               "subtitle"
               :from offset
               (build-query query lang source))
@@ -102,7 +106,8 @@
   "Check subtitle already in db"
   [subtitle]
   (-> (let [url (:url subtitle)]
-        (esd/search const/index-name
+        (esd/search @connection
+                    const/index-name
                     "subtitle"
                     :filter (q/term :url url)))
       :hits
@@ -112,7 +117,8 @@
 (defn list-languages
   "List languages with count"
   []
-  (-> (esd/search const/index-name
+  (-> (esd/search @connection
+                  const/index-name
                   "subtitle"
                   :query (q/match-all)
                   :facets {:tag {:terms {:field "lang"

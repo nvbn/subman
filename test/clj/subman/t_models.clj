@@ -11,7 +11,8 @@
     (fact "should update total count"
           (models/update-total-count) => 10
           (provided
-           (esd/search anything anything
+           (esd/search @models/connection
+                       anything anything
                        anything anything) => {:hits {:total 10}}))))
 
 (facts "get season-episode parts"
@@ -71,7 +72,8 @@
                      :offset 10
                      :lang "en") => ["test"]
       (provided
-       (esd/search anything anything
+       (esd/search @models/connection
+                   anything anything
                    :from 10
                    :query anything
                    :filter anything
@@ -80,7 +82,7 @@
 (fact "should check is subtitle exists in db"
       (models/in-db {:url "test"}) => true
       (provided
-       (esd/search anything anything
+       (esd/search @models/connection anything anything
                    :filter {:term {:url "test"}}) => {:hits {:total 5}}))
 
 (fact "should list available languages with count"
@@ -89,7 +91,7 @@
                                   {:term "russian"
                                    :count 50}]
       (provided
-       (esd/search anything anything
+       (esd/search @models/connection anything anything
                    :query anything
                    :facets anything) => {:facets {:tag {:terms [{:term "english"
                                                                  :count 100}
