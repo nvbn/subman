@@ -46,7 +46,7 @@
   (let [[season episode] (helpers/get-season-episode line)]
     {:season season
      :episode episode
-     :name (get-name-from-download line)
+     :show (get-name-from-download line)
      :version (string/replace line #" \(.*Download.*\).*" "")}))
 
 (defn- get-subtitles-from-article
@@ -54,11 +54,12 @@
   [article]
   (let [subtitles (if (seq (:subtitles article))
                     (map get-subtitle-data-from-download (:subtitles article))
-                    [{:name (string/replace (:title article) #"Subtitles for " "")}])]
+                    [{:show (string/replace (:title article) #"Subtitles for " "")}])]
     (map #(assoc %
             :url (:url article)
             :lang force-lang
-            :source const/type-uksubtitles)
+            :source const/type-uksubtitles
+            :name "")
          subtitles)))
 
 (defn get-release-page-result

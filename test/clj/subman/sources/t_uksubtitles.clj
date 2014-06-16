@@ -54,13 +54,13 @@
        (fact "with season and episode"
              (#'uksubtitles/get-subtitle-data-from-download "The.Moodys.S02E08.PDTV.x264-BATV.srt (43.1 KiB, Download: 29 )")
              => {:episode "8"
-                 :name "The Moodys"
+                 :show "The Moodys"
                  :season "2"
                  :version "The.Moodys.S02E08.PDTV.x264-BATV.srt"})
        (fact "without season and episode"
              (#'uksubtitles/get-subtitle-data-from-download "\ngame.face.720p.hdtv.x264-tla.srt (29.8 KiB, Download: 61 )")
              => {:episode ""
-                 :name "game face"
+                 :show "game face"
                  :season ""
                  :version
                  "\ngame.face.720p.hdtv.x264-tla.srt"}))
@@ -70,14 +70,16 @@
              (#'uksubtitles/get-subtitles-from-article (#'uksubtitles/parse-article article))
              => [{:episode "3"
                   :lang "english"
-                  :name "cardinal burns"
+                  :show "cardinal burns"
+                  :name ""
                   :season "2"
                   :source const/type-uksubtitles
                   :url "http://uksubtitles.ru/subtitles-for-3-episode-series-2-cardinal-burns-s02e03-episode-3-channel-4/"
                   :version "\ncardinal.burns.s02e03.hdtv.x264-river.srt\n"}
                  {:episode "3"
                   :lang "english"
-                  :name "cardinal burns"
+                  :show "cardinal burns"
+                  :name ""
                   :season "2"
                   :source const/type-uksubtitles
                   :url "http://uksubtitles.ru/subtitles-for-3-episode-series-2-cardinal-burns-s02e03-episode-3-channel-4/"
@@ -85,9 +87,10 @@
        (fact "without subtitle entries"
              (#'uksubtitles/get-subtitles-from-article (#'uksubtitles/parse-article article-balnk))
              => [{:lang "english"
-                  :name "4-8 episodes The Smoke, S01E04-08 – Episodes 4-8 (Sky1).",
+                  :show "4-8 episodes The Smoke, S01E04-08 – Episodes 4-8 (Sky1).",
                   :source const/type-uksubtitles
-                  :url "http://uksubtitles.ru/subtitles-for-4-8-episodes-the-smoke-s01e04-08-episodes-4-8-sky1/"}]))
+                  :url "http://uksubtitles.ru/subtitles-for-4-8-episodes-the-smoke-s01e04-08-episodes-4-8-sky1/"
+                  :name ""}]))
 
 (fact "get release page result"
       (count (uksubtitles/get-release-page-result 0)) => 12
