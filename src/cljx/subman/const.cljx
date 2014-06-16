@@ -16,6 +16,8 @@
 
 (def type-notabenoid 4)
 
+(def type-uksubtitles 5)
+
 (def type-none -2)
 
 (def type-names {type-addicted "Addicted"
@@ -23,6 +25,7 @@
                  type-opensubtitles "OpenSubtitles"
                  type-subscene "Subscene"
                  type-notabenoid "Notabenoid"
+                 type-uksubtitles "UKsubtitles"
                  type-all "all"})
 
 (def update-deep 10)
