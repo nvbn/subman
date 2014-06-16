@@ -6,6 +6,7 @@
             [subman.sources.opensubtitles :as opensubtitles]
             [subman.sources.subscene :as subscene]
             [subman.sources.notabenoid :as notabenoid]
+            [subman.sources.uksubtitles :as uksubtitles]
             [subman.filler :as filler]))
 
 (defn new-getter
@@ -33,4 +34,5 @@
        (opensubtitles/get-release-page-result 1) => []
        (addicted/get-release-page-result 1) => []
        (podnapisi/get-release-page-result 1) => []
-       (notabenoid/get-release-page-result 1) => []))
+       (notabenoid/get-release-page-result 1) => []
+       (uksubtitles/get-release-page-result 1) => []))

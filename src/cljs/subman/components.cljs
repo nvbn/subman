@@ -75,9 +75,12 @@
                                ", "
                                [:a {:href "http://subscene.com/"
                                     :target "_blank"} "subscene.com"]
-                               " and "
+                               ", "
                                [:a {:href "http://notabenoid.com/"
                                     :target "_blank"} "notabenoid.com"]
+                               " and "
+                               [:a {:href "http://uksubtitles.ru/"
+                                    :target "_blank"} "uksubtitles.ru"]
                                "."]
                               [:p "You can specify subtitle language in your query using "
                                [:code ":lang name"]
