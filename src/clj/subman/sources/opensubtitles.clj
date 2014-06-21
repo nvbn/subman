@@ -4,8 +4,6 @@
             [subman.helpers :as helpers]
             [subman.const :as const]))
 
-(def force-lang "English")
-
 (defn- make-url
   "Make absolute url from relative"
   [url]
