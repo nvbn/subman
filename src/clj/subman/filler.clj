@@ -15,7 +15,7 @@
   (remove checker
           (getter page)))
 
-(defn get-new-before-seq
+(defn- get-new-before-seq
   "Return lazy sequence with lists of results"
   ([getter checker] (get-new-before-seq getter checker 1))
   ([getter checker page]
@@ -29,15 +29,12 @@
                                              (inc page))))
        []))))
 
-(defn get-new-before
+(defn- get-new-before
   "Get new subtitles before checker"
   [getter checker]
-  (->> (get-new-before-seq getter checker)
-       (take-while (complement #{[:end]}))
-       flatten
-       (remove #{:end})))
+  (flatten (get-new-before-seq getter checker)))
 
-(defn get-all-new
+(defn- get-all-new
   "Get all new from callers with checker"
   [checker & callers]
   (mapcat #(get-new-before % checker) callers))

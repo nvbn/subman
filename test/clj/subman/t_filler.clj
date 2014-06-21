@@ -46,14 +46,14 @@
                                           (inc const/update-deep)) => []))
 
 (fact "should get new before"
-      (count (filler/get-new-before new-getter
-                                    #(= % :exists))) => 3)
+      (count (#'filler/get-new-before new-getter
+                                      #(= % :exists))) => 3)
 
 (fact "should get all new from nth getters"
-      (count (filler/get-all-new #(= % :exists)
-                                 new-getter
-                                 new-getter
-                                 new-getter)) => 9)
+      (count (#'filler/get-all-new #(= % :exists)
+                                   new-getter
+                                   new-getter
+                                   new-getter)) => 9)
 
 (fact "update from all sources"
       (filler/update-all) => truthy
