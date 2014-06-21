@@ -9,17 +9,33 @@
             [subman.const :as const]
             [subman.helpers :as helpers]))
 
+(defn- get-new-for-page
+  "Get new subtitles for page"
+  [getter checker page]
+  (remove checker
+          (getter page)))
+
+(defn get-new-before-seq
+  "Return lazy sequence with lists of results"
+  ([getter checker] (get-new-before-seq getter checker 1))
+  ([getter checker page]
+   (if (> page const/update-deep)
+     []
+     (if-let [new-result (seq (get-new-for-page getter
+                                                checker
+                                                page))]
+       (concat new-result
+               (lazy-seq (get-new-before-seq getter checker
+                                             (inc page))))
+       []))))
+
 (defn get-new-before
   "Get new subtitles before checker"
   [getter checker]
-  (loop [page 1 results []]
-    (let [page-result (getter page)
-          new-result (remove checker page-result)]
-      (if (or (empty? new-result)
-              (> page const/update-deep))
-        results
-        (recur (inc page)
-               (concat new-result results))))))
+  (->> (get-new-before-seq getter checker)
+       (take-while (complement #{[:end]}))
+       flatten
+       (remove #{:end})))
 
 (defn get-all-new
   "Get all new from callers with checker"
