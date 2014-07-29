@@ -19,10 +19,12 @@
                  [ring "1.3.0"]
                  [swiss-arrows "1.0.0"]
                  [im.chit/purnam.test "0.4.3"]
-                 [jayq "2.5.1"]]
+                 [jayq "2.5.1"]
+                 [environ "0.5.0"]]
   :plugins [[lein-cljsbuild "1.0.3"]
             [com.keminglabs/cljx "0.3.2"]
-            [lein-garden "0.1.8"]]
+            [lein-garden "0.1.8"]
+            [lein-environ "0.5.0"]]
   :main subman.core
   :profiles {:dev {:dependencies [[midje "1.6.3"]]
                    :plugins [[lein-midje "3.1.3"]]
@@ -31,13 +33,15 @@
                                        :compiler {:preamble ["reagent/react.js"]
                                                   :output-to "resources/public/main.js"
                                                   :output-dir "resources/public/cljs-target"
-                                                  :source-map "resources/public/main.js.map"}}
+                                                  :source-map true
+                                                  :optimizations :none}}
                                 :test {:source-paths ["src/cljs" "test/cljs"
                                                       "target/generated-cljs"]
                                        :compiler {:preamble ["reagent/react.js"]
                                                   :output-to "target/karma-test.js"
                                                   :optimizations :simple
-                                                  :pretty-print true}}}}}
+                                                  :pretty-print true}}}}
+                   :env {:is-debug true}}
              :uberjar {:aot :all
                        :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                              :compiler {:preamble ["reagent/react.min.js"]
@@ -48,6 +52,7 @@
                                                         :optimizations :advanced
                                                         :pretty-print false}
                                              :jar true}]}
+                       :env {:is-debug true}
                        :hooks [cljx.hooks
                                leiningen.cljsbuild]}}
   :source-paths ["src/clj"]
