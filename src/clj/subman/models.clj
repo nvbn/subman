@@ -27,18 +27,19 @@
 (defn create-index
   "Create database index for subtitles"
   []
-  (esi/create const/index-name :mappings {"subtitle"
-                                          {:properties {:show {:type "string"}
-                                                        :season {:type "string"
-                                                                 :index "not_analyzed"}
-                                                        :episode {:type "string"
-                                                                  :index "not_analyzed"}
-                                                        :name {:type "string"}
-                                                        :lang {:type "string"}
-                                                        :version {:type "string"}
-                                                        :url {:type "string"
-                                                              :index "not_analyzed"}
-                                                        :source {:type "integer"}}}}))
+  (esi/create @connection const/index-name
+              :mappings {"subtitle"
+                         {:properties {:show {:type "string"}
+                                       :season {:type "string"
+                                                :index "not_analyzed"}
+                                       :episode {:type "string"
+                                                 :index "not_analyzed"}
+                                       :name {:type "string"}
+                                       :lang {:type "string"}
+                                       :version {:type "string"}
+                                       :url {:type "string"
+                                             :index "not_analyzed"}
+                                       :source {:type "integer"}}}}))
 
 (defn create-document
   "Put document into elastic"
