@@ -1,7 +1,7 @@
 (ns subman.sources.subscene-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [subman.core-test :refer [is= is-do with-provided]]
+            [subman.core-test :refer [is= with-provided]]
             [subman.sources.subscene :as subscene]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]
             [subman.const :as const]))
