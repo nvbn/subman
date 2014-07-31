@@ -14,4 +14,5 @@ resources/public/cljs-target/
 hs_err*
 /resources/public/components/
 /resources/public/main.js
+/resources/public/main.js.map
 /resources/public/main.css
