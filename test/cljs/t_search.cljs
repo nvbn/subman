@@ -32,7 +32,8 @@
                              (atom [])
                              (atom 0)
                              (atom 0)
-                             (atom false)) => truthy)
+                             (atom false)
+                             (atom {})) => truthy)
 
 (facts "get source id"
        (fact "for source"

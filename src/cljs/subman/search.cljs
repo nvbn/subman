@@ -8,7 +8,6 @@
             [jayq.core :refer [$]]
             [jayq.util :refer [wait]]
             [subman.history :refer [init-history]]
-            [subman.push :refer [init-push]]
             [subman.components :as components]
             [subman.autocomplete :refer [init-autocomplete]]
             [subman.const :as const]
@@ -162,7 +161,6 @@
     (watch-to-scroll query results counter offset props)
     (update-total-count total-count)
     (init-history query)
-    (init-push total-count)
     (wait 0 #(init-autocomplete query
                                 (:languages props)
                                 (:sources props)))
