@@ -16,7 +16,6 @@
                  [overtone/at-at "1.2.0"]
                  [garden "1.2.1"]
                  [org.clojure/data.json "0.2.5"]
-                 [http-kit "2.1.18"]
                  [ring "1.3.0"]
                  [swiss-arrows "1.0.0"]
                  [im.chit/purnam.test "0.4.3"]
@@ -25,7 +24,8 @@
   :plugins [[lein-cljsbuild "1.0.3"]
             [com.keminglabs/cljx "0.3.2"]
             [lein-garden "0.1.8"]
-            [lein-environ "0.5.0"]]
+            [lein-environ "0.5.0"]
+            [lein-ring "0.8.11"]]
   :main subman.core
   :profiles {:dev {:dependencies [[midje "1.6.3"]]
                    :plugins [[lein-midje "3.1.3"]]
@@ -65,4 +65,6 @@
                    :output-path "target/generated-cljs"
                    :rules :cljs}]}
   :garden {:builds [{:stylesheet subman.web.style/main
-                     :compiler {:output-to "resources/public/main.css"}}]})
+                     :compiler {:output-to "resources/public/main.css"}}]}
+  :ring {:handler subman.handlers/app
+         :init subman.handlers/init})
