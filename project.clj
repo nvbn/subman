@@ -27,9 +27,7 @@
             [lein-environ "0.5.0"]
             [lein-ring "0.8.11"]]
   :main subman.core
-  :profiles {:dev {:dependencies [[midje "1.6.3"]]
-                   :plugins [[lein-midje "3.1.3"]]
-                   :cljsbuild {:builds
+  :profiles {:dev {:cljsbuild {:builds
                                {:main {:source-paths ["src/cljs" "target/generated-cljs"]
                                        :compiler {:preamble ["reagent/react.js"]
                                                   :output-to "resources/public/main.js"
