@@ -93,7 +93,5 @@
   (with-provided {#'helpers/fetch #(if (= % (#'addicted/get-releases-url 1))
                                      (get-from-file "test/fixtures/subman/sources/addicted_release.html")
                                      (get-from-file "test/fixtures/subman/sources/addicted_episode.html"))}
-    (is= (-> (#'addicted/get-release-page-result 1)
-             first
-             :name)
+    (is= (:name (first (#'addicted/get-release-page-result 1)))
          "Family Affair")))
