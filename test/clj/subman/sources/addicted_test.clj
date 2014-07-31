@@ -1,5 +1,5 @@
 (ns subman.sources.addicted-test
-  (:require [clojure.test :refer [deftest testing is]]
+  (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
             [subman.core-test :refer [is= is-do with-provided]]
             [subman.sources.addicted :as addicted]
