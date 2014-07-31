@@ -1,7 +1,7 @@
 (ns subman.helpers
   (:require [clojure.stacktrace :refer [print-cause-trace]]
             [net.cgrand.enlive-html :as html]
-            [org.httpkit.client :as http]
+            [clj-http.client :as client]
             [subman.const :as const]))
 
 (defn remove-first-0
@@ -17,9 +17,8 @@
 (defn fetch
   "Fetch url content"
   [url]
-  (-> url
-      (http/get {:timeout const/conection-timeout})
-      deref
+  (-> (client/get url {:socket-timeout const/conection-timeout
+                       :conn-timeout const/conection-timeout})
       :body
       get-from-line))
 
