@@ -19,8 +19,8 @@
             (.val input "test")
             (js/React.addons.TestUtils.Simulate.change
              (om/get-node owner))
-            (is (not= (:search-query state) "test")))
+            (is (not= (:stable-search-query state) "test")))
           (testing "change app state when value is stable"
             (<! (timeout (* const/input-timeout 2)))
-            (is (= (:search-query @state) "test")))
+            (is (= (:stable-search-query @state) "test")))
           (done)))))

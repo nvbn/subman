@@ -9,10 +9,11 @@
 (defn handle-search-input
   "Update only stable search query"
   [app owner value]
+  (om/update! app :search-query value)
   (go (om/set-state! owner :value value)
       (<! (timeout const/input-timeout))
       (when (= (om/get-state owner :value) value)
-        (om/update! app :search-query value))))
+        (om/update! app :stable-search-query value))))
 
 (defn search-input
   "Component for search input"
