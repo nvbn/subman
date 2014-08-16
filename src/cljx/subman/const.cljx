@@ -51,3 +51,5 @@
 (def default-language "english")
 
 (def default-type type-all)
+
+(def input-timeout 300)

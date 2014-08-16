@@ -19,6 +19,7 @@
                  [ring "1.3.0"]
                  [swiss-arrows "1.0.0"]
                  [jayq "2.5.2"]
+                 [om "0.7.1"]
                  [environ "0.5.0"]
                  [test-sugar "2.1"]]
   :plugins [[lein-cljsbuild "1.0.3"]
@@ -46,7 +47,7 @@
                                                        "resources/public/components/jquery/dist/jquery.js"
                                                        "resources/public/components/bootstrap/dist/js/bootstrap.js"
                                                        "resources/public/components/typeahead.js/dist/typeahead.jquery.js"
-                                                       "resources/public/components/react/react.js"
+                                                       "resources/public/components/react/react-with-addons.js"
                                                        "target/cljs-test.js"]}}
                    :env {:is-debug true}}
              :uberjar {:aot :all

@@ -1,4 +1,8 @@
-(ns subman.helpers)
+(ns subman.helpers
+  (:require-macros [cljs.core.async.macros :refer [go]])
+  (:require [cljs.core.async :refer [>! chan]]
+            [om.core :as om :include-macros true]
+            [jayq.core :refer [$]]))
 
 (defn is-filled?
   "Is field filled"
@@ -20,3 +24,21 @@
          (str "S" (add-0-if-need season)))
        (when (is-filled? episode)
          (str "E" (add-0-if-need episode)))))
+
+(defn render-node
+  "Render component and return node"
+  [component state]
+  (let [result (chan)]
+    (let [id (str "id-" (gensym))]
+      (.append ($ :body) ($ (str "<div id='" id "'>")))
+      (let [$el ($ (str "#" id))]
+        (om/root (fn [app owner]
+                   (go (>! result [owner $el]))
+                   (component app owner))
+                 state {:target (.get $el 0)})))
+    result))
+
+(defn value
+  "Get value from event"
+  [e]
+  (.. e -target -value))
