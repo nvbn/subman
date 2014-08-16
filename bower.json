@@ -7,6 +7,7 @@
     "jquery": "2.1.1",
     "typeahead.js": "0.10.2",
     "typeahead.js-bootstrap3.less": "0.2.3",
-    "react": "0.11.1"
+    "react": "0.11.1",
+    "es5-shim": "4.0.2"
   }
 }

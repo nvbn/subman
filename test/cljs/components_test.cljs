@@ -1,24 +1,23 @@
-(ns subman.t-components
-  (:require-macros [purnam.test :refer [fact]])
-  (:require [reagent.core :refer [atom]]
-            [subman.helpers :refer [truthy]]
+(ns subman.components-test
+  (:require [cemerick.cljs.test :refer-macros [deftest is]]
+            [reagent.core :refer [atom]]
             [subman.const :as const]
             [subman.components :as components]))
 
-(fact "search box should be ok"
-      (components/search-box (atom "test")) => truthy)
+(deftest test-search-box
+  (is (components/search-box (atom "test"))))
 
-(fact "result line should be ok"
-      (components/result-line {:name "name"
+(deftest test-result-line
+  (is (components/result-line {:name "name"
                                :show "show"
                                :season "1"
                                :episode "2"
                                :source const/type-subscene
                                :lang "English"
-                               :version "hd"}) => truthy)
+                               :version "hd"})))
 
-(fact "result list should be ok"
-      (components/result-list (atom "test")
+(deftest test-result-list
+  (is (components/result-list (atom "test")
                               (atom [])
                               (atom 1)
                               (atom 10)
@@ -26,4 +25,4 @@
                               {:languages (atom "")
                                :current-language (atom "")
                                :sources (atom "")
-                               :current-source (atom "")}))
+                               :current-source (atom "")})))

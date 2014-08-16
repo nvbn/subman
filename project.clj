@@ -18,10 +18,9 @@
                  [org.clojure/data.json "0.2.5"]
                  [ring "1.3.0"]
                  [swiss-arrows "1.0.0"]
-                 [im.chit/purnam.test "0.4.3"]
                  [jayq "2.5.2"]
                  [environ "0.5.0"]
-                 [test-sugar "2.0"]]
+                 [test-sugar "2.1"]]
   :plugins [[lein-cljsbuild "1.0.3"]
             [com.keminglabs/cljx "0.3.2"]
             [lein-garden "0.1.8"]
@@ -38,11 +37,16 @@
                                                   :optimizations :none}}
                                 :test {:source-paths ["src/cljs" "test/cljs"
                                                       "target/generated-cljs"]
-                                       :compiler {:preamble ["reagent/react.js"]
-                                                  :output-to "target/cljs-test.js"
-                                                  :optimizations :simple
+                                       :compiler {:output-to "target/cljs-test.js"
+                                                  :optimizations :whitespace
                                                   :pretty-print true}}}
                                :test-commands {"test" ["phantomjs" :runner
+                                                       "resources/public/components/es5-shim/es5-shim.js"
+                                                       "resources/public/components/es5-shim/es5-sham.js"
+                                                       "resources/public/components/jquery/dist/jquery.js"
+                                                       "resources/public/components/bootstrap/dist/js/bootstrap.js"
+                                                       "resources/public/components/typeahead.js/dist/typeahead.jquery.js"
+                                                       "resources/public/components/react/react.js"
                                                        "target/cljs-test.js"]}}
                    :env {:is-debug true}}
              :uberjar {:aot :all

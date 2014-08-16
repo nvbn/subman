@@ -6,14 +6,6 @@
   (and (not (nil? value))
        (not= "" value)))
 
-(defn truthy
-  "If x is truthy"
-  [x]
-  (and (not= "" x)
-       (not= [] x)
-       (not= nil x)
-       (not= false x)))
-
 (defn add-0-if-need
   "Add 0 before number if need"
   [number]
