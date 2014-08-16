@@ -1,7 +1,7 @@
 (ns subman.sources.notabenoid-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [subman.core-test :refer [is= is-do with-provided]]
+            [test-sugar.core :refer [is= is-do with-provided]]
             [subman.const :as const]
             [subman.sources.notabenoid :as notabenoid]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))

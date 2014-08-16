@@ -1,6 +1,6 @@
 (ns subman.filler-test
   (:require [clojure.test :refer [deftest testing is]]
-            [subman.core-test :refer [is= with-provided]]
+            [test-sugar.core :refer [is= with-provided]]
             [subman.models :as models]
             [subman.sources.addicted :as addicted]
             [subman.sources.podnapisi :as podnapisi]

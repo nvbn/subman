@@ -1,6 +1,6 @@
 (ns subman.helpers-test
   (:require [clojure.test :refer [deftest testing]]
-            [subman.core-test :refer [is=]]
+            [test-sugar.core :refer [is=]]
             [subman.const :as const]
             [subman.helpers :as helpers]))
 

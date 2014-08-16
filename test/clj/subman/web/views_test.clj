@@ -1,7 +1,7 @@
 (ns subman.web.views-test
   (:require [clojure.test :refer [deftest testing is]]
             [environ.core :as environ]
-            [subman.core-test :refer [is-do with-provided]]
+            [test-sugar.core :refer [is-do with-provided]]
             [subman.web.views :as views]))
 
 (deftest test-index-page

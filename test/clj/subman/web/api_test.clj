@@ -1,7 +1,7 @@
 (ns subman.web.api-test
   (:require [clojure.test :refer [deftest testing is]]
             [clojure.data.json :as json]
-            [subman.core-test :refer [is= with-provided]]
+            [test-sugar.core :refer [is= with-provided]]
             [subman.models :as models]
             [subman.web.api :as api]
             [subman.const :as const]))

@@ -1,7 +1,7 @@
 (ns subman.sources.podnapisi-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [subman.core-test :refer [is= with-provided]]
+            [test-sugar.core :refer [is= with-provided]]
             [subman.sources.podnapisi :as podnapisi]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]
             [subman.const :as const]))

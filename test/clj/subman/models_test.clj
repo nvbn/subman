@@ -1,7 +1,7 @@
 (ns subman.models-test
   (:require [clojure.test :refer [deftest testing]]
             [clojurewerkz.elastisch.rest.document :as esd]
-            [subman.core-test :refer [is= is-do with-provided]]
+            [test-sugar.core :refer [is= is-do with-provided]]
             [subman.const :as const]
             [subman.models :as models]))
 
