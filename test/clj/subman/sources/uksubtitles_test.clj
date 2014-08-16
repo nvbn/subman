@@ -1,7 +1,7 @@
 (ns subman.sources.uksubtitles-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [test-sugar.core :refer [is= with-provided]]
+            [test-sugar.core :refer [is=]]
             [subman.const :as const]
             [subman.sources.uksubtitles :as uksubtitles]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
@@ -94,5 +94,5 @@
            :name ""}])))
 
 (deftest test-get-release-page-result
-  (with-provided {#'helpers/fetch (constantly release-page)}
+  (with-redefs [helpers/fetch (constantly release-page)]
     (is= 12 (count (uksubtitles/get-release-page-result 0)))))

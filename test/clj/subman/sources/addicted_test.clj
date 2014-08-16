@@ -1,7 +1,7 @@
 (ns subman.sources.addicted-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [test-sugar.core :refer [is= is-do with-provided]]
+            [test-sugar.core :refer [is= is-do]]
             [subman.sources.addicted :as addicted]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
 
@@ -50,23 +50,23 @@
         :url "http://www.addic7ed.com/test-url"}))
 
 (deftest test-add-lang
-  (with-provided {#'addicted/get-lang (constantly "test")}
+  (with-redefs [addicted/get-lang (constantly "test")]
     (is= (#'addicted/add-lang "" {:langs []})
          {:langs ["test"]})))
 
 (deftest test-get-subtitles
-  (with-provided {#'addicted/is-version-line? #(= % 1)
-                  #'addicted/get-version (constantly {:name "test"
-                                                      :langs []})
-                  #'addicted/is-language-line? #(= % 2)
-                  #'addicted/add-lang (constantly {:name "test"
-                                                   :langs ["us"]})}
+  (with-redefs [addicted/is-version-line? #(= % 1)
+                addicted/get-version (constantly {:name "test"
+                                                  :langs []})
+                addicted/is-language-line? #(= % 2)
+                addicted/add-lang (constantly {:name "test"
+                                               :langs ["us"]})]
     (is= (#'addicted/get-subtitles [1 2])
          [{:name "test"
            :langs ["us"]}])))
 
 (deftest test-get-version
-  (with-provided {#'helpers/fetch (constantly (get-single-episode))}
+  (with-redefs [helpers/fetch (constantly (get-single-episode))]
     (testing "return all versions"
       (is= 2 (count (#'addicted/get-versions {:url ""}))))
     (testing "return all languages"
@@ -90,8 +90,8 @@
         :url "http://www.addic7ed.com/serie/Episodes/3/6/Episode_Six"}))
 
 (deftest test-get-release-page-result
-  (with-provided {#'helpers/fetch #(if (= % (#'addicted/get-releases-url 1))
-                                     (get-from-file "test/fixtures/subman/sources/addicted_release.html")
-                                     (get-from-file "test/fixtures/subman/sources/addicted_episode.html"))}
+  (with-redefs [helpers/fetch #(if (= % (#'addicted/get-releases-url 1))
+                                 (get-from-file "test/fixtures/subman/sources/addicted_release.html")
+                                 (get-from-file "test/fixtures/subman/sources/addicted_episode.html"))]
     (is= (:name (first (#'addicted/get-release-page-result 1)))
          "Family Affair")))

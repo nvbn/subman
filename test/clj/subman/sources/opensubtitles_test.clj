@@ -1,7 +1,7 @@
 (ns subman.sources.opensubtitles-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [test-sugar.core :refer [is= is-do with-provided]]
+            [test-sugar.core :refer [is= is-do]]
             [subman.sources.opensubtitles :as opensubtitles]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]
             [subman.const :as const]))
@@ -76,6 +76,6 @@
         :version ""}))
 
 (deftest test-get-release-page-result
-  (with-provided {#'helpers/fetch (constantly release-content)}
+  (with-redefs [helpers/fetch (constantly release-content)]
     (is= (:show (first (opensubtitles/get-release-page-result 1)))
          "Community")))

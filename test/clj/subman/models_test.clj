@@ -1,13 +1,13 @@
 (ns subman.models-test
   (:require [clojure.test :refer [deftest testing]]
             [clojurewerkz.elastisch.rest.document :as esd]
-            [test-sugar.core :refer [is= is-do with-provided]]
+            [test-sugar.core :refer [is= is-do]]
             [subman.const :as const]
             [subman.models :as models]))
 
 (deftest test-update-total-count
   (let [orig (atom @models/total-count)]
-    (try (with-provided {#'esd/search (constantly {:hits {:total 10}})}
+    (try (with-redefs [esd/search (constantly {:hits {:total 10}})]
            (is= (models/update-total-count) 10)
            (is= @models/total-count 10))
       (finally (reset! models/total-count @orig)))))
@@ -60,24 +60,24 @@
           :filter {:term {:lang "ru"}} :size 100])))
 
 (deftest test-search
-  (with-provided {#'esd/search (fn [_ _ _ & {:keys [from size] :as _}]
-                                 (when (and (= from 10) (= size const/result-size))
-                                   {:hits {:hits [{:_source "test"}]}}))}
+  (with-redefs [esd/search (fn [_ _ _ & {:keys [from size] :as _}]
+                             (when (and (= from 10) (= size const/result-size))
+                               {:hits {:hits [{:_source "test"}]}}))]
     (is= ["test"] (models/search :query "test"
                                  :offset 10
                                  :lang "en"))))
 
 (deftest test-in-db
-  (with-provided {#'esd/search (fn [_ _ _ & {:keys [filter]}]
-                                 (when (= filter {:term {:url "test"}})
-                                   {:hits {:total 5}}))}
+  (with-redefs [esd/search (fn [_ _ _ & {:keys [filter]}]
+                             (when (= filter {:term {:url "test"}})
+                               {:hits {:total 5}}))]
     (is-do true? (models/in-db {:url "test"}))))
 
 (deftest test-list-languages
-  (with-provided {#'esd/search (fn [& _] {:facets {:tag {:terms [{:term "english"
-                                                                  :count 100}
-                                                                 {:term "russian"
-                                                                  :count 50}]}}})}
+  (with-redefs [esd/search (fn [& _] {:facets {:tag {:terms [{:term "english"
+                                                              :count 100}
+                                                             {:term "russian"
+                                                              :count 50}]}}})]
     (is= (models/list-languages) [{:term "english"
                                    :count 100}
                                   {:term "russian"

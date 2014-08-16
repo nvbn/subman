@@ -1,7 +1,7 @@
 (ns subman.sources.notabenoid-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [test-sugar.core :refer [is= is-do with-provided]]
+            [test-sugar.core :refer [is= is-do]]
             [subman.const :as const]
             [subman.sources.notabenoid :as notabenoid]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
@@ -29,7 +29,7 @@
        "http://notabenoid.com/search/index/t//cat/1/s_lang/0/t_lang/1/ready/1/gen/1/sort/4/Book_page/15"))
 
 (deftest test-book-from-line
-  (with-provided {#'helpers/fetch (constantly "content")}
+  (with-redefs [helpers/fetch (constantly "content")]
     (is= (#'notabenoid/book-from-line release-line) "content")))
 
 (deftest test-get-book-title
@@ -89,7 +89,7 @@
          "Shetland")))
 
 (deftest test-get-release-page-result
-  (with-provided {#'helpers/fetch #(if (= % (#'notabenoid/get-release-page-url 1))
-                                     release-page
-                                     book-page)}
+  (with-redefs [helpers/fetch #(if (= % (#'notabenoid/get-release-page-url 1))
+                                 release-page
+                                 book-page)]
     (is= 350 (count (notabenoid/get-release-page-result 1)))))

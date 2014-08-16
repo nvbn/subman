@@ -1,7 +1,7 @@
 (ns subman.sources.subscene-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [test-sugar.core :refer [is= with-provided]]
+            [test-sugar.core :refer [is=]]
             [subman.sources.subscene :as subscene]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]
             [subman.const :as const]))
@@ -32,7 +32,7 @@
   (is= (#'subscene/get-lang page-content) "English"))
 
 (deftest test-create-subtitle
-  (with-provided {#'helpers/fetch (constantly page-content)}
+  (with-redefs [helpers/fetch (constantly page-content)]
     (is= (#'subscene/create-subtitle "") {:episode "5"
                                           :lang "English"
                                           :season "2"
@@ -42,8 +42,8 @@
                                           :version "The.Following.S02E05.720p.HDTV.X264-DIMENSION, The.Following.S02E05.480p.HDTV.x264-Micromkv, The.Following.S02E05.480p.HDTV.x264-mSD, The.Following.S02E05.HDTV.x264-LOL, The.Following.S02E05.HDTV.XviD-FUM, The.Following.S02E05.HDTV.XviD-AFG, The.Following.S02E05.HDTV.x264-GWC"})))
 
 (deftest test-get-release-page-result
-  (with-provided {#'helpers/fetch #(if (= % "http://subscene.com/browse/latest/series/1")
-                                     release-content
-                                     page-content)}
+  (with-redefs [helpers/fetch #(if (= % "http://subscene.com/browse/latest/series/1")
+                                 release-content
+                                 page-content)]
     (is= "The Following - Second Season"
          (:show (first (subscene/get-release-page-result 1))))))

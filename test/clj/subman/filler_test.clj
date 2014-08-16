@@ -1,6 +1,6 @@
 (ns subman.filler-test
   (:require [clojure.test :refer [deftest testing is]]
-            [test-sugar.core :refer [is= with-provided]]
+            [test-sugar.core :refer [is=]]
             [subman.models :as models]
             [subman.sources.addicted :as addicted]
             [subman.sources.podnapisi :as podnapisi]
@@ -51,10 +51,10 @@
                                       new-getter))))
 
 (deftest test-update-all
-  (with-provided {#'subscene/get-release-page-result (constantly [])
-                  #'opensubtitles/get-release-page-result (constantly [])
-                  #'addicted/get-release-page-result (constantly [])
-                  #'podnapisi/get-release-page-result (constantly [])
-                  #'notabenoid/get-release-page-result (constantly [])
-                  #'uksubtitles/get-release-page-result (constantly [])}
+  (with-redefs [subscene/get-release-page-result (constantly [])
+                opensubtitles/get-release-page-result (constantly [])
+                addicted/get-release-page-result (constantly [])
+                podnapisi/get-release-page-result (constantly [])
+                notabenoid/get-release-page-result (constantly [])
+                uksubtitles/get-release-page-result (constantly [])]
     (is (filler/update-all))))

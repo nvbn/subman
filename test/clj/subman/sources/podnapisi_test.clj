@@ -1,7 +1,7 @@
 (ns subman.sources.podnapisi-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
-            [test-sugar.core :refer [is= with-provided]]
+            [test-sugar.core :refer [is=]]
             [subman.sources.podnapisi :as podnapisi]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]
             [subman.const :as const]))
@@ -50,7 +50,7 @@
         :version "Bitten.S01E06.HDTV.x264-2HD\nBitten.S01E06.HDTV.Xv..."}))
 
 (deftest test-parse-list-page
-  (with-provided {#'helpers/fetch (constantly release-content)}
+  (with-redefs [helpers/fetch (constantly release-content)]
     (is= "Lab Rats" (:show (first (#'podnapisi/parse-list-page ""))))))
 
 (deftest test-get-release-page-url
@@ -58,5 +58,5 @@
        "http://www.podnapisi.net/en/ppodnapisi/search/sJ/-1/sS/time/sO/desc/sT/-1/sM/0/sA/0/sK//sOA/0/sOT/0/sOL/0/sOI/0/sOE/0/sOD/0/sOH/0/sY//sOCS/0/sFT/0/sR//sTS//sTE//sAKA/1/sH//sI//tbsl/1/asdp/0/page//page/1"))
 
 (deftest test-get-release-page-result
-  (with-provided {#'helpers/fetch (constantly release-content)}
+  (with-redefs [helpers/fetch (constantly release-content)]
     (is= const/type-podnapisi (:source (first (#'podnapisi/get-release-page-result 1))))))
