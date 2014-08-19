@@ -64,11 +64,22 @@
       (set-default-part "source" (get-source-id source))
       (query-offset-query-part offset)))
 
+(defn read-respone
+  "Read response from server"
+  [response]
+  (read-string (:body response)))
+
 (defn get-search-result
   "Get search result from query"
   [query offset lang source]
   (go (-> (create-search-url query offset lang source)
           (@http-get)
           <!
-          :body
-          read-string)))
+          read-respone)))
+
+(defn get-total-count
+  "Get total count of indexed subtitles"
+  []
+  (go (-> (@http-get "/api/count/")
+          <!
+          read-respone)))

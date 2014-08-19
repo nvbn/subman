@@ -42,3 +42,9 @@
                                              0 "english" "all"))
                     [:test-search-result]))
              (done)))
+
+(deftest ^:async test-get-total-count
+         (reset! d/http-get (fn [_]
+                              (go {:body (prn-str 999)})))
+         (go (is (= 999 (<! (m/get-total-count))))
+             (done)))
