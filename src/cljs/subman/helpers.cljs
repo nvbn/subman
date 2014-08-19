@@ -42,3 +42,11 @@
   "Get value from event"
   [e]
   (.. e -target -value))
+
+(defn atom-to-chan
+  [atm]
+  (let [ch (chan)]
+    (add-watch atm (gensym)
+               (fn [_ _ _ val]
+                 (go (>! ch val))))
+    ch))

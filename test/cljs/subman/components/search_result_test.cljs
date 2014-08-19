@@ -31,7 +31,7 @@
 (deftest ^:async test-search-result-without-result
   (go (let [[_ $el] (<! (render-node search-result
                                      {:results []
-                                      :search-query "Test query"}))]
+                                      :stable-search-query "Test query"}))]
         (let [html (.html $el)]
           (is (re-find #"Nothing found" html))
           (is (re-find #"Test query" html)))

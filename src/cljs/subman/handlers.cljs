@@ -1,0 +1,22 @@
+(ns subman.handlers
+  (:require-macros [cljs.core.async.macros :refer [go-loop]])
+  (:require [cljs.core.async :refer [<!]]
+            [subman.helpers :refer [atom-to-chan]]
+            [subman.models :as m]))
+
+(defn handle-stable-search-query!
+  "Update search result when stable query changed"
+  [state]
+  (let [ch (atom-to-chan state)]
+    (go-loop [last-val (:stable-search-query @state)]
+             (let [state-val (<! ch)
+                   val (:stable-search-query state-val)]
+               (when-not (= val last-val)
+                 (swap! state assoc
+                        :in-progress true)
+                 (swap! state assoc
+                        :results (<! (m/get-search-result val 0
+                                                          "english" "all"))
+                        :offset 0
+                        :in-progress false))
+               (recur val)))))

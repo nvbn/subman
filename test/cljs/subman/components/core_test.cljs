@@ -7,12 +7,13 @@
             [subman.helpers :refer [render-node]]
             [subman.components.core :refer [page]]))
 
-(deftest test-page
-  (go (let [state (atom {:search-query ""})
-            [_ $el] (<! (render-node page state))]
-        (testing "show welcome page withput query"
-          (is (re-find #"Welcome" (.html $el)))
-          (testing "show result with query"
-            (swap! state assoc :search-query "test")
-            (<! (timeout 1000))
-            (is (re-find #"Nothing" (.html $el))))))))
+(deftest ^:async test-page
+         (go (let [state (atom {:stable-search-query ""})
+                   [_ $el] (<! (render-node page state))]
+               (testing "show welcome page without query"
+                        (is (re-find #"Welcome" (.html $el)))
+                        (testing "show result with query"
+                                 (swap! state assoc :stable-search-query "test")
+                                 (<! (timeout 1000))
+                                 (is (re-find #"Nothing" (.html $el))))))
+             (done)))

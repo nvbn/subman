@@ -1,6 +1,8 @@
 (ns subman.helpers-test
-  (:require [cemerick.cljs.test :refer-macros [deftest testing]]
+  (:require-macros [cljs.core.async.macros :refer [go]])
+  (:require [cemerick.cljs.test :refer-macros [deftest testing done is]]
             [test-sugar.core :refer [is=]]
+            [cljs.core.async :refer [<!]]
             [subman.helpers :as helpers]))
 
 (deftest test-is-filled?
@@ -28,3 +30,12 @@
     (is= "S12E02" (helpers/format-season-episode 12 2)))
   (testing "if nothing"
     (is= "" (helpers/format-season-episode nil nil))))
+
+(deftest ^:async test-atom-to-chan
+         (let [atm (atom 0)
+               chn (helpers/atom-to-chan atm)]
+           (go (reset! atm 10)
+               (is (= (<! chn) 10))
+               (swap! atm inc)
+               (is (= (<! chn) 11))
+               (done))))
