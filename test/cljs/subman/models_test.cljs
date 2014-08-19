@@ -5,7 +5,6 @@
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
             [subman.deps :as d]
-            [subman.locks :as l]
             [subman.models :as m]))
 
 (deftest test-create-search-url
@@ -36,26 +35,16 @@
                   (is= -2 (m/get-source-id "wtf-this-source"))))
 
 (deftest ^:async test-get-search-result
-         (go (<! (l/take-http!))
-             (println "start search result")
-             (reset! d/http-get (fn [url]
-                                  (println "search http")
+         (go (reset! d/http-get (fn [url]
                                   (go (when (= url "/api/search/?lang=uk&source=0&query=test&offset=0")
                                         {:body (prn-str [:test-search-result])}))))
              (is (= (<! (m/get-search-result "test :source addicted :lang uk"
                                              0 "english" "all"))
                     [:test-search-result]))
-             (println "done search result")
-             (l/free-http!)
              (done)))
 
 (deftest ^:async test-get-total-count
-         (go (<! (l/take-http!))
-             (println "start total count")
-             (reset! d/http-get (fn [_]
-                                  (println "total count http")
+         (go (reset! d/http-get (fn [_]
                                   (go {:body (prn-str 999)})))
              (is (= 999 (<! (m/get-total-count))))
-             (println "done total count")
-             (l/free-http!)
              (done)))
