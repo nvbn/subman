@@ -83,3 +83,11 @@
   (go (-> (@http-get "/api/count/")
           <!
           read-respone)))
+
+(defn get-languages
+  "Get all languages list"
+  []
+  (go (->> (@http-get "/api/list-languages/")
+           <!
+           read-respone
+           (map #(:term %)))))

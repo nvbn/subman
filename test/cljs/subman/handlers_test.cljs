@@ -34,4 +34,5 @@
                                     (go {:body (prn-str 9999)})))
                (h/handle-total-count! state)
                (<! (timeout 1000))
-               (is (= (:total-count @state) 9999)))))
+               (is (= (:total-count @state) 9999))
+               (done))))

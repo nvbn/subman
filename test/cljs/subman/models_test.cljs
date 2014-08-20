@@ -48,3 +48,12 @@
                                   (go {:body (prn-str 999)})))
              (is (= 999 (<! (m/get-total-count))))
              (done)))
+
+(deftest ^:async test-get-languages
+         (go (reset! d/http-get (fn [_]
+                                  (go {:body (prn-str [{:term "english"}
+                                                       {:term "spanish"}
+                                                       {:term "russian"}])})))
+             (is (= (<! (m/get-languages)
+                        ["english" "spanish" "russian"])))
+             (done)))
