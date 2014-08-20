@@ -40,3 +40,17 @@
                (swap! atm inc)
                (is (= (<! chn) 11))
                (done))))
+
+(deftest ^:async test-subscribe-to-state
+         (let [state (atom {})
+               ch (helpers/subscribe-to-state state :options :lang)]
+           (go (testing "send value when added"
+                        (swap! state assoc :options {:lang "english"})
+                        (is (= (<! ch) "english")))
+               (testing "send value when changed"
+                        (swap! state assoc-in [:options :lang] "spanish")
+                        (is (= (<! ch) "spanish")))
+               (testing "return blank string when nil"
+                        (swap! state assoc-in [:options :lang] nil)
+                        (is (= (<! ch) "")))
+               (done))))

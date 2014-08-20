@@ -1,6 +1,6 @@
 (ns subman.helpers
-  (:require-macros [cljs.core.async.macros :refer [go]])
-  (:require [cljs.core.async :refer [>! chan]]
+  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
+  (:require [cljs.core.async :refer [<! >! chan]]
             [om.core :as om :include-macros true]
             [jayq.core :refer [$]]))
 
@@ -51,3 +51,21 @@
                (fn [_ _ _ val]
                  (go (>! ch val))))
     ch))
+
+(defn nil-to-blank
+  "Replace nil with blank string"
+  [item]
+  (if (nil? item)
+    ""
+    item))
+
+(defn subscribe-to-state
+  [atm & path]
+  (let [atm-ch (atom-to-chan atm)
+        result-ch (chan)]
+    (go-loop [val nil]
+             (let [current (get-in (<! atm-ch) path)]
+               (when-not (= val current)
+                 (>! result-ch (nil-to-blank current)))
+               (recur current)))
+    result-ch))
