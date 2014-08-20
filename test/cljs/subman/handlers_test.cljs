@@ -6,7 +6,7 @@
             [subman.deps :as d]
             [subman.handlers :as h]))
 
-(deftest ^:async test-handle-stable-search-query
+(deftest ^:async test-handle-stable-search-query!
          (let [search-url (atom "")
                state (atom {:stable-search-query ""})]
            (h/handle-stable-search-query! state)
@@ -27,3 +27,11 @@
                (testing "reset offset"
                         (is (= (:offset @state) 0)))
                (done))))
+
+(deftest ^:async test-handle-total-count!
+         (let [state (atom {})]
+           (go (reset! d/http-get (fn [_]
+                                    (go {:body (prn-str 9999)})))
+               (h/handle-total-count! state)
+               (<! (timeout 1000))
+               (is (= (:total-count @state) 9999)))))

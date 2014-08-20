@@ -1,5 +1,5 @@
 (ns subman.handlers
-  (:require-macros [cljs.core.async.macros :refer [go-loop]])
+  (:require-macros [cljs.core.async.macros :refer [go-loop go]])
   (:require [cljs.core.async :refer [<!]]
             [subman.helpers :refer [subscribe-to-state]]
             [subman.models :as m]))
@@ -18,3 +18,9 @@
                       :offset 0
                       :in-progress false)
                (recur)))))
+
+(defn handle-total-count!
+  "Update total count value on start"
+  [state]
+  (go (swap! state assoc
+             :total-count (<! (m/get-total-count)))))

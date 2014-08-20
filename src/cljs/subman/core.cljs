@@ -9,4 +9,5 @@
                      :total-count 0})]
     (inject-for-production!)
     (h/handle-stable-search-query! state)
+    (h/handle-total-count! state)
     (init-components state)))
