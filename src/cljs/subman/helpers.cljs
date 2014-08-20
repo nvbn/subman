@@ -46,6 +46,7 @@
 (defn atom-to-chan
   [atm]
   (let [ch (chan)]
+    (go (>! ch @atm))
     (add-watch atm (gensym)
                (fn [_ _ _ val]
                  (go (>! ch val))))

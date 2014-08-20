@@ -34,7 +34,8 @@
 (deftest ^:async test-atom-to-chan
          (let [atm (atom 0)
                chn (helpers/atom-to-chan atm)]
-           (go (reset! atm 10)
+           (go (is (= (<! chn) 0))
+               (reset! atm 10)
                (is (= (<! chn) 10))
                (swap! atm inc)
                (is (= (<! chn) 11))
