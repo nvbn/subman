@@ -6,7 +6,7 @@
             [om.core :as om :include-macros true]
             [jayq.core :refer [$]]
             [subman.const :as const]
-            [subman.helpers :refer [render-node]]
+            [subman.helpers :as h]
             [subman.components.edit-option :refer [edit-option]]))
 
 (defn get-options
@@ -18,7 +18,7 @@
   (go (let [state (atom {:value "first"
                          :options ["zero" "first" "second" "third"]
                          :is-sorted false})
-            [owner $el] (<! (render-node edit-option state))
+            [owner $el] (<! (h/render-node edit-option state))
             select (.find $el ".edit-option")]
         (testing "set initial value"
           (is (= (.val select) "first")))
@@ -27,8 +27,7 @@
                  (get-options $el))))
         (testing "update value on change"
           (.val select "zero")
-          (js/React.addons.TestUtils.Simulate.change
-           (om/get-node owner))
+          (h/simulate (om/get-node owner) :change)
           (is (= (:value @state) "zero")))
         (testing "sort values"
           (swap! state assoc-in [:is-sorted] true)

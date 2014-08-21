@@ -38,6 +38,17 @@
                  state {:target (.get $el 0)})))
     result))
 
+(defn simulate
+  "Simulate event on node"
+  [node event & args]
+  (apply (aget js/React.addons.TestUtils.Simulate (name event))
+         node args))
+
+(defn get-by-class
+  "Get one child node"
+  [node class]
+  (js/React.addons.TestUtils.findRenderedDOMComponentWithClass node class))
+
 (defn value
   "Get value from event"
   [e]
