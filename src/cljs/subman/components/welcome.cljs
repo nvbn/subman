@@ -31,11 +31,11 @@
             (dom/p nil "You can specify subtitle language in your query using "
                    (dom/code nil ":lang name")
                    ". Default language used: "
-                   (om/build edit-option (:languages options)))
+                   (om/build edit-option (:language options)))
             (dom/p nil "And source using "
                    (dom/code nil ":source name")
                    ", by default used: "
-                   (om/build edit-option (:sources options)))
+                   (om/build edit-option (:source options)))
             (dom/p nil "And you can filter by season and episode with "
                    (dom/code nil "S01E01")
                    " format.")

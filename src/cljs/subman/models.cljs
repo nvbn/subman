@@ -2,7 +2,7 @@
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [clojure.string :as string]
             [cljs.reader :refer [read-string]]
-            [subman.deps :refer [http-get]]
+            [subman.deps :refer [http-get sources]]
             [cljs.core.async :refer [<!]]
             [subman.const :as const]))
 
@@ -38,7 +38,7 @@
               (map (fn [el]
                      {(-> el val str string/lower-case)
                        (key el)})
-                   const/type-names))
+                   @sources))
        (string/lower-case source)
        const/type-none))
 
@@ -95,4 +95,4 @@
 (defn get-sources
   "Get all sources list"
   []
-  (go (map string/lower-case (vals const/type-names))))
+  (go (map string/lower-case (vals @sources))))

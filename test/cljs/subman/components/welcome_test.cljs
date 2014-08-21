@@ -8,20 +8,20 @@
             [subman.components.welcome :refer [welcome]]))
 
 (deftest ^:async test-welcome
-  (go (let [state (atom {:options {:languages {:value "english"
-                                               :is-sorted true
-                                               :options ["spain" "russian" "english"]}
-                                   :sources {:value "all"
-                                             :options ["all" "addicted"]}}
-                         :total-count 9999})
-            [_ $el] (<! (render-node welcome state))]
-        (let [html (.html $el)]
-          (testing "contains sources list"
-            (is (re-find #"addic7ed" html)))
-          (testing "contains language option"
-            (is (re-find #"russian" html)))
-          (testing "contains sources switcher"
-            (is (re-find #"all" html)))
-          (testing "contains counter"
-            (is (re-find #"9999" html))))
-        (done))))
+         (go (let [state (atom {:options     {:language {:value     "english"
+                                                         :is-sorted true
+                                                         :options   ["spain" "russian" "english"]}
+                                              :source   {:value   "all"
+                                                         :options ["all" "addicted"]}}
+                                :total-count 9999})
+                   [_ $el] (<! (render-node welcome state))]
+               (let [html (.html $el)]
+                 (testing "contains sources list"
+                          (is (re-find #"addic7ed" html)))
+                 (testing "contains language option"
+                          (is (re-find #"russian" html)))
+                 (testing "contains sources switcher"
+                          (is (re-find #"all" html)))
+                 (testing "contains counter"
+                          (is (re-find #"9999" html))))
+               (done))))

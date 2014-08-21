@@ -9,6 +9,7 @@
             [subman.models :as m]))
 
 (deftest test-create-search-url
+         (reset! d/sources const/type-names)
          (testing "with query"
                   (is= "/api/search/?lang=english&source=-1&query=test&offset=0"
                        (m/create-search-url "test" 0 "english" "all")))
@@ -26,6 +27,7 @@
                        (m/create-search-url "test :source addicted :lang uk" 0 "english" "all"))))
 
 (deftest test-get-source-id
+         (reset! d/sources const/type-names)
          (testing "for source"
                   (is= 0 (m/get-source-id "addicted")))
          (testing "for source in wrong case"
@@ -56,12 +58,12 @@
                                                        {:term "spanish"}
                                                        {:term "russian"}])})))
              (is (= (<! (m/get-languages))
-                        ["english" "spanish" "russian"])))
-             (done))
+                    ["english" "spanish" "russian"])))
+         (done))
 
 (deftest ^:async test-get-sources
-         (go (with-redefs [const/type-names {:addicted "Addicted"
-                                             :opensubtitles "opensubtitles"}]
-                          (is (= (apply hash-set (<! (m/get-sources)))
-                                 #{"addicted" "opensubtitles"})))
+         (go (reset! d/sources {:addicted      "Addicted"
+                                :opensubtitles "opensubtitles"})
+             (is (= (apply hash-set (<! (m/get-sources)))
+                    #{"addicted" "opensubtitles"}))
              (done)))
