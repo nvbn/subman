@@ -91,3 +91,8 @@
            <!
            read-respone
            (map #(:term %)))))
+
+(defn get-sources
+  "Get all sources list"
+  []
+  (go (map string/lower-case (vals const/type-names))))

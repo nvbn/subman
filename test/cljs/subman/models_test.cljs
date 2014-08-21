@@ -4,6 +4,7 @@
             [test-sugar.core :refer [is=]]
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
+            [subman.const :as const]
             [subman.deps :as d]
             [subman.models :as m]))
 
@@ -54,6 +55,13 @@
                                   (go {:body (prn-str [{:term "english"}
                                                        {:term "spanish"}
                                                        {:term "russian"}])})))
-             (is (= (<! (m/get-languages)
+             (is (= (<! (m/get-languages))
                         ["english" "spanish" "russian"])))
+             (done))
+
+(deftest ^:async test-get-sources
+         (go (with-redefs [const/type-names {:addicted "Addicted"
+                                             :opensubtitles "opensubtitles"}]
+                          (is (= (apply hash-set (<! (m/get-sources)))
+                                 #{"addicted" "opensubtitles"})))
              (done)))
