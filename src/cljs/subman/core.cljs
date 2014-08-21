@@ -3,6 +3,7 @@
             [subman.const :as const]
             [subman.deps :refer [inject-for-production! sources]]
             [subman.components.core :refer [init-components]]
+            [subman.routes :refer [init-routes]]
             [subman.handlers :as h]))
 
 (defn ^:export run
@@ -14,6 +15,7 @@
                                       :source   (get @sources
                                                      const/default-type)})
                                :options)]
+    (init-routes state)
     (h/handle-stable-search-query! state options)
     (h/handle-total-count! state)
     (h/handle-options! state options)

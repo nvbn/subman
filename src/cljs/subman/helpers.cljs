@@ -69,3 +69,7 @@
                  (>! result-ch (nil-to-blank current)))
                (recur current)))
     result-ch))
+
+(deftype DummyHistory [^{:volatile-mutable true} token]
+  Object
+  (setToken [_ val] (set! token val)))

@@ -1,7 +1,8 @@
 (ns subman.handlers
   (:require-macros [cljs.core.async.macros :refer [go-loop go]])
   (:require [cljs.core.async :refer [<! alts!]]
-            [subman.helpers :refer [subscribe-to-state]]
+            [subman.helpers :refer [subscribe-to-state is-filled?]]
+            [subman.routes :as r]
             [subman.models :as m]))
 
 (defn handle-stable-search-query!
@@ -18,6 +19,9 @@
                                                         (:source @options)))
                       :offset 0
                       :in-progress false)
+               (r/change-url! (if (is-filled? val)
+                                (r/search-page {:query val})
+                                (r/main-page)))
                (recur)))))
 
 (defn handle-total-count!

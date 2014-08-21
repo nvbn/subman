@@ -2,6 +2,7 @@
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [cemerick.cljs.test :refer-macros [deftest done testing is]]
             [cljs.core.async :refer [<! timeout]]
+            [subman.helpers :refer [DummyHistory]]
             [subman.const :as const]
             [subman.models :as m]
             [subman.deps :as d]
@@ -10,8 +11,9 @@
 (deftest ^:async test-handle-stable-search-query!
          (let [search-url (atom "")
                state (atom {:stable-search-query ""})
-               options (atom {:source "all"
+               options (atom {:source   "all"
                               :language "english"})]
+           (reset! d/history (DummyHistory. ""))
            (h/handle-stable-search-query! state options)
            (go (reset! d/http-get (fn [url]
                                     (reset! search-url url)
@@ -19,7 +21,8 @@
                (testing "do nothing without search query change"
                         (swap! state assoc
                                :offset 10)
-                        (is (= @search-url "")))
+                        (is (= @search-url ""))
+                        (is (= (.-token @d/history ""))))
                (swap! state assoc
                       :stable-search-query "test-query")
                (<! (timeout 1000))
@@ -29,6 +32,13 @@
                         (is (= (:results @state) [{:test :test}])))
                (testing "reset offset"
                         (is (= (:offset @state) 0)))
+               (testing "change url with query"
+                        (is (= (.-token @d/history "/search/test-query"))))
+               (testing "change url with blank query"
+                        (swap! state assoc
+                               :stable-search-query "")
+                        (<! (timeout 1000))
+                        (is (= (.-token @d/history "/"))))
                (done))))
 
 (deftest ^:async test-handle-total-count!
