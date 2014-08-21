@@ -9,8 +9,10 @@
 
 (deftest ^:async test-handle-stable-search-query!
          (let [search-url (atom "")
-               state (atom {:stable-search-query ""})]
-           (h/handle-stable-search-query! state)
+               state (atom {:stable-search-query ""})
+               options (atom {:source "all"
+                              :language "english"})]
+           (h/handle-stable-search-query! state options)
            (go (reset! d/http-get (fn [url]
                                     (reset! search-url url)
                                     (go {:body (prn-str [{:test :test}])})))

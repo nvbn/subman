@@ -6,7 +6,7 @@
 
 (defn handle-stable-search-query!
   "Update search result when stable query changed"
-  [state]
+  [state options]
   (let [ch (subscribe-to-state state :stable-search-query)]
     (go-loop []
              (let [val (<! ch)]
@@ -14,7 +14,8 @@
                       :in-progress true)
                (swap! state assoc
                       :results (<! (m/get-search-result val 0
-                                                        "english" "all"))
+                                                        (:language @options)
+                                                        (:source @options)))
                       :offset 0
                       :in-progress false)
                (recur)))))

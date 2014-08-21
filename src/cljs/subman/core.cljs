@@ -14,7 +14,7 @@
                                       :source   (get @sources
                                                      const/default-type)})
                                :options)]
-    (h/handle-stable-search-query! state)
+    (h/handle-stable-search-query! state options)
     (h/handle-total-count! state)
     (h/handle-options! state options)
     (init-components state)))
