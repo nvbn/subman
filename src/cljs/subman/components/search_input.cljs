@@ -61,7 +61,8 @@
                (input-field-part app owner)))
     om/IDidMount
     (did-mount [_]
-      (let [input (.find ($ (om/get-node owner)) "input.search-input")]
+      (let [input (.find ($ (om/get-node owner))
+                         "input.search-input")]
         (.typeahead input
                     #js {:highlight true}
                     #js {:source #(completion-source
@@ -69,4 +70,6 @@
                                    (get-in @app [:options :source :options])
                                    %1 %2)})
         (.on input "typeahead:closed"
-             #(handle-search-input app owner (.val input)))))))
+             #(handle-search-input app owner (.val input)))
+        (.focus input)
+        (.select input)))))
