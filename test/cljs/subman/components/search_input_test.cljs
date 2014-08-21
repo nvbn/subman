@@ -12,7 +12,7 @@
   (let [state (atom {:search-query "initial"})
         owner (atom nil)]
     (go (let [[owner $el] (<! (render-node search-input state))
-              input (.find $el ".search-input")]
+              input ($ (om/get-node owner))]
           (testing "set initial value"
             (is (= (.val input) "initial")))
           (testing "not change app state eager"
