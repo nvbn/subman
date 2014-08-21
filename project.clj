@@ -9,7 +9,6 @@
                  [hiccup "1.0.5"]
                  [enlive "1.1.5"]
                  [clojurewerkz/elastisch "2.0.0"]
-                 [reagent "0.4.2"]
                  [cljs-http "0.1.15"]
                  [clj-http "1.0.0"]
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
@@ -33,8 +32,7 @@
   :main subman.core
   :profiles {:dev {:cljsbuild {:builds
                                {:main {:source-paths ["src/cljs" "target/generated-cljs"]
-                                       :compiler {:preamble ["reagent/react.js"]
-                                                  :output-to "resources/public/main.js"
+                                       :compiler {:output-to "resources/public/main.js"
                                                   :output-dir "resources/public/cljs-target"
                                                   :source-map true
                                                   :optimizations :none}}
@@ -54,8 +52,7 @@
                    :env {:is-debug true}}
              :uberjar {:aot :all
                        :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
-                                             :compiler {:preamble ["reagent/react.min.js"]
-                                                        :externs ["resources/public/components/jquery/dist/jquery.min.js"
+                                             :compiler {:externs ["resources/public/components/jquery/dist/jquery.min.js"
                                                                   "resources/public/components/bootstrap/dist/js/bootstrap.min.js"
                                                                   "resources/public/components/typeahead.js/dist/typeahead.jquery.min.js"]
                                                         :output-to "resources/public/main.js"
