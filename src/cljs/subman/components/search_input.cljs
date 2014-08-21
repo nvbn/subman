@@ -32,8 +32,8 @@
   (dom/span #js {:className "input-group-addon no-border-radius"}
             (if (= "" (:stable-search-query app))
               (dom/i #js {:className "fa fa-search"})
-              (dom/a #js {:onClick #(handle-search-input app owner "" true)
-                          :href    "#"
+              (dom/a #js {:onClick   #(handle-search-input app owner "" true)
+                          :href      "#"
                           :className "clear-input-btn"}
                      (dom/i #js {:className "fa fa-chevron-left"})))))
 
@@ -50,6 +50,8 @@
   "Component for search input"
   [app owner]
   (reify
+    om/IDisplayName
+    (display-name [_] "Search Input")
     om/IRender
     (render [_]
       (dom/div #js {:data-spy        "affix"

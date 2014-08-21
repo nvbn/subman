@@ -38,11 +38,15 @@
 (defn result-entry
   "Component for single search result entry"
   [entry owner]
-  (om/component
-   (dom/a #js {:href (om/value (:url entry))
-               :className "result-entry"}
-          (dom/h3 nil (om/value (get-result-entry-title entry))
-                  (dom/span nil (om/value (get-result-season-episode entry))))
-          (dom/p nil (om/value (get-result-source entry)))
-          (dom/p nil (om/value (get-result-lang entry)))
-          (dom/p nil (om/value (get-result-version entry))))))
+  (reify
+    om/IDisplayName
+    (display-name [_] "Result Entry")
+    om/IRender
+    (render [_]
+      (dom/a #js {:href      (om/value (:url entry))
+                  :className "result-entry"}
+             (dom/h3 nil (om/value (get-result-entry-title entry))
+                     (dom/span nil (om/value (get-result-season-episode entry))))
+             (dom/p nil (om/value (get-result-source entry)))
+             (dom/p nil (om/value (get-result-lang entry)))
+             (dom/p nil (om/value (get-result-version entry)))))))
