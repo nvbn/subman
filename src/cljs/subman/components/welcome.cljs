@@ -1,6 +1,6 @@
 (ns subman.components.welcome
   (:require [om.core :as om :include-macros true]
-            [om.dom :as dom :include-macros true]
+            [sablono.core :refer-macros [html]]
             [subman.components.edit-option :refer [edit-option]]))
 
 (defn welcome
@@ -11,42 +11,42 @@
     (display-name [_] "Welcome")
     om/IRender
     (render [_]
-      (dom/div #js {:className "welcome container col-xs-12 info-box form-inline"}
-               (dom/h2 nil "Welcome to subman.io!")
-               (dom/p nil "We index "
-                      (dom/a #js {:href   "http://www.addic7ed.com/"
-                                  :target "_blank"} "addic7ed.com")
-                      ", "
-                      (dom/a #js {:href   "http://www.opensubtitles.org/"
-                                  :target "_blank"} "www.opensubtitles.org")
-                      ", "
-                      (dom/a #js {:href   "http://www.podnapisi.net/"
-                                  :target "_blank"} "podnapisi.net")
-                      ", "
-                      (dom/a #js {:href   "http://subscene.com/"
-                                  :target "_blank"} "subscene.com")
-                      ", "
-                      (dom/a #js {:href   "http://notabenoid.com/"
-                                  :target "_blank"} "notabenoid.com")
-                      " and "
-                      (dom/a #js {:href   "http://uksubtitles.ru/"
-                                  :target "_blank"} "uksubtitles.ru")
-                      ".")
-               (dom/p nil "You can specify subtitle language in your query using "
-                      (dom/code nil ":lang name")
-                      ". Default language used: "
-                      (om/build edit-option (:language options)))
-               (dom/p nil "And source using "
-                      (dom/code nil ":source name")
-                      ", by default used: "
-                      (om/build edit-option (:source options)))
-               (dom/p nil "And you can filter by season and episode with "
-                      (dom/code nil "S01E01")
-                      " format.")
-               (dom/p nil "Total indexedsubtitles count: "
-                      (om/value total-count)
-                      ".")
-               (dom/a #js {:href   "https://github.com/nvbn/subman"
-                           :target "_blank"}
-                      (dom/i #js {:className "fa fa-github"})
-                      " github")))))
+      (html [:div.welcome.container.col-xs-12.info-box.form-inline
+             [:h2 "Welcome to subman.io!"]
+             [:p "We index "
+              [:a {:href   "http://www.addic7ed.com/"
+                   :target "_blank"} "addic7ed.com"]
+              ", "
+              [:a {:href   "http://www.opensubtitles.org/"
+                   :target "_blank"} "www.opensubtitles.org"]
+              ", "
+              [:a {:href   "http://www.podnapisi.net/"
+                   :target "_blank"} "podnapisi.net"]
+              ", "
+              [:a {:href   "http://subscene.com/"
+                   :target "_blank"} "subscene.com"]
+              ", "
+              [:a {:href   "http://notabenoid.com/"
+                   :target "_blank"} "notabenoid.com"]
+              " and "
+              [:a {:href   "http://uksubtitles.ru/"
+                   :target "_blank"} "uksubtitles.ru"]
+              "."]
+             [:p "You can specify subtitle language in your query using "
+              [:code ":lang name"]
+              ". Default language used: "
+              (om/build edit-option (:language options))]
+             [:p "And source using "
+              [:code ":source name"]
+              ", by default used: "
+              (om/build edit-option (:source options))]
+             [:p "And you can filter by season and episode with "
+              [:code "S01E01"]
+              " format."]
+             [:p "Total indexedsubtitles count: "
+              (om/value total-count)
+              "."]
+             [:a {:href   "https://github.com/nvbn/subman"
+                  :target "_blank"}
+              [:i.fa.fa-github]
+              " github"]]))))

@@ -2,7 +2,7 @@
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [cljs.core.async :refer [timeout <!]]
             [om.core :as om :include-macros true]
-            [om.dom :as dom :include-macros true]
+            [sablono.core :refer-macros [html]]
             [jayq.core :refer [$]]
             [subman.const :as const]
             [subman.autocomplete :refer [get-completion]]
@@ -18,25 +18,22 @@
 
 (defn icon-part
   [app]
-  (dom/span #js {:className "input-group-addon no-border-radius"}
-            (if (= "" (:search-query app))
-              (dom/i #js {:className "fa fa-search"})
-              (dom/a #js {:onClick   (fn [e]
-                                       (.preventDefault e)
-                                       (om/update! app
-                                                  :search-query ""))
-                          :href      "#"
-                          :className "clear-input-btn"}
-                     (dom/i #js {:className "fa fa-chevron-left"})))))
+  (html [:span.input-group-addon.no-border-radius
+         (if (= "" (:search-query app))
+           [:i.fa.fa-search]
+           [:a.clear-input-btn {:on-click (fn [e]
+                                            (.preventDefault e)
+                                            (om/update! app :search-query ""))
+                                :href     "#"}
+            [:i.fa.fa-chevron-left]])]))
 
 (defn input-field-part
   [app]
-  (dom/input #js {:onChange    #(om/update! app
-                                            :search-query (value %))
-                  :value       (om/value (:search-query app))
-                  :placeholder "Type search query"
-                  :type        "text"
-                  :className   "search-input form-control no-border-radius"}))
+  (html [:input.search-input.form-control.no-border-radius
+         {:on-change   #(om/update! app :search-query (value %))
+          :value       (om/value (:search-query app))
+          :placeholder "Type search query"
+          :type        "text"}]))
 
 (defn search-input
   "Component for search input"
@@ -46,11 +43,11 @@
     (display-name [_] "Search Input")
     om/IRender
     (render [_]
-      (dom/div #js {:data-spy        "affix"
-                    :data-offset-top "40"
-                    :className       "input-group input-group-lg col-xs-12 search-input-box"}
-               (icon-part app)
-               (input-field-part app)))
+      (html [:div.input-group.input-group-lg.col-xs-12.search-input-box
+             {:data-spy        "affix"
+              :data-offset-top "40"}
+             (icon-part app)
+             (input-field-part app)]))
     om/IDidMount
     (did-mount [_]
       (let [input (.find ($ (om/get-node owner))

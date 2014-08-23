@@ -1,6 +1,6 @@
 (ns subman.components.core
   (:require [om.core :as om :include-macros true]
-            [om.dom :as dom :include-macros true]
+            [sablono.core :refer-macros [html]]
             [jayq.core :refer [$]]
             [subman.helpers :refer [is-filled?]]
             [subman.components.search-input :refer [search-input]]
@@ -15,11 +15,11 @@
     (display-name [_] "Page")
     om/IRender
     (render [_]
-      (dom/div {:className "page"}
-               (om/build search-input app)
-               (if (is-filled? (:stable-search-query app))
-                 (om/build search-result app)
-                 (om/build welcome app))))))
+      (html [:div.page
+             (om/build search-input app)
+             (if (is-filled? (:stable-search-query app))
+               (om/build search-result app)
+               (om/build welcome app))]))))
 
 
 (defn init-components
