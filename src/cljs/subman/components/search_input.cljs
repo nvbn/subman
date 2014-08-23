@@ -21,8 +21,10 @@
   (dom/span #js {:className "input-group-addon no-border-radius"}
             (if (= "" (:search-query app))
               (dom/i #js {:className "fa fa-search"})
-              (dom/a #js {:onClick   #(om/update! app
-                                                  :search-query "")
+              (dom/a #js {:onClick   (fn [e]
+                                       (.preventDefault e)
+                                       (om/update! app
+                                                  :search-query ""))
                           :href      "#"
                           :className "clear-input-btn"}
                      (dom/i #js {:className "fa fa-chevron-left"})))))
