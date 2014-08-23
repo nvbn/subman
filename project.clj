@@ -30,38 +30,39 @@
                       [lein-ring "0.8.11"]
                       [com.cemerick/clojurescript.test "0.3.1"]]
             :main subman.core
-            :profiles {:dev     {:cljsbuild {:builds
-                                                            {:main {:source-paths ["src/cljs" "target/generated-cljs"]
-                                                                    :compiler     {:output-to     "resources/public/main.js"
-                                                                                   :output-dir    "resources/public/cljs-target"
-                                                                                   :source-map    true
-                                                                                   :optimizations :none}}
-                                                             :test {:source-paths ["src/cljs" "test/cljs"
-                                                                                   "target/generated-cljs"]
-                                                                    :compiler     {:output-to     "target/cljs-test.js"
-                                                                                   :optimizations :whitespace
-                                                                                   :pretty-print  true}}}
-                                             :test-commands {"test" ["phantomjs" :runner
-                                                                     "resources/public/components/es5-shim/es5-shim.js"
-                                                                     "resources/public/components/es5-shim/es5-sham.js"
-                                                                     "resources/public/components/jquery/dist/jquery.js"
-                                                                     "resources/public/components/bootstrap/dist/js/bootstrap.js"
-                                                                     "resources/public/components/typeahead.js/dist/typeahead.jquery.js"
-                                                                     "resources/public/components/react/react-with-addons.js"
-                                                                     "target/cljs-test.js"]}}
-                                 :env       {:is-debug true}}
-                       :uberjar {:aot       :all
-                                 :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
-                                                       :compiler     {:externs       ["resources/public/components/jquery/dist/jquery.min.js"
-                                                                                      "resources/public/components/bootstrap/dist/js/bootstrap.min.js"
-                                                                                      "resources/public/components/typeahead.js/dist/typeahead.jquery.min.js"]
-                                                                      :output-to     "resources/public/main.js"
-                                                                      :optimizations :advanced
-                                                                      :pretty-print  false}
-                                                       :jar          true}]}
-                                 :env       {:is-debug true}
-                                 :hooks     [cljx.hooks
-                                             leiningen.cljsbuild]}}
+            :profiles {:dev        {:cljsbuild {:builds
+                                                               {:main {:source-paths ["src/cljs" "target/generated-cljs"]
+                                                                       :compiler     {:output-to     "resources/public/main.js"
+                                                                                      :output-dir    "resources/public/cljs-target"
+                                                                                      :source-map    true
+                                                                                      :optimizations :none}}
+                                                                :test {:source-paths ["src/cljs" "test/cljs"
+                                                                                      "target/generated-cljs"]
+                                                                       :compiler     {:output-to     "target/cljs-test.js"
+                                                                                      :optimizations :whitespace
+                                                                                      :pretty-print  true}}}
+                                                :test-commands {"test" ["phantomjs" :runner
+                                                                        "resources/public/components/es5-shim/es5-shim.js"
+                                                                        "resources/public/components/es5-shim/es5-sham.js"
+                                                                        "resources/public/components/jquery/dist/jquery.js"
+                                                                        "resources/public/components/bootstrap/dist/js/bootstrap.js"
+                                                                        "resources/public/components/typeahead.js/dist/typeahead.jquery.js"
+                                                                        "resources/public/components/react/react-with-addons.js"
+                                                                        "target/cljs-test.js"]}}
+                                    :env       {:is-debug true}}
+                       :production {:aot       :all
+                                    :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
+                                                          :compiler     {:externs       ["resources/public/components/jquery/dist/jquery.min.js"
+                                                                                         "resources/public/components/bootstrap/dist/js/bootstrap.min.js"
+                                                                                         "resources/public/components/typeahead.js/dist/typeahead.jquery.min.js"
+                                                                                         "resources/public/components/react/react.min.js"]
+                                                                         :output-to     "resources/public/main.js"
+                                                                         :optimizations :advanced
+                                                                         :pretty-print  false}
+                                                          :jar          true}]}
+                                    :env       {:is-debug false}
+                                    :hooks     [cljx.hooks
+                                                leiningen.cljsbuild]}}
             :source-paths ["src/clj"]
             :test-paths ["test/clj"]
             :cljx {:builds [{:source-paths ["src/cljx"]
