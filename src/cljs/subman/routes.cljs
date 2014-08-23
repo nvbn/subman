@@ -8,12 +8,9 @@
   "Set value of stable search query"
   [value]
   (when-let [state (secretary/get-config :state)]
-    (when (not= (:search-query @state) value)
-      (swap! state assoc
-             :stable-search-query value
-             :search-query value)
-      (swap! state update-in
-             [:search-query-counter] inc))))
+    (swap! state assoc
+           :stable-search-query value
+           :search-query value)))
 
 (defn change-url!
   "Change page url"
@@ -29,7 +26,7 @@
     (secretary/dispatch! (.getToken @d/history))
     (gevents/listen @d/history history-event/NAVIGATE
                     #(when (.-isNavigation %)
-                      secretary/dispatch! (.-token %)))))
+                      (secretary/dispatch! (.-token %))))))
 
 (defroute main-page "/" []
           (set-search-query ""))
