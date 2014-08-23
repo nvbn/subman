@@ -9,7 +9,7 @@
                            [hiccup "1.0.5"]
                            [enlive "1.1.5"]
                            [clojurewerkz/elastisch "2.0.0"]
-                           [cljs-http "0.1.15"]
+                           [cljs-http "0.1.16"]
                            [clj-http "1.0.0"]
                            [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
                            [overtone/at-at "1.2.0"]
@@ -19,7 +19,7 @@
                            [swiss-arrows "1.0.0"]
                            [jayq "2.5.2"]
                            [om "0.7.1"]
-                           [environ "0.5.0"]
+                           [environ "1.0.0"]
                            [test-sugar "2.1"]
                            [alandipert/storage-atom "1.2.3"]
                            [secretary "1.2.0"]]
@@ -28,6 +28,7 @@
                       [lein-garden "0.1.8"]
                       [lein-environ "0.5.0"]
                       [lein-ring "0.8.11"]
+                      [lein-ancient "0.5.5"]
                       [com.cemerick/clojurescript.test "0.3.1"]]
             :main subman.core
             :profiles {:dev        {:cljsbuild {:builds
