@@ -22,5 +22,6 @@
 
 (deftest test-change-url!
          (reset! d/history (DummyHistory. ""))
-         (r/change-url! "/test/url")
-         (is= (.-token @d/history) "/test/url"))
+         (r/change-url! "/test/url" "test-url")
+         (is= (.-token @d/history) "/test/url")
+         (is= (.-title js/document) "test-url"))

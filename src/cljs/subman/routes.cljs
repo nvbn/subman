@@ -14,9 +14,10 @@
 
 (defn change-url!
   "Change page url"
-  [url]
+  [url title]
   (when @d/history
-    (.setToken @d/history url)))
+    (.setToken @d/history url title)
+    (set! (.-title js/document) title)))
 
 (defn init-routes
   "Init history and spy to atom"

@@ -32,9 +32,13 @@
                                                         (:source @options)))
                       :offset 0
                       :in-progress false)
-               (r/change-url! (if (is-filled? val)
-                                (r/search-page {:query val})
-                                (r/main-page)))
+               (apply r/change-url!
+                      (if (is-filled? val)
+                        [(r/search-page {:query val})
+                         (str "Subman - subtitles for \""
+                              val "\"")]
+                        [(r/main-page)
+                         "Subman - subtitle search service"]))
                (recur)))))
 
 (defn handle-total-count!
