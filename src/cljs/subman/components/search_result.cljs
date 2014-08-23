@@ -5,6 +5,20 @@
             [subman.const :as const]
             [subman.components.result-entry :refer [result-entry]]))
 
+(defn search-resul-list
+  "Render search result when something found"
+  [results]
+  (dom/div #js {:className "container col-xs-12 search-result-holder"}
+           (apply dom/div
+                  #js {:className "search-result search-result-list list-group"}
+                  (om/build-all result-entry results))))
+
+(defn info-box
+  "Render information box in search result"
+  [text]
+  (dom/div #js {:className "container col-xs-12 info-box"}
+           (dom/h2 nil text)))
+
 (defn search-result
   "Component for search displaing all search results"
   [{:keys [stable-search-query results in-progress]} _]
@@ -14,7 +28,6 @@
     om/IRender
     (render [_]
       (cond
-        (pos? (count results)) (apply dom/div {:className "search-result"}
-                                      (om/build-all result-entry results))
-        in-progress (dom/h2 nil "Searching...")
-        :else (dom/h2 nil (str "Nothing found for \"" stable-search-query "\""))))))
+        (pos? (count results)) (search-resul-list results)
+        in-progress (info-box "Searching...")
+        :else (info-box (str "Nothing found for \"" stable-search-query "\""))))))

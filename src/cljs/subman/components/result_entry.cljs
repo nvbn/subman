@@ -44,9 +44,11 @@
     om/IRender
     (render [_]
       (dom/a #js {:href      (om/value (:url entry))
-                  :className "result-entry"}
+                  :target "_blank"
+                  :className "result-entry list-group-item search-result"}
              (dom/h3 nil (om/value (get-result-entry-title entry))
                      (dom/span nil (om/value (get-result-season-episode entry))))
-             (dom/p nil (om/value (get-result-source entry)))
+             (dom/p #js {:className "pull-right"}
+                    (om/value (get-result-source entry)))
              (dom/p nil (om/value (get-result-lang entry)))
              (dom/p nil (om/value (get-result-version entry)))))))

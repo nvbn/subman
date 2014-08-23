@@ -11,7 +11,7 @@
     (display-name [_] "Welcome")
     om/IRender
     (render [_]
-      (dom/div #js {:className "welcome"}
+      (dom/div #js {:className "welcome container col-xs-12 info-box form-inline"}
                (dom/h2 nil "Welcome to subman.io!")
                (dom/p nil "We index "
                       (dom/a #js {:href   "http://www.addic7ed.com/"

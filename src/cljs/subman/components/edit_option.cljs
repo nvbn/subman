@@ -13,7 +13,7 @@
     om/IRender
     (render [_]
       (apply dom/select #js {:value     (om/value (:value option))
-                             :className "edit-option"
+                             :className "edit-option form-control"
                              :onChange  #(om/update! option :value
                                                      (value %))}
              (let [vals (:options option)]

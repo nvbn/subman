@@ -15,7 +15,7 @@
                (if (= ch state-ch)
                  (recur val)
                  (do (swap! state assoc
-                            :search-query query)
+                            :stable-search-query query)
                      (recur query)))))))
 
 (defn handle-stable-search-query!

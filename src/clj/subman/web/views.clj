@@ -33,8 +33,7 @@
                          "components/bootstrap/dist/css/bootstrap-theme.css"
                          "components/font-awesome/css/font-awesome.css"
                          "components/typeahead.js-bootstrap3.less/typeahead.css"
-                         ;"main.css"
-                         ))
+                         "main.css"))
             (when is-debug
               (as-static include-js
                          "components/jquery/dist/jquery.js"
