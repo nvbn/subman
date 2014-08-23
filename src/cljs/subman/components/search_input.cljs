@@ -32,7 +32,7 @@
   [app]
   (html [:input.search-input.form-control.no-border-radius
          {:on-change   #(om/update! app :search-query (value %))
-          :value       (om/value (:search-query app))
+          :value       (:search-query app)
           :placeholder "Type search query"
           :type        "text"}]))
 

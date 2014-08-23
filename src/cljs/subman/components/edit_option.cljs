@@ -8,12 +8,12 @@
               (display-name [_] "Edit Option")
               (render [_]
                       (html [:select.edit-option.form-control
-                             {:value     (om/value (:value option))
+                             {:value     (:value option)
                               :on-change #(om/update! option :value (value %))}
                              (let [vals (:options option)]
                                (for [val (if (:is-sorted option)
                                            (sort vals)
                                            vals)]
-                                 [:option {:value (om/value val)
+                                 [:option {:value val
                                            :key   (str "option=" val)}
-                                  (om/value val)]))])))
+                                  val]))])))

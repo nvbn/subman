@@ -40,7 +40,7 @@
                               [:code "S01E01"]
                               " format."]
                              [:p "Total indexedsubtitles count: "
-                              (om/value total-count)
+                              total-count
                               "."]
                              [:a {:href   "https://github.com/nvbn/subman"
                                   :target "_blank"}

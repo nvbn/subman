@@ -1,6 +1,5 @@
 (ns subman.components.result-entry
-  (:require [om.core :as om :include-macros true]
-            [sablono.core :refer-macros [html]]
+  (:require [sablono.core :refer-macros [html]]
             [om-tools.core :refer-macros [defcomponent]]
             [subman.const :as const]
             [subman.helpers :refer [is-filled? format-season-episode]]))
@@ -40,10 +39,10 @@
               (display-name [_] "Result Entry")
               (render [_]
                       (html [:a.result-entry.list-group-item.search-result
-                             {:href   (om/value (:url entry))
+                             {:href   (:url entry)
                               :target "_blank"}
-                             [:h3 (om/value (get-result-entry-title entry))
-                              [:span (om/value (get-result-season-episode entry))]]
-                             [:p.pull-right (om/value (get-result-source entry))]
-                             [:p (om/value (get-result-lang entry))]
-                             [:p (om/value (get-result-version entry))]])))
+                             [:h3 (get-result-entry-title entry)
+                              [:span (get-result-season-episode entry)]]
+                             [:p.pull-right (get-result-source entry)]
+                             [:p (get-result-lang entry)]
+                             [:p (get-result-version entry)]])))
