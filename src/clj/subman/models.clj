@@ -8,21 +8,18 @@
 
 (def connection (atom nil))
 
-(def total-count (atom 0))
-
 (defn connect!
   "Connect to elastic"
   []
   (reset! connection
           (esr/connect const/db-host)))
 
-(defn update-total-count
+(defn get-total-count
   "Update total count of subtitles"
   []
-  (->> (esd/search @connection const/index-name "subtitle" :filter {})
+  (-> (esd/search @connection const/index-name "subtitle" :filter {})
        :hits
-       :total
-       (reset! total-count)))
+       :total))
 
 (defn create-index
   "Create database index for subtitles"

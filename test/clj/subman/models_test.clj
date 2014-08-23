@@ -5,12 +5,9 @@
             [subman.const :as const]
             [subman.models :as models]))
 
-(deftest test-update-total-count
-  (let [orig (atom @models/total-count)]
-    (try (with-redefs [esd/search (constantly {:hits {:total 10}})]
-           (is= (models/update-total-count) 10)
-           (is= @models/total-count 10))
-      (finally (reset! models/total-count @orig)))))
+(deftest test-get-total-count
+    (with-redefs [esd/search (constantly {:hits {:total 10}})]
+           (is= (models/get-total-count) 10)))
 
 (deftest test-get-season-episode-parts
   (testing "with SnEn notation"

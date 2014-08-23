@@ -19,7 +19,6 @@
     (at-at/every const/update-period
                  (fn [] (future (println "start update")
                           (filler/update-all)
-                          (models/update-total-count)
                           (println "update finished")))
                  pool)))
 
@@ -28,8 +27,7 @@
   []
   (models/connect!)
   (try (models/create-index)
-    (catch Exception e))
-  (models/update-total-count))
+    (catch Exception e)))
 
 (defn init
   "Init ring handler"

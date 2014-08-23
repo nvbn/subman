@@ -33,10 +33,8 @@
       (is (complement nil?) (api/search {:query "test"})))))
 
 (deftest test-api-total-count
-  (let [orig (atom @models/total-count)]
-    (reset! models/total-count 10)
-    (try (is= (api/total-count {}) (prn-str 10))
-      (finally (reset! models/total-count @orig)))))
+  (with-redefs [models/get-total-count (fn [] 10)]
+    (is= (api/total-count {}) (prn-str 10))))
 
 (deftest test-api-list-languages
   (with-redefs [models/list-languages (constantly [{:term "english"
