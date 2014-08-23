@@ -40,7 +40,7 @@
 (deftest ^:async test-get-search-result
          (go (reset! d/http-get (fn [url]
                                   (go (when (= url "/api/search/?lang=uk&source=0&query=test&offset=0")
-                                        {:body (prn-str [:test-search-result])}))))
+                                        {:body [:test-search-result]}))))
              (is (= (<! (m/get-search-result "test :source addicted :lang uk"
                                              0 "english" "all"))
                     [:test-search-result]))
@@ -48,15 +48,15 @@
 
 (deftest ^:async test-get-total-count
          (go (reset! d/http-get (fn [_]
-                                  (go {:body (prn-str 999)})))
+                                  (go {:body {:total-count 999}})))
              (is (= 999 (<! (m/get-total-count))))
              (done)))
 
 (deftest ^:async test-get-languages
          (go (reset! d/http-get (fn [_]
-                                  (go {:body (prn-str [{:term "english"}
-                                                       {:term "spanish"}
-                                                       {:term "russian"}])})))
+                                  (go {:body [{:term "english"}
+                                              {:term "spanish"}
+                                              {:term "russian"}]})))
              (is (= (<! (m/get-languages))
                     ["english" "spanish" "russian"])))
          (done))

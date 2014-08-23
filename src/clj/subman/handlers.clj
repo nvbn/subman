@@ -3,12 +3,14 @@
             [overtone.at-at :as at-at]
             [hiccup.middleware :refer [wrap-base-url]]
             [ring.middleware.reload :refer [wrap-reload]]
+            [ring.middleware.transit :refer [wrap-transit-response]]
             [subman.web.routes :as routes]
             [subman.filler :as filler]
             [subman.const :as const]
             [subman.models :as models]))
 
 (def app (-> (handler/site routes/main-routes)
+             (wrap-transit-response {:encoding :json})
              wrap-base-url
              wrap-reload))
 
@@ -18,8 +20,8 @@
   (let [pool (at-at/mk-pool)]
     (at-at/every const/update-period
                  (fn [] (future (println "start update")
-                          (filler/update-all)
-                          (println "update finished")))
+                                (filler/update-all)
+                                (println "update finished")))
                  pool)))
 
 (defn init-models
@@ -27,7 +29,7 @@
   []
   (models/connect!)
   (try (models/create-index)
-    (catch Exception e)))
+       (catch Exception e)))
 
 (defn init
   "Init ring handler"

@@ -9,7 +9,7 @@
 (defroutes main-routes
   (GET "/" [] (views/index-page))
   (GET "/search/*" [] (views/index-page))
-  (GET "/api/search/" {params :params} (api/search params))
-  (GET "/api/count/" {params :params} (api/total-count params))
-  (GET "/api/list-languages/" {params :params} (api/list-languages params))
+  (GET "/api/search/" {params :params} {:body (api/search params)})
+  (GET "/api/count/" [] {:body (api/total-count)})
+  (GET "/api/list-languages/" [] {:body (api/list-languages)})
   (route/resources const/static-path))

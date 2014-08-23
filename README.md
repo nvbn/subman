@@ -6,23 +6,23 @@ Service for fast subtitle searching.
 
 For using api send GET request like:
 
-    http://subman.io/api/search/?query=file-name&format=json
+    http://subman.io/api/search/?query=file-name
 
 You can specifie language by `GET` parameter `lang=name`, by default used `english`.
 
 All languages with subtitles count available in:
 
-    http://subman.io/api/list-languages/?format=json
+    http://subman.io/api/list-languages/
 
 You can specifie subtitles source by `GET` paramenter `source=id`, by default used `-1` (equal `all`).
 
-All sources with ids available in [const.cljx](https://github.com/nvbn/subman/blob/master/src/cljx/subman/const.cljx>).
+All sources with ids available in [const.cljx](https://github.com/nvbn/subman/blob/master/src/cljx/subman/const.cljx).
 
 You can get total subtitles count in:
 
-    http://subman.io/api/count/?format=json
+    http://subman.io/api/count/
 
-In all api requests format can be `clojure` or `json`.
+For decoding api response you should use [transit](https://github.com/cognitect/transit-clj).
 
 Installation
 ------------

@@ -1,7 +1,7 @@
 (ns subman.models
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [clojure.string :as string]
-            [cljs.reader :refer [read-string]]
+            [cognitect.transit :as tr]
             [subman.deps :refer [http-get sources]]
             [cljs.core.async :refer [<!]]
             [subman.const :as const]))
@@ -64,32 +64,28 @@
       (set-default-part "source" (get-source-id source))
       (query-offset-query-part offset)))
 
-(defn read-respone
-  "Read response from server"
-  [response]
-  (read-string (:body response)))
-
 (defn get-search-result
   "Get search result from query"
   [query offset lang source]
   (go (-> (create-search-url query offset lang source)
           (@http-get)
           <!
-          read-respone)))
+          :body)))
 
 (defn get-total-count
   "Get total count of indexed subtitles"
   []
   (go (-> (@http-get "/api/count/")
           <!
-          read-respone)))
+          :body
+          :total-count)))
 
 (defn get-languages
   "Get all languages list"
   []
   (go (->> (@http-get "/api/list-languages/")
            <!
-           read-respone
+           :body
            (map #(:term %)))))
 
 (defn get-sources

@@ -33,7 +33,7 @@
            (h/handle-stable-search-query! state options)
            (go (reset! d/http-get (fn [url]
                                     (reset! search-url url)
-                                    (go {:body (prn-str [{:test :test}])})))
+                                    (go {:body [{:test :test}]})))
                (testing "do nothing without search query change"
                         (swap! state assoc
                                :offset 10)
@@ -60,7 +60,7 @@
 (deftest ^:async test-handle-total-count!
          (let [state (atom {})]
            (go (reset! d/http-get (fn [_]
-                                    (go {:body (prn-str 9999)})))
+                                    (go {:body {:total-count 9999}})))
                (h/handle-total-count! state)
                (<! (timeout 1000))
                (is (= (:total-count @state) 9999))
@@ -93,8 +93,8 @@
 
 (deftest ^:async test-handle-options!
          (go (reset! d/http-get (fn [_]
-                                  (go {:body (prn-str [{:term "english"}
-                                                       {:term "china"}])})))
+                                  (go {:body [{:term "english"}
+                                              {:term "china"}]})))
              (reset! d/sources {const/type-addicted      "Addicted"
                                 const/type-opensubtitles "opensubtitles"
                                 const/type-all           "All"})

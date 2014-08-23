@@ -1,21 +1,6 @@
 (ns subman.web.api
-  (:require [clojure.data.json :as json]
-            [subman.models :as models]
+  (:require [subman.models :as models]
             [subman.const :as const]))
-
-(defn- get-writer
-  "Get writer from params"
-  [params]
-  (if (= (:format params) "json")
-    json/write-str
-    prn-str))
-
-(defmacro defapi
-  "Define api method"
-  [name doc args & body]
-  `(defn ~name ~args
-     ((get-writer (first ~args))
-      ~@body)))
 
 (defn- read-source
   [source]
@@ -23,25 +8,25 @@
     (read-string source)
     source))
 
-(defapi search
+(defn search
   "Search for subtitles with params"
   [params]
   (let [query (:query params)
         offset (get params :offset 0)
         lang (get params :lang const/default-language)
         source (read-source
-                (get params :source (str const/default-type)))]
+                 (get params :source (str const/default-type)))]
     (models/search :query query
                    :offset offset
                    :lang lang
                    :source source)))
 
-(defapi total-count
+(defn total-count
   "Get total subtitles count"
-  [params]
-  (models/get-total-count))
+  []
+  {:total-count (models/get-total-count)})
 
-(defapi list-languages
+(defn list-languages
   "List all available languages with counts"
-  [params]
+  []
   (models/list-languages))
