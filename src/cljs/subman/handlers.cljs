@@ -27,9 +27,11 @@
                (swap! state assoc
                       :in-progress true)
                (swap! state assoc
-                      :results (<! (m/get-search-result val 0
+                      :results (if (is-filled? val)
+                                 (<! (m/get-search-result val 0
                                                         (:language @options)
                                                         (:source @options)))
+                                 [])
                       :offset 0
                       :in-progress false)
                (apply r/change-url!
