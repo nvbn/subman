@@ -28,7 +28,8 @@
     (secretary/set-config! :state state)
     (secretary/dispatch! (.getToken @d/history))
     (gevents/listen @d/history history-event/NAVIGATE
-                    #(secretary/dispatch! (.-token %)))))
+                    #(when (.-isNavigation %)
+                      secretary/dispatch! (.-token %)))))
 
 (defroute main-page "/" []
           (set-search-query ""))
