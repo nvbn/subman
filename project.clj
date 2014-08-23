@@ -80,10 +80,10 @@
             :ring {:handler subman.handlers/app
                    :init    subman.handlers/init}
             :bower {:directory "resources/public/components"}
-            :bower-dependencies [["bootstrap" "3.1.1"]
+            :bower-dependencies [["bootstrap" "3.2.0"]
                                  ["font-awesome" "4.1.0"]
                                  ["jquery" "2.1.1"]
-                                 ["typeahead.js" "0.10.2"]
-                                 ["typeahead.js-bootstrap3.less" "0.2.3"]
+                                 ["typeahead.js" "0.10.5"]
+                                 ["typeahead.js-bootstrap3.less" "develop"]
                                  ["react" "0.11.1"]
-                                 ["es5-shim" "4.0.2"]])
+                                 ["es5-shim" "4.0.3"]])
