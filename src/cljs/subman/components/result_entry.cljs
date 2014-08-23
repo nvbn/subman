@@ -1,6 +1,7 @@
 (ns subman.components.result-entry
   (:require [om.core :as om :include-macros true]
             [sablono.core :refer-macros [html]]
+            [om-tools.core :refer-macros [defcomponent]]
             [subman.const :as const]
             [subman.helpers :refer [is-filled? format-season-episode]]))
 
@@ -35,19 +36,14 @@
     (str "Version: " version)
     ""))
 
-(defn result-entry
-  "Component for single search result entry"
-  [entry _]
-  (reify
-    om/IDisplayName
-    (display-name [_] "Result Entry")
-    om/IRender
-    (render [_]
-      (html [:a.result-entry.list-group-item.search-result
-             {:href   (om/value (:url entry))
-              :target "_blank"}
-             [:h3 (om/value (get-result-entry-title entry))
-              [:span (om/value (get-result-season-episode entry))]]
-             [:p.pull-right (om/value (get-result-source entry))]
-             [:p (om/value (get-result-lang entry))]
-             [:p (om/value (get-result-version entry))]]))))
+(defcomponent result-entry [entry _]
+              (display-name [_] "Result Entry")
+              (render [_]
+                      (html [:a.result-entry.list-group-item.search-result
+                             {:href   (om/value (:url entry))
+                              :target "_blank"}
+                             [:h3 (om/value (get-result-entry-title entry))
+                              [:span (om/value (get-result-season-episode entry))]]
+                             [:p.pull-right (om/value (get-result-source entry))]
+                             [:p (om/value (get-result-lang entry))]
+                             [:p (om/value (get-result-version entry))]])))
