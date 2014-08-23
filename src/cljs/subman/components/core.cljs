@@ -9,7 +9,7 @@
 
 (defn page
   "Component for whole page"
-  [app owner]
+  [app _]
   (reify
     om/IDisplayName
     (display-name [_] "Page")

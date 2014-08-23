@@ -8,6 +8,22 @@
             [subman.deps :as d]
             [subman.handlers :as h]))
 
+(deftest ^:async test-handle-search-query!
+         (let [state (atom {:search-query        "initial"
+                            :stable-search-query ""})]
+           (h/handle-search-query! state)
+           (go (testing "set initial value"
+                        (= (:stable-search-query @state) "initial"))
+               (testing "not change stable search query eager"
+                        (swap! state assoc
+                               :search-query "new search query")
+                        (<! (timeout (/ const/input-timeout 2)))
+                        (= (:stable-search-query @state) "initial"))
+               (testing "change stable search query after timeout"
+                        (<! (timeout const/input-timeout))
+                        (= (:stable-search-query @state) "new search query"))
+               (done))))
+
 (deftest ^:async test-handle-stable-search-query!
          (let [search-url (atom "")
                state (atom {:stable-search-query ""})

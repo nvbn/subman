@@ -37,7 +37,7 @@
 
 (defn result-entry
   "Component for single search result entry"
-  [entry owner]
+  [entry _]
   (reify
     om/IDisplayName
     (display-name [_] "Result Entry")

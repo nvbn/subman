@@ -7,7 +7,7 @@
 
 (defn search-result
   "Component for search displaing all search results"
-  [{:keys [stable-search-query results in-progress]} owner]
+  [{:keys [stable-search-query results in-progress]} _]
   (reify
     om/IDisplayName
     (display-name [_] "Search Result")

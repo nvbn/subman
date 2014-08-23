@@ -5,7 +5,7 @@
 
 (defn welcome
   "Component for welcome messaeg"
-  [{:keys [total-count options]} owner]
+  [{:keys [total-count options]} _]
   (reify
     om/IDisplayName
     (display-name [_] "Welcome")

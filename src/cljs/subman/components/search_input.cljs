@@ -16,31 +16,21 @@
            (take const/autocomplete-limit)
            (apply array))))
 
-(defn handle-search-input
-  "Update only stable search query"
-  ([app owner value] (handle-search-input app owner value false))
-  ([app owner value eager]
-   (om/update! app :search-query value)
-   (go (om/set-state! owner :value value)
-       (when-not eager
-         (<! (timeout const/input-timeout)))
-       (when (= (om/get-state owner :value) value)
-         (om/update! app :stable-search-query value)))))
-
 (defn icon-part
-  [app owner]
+  [app]
   (dom/span #js {:className "input-group-addon no-border-radius"}
-            (if (= "" (:stable-search-query app))
+            (if (= "" (:search-query app))
               (dom/i #js {:className "fa fa-search"})
-              (dom/a #js {:onClick   #(handle-search-input app owner "" true)
+              (dom/a #js {:onClick   #(om/update! app
+                                                  :search-query "")
                           :href      "#"
                           :className "clear-input-btn"}
                      (dom/i #js {:className "fa fa-chevron-left"})))))
 
 (defn input-field-part
-  [app owner]
-  (dom/input #js {:onChange    #(handle-search-input app owner
-                                                     (value %))
+  [app]
+  (dom/input #js {:onChange    #(om/update! app
+                                            :search-query (value %))
                   :value       (om/value (:search-query app))
                   :placeholder "Type search query"
                   :type        "text"
@@ -57,8 +47,8 @@
       (dom/div #js {:data-spy        "affix"
                     :data-offset-top "40"
                     :className       "input-group input-group-lg col-xs-12 search-input-box"}
-               (icon-part app owner)
-               (input-field-part app owner)))
+               (icon-part app)
+               (input-field-part app)))
     om/IDidMount
     (did-mount [_]
       (let [input (.find ($ (om/get-node owner))
@@ -70,6 +60,7 @@
                                    (get-in @app [:options :source :options])
                                    %1 %2)})
         (.on input "typeahead:closed"
-             #(handle-search-input app owner (.val input)))
+             #(om/update! app
+                          :search-query (.val input)))
         (.focus input)
         (.select input)))))

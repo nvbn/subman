@@ -10,12 +10,14 @@
   []
   (inject-for-production!)
   (let [state (atom {:stable-search-query ""
+                     :search-query        ""
                      :total-count         0})
         options (local-storage (atom {:language const/default-language
                                       :source   (get @sources
                                                      const/default-type)})
                                :options)]
     (init-routes state)
+    (h/handle-search-query! state)
     (h/handle-stable-search-query! state options)
     (h/handle-total-count! state)
     (h/handle-options! state options)

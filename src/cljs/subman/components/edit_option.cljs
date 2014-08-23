@@ -6,7 +6,7 @@
 
 (defn edit-option
   "Component for editing options"
-  [option owner]
+  [option _]
   (reify
     om/IDisplayName
     (display-name [_] "Edit Option")

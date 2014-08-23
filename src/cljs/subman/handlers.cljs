@@ -1,9 +1,22 @@
 (ns subman.handlers
   (:require-macros [cljs.core.async.macros :refer [go-loop go]])
-  (:require [cljs.core.async :refer [<! alts!]]
+  (:require [cljs.core.async :refer [<! alts! timeout]]
             [subman.helpers :refer [subscribe-to-state is-filled?]]
+            [subman.const :as const]
             [subman.routes :as r]
             [subman.models :as m]))
+
+(defn handle-search-query!
+  "Makes stable search query from search query"
+  [state]
+  (let [state-ch (subscribe-to-state state :search-query)]
+    (go-loop [query ""]
+             (let [[val ch] (alts! [state-ch (timeout const/input-timeout)])]
+               (if (= ch state-ch)
+                 (recur val)
+                 (do (swap! state assoc
+                            :search-query query)
+                     (recur query)))))))
 
 (defn handle-stable-search-query!
   "Update search result when stable query changed"
