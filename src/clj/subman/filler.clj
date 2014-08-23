@@ -1,5 +1,6 @@
 (ns subman.filler
-  (:require [subman.sources.addicted :as addicted]
+  (:require [clojure.core.async :as async :refer [>!! <!! >!]]
+            [subman.sources.addicted :as addicted]
             [subman.sources.podnapisi :as podnapisi]
             [subman.sources.opensubtitles :as opensubtitles]
             [subman.sources.subscene :as subscene]
@@ -15,45 +16,34 @@
   (remove checker
           (getter page)))
 
-(defn- get-new-before-seq
-  "Return lazy sequence with lists of results"
-  ([getter checker] (get-new-before-seq getter checker 1))
-  ([getter checker page]
-   (if (> page const/update-deep)
-     []
-     (if-let [new-result (seq (get-new-for-page getter
-                                                checker
-                                                page))]
-       (concat new-result
-               (lazy-seq (get-new-before-seq getter checker
-                                             (inc page))))
-       []))))
-
-(defn- get-new-before
-  "Get new subtitles before checker"
+(defn get-new-subtitles-in-chan
+  "Get new result from pages in chan"
   [getter checker]
-  (flatten (get-new-before-seq getter checker)))
-
-(defn- get-all-new
-  "Get all new from callers with checker"
-  [checker & callers]
-  (mapcat #(get-new-before % checker) callers))
+  (let [result (async/chan)]
+    (async/thread
+      (async/go-loop [page 1]
+                     (when (<= page const/update-deep)
+                       (if-let [page-result (seq (get-new-for-page getter
+                                                                   checker page))]
+                         (do (doseq [subtitle page-result]
+                               (>! result subtitle))
+                             (recur (inc page)))
+                         (async/close! result)))))
+    result))
 
 (defn update-all
   "Receive update from all sources"
   []
-  (->> (get-all-new models/in-db
-                    subscene/get-release-page-result
-                    opensubtitles/get-release-page-result
-                    addicted/get-release-page-result
-                    podnapisi/get-release-page-result
-                    notabenoid/get-release-page-result
-                    uksubtitles/get-release-page-result)
-       (map (helpers/make-safe models/create-document nil))
-       (remove nil?)
-       (map-indexed vector)
-       (map (fn [[i item]]
-              (when (zero? (mod i 50))
-                (println (str "Updated " i)))
-              item))
-       doall))
+  (let [ch (async/merge (map #(get-new-subtitles-in-chan % models/in-db)
+                             [subscene/get-release-page-result
+                             opensubtitles/get-release-page-result
+                             addicted/get-release-page-result
+                             podnapisi/get-release-page-result
+                             notabenoid/get-release-page-result
+                             uksubtitles/get-release-page-result]))]
+    (loop [i 0]
+      (when-let [subtitle (<!! ch)]
+        ((helpers/make-safe models/create-document nil) subtitle)
+        (when (zero? (mod i 50))
+          (println (str "Updated " i)))
+        (recur (inc i))))))

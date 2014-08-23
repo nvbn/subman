@@ -1,5 +1,6 @@
 (ns subman.filler-test
   (:require [clojure.test :refer [deftest testing is]]
+            [clojure.core.async :as async :refer [<!!]]
             [test-sugar.core :refer [is=]]
             [subman.models :as models]
             [subman.sources.addicted :as addicted]
@@ -31,24 +32,12 @@
     (is= (#'filler/get-new-for-page new-getter #{:exists} 3)
          [])))
 
-(deftest test-get-new-before-seq
-  (testing "for all"
-    (is= (#'filler/get-new-before-seq new-getter #{:exists})
-         [:fresh :fresh :fresh]))
-  (testing "for page without results"
-    (is= [] (#'filler/get-new-before-seq new-getter #{:exists} 3)))
-  (testing "for page greater than update deep"
-    (is= [] (#'filler/get-new-before-seq new-getter #{:exists}
-                                         (inc const/update-deep)))))
-
-(deftest test-get-new-before
-  (is= 3 (count (#'filler/get-new-before new-getter #{:exists}))))
-
-(deftest test-get-all-new
-  (is= 9 (count (#'filler/get-all-new #{:exists}
-                                      new-getter
-                                      new-getter
-                                      new-getter))))
+(deftest test-get-new-subtitles-in-chan
+  (let [ch (#'filler/get-new-subtitles-in-chan new-getter #{:exists})]
+    (is= :fresh (<!! ch))
+    (is= :fresh (<!! ch))
+    (is= :fresh (<!! ch))
+    (is= nil (<!! ch))))
 
 (deftest test-update-all
   (with-redefs [subscene/get-release-page-result (constantly [])
@@ -57,4 +46,4 @@
                 podnapisi/get-release-page-result (constantly [])
                 notabenoid/get-release-page-result (constantly [])
                 uksubtitles/get-release-page-result (constantly [])]
-    (is (filler/update-all))))
+               (filler/update-all)))
