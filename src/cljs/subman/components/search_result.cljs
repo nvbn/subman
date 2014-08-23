@@ -10,7 +10,9 @@
   [results]
   (html [:div.container.col-xs-12.search-result-holder
          [:div.search-result.search-result-list.list-group
-          (om/build-all result-entry results)]]))
+          (map-indexed #(om/build result-entry %2
+                                  {:react-key (str "search-result-" %1)})
+                       results)]]))
 
 (defn info-box
   "Render information box in search result"

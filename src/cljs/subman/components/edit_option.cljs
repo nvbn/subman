@@ -18,5 +18,6 @@
                (for [val (if (:is-sorted option)
                            (sort vals)
                            vals)]
-                 [:option {:value (om/value val)}
+                 [:option {:value (om/value val)
+                           :key (str "option=" val)}
                   (om/value val)]))]))))
