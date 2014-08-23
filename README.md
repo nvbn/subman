@@ -33,12 +33,12 @@ Then install deps:
 
 ```bash
 lein deps
+lein bower install
 ```
 
 Prepare assets:
 
 ```bash
-bower install
 lein cljsbuild once dev
 lein cljx
 lein garden once

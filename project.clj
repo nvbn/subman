@@ -31,7 +31,8 @@
                       [lein-environ "0.5.0"]
                       [lein-ring "0.8.11"]
                       [lein-ancient "0.5.5"]
-                      [com.cemerick/clojurescript.test "0.3.1"]]
+                      [com.cemerick/clojurescript.test "0.3.1"]
+                      [lein-bower "0.5.1"]]
             :main subman.core
             :profiles {:dev        {:cljsbuild {:builds
                                                                {:main {:source-paths ["src/cljs" "target/generated-cljs"]
@@ -77,4 +78,12 @@
             :garden {:builds [{:stylesheet subman.web.style/main
                                :compiler   {:output-to "resources/public/main.css"}}]}
             :ring {:handler subman.handlers/app
-                   :init    subman.handlers/init})
+                   :init    subman.handlers/init}
+            :bower {:directory "resources/public/components"}
+            :bower-dependencies [["bootstrap" "3.1.1"]
+                                 ["font-awesome" "4.1.0"]
+                                 ["jquery" "2.1.1"]
+                                 ["typeahead.js" "0.10.2"]
+                                 ["typeahead.js-bootstrap3.less" "0.2.3"]
+                                 ["react" "0.11.1"]
+                                 ["es5-shim" "4.0.2"]])
