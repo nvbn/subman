@@ -53,7 +53,7 @@ lein run
 For building jar run:
 
 ```bash
-lein uberjar
+lein with-profile production ring uberjar
 ```
 
 For running server side tests run:
