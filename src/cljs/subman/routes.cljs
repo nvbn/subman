@@ -8,9 +8,12 @@
   "Set value of stable search query"
   [value]
   (when-let [state (secretary/get-config :state)]
-    (swap! state assoc
-           :stable-search-query value
-           :search-query value)))
+    (when (not= (:search-query @state) value)
+      (swap! state assoc
+             :stable-search-query value
+             :search-query value)
+      (swap! state update-in
+             [:search-query-counter] inc))))
 
 (defn change-url!
   "Change page url"
