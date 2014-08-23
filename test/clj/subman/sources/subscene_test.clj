@@ -7,10 +7,10 @@
             [subman.const :as const]))
 
 (def page-content (get-from-file
-                   "test/fixtures/subman/sources/subscene_page.html"))
+                   "resources/fixtures/subman/sources/subscene_page.html"))
 
 (def release-content (get-from-file
-                      "test/fixtures/subman/sources/subscene_release.html"))
+                      "resources/fixtures/subman/sources/subscene_release.html"))
 
 (deftest test-make-url
   (is= (#'subscene/make-url "/test") "http://subscene.com/test"))

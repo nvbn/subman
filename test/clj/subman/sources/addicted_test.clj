@@ -8,7 +8,7 @@
 (defn get-single-episode
   "Get parsed html for single episode"
   []
-  (get-from-file "test/fixtures/subman/sources/addicted_episode.html"))
+  (get-from-file "resources/fixtures/subman/sources/addicted_episode.html"))
 
 (deftest test-make-url
   (testing "when start with /"
@@ -80,7 +80,7 @@
        "http://www.addic7ed.com/log.php?mode=versions&page=1"))
 
 (deftest test-episode-from-release
-  (is= (#'addicted/episode-from-release (-> (get-from-file "test/fixtures/subman/sources/addicted_line.html")
+  (is= (#'addicted/episode-from-release (-> (get-from-file "resources/fixtures/subman/sources/addicted_line.html")
                                             (html/select [:a])
                                             first))
        {:episode "6"
@@ -91,7 +91,7 @@
 
 (deftest test-get-release-page-result
   (with-redefs [helpers/fetch #(if (= % (#'addicted/get-releases-url 1))
-                                 (get-from-file "test/fixtures/subman/sources/addicted_release.html")
-                                 (get-from-file "test/fixtures/subman/sources/addicted_episode.html"))]
+                                 (get-from-file "resources/fixtures/subman/sources/addicted_release.html")
+                                 (get-from-file "resources/fixtures/subman/sources/addicted_episode.html"))]
     (is= (:name (first (#'addicted/get-release-page-result 1)))
          "Family Affair")))

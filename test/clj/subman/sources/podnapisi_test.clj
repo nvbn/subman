@@ -7,10 +7,10 @@
             [subman.const :as const]))
 
 (def line-content
-  (get-from-file "test/fixtures/subman/sources/podnapisi_line.html"))
+  (get-from-file "resources/fixtures/subman/sources/podnapisi_line.html"))
 
 (def release-content
-  (get-from-file "test/fixtures/subman/sources/podnapisi_release.html"))
+  (get-from-file "resources/fixtures/subman/sources/podnapisi_release.html"))
 
 (deftest test-make-url
   (is= (#'podnapisi/make-url "/test") "http://www.podnapisi.net/test"))

@@ -7,10 +7,10 @@
             [subman.const :as const]))
 
 (def line-content
-  (get-from-file "test/fixtures/subman/sources/opensubtitles_line.html"))
+  (get-from-file "resources/fixtures/subman/sources/opensubtitles_line.html"))
 
 (def release-content
-  (get-from-file "test/fixtures/subman/sources/opensubtitles_release.html"))
+  (get-from-file "resources/fixtures/subman/sources/opensubtitles_release.html"))
 
 (def titles-td (first (html/select line-content [:td])))
 

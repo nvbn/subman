@@ -7,13 +7,13 @@
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
 
 (def release-page
-  (get-from-file "test/fixtures/subman/sources/uksubtitles_page.html"))
+  (get-from-file "resources/fixtures/subman/sources/uksubtitles_page.html"))
 
 (def article
-  (get-from-file "test/fixtures/subman/sources/uksubtitles_article.html"))
+  (get-from-file "resources/fixtures/subman/sources/uksubtitles_article.html"))
 
 (def article-balnk
-  (get-from-file "test/fixtures/subman/sources/uksubtitles_article_blank.html"))
+  (get-from-file "resources/fixtures/subman/sources/uksubtitles_article_blank.html"))
 
 (deftest test-get-release-page-url
   (testing "for first page"
