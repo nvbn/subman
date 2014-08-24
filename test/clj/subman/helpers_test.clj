@@ -1,6 +1,6 @@
 (ns subman.helpers-test
   (:require [clojure.test :refer [deftest testing]]
-            [test-sugar.core :refer [is=]]
+            [test-sugar.core :refer [is= is-do]]
             [subman.const :as const]
             [subman.helpers :as helpers]))
 
@@ -26,3 +26,10 @@
 (deftest test-as-static
   (is= (helpers/as-static identity "test")
        (str const/static-path "test")))
+
+(helpers/defsafe safe-fn
+                 [x y]
+                 (throw (Exception. (str x y))))
+
+(deftest test-defsafe
+  (is-do nil? (safe-fn 1 2)))

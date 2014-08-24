@@ -18,7 +18,7 @@
   "Fetch url content"
   [url]
   (-> (client/get url {:socket-timeout const/conection-timeout
-                       :conn-timeout const/conection-timeout})
+                       :conn-timeout   const/conection-timeout})
       :body
       get-from-line))
 
@@ -32,13 +32,21 @@
 (defn make-safe
   "Make fnc call safe"
   [fnc fallback]
-  (fn [x]
-    (try (fnc x)
-      (catch Exception e (do
-                           (println (str "FAIL START:\n" fnc " WITH " x))
-                           (print-cause-trace e)
-                           (println (str "FAIL END:\n" fnc " WITH " x))
-                           fallback)))))
+  (fn [& args]
+    (try (apply fnc args)
+         (catch Exception e (do
+                              (println (str "FAIL START:\n" fnc " WITH " args))
+                              (print-cause-trace e)
+                              (println (str "FAIL END:\n" fnc " WITH " args))
+                              fallback)))))
+
+(defmacro defsafe
+  "Define safe function"
+  [name & body]
+  (if (string? (first body))
+    `(defsafe ~name ~@(rest body))
+    `(def ~name (make-safe (fn ~@body)
+                           nil))))
 
 (defn get-season-episode
   "Add season and episode filters"
@@ -52,7 +60,7 @@
   "Get parsed html from file"
   [path]
   (html/html-resource (java.io.StringReader.
-                       (slurp path))))
+                        (slurp path))))
 
 (defn make-static
   "Make paths static"

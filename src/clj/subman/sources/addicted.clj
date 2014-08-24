@@ -1,7 +1,7 @@
 (ns subman.sources.addicted
   (:require [net.cgrand.enlive-html :as html]
             [swiss.arrows :refer [-<>>]]
-            [subman.helpers :as helpers]
+            [subman.helpers :as helpers :refer [defsafe]]
             [subman.const :as const]))
 
 (defn- make-url
@@ -34,12 +34,12 @@
 (defn- get-version
   "Get version map from line"
   [line]
-  {:name (-> line
-             (html/select [:td.NewsTitle :b])
-             first
-             :content
-             vec
-             (get 1 ""))
+  {:name  (-> line
+              (html/select [:td.NewsTitle :b])
+              first
+              :content
+              vec
+              (get 1 ""))
    :langs []})
 
 (defn- get-lang
@@ -52,12 +52,12 @@
              first
              :content
              first)
-   :url (-> line
-            (html/select [:a.buttonDownload])
-            first
-            :attrs
-            :href
-            make-url)})
+   :url  (-> line
+             (html/select [:a.buttonDownload])
+             first
+             :attrs
+             :href
+             make-url)})
 
 (defn- add-lang
   "Add lang to version map"
@@ -71,11 +71,11 @@
   [lines]
   (reduce (fn [buffer line]
             (cond
-             (is-version-line? line) (list* (get-version line)
-                                            buffer)
-             (is-language-line? line) (list* (add-lang line (first buffer))
-                                             (rest buffer))
-             :else buffer))
+              (is-version-line? line) (list* (get-version line)
+                                             buffer)
+              (is-language-line? line) (list* (add-lang line (first buffer))
+                                              (rest buffer))
+              :else buffer))
           [] lines))
 
 (defn- get-versions
@@ -92,24 +92,24 @@
   [page]
   (str "http://www.addic7ed.com/log.php?mode=versions&page=" page))
 
-(defn- episode-from-release
-  "Episode from release page item"
-  [item]
-  (let [name-parts (-> (:content item)
-                       first
-                       (clojure.string/split #" - "))
-        season-episode (-> name-parts
-                           (get 1)
-                           (clojure.string/split #"x"))]
-    {:show (first name-parts)
-     :season (-> season-episode
-                 first
-                 helpers/remove-first-0)
-     :episode (-> season-episode
-                  last
-                  helpers/remove-first-0)
-     :name (last name-parts)
-     :url (-> item :attrs :href make-url)}))
+(defsafe episode-from-release
+         "Episode from release page item"
+         [item]
+         (let [name-parts (-> (:content item)
+                              first
+                              (clojure.string/split #" - "))
+               season-episode (-> name-parts
+                                  (get 1)
+                                  (clojure.string/split #"x"))]
+           {:show    (first name-parts)
+            :season  (-> season-episode
+                         first
+                         helpers/remove-first-0)
+            :episode (-> season-episode
+                         last
+                         helpers/remove-first-0)
+            :name    (last name-parts)
+            :url     (-> item :attrs :href make-url)}))
 
 (defn get-release-page-result
   "Get release page result"
@@ -120,12 +120,12 @@
         (drop 2)
         (html/select <> [(html/nth-child 2) :a])
         flatten
-        (map (helpers/make-safe episode-from-release nil))
+        (map episode-from-release)
         (remove nil?)
         (map #(for [version (get-versions %)
                     lang (:langs version)]
-                (assoc % :version (:name version)
-                  :lang (:name lang)
-                  :url (:url lang)
-                  :source const/type-addicted)))
+               (assoc % :version (:name version)
+                        :lang (:name lang)
+                        :url (:url lang)
+                        :source const/type-addicted)))
         flatten))

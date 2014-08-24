@@ -3,7 +3,7 @@
             [clojurewerkz.elastisch.rest.index :as esi]
             [clojurewerkz.elastisch.rest.document :as esd]
             [clojurewerkz.elastisch.query :as q]
-            [subman.helpers :as helpers]
+            [subman.helpers :as helpers :refer [defsafe]]
             [subman.const :as const]))
 
 (def connection (atom nil))
@@ -18,30 +18,30 @@
   "Update total count of subtitles"
   []
   (-> (esd/search @connection const/index-name "subtitle" :filter {})
-       :hits
-       :total))
+      :hits
+      :total))
 
 (defn create-index
   "Create database index for subtitles"
   []
   (esi/create @connection const/index-name
               :mappings {"subtitle"
-                         {:properties {:show {:type "string"}
-                                       :season {:type "string"
-                                                :index "not_analyzed"}
-                                       :episode {:type "string"
-                                                 :index "not_analyzed"}
-                                       :name {:type "string"}
-                                       :lang {:type "string"}
-                                       :version {:type "string"}
-                                       :url {:type "string"
-                                             :index "not_analyzed"}
-                                       :source {:type "integer"}}}}))
+                          {:properties {:show    {:type "string"}
+                                        :season  {:type  "string"
+                                                  :index "not_analyzed"}
+                                        :episode {:type  "string"
+                                                  :index "not_analyzed"}
+                                        :name    {:type "string"}
+                                        :lang    {:type "string"}
+                                        :version {:type "string"}
+                                        :url     {:type  "string"
+                                                  :index "not_analyzed"}
+                                        :source  {:type "integer"}}}}))
 
-(defn create-document
-  "Put document into elastic"
-  [doc]
-  (esd/create @connection const/index-name "subtitle" doc))
+(defsafe create-document
+         "Put document into elastic"
+         [doc]
+         (esd/create @connection const/index-name "subtitle" doc))
 
 (defn delete-all
   "Delete all documents"
@@ -73,18 +73,18 @@
   "Build search query"
   [query lang source]
   (-> (let [prepared (clojure.string/replace query #"\." " ")]
-        {:query (q/bool :must (concat [(q/fuzzy-like-this
-                                        :like_text prepared
-                                        :fields [:show :name]
-                                        :boost const/show-name-boost)]
-                                      (get-season-episode prepared)
-                                      (get-source-filter source))
-                        :should (q/fuzzy-like-this
-                                 :like_text prepared
-                                 :fields [:version]
-                                 :boost const/version-boost))
+        {:query  (q/bool :must (concat [(q/fuzzy-like-this
+                                          :like_text prepared
+                                          :fields [:show :name]
+                                          :boost const/show-name-boost)]
+                                       (get-season-episode prepared)
+                                       (get-source-filter source))
+                         :should (q/fuzzy-like-this
+                                   :like_text prepared
+                                   :fields [:version]
+                                   :boost const/version-boost))
          :filter (q/term :lang lang)
-         :size const/result-size})
+         :size   const/result-size})
       vec
       flatten))
 
@@ -120,7 +120,7 @@
                   "subtitle"
                   :query (q/match-all)
                   :facets {:tag {:terms {:field "lang"
-                                         :size const/languages-limit}}})
+                                         :size  const/languages-limit}}})
       :facets
       :tag
       :terms))

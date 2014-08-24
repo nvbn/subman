@@ -1,5 +1,5 @@
 (ns subman.filler
-  (:require [clojure.core.async :as async :refer [>!! <!! >!]]
+  (:require [clojure.core.async :as async :refer [<!! >!]]
             [subman.sources.addicted :as addicted]
             [subman.sources.podnapisi :as podnapisi]
             [subman.sources.opensubtitles :as opensubtitles]
@@ -43,7 +43,7 @@
                              uksubtitles/get-release-page-result]))]
     (loop [i 0]
       (when-let [subtitle (<!! ch)]
-        ((helpers/make-safe models/create-document nil) subtitle)
+        (models/create-document subtitle)
         (when (zero? (mod i 50))
           (println (str "Updated " i)))
         (recur (inc i))))))
