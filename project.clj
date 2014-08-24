@@ -11,7 +11,7 @@
                            [clojurewerkz/elastisch "2.0.0"]
                            [cljs-http "0.1.16"]
                            [clj-http "1.0.0"]
-                           [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
+                           [org.clojure/core.async "0.1.338.0-5c5012-alpha"]
                            [overtone/at-at "1.2.0"]
                            [garden "1.2.1"]
                            [org.clojure/data.json "0.2.5"]
