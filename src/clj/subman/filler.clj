@@ -1,5 +1,6 @@
 (ns subman.filler
   (:require [clojure.core.async :as async :refer [<!! >!]]
+            [clojure.tools.logging :as log]
             [subman.sources.addicted :as addicted]
             [subman.sources.podnapisi :as podnapisi]
             [subman.sources.opensubtitles :as opensubtitles]
@@ -36,14 +37,17 @@
   []
   (let [ch (async/merge (map #(get-new-subtitles-in-chan % models/in-db)
                              [subscene/get-release-page-result
-                             opensubtitles/get-release-page-result
-                             addicted/get-release-page-result
-                             podnapisi/get-release-page-result
-                             notabenoid/get-release-page-result
-                             uksubtitles/get-release-page-result]))]
+                              opensubtitles/get-release-page-result
+                              addicted/get-release-page-result
+                              podnapisi/get-release-page-result
+                              notabenoid/get-release-page-result
+                              uksubtitles/get-release-page-result]))
+        update-id (gensym)]
+    (log/info (str "Start update " update-id))
     (loop [i 0]
-      (when-let [subtitle (<!! ch)]
-        (models/create-document subtitle)
-        (when (zero? (mod i 50))
-          (println (str "Updated " i)))
-        (recur (inc i))))))
+      (if-let [subtitle (<!! ch)]
+        (do (models/create-document! subtitle)
+            (when (zero? (mod i 50))
+              (log/info (str "Update " update-id " progress: " i)))
+            (recur (inc i)))
+        (log/info (str "Update " update-id " finished: " i))))))

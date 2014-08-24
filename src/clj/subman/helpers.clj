@@ -1,5 +1,7 @@
 (ns subman.helpers
+  (:import (java.io StringReader))
   (:require [clojure.stacktrace :refer [print-cause-trace]]
+            [clojure.tools.logging :as log]
             [net.cgrand.enlive-html :as html]
             [clj-http.client :as client]
             [subman.const :as const]))
@@ -12,7 +14,7 @@
 (defn get-from-line
   "Get parsed html from line"
   [line]
-  (html/html-resource (java.io.StringReader. line)))
+  (html/html-resource (StringReader. line)))
 
 (defn fetch
   "Fetch url content"
@@ -34,11 +36,8 @@
   [fnc fallback]
   (fn [& args]
     (try (apply fnc args)
-         (catch Exception e (do
-                              (println (str "FAIL START:\n" fnc " WITH " args))
-                              (print-cause-trace e)
-                              (println (str "FAIL END:\n" fnc " WITH " args))
-                              fallback)))))
+         (catch Exception e (do (log/warn e (str "When called " fnc " with " args))
+                                fallback)))))
 
 (defmacro defsafe
   "Define safe function"
@@ -59,7 +58,7 @@
 (defn get-from-file
   "Get parsed html from file"
   [path]
-  (html/html-resource (java.io.StringReader.
+  (html/html-resource (StringReader.
                         (slurp path))))
 
 (defn make-static
