@@ -48,5 +48,6 @@
             (apply as-static include-js (if is-debug
                                           debug-js
                                           production-js))
-            [:script "goog.require('subman.core');"]]
+            (when is-debug
+              [:script "goog.require('subman.core');"])]
            [:body [:script "subman.core.run();"]])))

@@ -70,7 +70,8 @@
                                                           :jar          true}]}
                                     :env       {:is-debug false}
                                     :hooks     [cljx.hooks
-                                                leiningen.cljsbuild]}}
+                                                leiningen.cljsbuild
+                                                leiningen.garden]}}
             :source-paths ["src/clj"]
             :test-paths ["test/clj"]
             :cljx {:builds [{:source-paths ["src/cljx"]
