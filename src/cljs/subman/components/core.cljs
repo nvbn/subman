@@ -20,4 +20,4 @@
 (defn init-components
   [state]
   (om/root page state
-           {:target (.get ($ :body) 0)}))
+           {:target (.get ($ :#main) 0)}))

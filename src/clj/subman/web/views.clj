@@ -32,8 +32,19 @@
    "components/typeahead.js-bootstrap3.less/typeahead.css"
    "main.css"])
 
+(defn get-ga-code
+  [ga-id]
+  (str "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', '" ga-id "', 'auto');
+        ga('send', 'pageview');"))
+
 (defn index-page []
-  (let [is-debug (env :is-debug)]
+  (let [is-debug (env :is-debug)
+        ga-id (env :ga-id)]
     (html5 [:head
             [:link {:rel  "icon"
                     :type "image/png"
@@ -50,4 +61,6 @@
                                           production-js))
             (when is-debug
               [:script "goog.require('subman.core');"])]
-           [:body [:script "subman.core.run();"]])))
+           [:body [:div#main]
+            [:script (str "subman.core.run();"
+                          (get-ga-code ga-id))]])))

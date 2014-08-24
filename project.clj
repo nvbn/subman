@@ -57,7 +57,8 @@
                                                                         "resources/public/components/typeahead.js/dist/typeahead.jquery.js"
                                                                         "resources/public/components/react/react-with-addons.js"
                                                                         "target/cljs-test.js"]}}
-                                    :env       {:is-debug true}}
+                                    :env       {:is-debug true
+                                                :ga-id ""}}
                        :production {:aot       :all
                                     :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                                           :compiler     {:externs       ["resources/public/components/jquery/dist/jquery.min.js"
@@ -68,7 +69,8 @@
                                                                          :optimizations :advanced
                                                                          :pretty-print  false}
                                                           :jar          true}]}
-                                    :env       {:is-debug false}
+                                    :env       {:is-debug false
+                                                :ga-id "UA-54135564-1"}
                                     :hooks     [cljx.hooks
                                                 leiningen.cljsbuild
                                                 leiningen.garden]}}
