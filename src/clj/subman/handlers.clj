@@ -19,17 +19,14 @@
   []
   (let [pool (at-at/mk-pool)]
     (at-at/every const/update-period
-                 (fn [] (future (println "start update")
-                                (filler/update-all)
-                                (println "update finished")))
+                 #(future (filler/update-all))
                  pool)))
 
 (defn init-models
   "Init db connection and schema"
   []
   (models/connect!)
-  (try (models/create-index)
-       (catch Exception e)))
+  (models/create-index!))
 
 (defn init
   "Init ring handler"

@@ -21,29 +21,29 @@
       :hits
       :total))
 
-(defn create-index
-  "Create database index for subtitles"
-  []
-  (esi/create @connection const/index-name
-              :mappings {"subtitle"
-                          {:properties {:show    {:type "string"}
-                                        :season  {:type  "string"
-                                                  :index "not_analyzed"}
-                                        :episode {:type  "string"
-                                                  :index "not_analyzed"}
-                                        :name    {:type "string"}
-                                        :lang    {:type "string"}
-                                        :version {:type "string"}
-                                        :url     {:type  "string"
-                                                  :index "not_analyzed"}
-                                        :source  {:type "integer"}}}}))
+(defsafe create-index!
+         "Create database index for subtitles"
+         []
+         (esi/create @connection const/index-name
+                     :mappings {"subtitle"
+                                 {:properties {:show    {:type "string"}
+                                               :season  {:type  "string"
+                                                         :index "not_analyzed"}
+                                               :episode {:type  "string"
+                                                         :index "not_analyzed"}
+                                               :name    {:type "string"}
+                                               :lang    {:type "string"}
+                                               :version {:type "string"}
+                                               :url     {:type  "string"
+                                                         :index "not_analyzed"}
+                                               :source  {:type "integer"}}}}))
 
-(defsafe create-document
+(defsafe create-document!
          "Put document into elastic"
          [doc]
          (esd/create @connection const/index-name "subtitle" doc))
 
-(defn delete-all
+(defn delete-all!
   "Delete all documents"
   []
   (esd/delete-by-query-across-all-types @connection const/index-name (q/match-all)))
