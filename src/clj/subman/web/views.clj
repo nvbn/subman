@@ -62,5 +62,5 @@
             (when is-debug
               [:script "goog.require('subman.core');"])]
            [:body [:div#main]
-            [:script (str "subman.core.run();"
-                          (get-ga-code ga-id))]])))
+            [:script "subman.core.run();"]
+            [:script (get-ga-code ga-id)]])))
