@@ -20,6 +20,9 @@
   (let [pool (at-at/mk-pool)]
     (at-at/every const/update-period
                  #(future (filler/update-all))
+                 pool)
+    (at-at/every const/sitemap-period
+                 #(future (models/update-unique-show-season-episode!))
                  pool)))
 
 (defn init-models

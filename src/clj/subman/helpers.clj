@@ -36,7 +36,7 @@
   [fnc fallback]
   (fn [& args]
     (try (apply fnc args)
-         (catch Exception e (do (log/warn e (str "When called " fnc " with " args))
+         (catch Exception e (do ;(log/warn e (str "When called " fnc " with " args))
                                 fallback)))))
 
 (defmacro defsafe

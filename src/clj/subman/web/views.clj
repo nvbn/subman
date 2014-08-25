@@ -1,7 +1,11 @@
 (ns subman.web.views
-  (:require [hiccup.page :refer [html5 include-css include-js]]
+  (:require [clojure.string :refer [blank?]]
+            [hiccup.page :refer [html5 include-css include-js xml-declaration]]
+            [hiccup.core :refer [html]]
+            [cemerick.url :refer [url-encode]]
             [environ.core :refer [env]]
-            [subman.helpers :refer [as-static make-static]]))
+            [subman.helpers :refer [as-static make-static]]
+            [subman.models :refer [unique-show-season-episode]]))
 
 (def debug-js
   ["components/jquery/dist/jquery.js"
@@ -64,3 +68,18 @@
            [:body [:div#main]
             [:script "subman.core.run();"]
             [:script (get-ga-code ga-id)]])))
+
+(defn sitemap-page []
+  (html (xml-declaration "utf-8")
+        [:urlset {:xmlns "http://www.sitemaps.org/schemas/sitemap/0.9"}
+         (for [[show season episode] @unique-show-season-episode]
+           [:url [:loc (str (env :site-url) "search/"
+                            (url-encode (str show
+                                             (if (not (and (blank? season)
+                                                           (blank? episode)))
+                                               (str " "
+                                                    (if (not (blank? season))
+                                                      (str "S" season) "")
+                                                    (if (not (blank? episode))
+                                                      (str "E" episode) ""))
+                                               ""))))]])]))

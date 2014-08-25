@@ -28,7 +28,8 @@
                            [com.cognitect/transit-clj "0.8.247"]
                            [com.cognitect/transit-cljs "0.8.184"]
                            [ring-transit "0.1.2"]
-                           [org.clojure/tools.logging "0.3.0"]]
+                           [org.clojure/tools.logging "0.3.0"]
+                           [com.cemerick/url "0.1.1"]]
             :plugins [[lein-cljsbuild "1.0.3"]
                       [com.keminglabs/cljx "0.3.2"]
                       [lein-garden "0.1.8"]
@@ -58,7 +59,8 @@
                                                                         "resources/public/components/react/react-with-addons.js"
                                                                         "target/cljs-test.js"]}}
                                     :env       {:is-debug true
-                                                :ga-id ""}}
+                                                :ga-id ""
+                                                :site-url "http://localhost:3000/"}}
                        :production {:aot       :all
                                     :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                                           :compiler     {:externs       ["resources/public/components/jquery/dist/jquery.min.js"
@@ -70,7 +72,8 @@
                                                                          :pretty-print  false}
                                                           :jar          true}]}
                                     :env       {:is-debug false
-                                                :ga-id "UA-54135564-1"}
+                                                :ga-id "UA-54135564-1"
+                                                :site-url "http://subman.io/"}
                                     :hooks     [cljx.hooks
                                                 leiningen.cljsbuild
                                                 leiningen.garden]}}

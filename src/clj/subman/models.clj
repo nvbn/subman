@@ -1,5 +1,6 @@
 (ns subman.models
-  (:require [clojurewerkz.elastisch.rest :as esr]
+  (:require [clojure.set :refer [union]]
+            [clojurewerkz.elastisch.rest :as esr]
             [clojurewerkz.elastisch.rest.index :as esi]
             [clojurewerkz.elastisch.rest.document :as esd]
             [clojurewerkz.elastisch.query :as q]
@@ -119,8 +120,39 @@
                   const/index-name
                   "subtitle"
                   :query (q/match-all)
-                  :facets {:tag {:terms {:field "lang"
+                  :facets {:tag {:terms {:field :lang
                                          :size  const/languages-limit}}})
       :facets
       :tag
       :terms))
+
+(defn get-show-season-episode-set
+  [from]
+  (->> (esd/search @connection
+                   const/index-name
+                   "subtitle"
+                   :fields [:show :season :episode]
+                   :size const/result-size
+                   :from from)
+       :hits
+       :hits
+       (map (fn [{:keys [fields]}]
+              (map #(first (% fields)) [:show :season :episode])))
+       (into #{})))
+
+(defn get-unique-show-season-episode
+  "Get all unique show season episode vectors"
+  []
+  (let [count (get-total-count)]
+    (loop [from 0
+           result #{}]
+      (if (> from count)
+        result
+        (recur (+ from const/result-size)
+               (union result (get-show-season-episode-set from)))))))
+
+(def unique-show-season-episode (atom #{}))
+
+(defn update-unique-show-season-episode!
+  []
+  (reset! unique-show-season-episode (get-unique-show-season-episode)))
