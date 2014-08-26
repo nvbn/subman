@@ -104,13 +104,14 @@
          (remove nil?)
          (map #(assoc % :show title)))))
 
-(defn get-release-page-result
-  "Get release page result"
-  [page]
-  (-<>> (get-release-page-url page)
-        helpers/fetch
-        (html/select <> [:ul.search-results :li :p :a])
-        (map book-from-line)
-        (remove nil?)
-        (map episodes-from-book)
-        flatten))
+(defsafe get-release-page-result
+         "Get release page result"
+         [page]
+         (-<>> (get-release-page-url page)
+               helpers/fetch
+               (html/select <> [:ul.search-results :li :p :a])
+               (map book-from-line)
+               (remove nil?)
+               (map episodes-from-book)
+               (remove nil?)
+               flatten))

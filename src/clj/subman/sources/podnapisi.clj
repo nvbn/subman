@@ -1,7 +1,7 @@
 (ns subman.sources.podnapisi
-  (:require [swiss.arrows :refer [-<>]]
+  (:require [swiss.arrows :refer [-<> some-<>]]
             [net.cgrand.enlive-html :as html]
-            [subman.helpers :as helpers]
+            [subman.helpers :as helpers :refer [defsafe]]
             [subman.const :as const]))
 
 (defn- make-url [url] (str "http://www.podnapisi.net" url))
@@ -57,24 +57,24 @@
   "Create subtitle map from list page item"
   [item]
   (let [download-element (first
-                          (html/select item [[:td html/first-child]
-                                             :a.subtitle_page_link]))]
-    {:show (get-show download-element)
-     :url (get-url download-element)
-     :season (season-episode-part item 1)
+                           (html/select item [[:td html/first-child]
+                                              :a.subtitle_page_link]))]
+    {:show    (get-show download-element)
+     :url     (get-url download-element)
+     :season  (season-episode-part item 1)
      :episode (season-episode-part item 2)
      :version (get-version item)
-     :name ""
-     :lang (get-lang item)}))
+     :name    ""
+     :lang    (get-lang item)}))
 
-(defn- parse-list-page
-  "Parse page with subtitles list"
-  [url]
-  (-<> (helpers/fetch url)
-       (html/select [:div#content_left
-                     :table.list
-                     [:tr (html/has [:td])]])
-       (map create-subtitle-map <>)))
+(defsafe parse-list-page
+         "Parse page with subtitles list"
+         [url]
+         (-<> (helpers/fetch url)
+              (html/select [:div#content_left
+                            :table.list
+                            [:tr (html/has [:td])]])
+              (map create-subtitle-map <>)))
 
 (defn- get-release-page-url
   "Get release page url"
@@ -86,7 +86,7 @@
 (defn get-release-page-result
   "Get release page result"
   [page]
-  (-<> (get-release-page-url page)
-       parse-list-page
-       flatten
-       (map #(assoc % :source const/type-podnapisi) <>)))
+  (some-<> (get-release-page-url page)
+           parse-list-page
+           flatten
+           (map #(assoc % :source const/type-podnapisi) <>)))

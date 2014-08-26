@@ -111,22 +111,22 @@
             :name    (last name-parts)
             :url     (-> item :attrs :href make-url)}))
 
-(defn get-release-page-result
-  "Get release page result"
-  [page]
-  (-<>> (get-releases-url page)
-        helpers/fetch
-        (html/select <> [:table.tabel :tr])
-        (drop 2)
-        (html/select <> [(html/nth-child 2) :a])
-        flatten
-        (map episode-from-release)
-        (remove nil?)
-        (map #(for [version (get-versions %)
-                    lang (:langs version)]
-               (assoc % :version (:name version)
-                        :lang (:name lang)
-                        :url (:url lang)
-                        :source const/type-addicted)))
-        (remove empty?)
-        flatten))
+(defsafe get-release-page-result
+         "Get release page result"
+         [page]
+         (-<>> (get-releases-url page)
+               helpers/fetch
+               (html/select <> [:table.tabel :tr])
+               (drop 2)
+               (html/select <> [(html/nth-child 2) :a])
+               flatten
+               (map episode-from-release)
+               (remove nil?)
+               (map #(for [version (get-versions %)
+                           lang (:langs version)]
+                      (assoc % :version (:name version)
+                               :lang (:name lang)
+                               :url (:url lang)
+                               :source const/type-addicted)))
+               (remove empty?)
+               flatten))

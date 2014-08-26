@@ -2,7 +2,7 @@
   (:require [clojure.string :as string]
             [swiss.arrows :refer [-<>>]]
             [net.cgrand.enlive-html :as html]
-            [subman.helpers :as helpers]
+            [subman.helpers :as helpers :refer [defsafe]]
             [subman.const :as const]))
 
 (def force-lang "english")
@@ -25,8 +25,8 @@
   [article]
   (let [title-a (first (html/select article
                                     [:header :h2 :a]))]
-    {:title (first (:content title-a))
-     :url (:href (:attrs title-a))
+    {:title     (first (:content title-a))
+     :url       (:href (:attrs title-a))
      :subtitles (map #(last (:content %))
                      (html/select article
                                   [:div (html/has [:a.wpfb-dlbtn])]))}))
@@ -44,9 +44,9 @@
   "Get subtitle data from donwload line"
   [line]
   (let [[season episode] (helpers/get-season-episode line)]
-    {:season season
+    {:season  season
      :episode episode
-     :show (get-name-from-download line)
+     :show    (get-name-from-download line)
      :version (string/replace line #" \(.*Download.*\).*" "")}))
 
 (defn- get-subtitles-from-article
@@ -56,18 +56,18 @@
                     (map get-subtitle-data-from-download (:subtitles article))
                     [{:show (string/replace (:title article) #"Subtitles for " "")}])]
     (map #(assoc %
-            :url (:url article)
-            :lang force-lang
-            :source const/type-uksubtitles
-            :name "")
+           :url (:url article)
+           :lang force-lang
+           :source const/type-uksubtitles
+           :name "")
          subtitles)))
 
-(defn get-release-page-result
-  "Get release page result"
-  [page]
-  (-<>> (get-release-page-url page)
-        helpers/fetch
-        get-articles
-        (map parse-article)
-        (map get-subtitles-from-article)
-        flatten))
+(defsafe get-release-page-result
+         "Get release page result"
+         [page]
+         (-<>> (get-release-page-url page)
+               helpers/fetch
+               get-articles
+               (map parse-article)
+               (map get-subtitles-from-article)
+               flatten))
