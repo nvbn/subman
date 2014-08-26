@@ -1,4 +1,5 @@
 # Subman
+[![Build Status](https://travis-ci.org/nvbn/subman.svg?branch=master)](https://travis-ci.org/nvbn/subman)
 
 Service for fast subtitle searching.
 
