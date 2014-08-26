@@ -7,7 +7,7 @@ before_install:
 install:
  - lein deps
  - lein cljx once
- - bower install
+ - lein bower install
 script:
  - lein test
  - lein cljsbuild test
