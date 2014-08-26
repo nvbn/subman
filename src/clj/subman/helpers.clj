@@ -36,7 +36,7 @@
   [fnc fallback]
   (fn [& args]
     (try (apply fnc args)
-         (catch Exception e (do ;(log/warn e (str "When called " fnc " with " args))
+         (catch Exception e (do (log/debug e (str "When called " fnc " with " args))
                                 fallback)))))
 
 (defmacro defsafe
@@ -70,3 +70,20 @@
   "Call as static"
   [callable & paths]
   (apply callable (apply make-static paths)))
+
+(defn -with-atom
+  [atm-vals fnc]
+  (let [pairs (partition 2 atm-vals)
+        origs (doall (map #(deref (first %)) pairs))]
+    (doseq [[atm val] pairs]
+      (reset! atm val))
+    (let [result (fnc)]
+      (doseq [[[atm _] orig] (map vector pairs origs)]
+        (reset! atm orig))
+      result)))
+
+(defmacro with-atom
+  "With redefined atom value"
+  [atm-vals & body]
+  `(-with-atom ~atm-vals
+               (fn [] ~@body)))

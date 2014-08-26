@@ -2,6 +2,7 @@
   (:require [clojure.test :refer [deftest testing]]
             [clojurewerkz.elastisch.rest.document :as esd]
             [test-sugar.core :refer [is= is-do]]
+            [subman.helpers :refer [with-atom]]
             [subman.const :as const]
             [subman.models :as models]))
 
@@ -96,10 +97,8 @@
                     #{'("american dad" "10" "23")})))
 
 (deftest test-update-unique-show-season-episode!
-  (let [orig @models/unique-show-season-episode]
-    (reset! models/unique-show-season-episode nil)
-    (with-redefs [models/get-unique-show-season-episode (fn [] [:value])]
-                 (models/update-unique-show-season-episode!)
-                 (is= @models/unique-show-season-episode
-                      [:value]))
-    (reset! models/unique-show-season-episode orig)))
+  (with-atom [models/unique-show-season-episode nil]
+             (with-redefs [models/get-unique-show-season-episode (fn [] [:value])]
+                          (models/update-unique-show-season-episode!)
+                          (is= @models/unique-show-season-episode
+                               [[:value]]))))

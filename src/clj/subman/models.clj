@@ -155,4 +155,5 @@
 
 (defn update-unique-show-season-episode!
   []
-  (reset! unique-show-season-episode (get-unique-show-season-episode)))
+  (reset! unique-show-season-episode (partition-all const/sitemap-size
+                                                    (get-unique-show-season-episode))))

@@ -55,3 +55,5 @@
 (def default-type type-all)
 
 (def input-timeout 300)
+
+(def sitemap-size 40000)

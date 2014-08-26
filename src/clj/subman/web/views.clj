@@ -69,10 +69,10 @@
             [:script "subman.core.run();"]
             [:script (get-ga-code ga-id)]])))
 
-(defn sitemap-page []
+(defn sitemap-page [n]
   (html (xml-declaration "utf-8")
         [:urlset {:xmlns "http://www.sitemaps.org/schemas/sitemap/0.9"}
-         (for [[show season episode] @unique-show-season-episode]
+         (for [[show season episode] (nth @unique-show-season-episode n [])]
            [:url [:loc (str (env :site-url) "search/"
                             (url-encode (str show
                                              (if (not (and (blank? season)
@@ -83,3 +83,10 @@
                                                     (if (not (blank? episode))
                                                       (str "E" episode) ""))
                                                ""))))]])]))
+
+(defn robots-page []
+  (apply str
+         "User-agent: *\n"
+         "Allow: /\n"
+         (for [n (range (count @unique-show-season-episode))]
+           (str "Sitemap: " (env :site-url) "sitemap." n ".xml\n"))))
