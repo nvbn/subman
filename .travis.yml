@@ -5,10 +5,9 @@ before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq phantomjs nodejs
  - sudo npm install -g bower
-install:
+script:
  - lein deps
  - lein cljx once
  - lein bower install
-script:
  - lein test
  - lein cljsbuild test
