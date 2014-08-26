@@ -78,14 +78,14 @@
               :else buffer))
           [] lines))
 
-(defn- get-versions
-  "Get versions of subtitles for single episode"
-  [episode]
-  (-> episode
-      :url
-      helpers/fetch
-      (html/select [:table.tabel95 :table.tabel95 :tr])
-      get-subtitles))
+(defsafe get-versions
+         "Get versions of subtitles for single episode"
+         [episode]
+         (-> episode
+             :url
+             helpers/fetch
+             (html/select [:table.tabel95 :table.tabel95 :tr])
+             get-subtitles))
 
 (defn- get-releases-url
   "Get releases url for page"
@@ -128,4 +128,5 @@
                         :lang (:name lang)
                         :url (:url lang)
                         :source const/type-addicted)))
+        (remove empty?)
         flatten))
