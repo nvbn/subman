@@ -14,7 +14,6 @@
                            [org.clojure/core.async "0.1.338.0-5c5012-alpha"]
                            [overtone/at-at "1.2.0"]
                            [garden "1.2.1"]
-                           [org.clojure/data.json "0.2.5"]
                            [ring "1.3.1"]
                            [swiss-arrows "1.0.0"]
                            [jayq "2.5.2"]

@@ -1,6 +1,5 @@
 (ns subman.web.api-test
   (:require [clojure.test :refer [deftest testing is]]
-            [clojure.data.json :as json]
             [test-sugar.core :refer [is=]]
             [subman.models :as models]
             [subman.web.api :as api]
