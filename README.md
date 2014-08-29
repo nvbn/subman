@@ -23,7 +23,7 @@ You can get total subtitles count in:
 
     http://subman.io/api/count/
 
-For decoding api response you should use [transit](https://github.com/cognitect/transit-clj).
+For decoding api response you should use [transit](https://github.com/cognitect/transit-format).
 
 Installation
 ------------
