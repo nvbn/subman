@@ -20,7 +20,7 @@
   "Fetch url content"
   [url]
   (-> (client/get url {:socket-timeout const/conection-timeout
-                       :conn-timeout   const/conection-timeout})
+                       :conn-timeout const/conection-timeout})
       :body
       get-from-line))
 

@@ -9,13 +9,12 @@
             [subman.components.welcome :refer [welcome]]))
 
 (defcomponent page [app _]
-              (display-name [_] "Page")
-              (render [_]
-                      (html [:div.page
-                             (om/build search-input app)
-                             (if (is-filled? (:stable-search-query app))
-                               (om/build search-result app)
-                               (om/build welcome app))])))
+  (display-name [_] "Page")
+  (render [_] (html [:div.page
+                     (om/build search-input app)
+                     (if (is-filled? (:stable-search-query app))
+                       (om/build search-result app)
+                       (om/build welcome app))])))
 
 (defn init-components
   [state]

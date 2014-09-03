@@ -37,7 +37,7 @@
   (get (apply merge
               (map (fn [el]
                      {(-> el val str string/lower-case)
-                       (key el)})
+                      (key el)})
                    @sources))
        (string/lower-case source)
        const/type-none))

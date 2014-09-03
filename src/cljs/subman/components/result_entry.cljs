@@ -36,13 +36,12 @@
     ""))
 
 (defcomponent result-entry [entry _]
-              (display-name [_] "Result Entry")
-              (render [_]
-                      (html [:a.result-entry.list-group-item.search-result
-                             {:href   (:url entry)
-                              :target "_blank"}
-                             [:h3 (get-result-entry-title entry)
-                              [:span (get-result-season-episode entry)]]
-                             [:p.pull-right (get-result-source entry)]
-                             [:p (get-result-lang entry)]
-                             [:p (get-result-version entry)]])))
+  (display-name [_] "Result Entry")
+  (render [_] (html [:a.result-entry.list-group-item.search-result
+                     {:href (:url entry)
+                      :target "_blank"}
+                     [:h3 (get-result-entry-title entry)
+                      [:span (get-result-season-episode entry)]]
+                     [:p.pull-right (get-result-source entry)]
+                     [:p (get-result-lang entry)]
+                     [:p (get-result-version entry)]])))

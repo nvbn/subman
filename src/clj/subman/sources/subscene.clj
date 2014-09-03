@@ -50,29 +50,29 @@
        last))
 
 (defsafe create-subtitle
-         "Create subtitle from page url"
-         [url]
-         (let [page (helpers/fetch url)
-               version (get-version page)
-               season-episode (helpers/get-season-episode version)]
-           {:show    (get-show page)
-            :season  (get season-episode 0)
-            :episode (get season-episode 1)
-            :version version
-            :url     url
-            :source  const/type-subscene
-            :lang    (get-lang page)}))
+  "Create subtitle from page url"
+  [url]
+  (let [page (helpers/fetch url)
+        version (get-version page)
+        season-episode (helpers/get-season-episode version)]
+    {:show (get-show page)
+     :season (get season-episode 0)
+     :episode (get season-episode 1)
+     :version version
+     :url url
+     :source const/type-subscene
+     :lang (get-lang page)}))
 
 (defsafe get-release-page-result
-         "Get release page result"
-         [page]
-         (-<>> (get-page-url page)
-               helpers/fetch
-               (html/select <> [:table :td.a1 :a])
-               (map #(-> %
-                         :attrs
-                         :href
-                         make-url))
-               set
-               (map create-subtitle)
-               (remove nil?)))
+  "Get release page result"
+  [page]
+  (-<>> (get-page-url page)
+        helpers/fetch
+        (html/select <> [:table :td.a1 :a])
+        (map #(-> %
+                  :attrs
+                  :href
+                  make-url))
+        set
+        (map create-subtitle)
+        (remove nil?)))

@@ -21,9 +21,8 @@
          [:h2 text]]))
 
 (defcomponent search-result [{:keys [stable-search-query results in-progress]} _]
-              (display-name [_] "Search Result")
-              (render [_]
-                      (cond
-                        (pos? (count results)) (search-resul-list results)
-                        in-progress (info-box "Searching...")
-                        :else (info-box (str "Nothing found for \"" stable-search-query "\"")))))
+  (display-name [_] "Search Result")
+  (render [_] (cond
+                (pos? (count results)) (search-resul-list results)
+                in-progress (info-box "Searching...")
+                :else (info-box (str "Nothing found for \"" stable-search-query "\"")))))

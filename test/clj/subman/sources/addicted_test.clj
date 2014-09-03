@@ -19,7 +19,7 @@
 (deftest test-is-version-line?
   (testing "when version line passed"
     (is-do true? (#'addicted/is-version-line? (get-from-line
-                                               "<td class='NewsTitle'><img src='/images/folder_page.png' /></td>"))))
+                                                "<td class='NewsTitle'><img src='/images/folder_page.png' /></td>"))))
   (testing "when not"
     (is-do nil? (#'addicted/is-version-line? (get-from-line "<td></td>")))))
 
@@ -33,19 +33,19 @@
 (deftest test-get-version
   (testing "when has name"
     (is= (#'addicted/get-version (get-from-line
-                                  "<td class='NewsTitle'><b><span></span>test</b></td>"))
+                                   "<td class='NewsTitle'><b><span></span>test</b></td>"))
          {:name "test"
           :langs []}))
   (testing "when not"
     (is= (#'addicted/get-version (get-from-line
-                                  "<td class='NewsTitle'><b><span></span></b></td>"))
+                                   "<td class='NewsTitle'><b><span></span></b></td>"))
          {:name ""
           :langs []})))
 
 (deftest test-get-language
   (is= (#'addicted/get-lang (get-from-line
-                             "<td class='language'><span>test</span></td>
-                             <td><a href='test-url' class='buttonDownload'></a></td>"))
+                              "<td class='language'><span>test</span></td>
+                              <td><a href='test-url' class='buttonDownload'></a></td>"))
        {:name "test"
         :url "http://www.addic7ed.com/test-url"}))
 
@@ -91,7 +91,7 @@
 
 (deftest test-get-release-page-result
   (with-redefs [helpers/fetch #(if (= % (#'addicted/get-releases-url 1))
-                                 (get-from-file "resources/fixtures/subman/sources/addicted_release.html")
-                                 (get-from-file "resources/fixtures/subman/sources/addicted_episode.html"))]
+                                (get-from-file "resources/fixtures/subman/sources/addicted_release.html")
+                                (get-from-file "resources/fixtures/subman/sources/addicted_episode.html"))]
     (is= (:name (first (#'addicted/get-release-page-result 1)))
          "Family Affair")))

@@ -28,8 +28,8 @@
        (str const/static-path "test")))
 
 (helpers/defsafe safe-fn
-                 [x y]
-                 (throw (Exception. (str x y))))
+  [x y]
+  (throw (Exception. (str x y))))
 
 (deftest test-defsafe
   (is-do nil? (safe-fn 1 2)))

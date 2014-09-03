@@ -75,10 +75,10 @@
   (let [atm-ch (atom-to-chan atm)
         result-ch (chan)]
     (go-loop [val nil]
-             (let [current (get-in (<! atm-ch) path)]
-               (when-not (= val current)
-                 (>! result-ch (nil-to-blank current)))
-               (recur current)))
+      (let [current (get-in (<! atm-ch) path)]
+        (when-not (= val current)
+          (>! result-ch (nil-to-blank current)))
+        (recur current)))
     result-ch))
 
 (deftype DummyHistory [^{:volatile-mutable true} token]

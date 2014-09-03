@@ -1,5 +1,5 @@
 (ns subman.routes
-  (:require [secretary.core :as secretary :include-macros true :refer [defroute]]
+  (:require [secretary.core :as secretary :refer-macros [defroute]]
             [goog.events :as gevents]
             [goog.history.EventType :as history-event]
             [subman.deps :as d]))
@@ -30,7 +30,7 @@
                       (secretary/dispatch! (.-token %))))))
 
 (defroute main-page "/" []
-          (set-search-query ""))
+  (set-search-query ""))
 
 (defroute search-page "/search/*query" {:keys [query]}
-          (set-search-query query))
+  (set-search-query query))

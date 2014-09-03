@@ -45,8 +45,8 @@
     (is= (#'uksubtitles/get-name-from-download "game.face.720p.hdtv.x264-tla.srt (29.8 KiB, Download: 61 )")
          "game face"))
   (testing "with extension"
-    (is=(#'uksubtitles/get-name-from-download "\nlast.pays.srt")
-        "last pays"))
+    (is= (#'uksubtitles/get-name-from-download "\nlast.pays.srt")
+         "last pays"))
   (testing "without nothing"
     (is= (#'uksubtitles/get-name-from-download "test.subtitles")
          "test subtitles")))

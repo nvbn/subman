@@ -25,8 +25,8 @@
   [article]
   (let [title-a (first (html/select article
                                     [:header :h2 :a]))]
-    {:title     (first (:content title-a))
-     :url       (:href (:attrs title-a))
+    {:title (first (:content title-a))
+     :url (:href (:attrs title-a))
      :subtitles (map #(last (:content %))
                      (html/select article
                                   [:div (html/has [:a.wpfb-dlbtn])]))}))
@@ -44,9 +44,9 @@
   "Get subtitle data from donwload line"
   [line]
   (let [[season episode] (helpers/get-season-episode line)]
-    {:season  season
+    {:season season
      :episode episode
-     :show    (get-name-from-download line)
+     :show (get-name-from-download line)
      :version (string/replace line #" \(.*Download.*\).*" "")}))
 
 (defn- get-subtitles-from-article
@@ -63,11 +63,11 @@
          subtitles)))
 
 (defsafe get-release-page-result
-         "Get release page result"
-         [page]
-         (-<>> (get-release-page-url page)
-               helpers/fetch
-               get-articles
-               (map parse-article)
-               (map get-subtitles-from-article)
-               flatten))
+  "Get release page result"
+  [page]
+  (-<>> (get-release-page-url page)
+        helpers/fetch
+        get-articles
+        (map parse-article)
+        (map get-subtitles-from-article)
+        flatten))

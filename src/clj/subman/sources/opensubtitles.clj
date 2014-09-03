@@ -93,20 +93,20 @@
         seasons-part (get-seasons-part titles-td)
         show-part (get-show-part main-link)
         lang-td (nth tds 1)]
-    {:show    (get-from-show-part #"\"(.+)\"" show-part show-part)
-     :name    (get-from-show-part #"\".+\" (.+)" show-part)
-     :url     (get-url main-link)
+    {:show (get-from-show-part #"\"(.+)\"" show-part show-part)
+     :name (get-from-show-part #"\".+\" (.+)" show-part)
+     :url (get-url main-link)
      :version (get-version titles-td)
-     :season  (get-from-season-part #"\[S(\d+)" seasons-part)
+     :season (get-from-season-part #"\[S(\d+)" seasons-part)
      :episode (get-from-season-part #"E(\d+)\]" seasons-part)
-     :lang    (get-language lang-td)
-     :source  const/type-opensubtitles}))
+     :lang (get-language lang-td)
+     :source const/type-opensubtitles}))
 
 (defsafe get-release-page-result
-         "Get release page result"
-         [page]
-         (-<> (get-page-url page)
-              helpers/fetch
-              (html/select [:table#search_results
-                            [:tr.expandable (html/has [:strong])]])
-              (map create-subtitle <>)))
+  "Get release page result"
+  [page]
+  (-<> (get-page-url page)
+       helpers/fetch
+       (html/select [:table#search_results
+                     [:tr.expandable (html/has [:strong])]])
+       (map create-subtitle <>)))

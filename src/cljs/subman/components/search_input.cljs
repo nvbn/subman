@@ -25,36 +25,34 @@
            [:a.clear-input-btn {:on-click (fn [e]
                                             (.preventDefault e)
                                             (om/update! app :search-query ""))
-                                :href     "#"}
+                                :href "#"}
             [:i.fa.fa-chevron-left]])]))
 
 (defn input-field-part
   [app]
   (html [:input.search-input.form-control.no-border-radius
-         {:on-change   #(om/update! app :search-query (value %))
-          :value       (:search-query app)
+         {:on-change #(om/update! app :search-query (value %))
+          :value (:search-query app)
           :placeholder "Type search query"
-          :type        "text"}]))
+          :type "text"}]))
 
 (defcomponent search-input [app owner]
-              (display-name [_] "Search Input")
-              (render [_]
-                      (html [:div.input-group.input-group-lg.col-xs-12.search-input-box
-                             {:data-spy        "affix"
-                              :data-offset-top "40"}
-                             (icon-part app)
-                             (input-field-part app)]))
-              (did-mount [_]
-                         (let [input (.find ($ (om/get-node owner))
-                                            "input.search-input")]
-                           (.typeahead input
-                                       #js {:highlight true}
-                                       #js {:source #(completion-source
-                                                      (get-in @app [:options :language :options])
-                                                      (get-in @app [:options :source :options])
-                                                      %1 %2)})
-                           (.on input "typeahead:closed"
-                                #(om/update! app
-                                             :search-query (.val input)))
-                           (.focus input)
-                           (.select input))))
+  (display-name [_] "Search Input")
+  (render [_] (html [:div.input-group.input-group-lg.col-xs-12.search-input-box
+                     {:data-spy "affix"
+                      :data-offset-top "40"}
+                     (icon-part app)
+                     (input-field-part app)]))
+  (did-mount [_] (let [input (.find ($ (om/get-node owner))
+                                    "input.search-input")]
+                   (.typeahead input
+                               #js {:highlight true}
+                               #js {:source #(completion-source
+                                              (get-in @app [:options :language :options])
+                                              (get-in @app [:options :source :options])
+                                              %1 %2)})
+                   (.on input "typeahead:closed"
+                        #(om/update! app
+                                     :search-query (.val input)))
+                   (.focus input)
+                   (.select input))))

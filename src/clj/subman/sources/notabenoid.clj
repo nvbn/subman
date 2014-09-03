@@ -19,12 +19,12 @@
        page))
 
 (defsafe book-from-line
-         "Get translation book from line"
-         [line]
-         (-> (:attrs line)
-             :href
-             make-url
-             helpers/fetch))
+  "Get translation book from line"
+  [line]
+  (-> (:attrs line)
+      :href
+      make-url
+      helpers/fetch))
 
 (defn- get-book-title
   "Get title from book"
@@ -38,13 +38,13 @@
       string/trim))
 
 (defsafe episode-ready?
-         "Check is episode ready from line"
-         [line]
-         (->> (html/select line [:td.r])
-              first
-              :content
-              first
-              (re-find #"^100")))
+  "Check is episode ready from line"
+  [line]
+  (->> (html/select line [:td.r])
+       first
+       :content
+       first
+       (re-find #"^100")))
 
 (defn- get-episode-title-line
   "Get episode title line"
@@ -82,17 +82,17 @@
       make-url))
 
 (defsafe episode-from-line
-         "Get episide from line"
-         [line]
-         (let [title (get-episode-title-line line)
-               [season episode] (get-season-episode title)]
-           {:season  season
-            :episode episode
-            :lang    force-lang
-            :name    (get-episode-name title)
-            :url     (get-episode-url line)
-            :version ""
-            :source  const/type-notabenoid}))
+  "Get episide from line"
+  [line]
+  (let [title (get-episode-title-line line)
+        [season episode] (get-season-episode title)]
+    {:season season
+     :episode episode
+     :lang force-lang
+     :name (get-episode-name title)
+     :url (get-episode-url line)
+     :version ""
+     :source const/type-notabenoid}))
 
 (defn- episodes-from-book
   "Get episodes from translation book"
@@ -105,13 +105,13 @@
          (map #(assoc % :show title)))))
 
 (defsafe get-release-page-result
-         "Get release page result"
-         [page]
-         (-<>> (get-release-page-url page)
-               helpers/fetch
-               (html/select <> [:ul.search-results :li :p :a])
-               (map book-from-line)
-               (remove nil?)
-               (map episodes-from-book)
-               (remove nil?)
-               flatten))
+  "Get release page result"
+  [page]
+  (-<>> (get-release-page-url page)
+        helpers/fetch
+        (html/select <> [:ul.search-results :li :p :a])
+        (map book-from-line)
+        (remove nil?)
+        (map episodes-from-book)
+        (remove nil?)
+        flatten))

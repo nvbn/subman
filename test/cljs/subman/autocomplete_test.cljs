@@ -14,7 +14,7 @@
 
 (deftest test-with-value-contains
   (is= (autocomplete/with-value-contains ["something" "eat" "cat"]
-         ["food" "Fish" "cat"] "f")
+                                         ["food" "Fish" "cat"] "f")
        ["cat eat food" "cat eat Fish"]))
 
 (def langs ["en" "ru"])

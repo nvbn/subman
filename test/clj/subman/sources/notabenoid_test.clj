@@ -90,6 +90,6 @@
 
 (deftest test-get-release-page-result
   (with-redefs [helpers/fetch #(if (= % (#'notabenoid/get-release-page-url 1))
-                                 release-page
-                                 book-page)]
+                                release-page
+                                book-page)]
     (is= 350 (count (notabenoid/get-release-page-result 1)))))

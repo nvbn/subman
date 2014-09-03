@@ -31,7 +31,7 @@
           (is (= (:value @state) "zero")))
         (testing "sort values"
           (swap! state assoc-in [:is-sorted] true)
-          (<! (timeout 1000)) ; wait for rerender
+          (<! (timeout 1000))                               ; wait for rerender
           (is (= ["first" "second" "third" "zero"]
                  (get-options $el))))
         (done))))

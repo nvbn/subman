@@ -46,4 +46,4 @@
                 podnapisi/get-release-page-result (constantly [])
                 notabenoid/get-release-page-result (constantly [])
                 uksubtitles/get-release-page-result (constantly [])]
-               (filler/update-all)))
+    (filler/update-all)))

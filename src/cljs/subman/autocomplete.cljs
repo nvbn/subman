@@ -32,10 +32,10 @@
         last-token (some-> reversed first string/lower-case)
         pre-last-token (some-> reversed second string/lower-case)]
     (cond
-     (= last-token ":lang") (with-value splited langs)
-     (= pre-last-token ":lang") (with-value-contains reversed langs last-token)
-     (= last-token ":source") (with-value splited sources)
-     (= pre-last-token ":source") (with-value-contains reversed sources last-token)
-     (re-find #"^:" last-token) (with-value (-> splited butlast vec)
-                                  [":lang" ":source"])
-     :else [])))
+      (= last-token ":lang") (with-value splited langs)
+      (= pre-last-token ":lang") (with-value-contains reversed langs last-token)
+      (= last-token ":source") (with-value splited sources)
+      (= pre-last-token ":source") (with-value-contains reversed sources last-token)
+      (re-find #"^:" last-token) (with-value (-> splited butlast vec)
+                                             [":lang" ":source"])
+      :else [])))

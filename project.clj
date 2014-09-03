@@ -2,7 +2,7 @@
             :description "service for fast searching subtitles"
             :url "https://github.com/nvbn/subman"
             :license {:name "Eclipse Public License"
-                      :url  "http://www.eclipse.org/legal/epl-v10.html"}
+                      :url "http://www.eclipse.org/legal/epl-v10.html"}
             :dependencies [[org.clojure/clojure "1.6.0"]
                            [org.clojure/clojurescript "0.0-2311"]
                            [compojure "1.1.8"]
@@ -38,57 +38,57 @@
                       [com.cemerick/clojurescript.test "0.3.1"]
                       [lein-bower "0.5.1"]]
             :main subman.core
-            :profiles {:dev        {:cljsbuild {:builds
-                                                               {:main {:source-paths ["src/cljs" "target/generated-cljs"]
-                                                                       :compiler     {:output-to     "resources/public/main.js"
-                                                                                      :output-dir    "resources/public/cljs-target"
-                                                                                      :source-map    true
-                                                                                      :optimizations :none}}
-                                                                :test {:source-paths ["src/cljs" "test/cljs"
-                                                                                      "target/generated-cljs"]
-                                                                       :compiler     {:output-to     "target/cljs-test.js"
-                                                                                      :optimizations :whitespace
-                                                                                      :pretty-print  true}}}
-                                                :test-commands {"test" ["phantomjs" :runner
-                                                                        "resources/public/components/es5-shim/es5-shim.js"
-                                                                        "resources/public/components/es5-shim/es5-sham.js"
-                                                                        "resources/public/components/jquery/dist/jquery.js"
-                                                                        "resources/public/components/bootstrap/dist/js/bootstrap.js"
-                                                                        "resources/public/components/typeahead.js/dist/typeahead.jquery.js"
-                                                                        "resources/public/components/react/react-with-addons.js"
-                                                                        "target/cljs-test.js"]}}
-                                    :env       {:is-debug true
-                                                :ga-id ""
-                                                :site-url "http://localhost:3000/"}
-                                    :jvm-opts ["-Xss16m" "-XX:+TieredCompilation" "-XX:TieredStopAtLevel=1"]}
-                       :production {:aot       :all
+            :profiles {:dev {:cljsbuild {:builds
+                                         {:main {:source-paths ["src/cljs" "target/generated-cljs"]
+                                                 :compiler {:output-to "resources/public/main.js"
+                                                            :output-dir "resources/public/cljs-target"
+                                                            :source-map true
+                                                            :optimizations :none}}
+                                          :test {:source-paths ["src/cljs" "test/cljs"
+                                                                "target/generated-cljs"]
+                                                 :compiler {:output-to "target/cljs-test.js"
+                                                            :optimizations :whitespace
+                                                            :pretty-print true}}}
+                                         :test-commands {"test" ["phantomjs" :runner
+                                                                 "resources/public/components/es5-shim/es5-shim.js"
+                                                                 "resources/public/components/es5-shim/es5-sham.js"
+                                                                 "resources/public/components/jquery/dist/jquery.js"
+                                                                 "resources/public/components/bootstrap/dist/js/bootstrap.js"
+                                                                 "resources/public/components/typeahead.js/dist/typeahead.jquery.js"
+                                                                 "resources/public/components/react/react-with-addons.js"
+                                                                 "target/cljs-test.js"]}}
+                             :env {:is-debug true
+                                   :ga-id ""
+                                   :site-url "http://localhost:3000/"}
+                             :jvm-opts ["-Xss16m" "-XX:+TieredCompilation" "-XX:TieredStopAtLevel=1"]}
+                       :production {:aot :all
                                     :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
-                                                          :compiler     {:externs       ["resources/public/components/jquery/dist/jquery.min.js"
-                                                                                         "resources/public/components/bootstrap/dist/js/bootstrap.min.js"
-                                                                                         "resources/public/components/typeahead.js/dist/typeahead.jquery.min.js"
-                                                                                         "resources/public/components/react/react.min.js"]
-                                                                         :output-to     "resources/public/main.js"
-                                                                         :optimizations :advanced
-                                                                         :pretty-print  false}
-                                                          :jar          true}]}
-                                    :env       {:is-debug false
-                                                :ga-id "UA-54135564-1"
-                                                :site-url "http://subman.io/"}
-                                    :hooks     [cljx.hooks
-                                                leiningen.cljsbuild
-                                                leiningen.garden]}}
+                                                          :compiler {:externs ["resources/public/components/jquery/dist/jquery.min.js"
+                                                                               "resources/public/components/bootstrap/dist/js/bootstrap.min.js"
+                                                                               "resources/public/components/typeahead.js/dist/typeahead.jquery.min.js"
+                                                                               "resources/public/components/react/react.min.js"]
+                                                                     :output-to "resources/public/main.js"
+                                                                     :optimizations :advanced
+                                                                     :pretty-print false}
+                                                          :jar true}]}
+                                    :env {:is-debug false
+                                          :ga-id "UA-54135564-1"
+                                          :site-url "http://subman.io/"}
+                                    :hooks [cljx.hooks
+                                            leiningen.cljsbuild
+                                            leiningen.garden]}}
             :source-paths ["src/clj"]
             :test-paths ["test/clj"]
             :cljx {:builds [{:source-paths ["src/cljx"]
-                             :output-path  "target/classes"
-                             :rules        :clj}
+                             :output-path "target/classes"
+                             :rules :clj}
                             {:source-paths ["src/cljx"]
-                             :output-path  "target/generated-cljs"
-                             :rules        :cljs}]}
+                             :output-path "target/generated-cljs"
+                             :rules :cljs}]}
             :garden {:builds [{:stylesheet subman.web.style/main
-                               :compiler   {:output-to "resources/public/main.css"}}]}
+                               :compiler {:output-to "resources/public/main.css"}}]}
             :ring {:handler subman.handlers/app
-                   :init    subman.handlers/init}
+                   :init subman.handlers/init}
             :bower {:directory "resources/public/components"}
             :bower-dependencies [["bootstrap" "3.2.0"]
                                  ["font-awesome" "4.1.0"]

@@ -50,11 +50,11 @@
   (let [is-debug (env :is-debug)
         ga-id (env :ga-id)]
     (html5 [:head
-            [:link {:rel  "icon"
+            [:link {:rel "icon"
                     :type "image/png"
                     :href (first (make-static "favicon.png"))}]
             [:link {:type "application/opensearchdescription+xml"
-                    :rel  "search"
+                    :rel "search"
                     :href (first (make-static "opensearch.xml"))}]
             [:title "Subman - subtitle search service"]
             (apply as-static include-css (if is-debug
