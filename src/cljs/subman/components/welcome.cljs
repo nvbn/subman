@@ -39,7 +39,7 @@
                              [:p "And you can filter by season and episode with "
                               [:code "S01E01"]
                               " format."]
-                             [:p "Total indexedsubtitles count: "
+                             [:p "Total indexed subtitles count: "
                               total-count
                               "."]
                              [:a {:href   "https://github.com/nvbn/subman"
