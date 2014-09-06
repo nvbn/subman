@@ -1,20 +1,21 @@
 (ns subman.sources.addicted-test
-  (:require [clojure.test :refer [deftest testing]]
+  (:require [clojure.test :refer [deftest testing is]]
             [net.cgrand.enlive-html :as html]
             [test-sugar.core :refer [is= is-do]]
             [subman.sources.addicted :as addicted]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
 
-(defn get-single-episode
-  "Get parsed html for single episode"
-  []
-  (get-from-file "resources/fixtures/subman/sources/addicted_episode.html"))
+(def release-file-name "resources/fixtures/subman/sources/addicted_release.html")
 
-(deftest test-make-url
-  (testing "when start with /"
-    (is= (#'addicted/make-url "/test/") "http://www.addic7ed.com/test/"))
-  (testing "when not"
-    (is= (#'addicted/make-url "test/") "http://www.addic7ed.com/test/")))
+(def release-html (slurp release-file-name))
+
+(def release (get-from-file release-file-name))
+
+(def episode-file-name "resources/fixtures/subman/sources/addicted_episode.html")
+
+(def episode-html (slurp episode-file-name))
+
+(def episode (get-from-file episode-file-name))
 
 (deftest test-is-version-line?
   (testing "when version line passed"
@@ -54,44 +55,97 @@
     (is= (#'addicted/add-lang "" {:langs []})
          {:langs ["test"]})))
 
-(deftest test-get-subtitles
+(deftest test-make-url
+  (testing "when start with /"
+    (is= (#'addicted/make-url "/test/") "http://www.addic7ed.com/test/"))
+  (testing "when not"
+    (is= (#'addicted/make-url "test/") "http://www.addic7ed.com/test/")))
+
+(deftest test-get-release-url
+  (is= (#'addicted/get-releases-url 1)
+       "http://www.addic7ed.com/log.php?mode=versions&page=1"))
+
+(deftest test-get-urls-from-list
+  (is= (addicted/get-urls-from-list release)
+       ["http://www.addic7ed.com/serie/The_Following/2/4/Family_Affair"
+        "http://www.addic7ed.com/serie/Midsomer_Murders/16/5/The_Killings_at_Copenhagen"
+        "http://www.addic7ed.com/serie/Rick_and_Morty/1/1/Pilot"
+        "http://www.addic7ed.com/serie/Lab_Rats_%28US%29/3/1/Sink_or_Swim"
+        "http://www.addic7ed.com/serie/Lost_Girl/4/13/Dark_Horse"
+        "http://www.addic7ed.com/serie/The_Walking_Dead/4/10/Inmates"
+        "http://www.addic7ed.com/serie/Episodes/3/6/Episode_Six"
+        "http://www.addic7ed.com/serie/Episodes/3/6/Episode_Six"
+        "http://www.addic7ed.com/serie/The_Haunted_Hathaways/1/19/haunted_Crushing"
+        "http://www.addic7ed.com/serie/The_Haunted_Hathaways/1/19/haunted_Crushing"]))
+
+(deftest test-get-htmls-for-parse
+  (with-redefs [helpers/fetch (fn [_] release)
+                helpers/download (fn [_] release-html)]
+    (is= (addicted/get-htmls-for-parse 1)
+         (repeat 10 release-html))))
+
+(deftest test-get-episode-name-string
+  (is= (addicted/get-episode-name-string episode)
+       "Raising Hope - 04x12 - Hot Dish"))
+
+(deftest test-get-episode-information
+  (is= (addicted/get-episode-information episode)
+       {:episode "12"
+        :name "Hot Dish"
+        :season "4"
+        :show "Raising Hope"}))
+
+(deftest test-get-versions
+  (testing "return all versions"
+    (is= 2 (count (#'addicted/get-versions episode))))
+  (testing "return all languages"
+    (is= 3 (-> (#'addicted/get-versions episode)
+               first
+               :langs
+               count))))
+
+(deftest test-get-version-langs
   (with-redefs [addicted/is-version-line? #(= % 1)
                 addicted/get-version (constantly {:name "test"
                                                   :langs []})
                 addicted/is-language-line? #(= % 2)
                 addicted/add-lang (constantly {:name "test"
                                                :langs ["us"]})]
-    (is= (#'addicted/get-subtitles [1 2])
+    (is= (#'addicted/get-version-langs [1 2])
          [{:name "test"
            :langs ["us"]}])))
 
-(deftest test-get-version
-  (with-redefs [helpers/fetch (constantly (get-single-episode))]
-    (testing "return all versions"
-      (is= 2 (count (#'addicted/get-versions {:url ""}))))
-    (testing "return all languages"
-      (is= 3 (-> (#'addicted/get-versions {:url ""})
-                 first
-                 :langs
-                 count)))))
-
-(deftest test-get-release-url
-  (is= (#'addicted/get-releases-url 1)
-       "http://www.addic7ed.com/log.php?mode=versions&page=1"))
-
-(deftest test-episode-from-release
-  (is= (#'addicted/episode-from-release (-> (get-from-file "resources/fixtures/subman/sources/addicted_line.html")
-                                            (html/select [:a])
-                                            first))
-       {:episode "6"
-        :name "Episode Six"
-        :season "3"
-        :show "Episodes"
-        :url "http://www.addic7ed.com/serie/Episodes/3/6/Episode_Six"}))
-
-(deftest test-get-release-page-result
-  (with-redefs [helpers/fetch #(if (= % (#'addicted/get-releases-url 1))
-                                (get-from-file "resources/fixtures/subman/sources/addicted_release.html")
-                                (get-from-file "resources/fixtures/subman/sources/addicted_episode.html"))]
-    (is= (:name (first (#'addicted/get-release-page-result 1)))
-         "Family Affair")))
+(deftest test-get-subtitles
+  (is= (addicted/get-subtitles episode-html)
+       [{:episode "12"
+         :lang "Bulgarian"
+         :name "Hot Dish"
+         :season "4"
+         :show "Raising Hope"
+         :source 0
+         :url "http://www.addic7ed.com/updated/35/83173/1"
+         :version "Version KILLERS, 0.00 MBs "}
+        {:episode "12"
+         :lang "French"
+         :name "Hot Dish"
+         :season "4"
+         :show "Raising Hope"
+         :source 0
+         :url "http://www.addic7ed.com/updated/8/83173/1"
+         :version "Version KILLERS, 0.00 MBs "}
+        {:episode "12"
+         :lang "English"
+         :name "Hot Dish"
+         :season "4"
+         :show "Raising Hope"
+         :source 0
+         :url "http://www.addic7ed.com/original/83173/1"
+         :version "Version KILLERS, 0.00 MBs "}
+        {:episode "12"
+         :lang "English"
+         :name "Hot Dish"
+         :season "4"
+         :show "Raising Hope"
+         :source 0
+         :url "http://www.addic7ed.com/original/83173/0"
+         :version "Version KILLERS, 0.00 MBs "}]))

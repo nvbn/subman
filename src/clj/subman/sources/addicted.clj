@@ -1,8 +1,10 @@
 (ns subman.sources.addicted
-  (:require [net.cgrand.enlive-html :as html]
-            [swiss.arrows :refer [-<>>]]
+  (:require [clojure.string :as string]
+            [net.cgrand.enlive-html :as html]
+            [swiss.arrows :refer [-<>> -<>]]
             [subman.helpers :as helpers :refer [defsafe]]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.sources.utils :refer [defsource]]))
 
 (defn- make-url
   "Make url for addicted"
@@ -66,7 +68,7 @@
     (assoc version
       :langs (list* (get-lang line) langs))))
 
-(defn- get-subtitles
+(defn get-version-langs
   "Get subtitles from lines"
   [lines]
   (reduce (fn [buffer line]
@@ -80,53 +82,63 @@
 
 (defsafe get-versions
   "Get versions of subtitles for single episode"
-  [episode]
-  (-> episode
-      :url
-      helpers/fetch
-      (html/select [:table.tabel95 :table.tabel95 :tr])
-      get-subtitles))
+  [episode-page]
+  (get-version-langs (html/select episode-page
+                                  [:table.tabel95 :table.tabel95 :tr])))
 
 (defn- get-releases-url
   "Get releases url for page"
   [page]
   (str "http://www.addic7ed.com/log.php?mode=versions&page=" page))
 
-(defsafe episode-from-release
-  "Episode from release page item"
-  [item]
-  (let [name-parts (-> (:content item)
-                       first
-                       (clojure.string/split #" - "))
-        season-episode (-> name-parts
-                           (get 1)
-                           (clojure.string/split #"x"))]
-    {:show (first name-parts)
-     :season (-> season-episode
-                 first
-                 helpers/remove-first-0)
-     :episode (-> season-episode
-                  last
-                  helpers/remove-first-0)
-     :name (last name-parts)
-     :url (-> item :attrs :href make-url)}))
+(defn get-urls-from-list
+  "Get urls from list page"
+  [list-page]
+  (-<> (html/select list-page [:table.tabel :tr])
+       (drop 2 <>)
+       (html/select [(html/nth-child 2) :a])
+       (map #(-> % :attrs :href make-url) <>)))
 
-(defsafe get-release-page-result
-  "Get release page result"
+(defsafe get-htmls-for-parse
+  "Get list of htmls of subtitle pages"
   [page]
   (-<>> (get-releases-url page)
         helpers/fetch
-        (html/select <> [:table.tabel :tr])
-        (drop 2)
-        (html/select <> [(html/nth-child 2) :a])
-        flatten
-        (map episode-from-release)
-        (remove nil?)
-        (map #(for [version (get-versions %)
-                    lang (:langs version)]
-               (assoc % :version (:name version)
-                        :lang (:name lang)
-                        :url (:url lang)
-                        :source const/type-addicted)))
-        (remove empty?)
-        flatten))
+        get-urls-from-list
+        (map helpers/download)))
+
+(defn get-episode-name-string
+  "Get string with episode name"
+  [episode-page]
+  (-> (html/select episode-page [:.titulo])
+      first
+      :content
+      first
+      string/trim))
+
+(defn get-episode-information
+  "Get base episode information"
+  [episode-page]
+  (let [name-string (get-episode-name-string episode-page)
+        name-parts (string/split name-string #" - ")
+        [season episode] (helpers/get-season-episode name-string)]
+    {:show (first name-parts)
+     :season season
+     :episode episode
+     :name (last name-parts)}))
+
+(defsafe get-subtitles
+  "Get subtitles entries from html"
+  [html]
+  (let [page (helpers/get-from-line html)
+        info (get-episode-information page)]
+    (for [version (get-versions page)
+          lang (:langs version)]
+      (assoc info :version (:name version)
+                  :lang (:name lang)
+                  :url (:url lang)
+                  :source const/type-addicted))))
+
+(defsource addicted-source
+  :get-htmls-for-parse get-htmls-for-parse
+  :get-subtitles get-subtitles)

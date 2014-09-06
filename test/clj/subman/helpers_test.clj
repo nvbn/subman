@@ -16,6 +16,8 @@
 (deftest test-get-season-episode
   (testing "when appears"
     (is= (helpers/get-season-episode "s01E12") ["1" "12"]))
+  (testing "when if 01x01 format"
+    (is= (helpers/get-season-episode "12x01") ["12" "1"]))
   (testing "when not"
     (is= (helpers/get-season-episode "0202") ["" ""])))
 

@@ -16,13 +16,15 @@
   [line]
   (html/html-resource (StringReader. line)))
 
+(defn download
+  [url]
+  (:body (client/get url {:socket-timeout const/conection-timeout
+                          :conn-timeout const/conection-timeout})))
+
 (defn fetch
   "Fetch url content"
   [url]
-  (-> (client/get url {:socket-timeout const/conection-timeout
-                       :conn-timeout const/conection-timeout})
-      :body
-      get-from-line))
+  (get-from-line (download url)))
 
 (defn nil-to-blank
   "Replace nil with blank string"
@@ -47,10 +49,17 @@
     `(def ~name (make-safe (fn ~@body)
                            nil))))
 
+(defn get-season-episode-part
+  [text]
+  (->> (map #(re-find % text) [#"[sS](\d+)[eE](\d+)"
+                               #"(\d+)[xX](\d+)"])
+       (remove nil?)
+       first))
+
 (defn get-season-episode
   "Add season and episode filters"
   [text]
-  (if-let [[_ season episode] (re-find #"[sS](\d+)[eE](\d+)" text)]
+  (if-let [[_ season episode] (get-season-episode-part text)]
     [(remove-first-0 season)
      (remove-first-0 episode)]
     ["" ""]))
