@@ -10,16 +10,13 @@
 
 (defn search
   "Search for subtitles with params"
-  [params]
-  (let [query (:query params)
-        offset (get params :offset 0)
-        lang (get params :lang const/default-language)
-        source (read-source
-                 (get params :source (str const/default-type)))]
-    (models/search :query query
-                   :offset offset
-                   :lang lang
-                   :source source)))
+  [{:keys [query offset lang source] :or {offset 0
+                                          lang const/default-language
+                                          source (str const/default-type)}}]
+  (models/search :query query
+                 :offset offset
+                 :lang lang
+                 :source (read-source source)))
 
 (defn total-count
   "Get total subtitles count"
