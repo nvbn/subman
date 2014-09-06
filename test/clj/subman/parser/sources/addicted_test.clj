@@ -1,8 +1,8 @@
-(ns subman.sources.addicted-test
+(ns subman.parser.sources.addicted-test
   (:require [clojure.test :refer [deftest testing is]]
             [net.cgrand.enlive-html :as html]
             [test-sugar.core :refer [is= is-do]]
-            [subman.sources.addicted :as addicted]
+            [subman.parser.sources.addicted :as addicted]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
 
 (def release-file-name "resources/fixtures/subman/sources/addicted_release.html")

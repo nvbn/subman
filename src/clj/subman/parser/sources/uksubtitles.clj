@@ -1,4 +1,4 @@
-(ns subman.sources.uksubtitles
+(ns subman.parser.sources.uksubtitles
   (:require [clojure.string :as string]
             [swiss.arrows :refer [-<>>]]
             [net.cgrand.enlive-html :as html]

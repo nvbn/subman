@@ -1,10 +1,10 @@
-(ns subman.sources.addicted
+(ns subman.parser.sources.addicted
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [swiss.arrows :refer [-<>> -<>]]
             [subman.helpers :as helpers :refer [defsafe]]
             [subman.const :as const]
-            [subman.sources.utils :refer [defsource]]))
+            [subman.parser.base :refer [defsource]]))
 
 (defn- make-url
   "Make url for addicted"

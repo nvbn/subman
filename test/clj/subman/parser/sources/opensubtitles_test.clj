@@ -1,8 +1,8 @@
-(ns subman.sources.opensubtitles-test
+(ns subman.parser.sources.opensubtitles-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
             [test-sugar.core :refer [is= is-do]]
-            [subman.sources.opensubtitles :as opensubtitles]
+            [subman.parser.sources.opensubtitles :as opensubtitles]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]
             [subman.const :as const]))
 

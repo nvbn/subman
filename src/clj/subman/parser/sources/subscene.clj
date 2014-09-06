@@ -1,4 +1,4 @@
-(ns subman.sources.subscene
+(ns subman.parser.sources.subscene
   (:require [swiss.arrows :refer [-<>>]]
             [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers :refer [defsafe]]

@@ -1,4 +1,4 @@
-(ns subman.sources.utils)
+(ns subman.parser.base)
 
 (defprotocol IndexSource
   (source-name [this])

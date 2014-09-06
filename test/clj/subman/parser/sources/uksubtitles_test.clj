@@ -1,9 +1,9 @@
-(ns subman.sources.uksubtitles-test
+(ns subman.parser.sources.uksubtitles-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
             [test-sugar.core :refer [is=]]
             [subman.const :as const]
-            [subman.sources.uksubtitles :as uksubtitles]
+            [subman.parser.sources.uksubtitles :as uksubtitles]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
 
 (def release-page

@@ -1,12 +1,12 @@
-(ns subman.filler
+(ns subman.parser.core
   (:require [clojure.core.async :as async :refer [<!! >!]]
             [clojure.tools.logging :as log]
-            [subman.sources.addicted :as addicted]
-            [subman.sources.podnapisi :as podnapisi]
-            [subman.sources.opensubtitles :as opensubtitles]
-            [subman.sources.subscene :as subscene]
-            [subman.sources.notabenoid :as notabenoid]
-            [subman.sources.uksubtitles :as uksubtitles]
+            [subman.parser.sources.addicted :as addicted]
+            [subman.parser.sources.podnapisi :as podnapisi]
+            [subman.parser.sources.opensubtitles :as opensubtitles]
+            [subman.parser.sources.subscene :as subscene]
+            [subman.parser.sources.notabenoid :as notabenoid]
+            [subman.parser.sources.uksubtitles :as uksubtitles]
             [subman.models :as models]
             [subman.const :as const]
             [subman.helpers :as helpers]))

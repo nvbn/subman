@@ -1,4 +1,4 @@
-(ns subman.sources.podnapisi
+(ns subman.parser.sources.podnapisi
   (:require [swiss.arrows :refer [-<> some-<>]]
             [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers :refer [defsafe]]

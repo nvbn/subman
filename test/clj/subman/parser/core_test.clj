@@ -1,16 +1,16 @@
-(ns subman.filler-test
+(ns subman.parser.core-test
   (:require [clojure.test :refer [deftest testing is]]
             [clojure.core.async :as async :refer [<!!]]
             [test-sugar.core :refer [is=]]
             [subman.models :as models]
-            [subman.sources.addicted :as addicted]
-            [subman.sources.podnapisi :as podnapisi]
-            [subman.sources.opensubtitles :as opensubtitles]
-            [subman.sources.subscene :as subscene]
-            [subman.sources.notabenoid :as notabenoid]
-            [subman.sources.uksubtitles :as uksubtitles]
+            [subman.parser.sources.addicted :as addicted]
+            [subman.parser.sources.podnapisi :as podnapisi]
+            [subman.parser.sources.opensubtitles :as opensubtitles]
+            [subman.parser.sources.subscene :as subscene]
+            [subman.parser.sources.notabenoid :as notabenoid]
+            [subman.parser.sources.uksubtitles :as uksubtitles]
             [subman.const :as const]
-            [subman.filler :as filler]))
+            [subman.parser.core :as parser]))
 
 (defn new-getter
   "Fake getter for tests"
@@ -26,14 +26,14 @@
 
 (deftest test-get-new-for-page
   (testing "for page with new"
-    (is= (#'filler/get-new-for-page new-getter #{:exists} 1)
+    (is= (#'parser/get-new-for-page new-getter #{:exists} 1)
          [:fresh :fresh]))
   (testing "for page without new"
-    (is= (#'filler/get-new-for-page new-getter #{:exists} 3)
+    (is= (#'parser/get-new-for-page new-getter #{:exists} 3)
          [])))
 
 (deftest test-get-new-subtitles-in-chan
-  (let [ch (#'filler/get-new-subtitles-in-chan new-getter #{:exists})]
+  (let [ch (#'parser/get-new-subtitles-in-chan new-getter #{:exists})]
     (is= :fresh (<!! ch))
     (is= :fresh (<!! ch))
     (is= :fresh (<!! ch))
@@ -46,4 +46,4 @@
                 podnapisi/get-release-page-result (constantly [])
                 notabenoid/get-release-page-result (constantly [])
                 uksubtitles/get-release-page-result (constantly [])]
-    (filler/update-all)))
+    (parser/update-all)))

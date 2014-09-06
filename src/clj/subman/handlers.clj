@@ -5,7 +5,7 @@
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.transit :refer [wrap-transit-response]]
             [subman.web.routes :as routes]
-            [subman.filler :as filler]
+            [subman.parser.core :as parser]
             [subman.const :as const]
             [subman.models :as models]))
 
@@ -19,7 +19,7 @@
   []
   (let [pool (at-at/mk-pool)]
     (at-at/every const/update-period
-                 #(future (filler/update-all))
+                 #(future (parser/update-all))
                  pool)
     (at-at/every const/sitemap-period
                  #(future (models/update-unique-show-season-episode!))

@@ -1,4 +1,4 @@
-(ns subman.sources.opensubtitles
+(ns subman.parser.sources.opensubtitles
   (:require [swiss.arrows :refer [-<>]]
             [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers :refer [defsafe]]

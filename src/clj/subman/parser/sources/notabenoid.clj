@@ -1,4 +1,4 @@
-(ns subman.sources.notabenoid
+(ns subman.parser.sources.notabenoid
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [swiss.arrows :refer [-<>>]]

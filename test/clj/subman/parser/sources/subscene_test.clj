@@ -1,8 +1,8 @@
-(ns subman.sources.subscene-test
+(ns subman.parser.sources.subscene-test
   (:require [clojure.test :refer [deftest testing]]
             [net.cgrand.enlive-html :as html]
             [test-sugar.core :refer [is=]]
-            [subman.sources.subscene :as subscene]
+            [subman.parser.sources.subscene :as subscene]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]
             [subman.const :as const]))
 
