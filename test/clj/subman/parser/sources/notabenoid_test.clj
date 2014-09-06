@@ -7,19 +7,19 @@
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
 
 (def release-page
-  (get-from-file "resources/fixtures/subman/sources/notabenoid_release.html"))
+  (get-from-file "resources/fixtures/notabenoid_release.html"))
 
 (def book-page
-  (get-from-file "resources/fixtures/subman/sources/notabenoid_book.html"))
+  (get-from-file "resources/fixtures/notabenoid_book.html"))
 
 (def release-line
   (get-from-line "<a href=\"/book/36828\">Da Vinci's Demons</a>"))
 
 (def episode-line
-  (get-from-file "resources/fixtures/subman/sources/notabenoid_episode.html"))
+  (get-from-file "resources/fixtures/notabenoid_episode.html"))
 
 (def episode-line-not-ready
-  (get-from-file "resources/fixtures/subman/sources/notabenoid_not_ready.html"))
+  (get-from-file "resources/fixtures/notabenoid_not_ready.html"))
 
 (deftest test-make-url
   (is= (#'notabenoid/make-url "/test") "http://notabenoid.com/test"))

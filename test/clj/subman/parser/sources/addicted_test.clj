@@ -5,13 +5,13 @@
             [subman.parser.sources.addicted :as addicted]
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]))
 
-(def release-file-name "resources/fixtures/subman/sources/addicted_release.html")
+(def release-file-name "resources/fixtures/addicted_release.html")
 
 (def release-html (slurp release-file-name))
 
 (def release (get-from-file release-file-name))
 
-(def episode-file-name "resources/fixtures/subman/sources/addicted_episode.html")
+(def episode-file-name "resources/fixtures/addicted_episode.html")
 
 (def episode-html (slurp episode-file-name))
 
