@@ -3,7 +3,8 @@
             [net.cgrand.enlive-html :as html]
             [swiss.arrows :refer [-<>>]]
             [subman.helpers :as helpers :refer [defsafe]]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.parser.base :refer [defsource]]))
 
 (def force-lang "russian")
 
@@ -24,7 +25,7 @@
   (-> (:attrs line)
       :href
       make-url
-      helpers/fetch))
+      helpers/download))
 
 (defn- get-book-title
   "Get title from book"
@@ -54,15 +55,6 @@
       :content
       first))
 
-(defn- get-season-episode
-  "Get season episode from title"
-  [title]
-  (let [matched (or (re-find #"(\d*)x(\d*)" title)
-                    (re-find #"[sS](\d*)[eE](\d*)" title))]
-    (if (= (count matched) 3)
-      (map helpers/remove-first-0 (rest matched))
-      ["" ""])))
-
 (defn- get-episode-name
   "Get single episode name from line"
   [title]
@@ -85,7 +77,7 @@
   "Get episide from line"
   [line]
   (let [title (get-episode-title-line line)
-        [season episode] (get-season-episode title)]
+        [season episode] (helpers/get-season-episode title)]
     {:season season
      :episode episode
      :lang force-lang
@@ -104,14 +96,19 @@
          (remove nil?)
          (map #(assoc % :show title)))))
 
-(defsafe get-release-page-result
-  "Get release page result"
+(defn get-htmls-for-parse
+  "Get htmls for parsing for subtitles"
   [page]
   (-<>> (get-release-page-url page)
         helpers/fetch
         (html/select <> [:ul.search-results :li :p :a])
-        (map book-from-line)
-        (remove nil?)
-        (map episodes-from-book)
-        (remove nil?)
-        flatten))
+        (map book-from-line)))
+
+(defn get-subtitles
+  "Get subtitles from html"
+  [html]
+  (episodes-from-book (helpers/get-from-line html)))
+
+(defsource notabenoid-source
+  :get-htmls-for-parse get-htmls-for-parse
+  :get-subtitles get-subtitles)
