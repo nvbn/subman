@@ -35,3 +35,6 @@
 
 (deftest test-defsafe
   (is-do nil? (safe-fn 1 2)))
+
+(deftest test-remove-spec-symbols
+  (is= (helpers/remove-spec-symbols "\t\ntest\t\n") "test"))

@@ -37,7 +37,7 @@
   []
   (let [ch (async/merge (map #(get-new-subtitles-in-chan % models/in-db)
                              [subscene/get-release-page-result
-                              opensubtitles/get-release-page-result
+                              ;opensubtitles/get-release-page-result
                               ;addicted/get-release-page-result
                               podnapisi/get-release-page-result
                               ;notabenoid/get-release-page-result

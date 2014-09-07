@@ -96,3 +96,8 @@
   [atm-vals & body]
   `(-with-atom ~atm-vals
                (fn [] ~@body)))
+
+(defn remove-spec-symbols
+  "Remove spec symbols"
+  [text]
+  (clojure.string/replace text #"[\t\n]" ""))

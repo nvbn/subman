@@ -96,7 +96,7 @@
          (remove nil?)
          (map #(assoc % :show title)))))
 
-(defn get-htmls-for-parse
+(defsafe get-htmls-for-parse
   "Get htmls for parsing for subtitles"
   [page]
   (-<>> (get-release-page-url page)
@@ -104,7 +104,7 @@
         (html/select <> [:ul.search-results :li :p :a])
         (map book-from-line)))
 
-(defn get-subtitles
+(defsafe get-subtitles
   "Get subtitles from html"
   [html]
   (episodes-from-book (helpers/get-from-line html)))

@@ -2,7 +2,8 @@
   (:require [swiss.arrows :refer [-<>]]
             [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers :refer [defsafe]]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.parser.base :refer [defsource]]))
 
 (defn- make-url
   "Make absolute url from relative"
@@ -93,20 +94,27 @@
         seasons-part (get-seasons-part titles-td)
         show-part (get-show-part main-link)
         lang-td (nth tds 1)]
-    {:show (get-from-show-part #"\"(.+)\"" show-part show-part)
+    {:show (helpers/remove-spec-symbols (get-from-show-part #"\"(.+)\""
+                                                            show-part show-part))
      :name (get-from-show-part #"\".+\" (.+)" show-part)
      :url (get-url main-link)
-     :version (get-version titles-td)
+     :version (helpers/remove-spec-symbols (get-version titles-td))
      :season (get-from-season-part #"\[S(\d+)" seasons-part)
      :episode (get-from-season-part #"E(\d+)\]" seasons-part)
      :lang (get-language lang-td)
      :source const/type-opensubtitles}))
 
-(defsafe get-release-page-result
-  "Get release page result"
+(defsafe get-htmls-for-parse
   [page]
-  (-<> (get-page-url page)
-       helpers/fetch
+  [(helpers/download (get-page-url page))])
+
+(defsafe get-subtitles
+  [html]
+  (-<> (helpers/get-from-line html)
        (html/select [:table#search_results
                      [:tr.expandable (html/has [:strong])]])
        (map create-subtitle <>)))
+
+(defsource opensubtitles-source
+  :get-htmls-for-parse get-htmls-for-parse
+  :get-subtitles get-subtitles)

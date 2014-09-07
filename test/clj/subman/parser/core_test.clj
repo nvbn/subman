@@ -41,7 +41,7 @@
 
 (deftest test-update-all
   (with-redefs [subscene/get-release-page-result (constantly [])
-                opensubtitles/get-release-page-result (constantly [])
+                ;opensubtitles/get-release-page-result (constantly [])
                 ;addicted/get-release-page-result (constantly [])
                 podnapisi/get-release-page-result (constantly [])
                 ;notabenoid/get-release-page-result (constantly [])
