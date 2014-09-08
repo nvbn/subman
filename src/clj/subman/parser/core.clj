@@ -1,30 +1,39 @@
 (ns subman.parser.core
   (:require [clojure.core.async :as async :refer [<!! >!]]
             [clojure.tools.logging :as log]
-            [subman.parser.sources.addicted :as addicted]
-            [subman.parser.sources.podnapisi :as podnapisi]
-            [subman.parser.sources.opensubtitles :as opensubtitles]
-            [subman.parser.sources.subscene :as subscene]
-            [subman.parser.sources.notabenoid :as notabenoid]
-            [subman.parser.sources.uksubtitles :as uksubtitles]
+            [subman.parser.sources.addicted :refer [addicted-source]]
+            [subman.parser.sources.podnapisi :refer [podnapisi-source]]
+            [subman.parser.sources.opensubtitles :refer [opensubtitles-source]]
+            [subman.parser.sources.subscene :refer [subscene-source]]
+            [subman.parser.sources.notabenoid :refer [notabenoid-source]]
+            [subman.parser.sources.uksubtitles :refer [uksubtitles-source]]
             [subman.models :as models]
             [subman.const :as const]
             [subman.helpers :as helpers]))
 
+(def sources (atom [addicted-source
+                    podnapisi-source
+                    opensubtitles-source
+                    subscene-source
+                    notabenoid-source
+                    uksubtitles-source]))
+
 (defn- get-new-for-page
   "Get new subtitles for page"
-  [getter checker page]
-  (remove checker
-          (getter page)))
+  [source checker page]
+  (for [html (.get-htmls-for-parse source page)
+        subtitle (.get-subtitles source html)
+        :when (checker subtitle)]
+    subtitle))
 
 (defn get-new-subtitles-in-chan
   "Get new result from pages in chan"
-  [getter checker]
+  [source checker]
   (let [result (async/chan)]
     (async/thread
       (async/go-loop [page 1]
                      (when (<= page const/update-deep)
-                       (if-let [page-result (seq (get-new-for-page getter
+                       (if-let [page-result (seq (get-new-for-page source
                                                                    checker page))]
                          (do (doseq [subtitle page-result]
                                (>! result subtitle))
@@ -36,13 +45,7 @@
   "Receive update from all sources"
   []
   (let [ch (async/merge (map #(get-new-subtitles-in-chan % models/in-db)
-                             [;subscene/get-release-page-result
-                              ;opensubtitles/get-release-page-result
-                              ;addicted/get-release-page-result
-                              ;podnapisi/get-release-page-result
-                              ;notabenoid/get-release-page-result
-                              ;uksubtitles/get-release-page-result
-                              ]))
+                             @sources))
         update-id (gensym)]
     (log/info (str "Start update " update-id))
     (loop [i 0]

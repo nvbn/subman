@@ -3,48 +3,39 @@
             [clojure.core.async :as async :refer [<!!]]
             [test-sugar.core :refer [is=]]
             [subman.models :as models]
-            [subman.parser.sources.addicted :as addicted]
-            [subman.parser.sources.podnapisi :as podnapisi]
-            [subman.parser.sources.opensubtitles :as opensubtitles]
-            [subman.parser.sources.subscene :as subscene]
-            [subman.parser.sources.notabenoid :as notabenoid]
-            [subman.parser.sources.uksubtitles :as uksubtitles]
+            [subman.parser.base :refer [defsource]]
             [subman.const :as const]
+            [subman.helpers :refer [with-atom]]
             [subman.parser.core :as parser]))
 
-(defn new-getter
-  "Fake getter for tests"
-  [page]
-  (case page
-    4 [:exists]
-    3 [:exists]
-    2 [:fresh :exists]
-    1 [:fresh :fresh]
-    :default [(do
-                (println page)
-                page)]))
+(defsource test-source
+  :type-id -1
+  :get-htmls-for-parse (fn [x] [x])
+  :get-subtitles (fn [x]
+                   (case x
+                     4 [{:exists true}]
+                     3 [{:exists true}]
+                     2 [{:exists false} {:exists true}]
+                     1 [{:exists false} {:exists false}]
+                     :default [(do
+                                 (println x)
+                                 x)])))
 
 (deftest test-get-new-for-page
   (testing "for page with new"
-    (is= (#'parser/get-new-for-page new-getter #{:exists} 1)
-         [:fresh :fresh]))
+    (is= (#'parser/get-new-for-page test-source (complement :exists) 1)
+         [{:exists false :source -1} {:exists false :source -1}]))
   (testing "for page without new"
-    (is= (#'parser/get-new-for-page new-getter #{:exists} 3)
+    (is= (#'parser/get-new-for-page test-source (complement :exists) 3)
          [])))
 
 (deftest test-get-new-subtitles-in-chan
-  (let [ch (#'parser/get-new-subtitles-in-chan new-getter #{:exists})]
-    (is= :fresh (<!! ch))
-    (is= :fresh (<!! ch))
-    (is= :fresh (<!! ch))
+  (let [ch (#'parser/get-new-subtitles-in-chan test-source (complement :exists))]
+    (is= {:exists false :source -1} (<!! ch))
+    (is= {:exists false :source -1} (<!! ch))
+    (is= {:exists false :source -1} (<!! ch))
     (is= nil (<!! ch))))
 
 (deftest test-update-all
-  (with-redefs [;subscene/get-release-page-result (constantly [])
-                ;opensubtitles/get-release-page-result (constantly [])
-                ;addicted/get-release-page-result (constantly [])
-                ;podnapisi/get-release-page-result (constantly [])
-                ;notabenoid/get-release-page-result (constantly [])
-                ;uksubtitles/get-release-page-result (constantly [])
-                ]
+  (with-atom [parser/sources []]
     (parser/update-all)))
