@@ -15,7 +15,7 @@
 (def sources (atom [addicted-source
                     podnapisi-source
                     opensubtitles-source
-                    subscene-source
+                    ;subscene-source
                     notabenoid-source
                     uksubtitles-source]))
 
