@@ -3,7 +3,8 @@
             [swiss.arrows :refer [-<>>]]
             [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers :refer [defsafe]]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.parser.base :refer [defsource]]))
 
 (def force-lang "english")
 
@@ -40,6 +41,11 @@
                 (re-find #"\n*(.*) srt" prepared)
                 [nil prepared]))))
 
+(defn get-version
+  [line]
+  (helpers/remove-spec-symbols (string/replace line
+                                               #" \(.*Download.*\).*" "")))
+
 (defn- get-subtitle-data-from-download
   "Get subtitle data from donwload line"
   [line]
@@ -47,7 +53,7 @@
     {:season season
      :episode episode
      :show (get-name-from-download line)
-     :version (string/replace line #" \(.*Download.*\).*" "")}))
+     :version (get-version line)}))
 
 (defn- get-subtitles-from-article
   "Get subtitles from article map"
@@ -62,12 +68,18 @@
            :name "")
          subtitles)))
 
-(defsafe get-release-page-result
-  "Get release page result"
+(defsafe get-htmls-for-parse
   [page]
-  (-<>> (get-release-page-url page)
-        helpers/fetch
+  [(helpers/download (get-release-page-url page))])
+
+(defsafe get-subtitles
+  [html]
+  (-<>> (helpers/get-from-line html)
         get-articles
         (map parse-article)
         (map get-subtitles-from-article)
         flatten))
+
+(defsource uksubtitles-source
+  :get-htmls-for-parse get-htmls-for-parse
+  :get-subtitles get-subtitles)

@@ -41,7 +41,8 @@
                               ;addicted/get-release-page-result
                               ;podnapisi/get-release-page-result
                               ;notabenoid/get-release-page-result
-                              uksubtitles/get-release-page-result]))
+                              ;uksubtitles/get-release-page-result
+                              ]))
         update-id (gensym)]
     (log/info (str "Start update " update-id))
     (loop [i 0]

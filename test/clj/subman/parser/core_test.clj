@@ -45,5 +45,6 @@
                 ;addicted/get-release-page-result (constantly [])
                 ;podnapisi/get-release-page-result (constantly [])
                 ;notabenoid/get-release-page-result (constantly [])
-                uksubtitles/get-release-page-result (constantly [])]
+                ;uksubtitles/get-release-page-result (constantly [])
+                ]
     (parser/update-all)))
