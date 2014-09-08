@@ -2,7 +2,8 @@
   (:require [swiss.arrows :refer [-<> some-<>]]
             [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers :refer [defsafe]]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.parser.base :refer [defsource]]))
 
 (defn- make-url [url] (str "http://www.podnapisi.net" url))
 
@@ -37,10 +38,11 @@
 (defn- get-version
   "Get version from line"
   [item]
-  (-> (html/select item [[:td html/first-child] :span.release])
-      first
-      :content
-      last))
+  (some-> (html/select item [[:td html/first-child] :span.release])
+          first
+          :content
+          last
+          helpers/remove-spec-symbols))
 
 (defn- get-lang
   "Get lang from line"
@@ -69,8 +71,8 @@
 
 (defsafe parse-list-page
   "Parse page with subtitles list"
-  [url]
-  (-<> (helpers/fetch url)
+  [html]
+  (-<> (helpers/get-from-line html)
        (html/select [:div#content_left
                      :table.list
                      [:tr (html/has [:td])]])
@@ -83,10 +85,18 @@
       (str page)
       make-url))
 
-(defn get-release-page-result
-  "Get release page result"
+(defsafe get-htmls-for-parse
+  "Get htmls for parse subtitles"
   [page]
-  (some-<> (get-release-page-url page)
-           parse-list-page
+  [(helpers/download (get-release-page-url page))])
+
+(defsafe get-subtitles
+  "Get subtitles from html"
+  [html]
+  (some-<> (parse-list-page html)
            flatten
            (map #(assoc % :source const/type-podnapisi) <>)))
+
+(defsource podnapisi-source
+  :get-htmls-for-parse get-htmls-for-parse
+  :get-subtitles get-subtitles)

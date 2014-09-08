@@ -39,7 +39,7 @@
                              [subscene/get-release-page-result
                               ;opensubtitles/get-release-page-result
                               ;addicted/get-release-page-result
-                              podnapisi/get-release-page-result
+                              ;podnapisi/get-release-page-result
                               ;notabenoid/get-release-page-result
                               uksubtitles/get-release-page-result]))
         update-id (gensym)]
