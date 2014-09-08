@@ -60,4 +60,4 @@
 
 (def sitemap-size 40000)
 
-(def crawl-workers 3)
+(def crawl-workers 1)

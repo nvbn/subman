@@ -19,7 +19,8 @@
                      1 [{:exists false} {:exists false}]
                      :default [(do
                                  (println x)
-                                 x)])))
+                                 x)]))
+  :make-url identity)
 
 (deftest test-get-new-for-page
   (testing "for page with new"
