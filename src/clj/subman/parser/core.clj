@@ -61,8 +61,7 @@
   [source {:keys [body url]}]
   (doseq [subtitle (.get-subtitles @source body)
           :when (not (models/in-db subtitle))]
-    (models/create-document! subtitle)
-    (log/info (str "Success crawled" url))))
+    (models/create-document! subtitle)))
 
 (defn load-all
   "Load all subtitles from all pages"
@@ -70,6 +69,6 @@
   (doseq [source @sources]
     (crawl {:url (.make-url source "/")
             :workers const/crawl-workers
-            :url-limit -1
+            :url-limit const/crawl-limit
             :host-limit true
             :handler (partial crawl-handler source)})))
