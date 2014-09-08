@@ -40,7 +40,7 @@
     (is= nil (<!! ch))))
 
 (deftest test-update-all
-  (with-redefs [subscene/get-release-page-result (constantly [])
+  (with-redefs [;subscene/get-release-page-result (constantly [])
                 ;opensubtitles/get-release-page-result (constantly [])
                 ;addicted/get-release-page-result (constantly [])
                 ;podnapisi/get-release-page-result (constantly [])

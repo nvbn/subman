@@ -2,7 +2,8 @@
   (:require [swiss.arrows :refer [-<>>]]
             [net.cgrand.enlive-html :as html]
             [subman.helpers :as helpers :refer [defsafe]]
-            [subman.const :as const]))
+            [subman.const :as const]
+            [subman.parser.base :refer [defsource]]))
 
 (defn- make-url
   "Make absolute url from relative"
@@ -49,22 +50,30 @@
        (re-find #"Download (.*) Subtitle")
        last))
 
+(defn get-url
+  "Get url from page"
+  [page]
+  (-> (html/select page [:div.download :a])
+      first
+      :attrs
+      :href
+      make-url))
+
 (defsafe create-subtitle
   "Create subtitle from page url"
-  [url]
-  (let [page (helpers/fetch url)
-        version (get-version page)
+  [page]
+  (let [version (get-version page)
         season-episode (helpers/get-season-episode version)]
     {:show (get-show page)
      :season (get season-episode 0)
      :episode (get season-episode 1)
      :version version
-     :url url
+     :url (get-url page)
      :source const/type-subscene
      :lang (get-lang page)}))
 
-(defsafe get-release-page-result
-  "Get release page result"
+(defsafe get-htmls-for-parse
+  "Get htmls for parse for subtitles"
   [page]
   (-<>> (get-page-url page)
         helpers/fetch
@@ -74,5 +83,12 @@
                   :href
                   make-url))
         set
-        (map create-subtitle)
-        (remove nil?)))
+        (map helpers/download)))
+
+(defsafe get-subtitles
+  [html]
+  [(create-subtitle (helpers/get-from-line html))])
+
+(defsource subscene-source
+  :get-htmls-for-parse get-htmls-for-parse
+  :get-subtitles get-subtitles)

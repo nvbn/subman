@@ -6,11 +6,17 @@
             [subman.helpers :as helpers :refer [get-from-file get-from-line]]
             [subman.const :as const]))
 
-(def page-content (get-from-file
-                    "resources/fixtures/subscene_page.html"))
+(def page-file-name "resources/fixtures/subscene_page.html")
 
-(def release-content (get-from-file
-                       "resources/fixtures/subscene_release.html"))
+(def page-content (get-from-file page-file-name))
+
+(def page-html (slurp page-file-name))
+
+(def release-file-name "resources/fixtures/subscene_release.html")
+
+(def release-content (get-from-file release-file-name))
+
+(def release-html (slurp release-file-name))
 
 (deftest test-make-url
   (is= (#'subscene/make-url "/test") "http://subscene.com/test"))
@@ -32,18 +38,31 @@
   (is= (#'subscene/get-lang page-content) "English"))
 
 (deftest test-create-subtitle
-  (with-redefs [helpers/fetch (constantly page-content)]
-    (is= (#'subscene/create-subtitle "") {:episode "5"
-                                          :lang "English"
-                                          :season "2"
-                                          :show "The Following - Second Season"
-                                          :source const/type-subscene
-                                          :url ""
-                                          :version "The.Following.S02E05.720p.HDTV.X264-DIMENSION, The.Following.S02E05.480p.HDTV.x264-Micromkv, The.Following.S02E05.480p.HDTV.x264-mSD, The.Following.S02E05.HDTV.x264-LOL, The.Following.S02E05.HDTV.XviD-FUM, The.Following.S02E05.HDTV.XviD-AFG, The.Following.S02E05.HDTV.x264-GWC"})))
+  (is= (#'subscene/create-subtitle page-content)
+       {:episode "5"
+        :lang "English"
+        :season "2"
+        :show "The Following - Second Season"
+        :source const/type-subscene
+        :url "http://subscene.com/subtitle/download?mac=ikZXBjGYgmyy4BOymnZ6mFbLF_YeiqKwsB62_ws6DQGSI_xttB_x5LpWFRUVivJ10"
+        :version "The.Following.S02E05.720p.HDTV.X264-DIMENSION, The.Following.S02E05.480p.HDTV.x264-Micromkv, The.Following.S02E05.480p.HDTV.x264-mSD, The.Following.S02E05.HDTV.x264-LOL, The.Following.S02E05.HDTV.XviD-FUM, The.Following.S02E05.HDTV.XviD-AFG, The.Following.S02E05.HDTV.x264-GWC"}))
 
-(deftest test-get-release-page-result
-  (with-redefs [helpers/fetch #(if (= % "http://subscene.com/browse/latest/series/1")
-                                release-content
-                                page-content)]
-    (is= "The Following - Second Season"
-         (:show (first (subscene/get-release-page-result 1))))))
+(deftest test-get-htmls-for-parse
+  (with-redefs [helpers/fetch (constantly release-content)
+                helpers/download (constantly page-html)]
+    (is= (subscene/get-htmls-for-parse 1)
+         (repeat 15 page-html))))
+
+(deftest test-get-url
+  (is= (subscene/get-url page-content)
+       "http://subscene.com/subtitle/download?mac=ikZXBjGYgmyy4BOymnZ6mFbLF_YeiqKwsB62_ws6DQGSI_xttB_x5LpWFRUVivJ10"))
+
+(deftest test-get-subtitles
+  (is= (subscene/get-subtitles page-html)
+       [{:show "The Following - Second Season"
+         :season "2"
+         :episode "5"
+         :version "The.Following.S02E05.720p.HDTV.X264-DIMENSION, The.Following.S02E05.480p.HDTV.x264-Micromkv, The.Following.S02E05.480p.HDTV.x264-mSD, The.Following.S02E05.HDTV.x264-LOL, The.Following.S02E05.HDTV.XviD-FUM, The.Following.S02E05.HDTV.XviD-AFG, The.Following.S02E05.HDTV.x264-GWC"
+         :url "http://subscene.com/subtitle/download?mac=ikZXBjGYgmyy4BOymnZ6mFbLF_YeiqKwsB62_ws6DQGSI_xttB_x5LpWFRUVivJ10"
+         :source 3
+         :lang "English"}]))
