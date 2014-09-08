@@ -122,7 +122,6 @@
          :name "Hot Dish"
          :season "4"
          :show "Raising Hope"
-         :source 0
          :url "http://www.addic7ed.com/updated/35/83173/1"
          :version "Version KILLERS, 0.00 MBs "}
         {:episode "12"
@@ -130,7 +129,6 @@
          :name "Hot Dish"
          :season "4"
          :show "Raising Hope"
-         :source 0
          :url "http://www.addic7ed.com/updated/8/83173/1"
          :version "Version KILLERS, 0.00 MBs "}
         {:episode "12"
@@ -138,7 +136,6 @@
          :name "Hot Dish"
          :season "4"
          :show "Raising Hope"
-         :source 0
          :url "http://www.addic7ed.com/original/83173/1"
          :version "Version KILLERS, 0.00 MBs "}
         {:episode "12"
@@ -146,6 +143,5 @@
          :name "Hot Dish"
          :season "4"
          :show "Raising Hope"
-         :source 0
          :url "http://www.addic7ed.com/original/83173/0"
          :version "Version KILLERS, 0.00 MBs "}]))

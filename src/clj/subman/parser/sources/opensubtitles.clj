@@ -101,8 +101,7 @@
      :version (helpers/remove-spec-symbols (get-version titles-td))
      :season (get-from-season-part #"\[S(\d+)" seasons-part)
      :episode (get-from-season-part #"E(\d+)\]" seasons-part)
-     :lang (get-language lang-td)
-     :source const/type-opensubtitles}))
+     :lang (get-language lang-td)}))
 
 (defsafe get-htmls-for-parse
   [page]
@@ -116,5 +115,6 @@
        (map create-subtitle <>)))
 
 (defsource opensubtitles-source
+  :type-id const/type-podnapisi
   :get-htmls-for-parse get-htmls-for-parse
   :get-subtitles get-subtitles)

@@ -69,7 +69,6 @@
      :episode (get season-episode 1)
      :version version
      :url (get-url page)
-     :source const/type-subscene
      :lang (get-lang page)}))
 
 (defsafe get-htmls-for-parse
@@ -90,5 +89,6 @@
   [(create-subtitle (helpers/get-from-line html))])
 
 (defsource subscene-source
+  :type-id const/type-subscene
   :get-htmls-for-parse get-htmls-for-parse
   :get-subtitles get-subtitles)

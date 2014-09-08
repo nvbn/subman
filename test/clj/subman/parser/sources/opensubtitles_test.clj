@@ -74,7 +74,6 @@
         :name "Enemies of Bill"
         :season "1"
         :show "Dads"
-        :source const/type-opensubtitles
         :url "http://www.opensubtitles.org/en/subtitles/5547771/dads-enemies-of-bill-en"
         :version ""}))
 
@@ -90,7 +89,6 @@
          :name "Studies in Modern Movement"
          :season "3"
          :show "Community"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547811/community-studies-in-modern-movement-he"
          :version ""}
         {:episode ""
@@ -98,7 +96,6 @@
          :name ""
          :season ""
          :show "Sader Ridge (2013)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547810/sader-ridge-en"
          :version ""}
         {:episode ""
@@ -106,7 +103,6 @@
          :name "Bug"
          :season ""
          :show "Breaking Bad"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547809/breaking-bad-bug-pt"
          :version ""}
         {:episode ""
@@ -114,7 +110,6 @@
          :name "Looking for the Future"
          :season ""
          :show "Looking"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547808/looking-looking-for-the-future-it"
          :version ""}
         {:episode ""
@@ -122,7 +117,6 @@
          :name "Disrupt"
          :season ""
          :show "Almost Human"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547807/almost-human-disrupt-tr"
          :version ""}
         {:episode ""
@@ -130,7 +124,6 @@
          :name "Looking for the Future"
          :season ""
          :show "Looking"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547806/looking-looking-for-the-future-it"
          :version ""}
         {:episode ""
@@ -138,7 +131,6 @@
          :name "Redemption"
          :season ""
          :show "Beauty and the Beast"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547805/beauty-and-the-beast-redemption-pt"
          :version ""}
         {:episode ""
@@ -146,7 +138,6 @@
          :name ""
          :season ""
          :show "You're Next (2011)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547804/you-re-next-et"
          :version ""}
         {:episode ""
@@ -154,7 +145,6 @@
          :name "The Scream"
          :season ""
          :show "Switched at Birth"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547803/switched-at-birth-the-scream-it"
          :version ""}
         {:episode "17"
@@ -162,7 +152,6 @@
          :name "Workforce: Part 2"
          :season "7"
          :show "Star Trek: Voyager"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547802/star-trek-voyager-workforce-part-2-sr"
          :version ""}
         {:episode ""
@@ -170,7 +159,6 @@
          :name "The Scream"
          :season ""
          :show "Switched at Birth"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547801/switched-at-birth-the-scream-it"
          :version ""}
         {:episode "5"
@@ -178,7 +166,6 @@
          :name "Reflection"
          :season "2"
          :show "The Following"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547800/the-following-reflection-tr"
          :version ""}
         {:episode ""
@@ -186,7 +173,6 @@
          :name ""
          :season ""
          :show "Flowers in the Attic (2014)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547799/flowers-in-the-attic-pl"
          :version ""}
         {:episode ""
@@ -194,7 +180,6 @@
          :name "Patient Zero"
          :season ""
          :show "Intelligence"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547798/intelligence-patient-zero-he"
          :version ""}
         {:episode "10"
@@ -202,7 +187,6 @@
          :name "In Excelsis Deo"
          :season "1"
          :show "The West Wing"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547797/the-west-wing-in-excelsis-deo-hr"
          :version ""}
         {:episode ""
@@ -210,7 +194,6 @@
          :name ""
          :season ""
          :show "Training Day (2001)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547796/training-day-pl"
          :version ""}
         {:episode ""
@@ -218,7 +201,6 @@
          :name ""
          :season ""
          :show "Frankenstein Must Be Destroyed (1969)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547795/frankenstein-must-be-destroyed-el"
          :version ""}
         {:episode ""
@@ -226,7 +208,6 @@
          :name ""
          :season ""
          :show "In the Name of the King III (2014)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547794/in-the-name-of-the-king-iii-bg"
          :version "In.the.Name.of.the.King.III.2014.1080p.BluRay.x... "}
         {:episode ""
@@ -234,7 +215,6 @@
          :name ""
          :season ""
          :show "The Family (2013)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547793/the-family-pb"
          :version ""}
         {:episode ""
@@ -242,7 +222,6 @@
          :name "The Wheaton Recurrence"
          :season ""
          :show "The Big Bang Theory"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547792/the-big-bang-theory-the-wheaton-recurrence-pl"
          :version ""}
         {:episode ""
@@ -250,7 +229,6 @@
          :name ""
          :season ""
          :show "The Sweeney (2012)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547791/the-sweeney-en"
          :version ""}
         {:episode ""
@@ -258,7 +236,6 @@
          :name "Episode #2.6"
          :season ""
          :show "House of Cards"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547790/house-of-cards-episode-2-6-cs"
          :version ""}
         {:episode ""
@@ -266,7 +243,6 @@
          :name ""
          :season ""
          :show "12 Years a Slave (2013)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547789/12-years-a-slave-pl"
          :version ""}
         {:episode ""
@@ -274,7 +250,6 @@
          :name "Crucifixed"
          :season ""
          :show "Sons of Anarchy"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547788/sons-of-anarchy-crucifixed-no"
          :version "Sons.of.Anarchy.S05E10.Retail.DKsubs.720p.BluRa... "}
         {:episode "20"
@@ -282,7 +257,6 @@
          :name "Shadow Walker"
          :season "2"
          :show "Nikita"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547786/nikita-shadow-walker-en"
          :version ""}
         {:episode "12"
@@ -290,7 +264,6 @@
          :name "Devil's Planet"
          :season "3"
          :show "Doctor Who"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547785/doctor-who-devil-s-planet-en"
          :version ""}
         {:episode ""
@@ -298,7 +271,6 @@
          :name "Perception"
          :season ""
          :show "Almost Human"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547784/almost-human-perception-ar"
          :version ""}
         {:episode ""
@@ -306,7 +278,6 @@
          :name ""
          :season ""
          :show "RocknRolla (2008)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547783/rocknrolla-ko"
          :version ""}
         {:episode ""
@@ -314,7 +285,6 @@
          :name "Episode #2.6"
          :season ""
          :show "House of Cards"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547782/house-of-cards-episode-2-6-cs"
          :version "House.Of.Cards.2013.S02E06.720p.WEB-DL.x264-Soh... "}
         {:episode ""
@@ -322,7 +292,6 @@
          :name "In and Out"
          :season ""
          :show "Killer Women"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547781/killer-women-in-and-out-nl"
          :version ""}
         {:episode "11"
@@ -330,7 +299,6 @@
          :name "Day of Armageddon"
          :season "3"
          :show "Doctor Who"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547780/doctor-who-day-of-armageddon-en"
          :version ""}
         {:episode "1"
@@ -338,7 +306,6 @@
          :name "The Train Job"
          :season "1"
          :show "Firefly"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547779/firefly-the-train-job-es"
          :version ""}
         {:episode ""
@@ -346,7 +313,6 @@
          :name "Size Matters"
          :season ""
          :show "Intelligence"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547778/intelligence-size-matters-en"
          :version ""}
         {:episode ""
@@ -354,7 +320,6 @@
          :name ""
          :season ""
          :show "12 Years a Slave (2013)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547777/12-years-a-slave-cs"
          :version ""}
         {:episode "18"
@@ -362,7 +327,6 @@
          :name "Wash"
          :season "2"
          :show "Prison Break"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547776/prison-break-wash-pb"
          :version ""}
         {:episode ""
@@ -370,7 +334,6 @@
          :name "Looking for the Future"
          :season ""
          :show "Looking"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547775/looking-looking-for-the-future-hu"
          :version ""}
         {:episode ""
@@ -378,7 +341,6 @@
          :name ""
          :season ""
          :show "Heli (2013)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547774/heli-sr"
          :version ""}
         {:episode ""
@@ -386,7 +348,6 @@
          :name "Letharia Vulpira"
          :season ""
          :show "Teen Wolf"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547773/teen-wolf-letharia-vulpira-ar"
          :version ""}
         {:episode ""
@@ -394,7 +355,6 @@
          :name ""
          :season ""
          :show "Heli (2013)"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547772/heli-sr"
          :version ""}
         {:episode ""
@@ -402,6 +362,5 @@
          :name "Enemies of Bill"
          :season ""
          :show "Dads"
-         :source 2
          :url "http://www.opensubtitles.org/en/subtitles/5547771/dads-enemies-of-bill-en"
          :version ""}]))

@@ -136,9 +136,9 @@
           lang (:langs version)]
       (assoc info :version (:name version)
                   :lang (:name lang)
-                  :url (:url lang)
-                  :source const/type-addicted))))
+                  :url (:url lang)))))
 
 (defsource addicted-source
+  :type-id const/type-addicted
   :get-htmls-for-parse get-htmls-for-parse
   :get-subtitles get-subtitles)

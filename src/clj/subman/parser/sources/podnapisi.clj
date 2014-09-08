@@ -93,10 +93,9 @@
 (defsafe get-subtitles
   "Get subtitles from html"
   [html]
-  (some-<> (parse-list-page html)
-           flatten
-           (map #(assoc % :source const/type-podnapisi) <>)))
+  (flatten (parse-list-page html)))
 
 (defsource podnapisi-source
+  :type-id const/type-podnapisi
   :get-htmls-for-parse get-htmls-for-parse
   :get-subtitles get-subtitles)

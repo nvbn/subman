@@ -71,7 +71,6 @@
          :name ""
          :season "1"
          :show "Lab Rats"
-         :source 1
          :url "http://www.podnapisi.net/en/lab-rats-2008-subtitles-p2920844"
          :version "Lab.Rats.(US).-.03x01.-.Sink.or.Swim.TVVersion"}
         {:episode "6"
@@ -79,7 +78,6 @@
          :name ""
          :season "1"
          :show "Bitten"
-         :source 1
          :url "http://www.podnapisi.net/en/bitten-2014-subtitles-p2920797"
          :version "Bitten.S01E06.HDTV.x264-2HDBitten.S01E06.HDTV.Xv..."}
         {:episode "1"
@@ -87,7 +85,6 @@
          :name ""
          :season "2"
          :show "My Mad Fat Diary"
-         :source 1
          :url "http://www.podnapisi.net/en/my-mad-fat-diary-2012-subtitles-p2920653"
          :version nil}
         {:episode "10"
@@ -95,7 +92,6 @@
          :name ""
          :season "2"
          :show "Teenage Mutant Ninja Tu..."
-         :source 1
          :url "http://www.podnapisi.net/en/teenage-mutant-ninja-turtles-2012-subtitles-p2920655"
          :version nil}
         {:episode "12"
@@ -103,7 +99,6 @@
          :name ""
          :season "3"
          :show "The Walking Dead"
-         :source 1
          :url "http://www.podnapisi.net/en/the-walking-dead-2010-subtitles-p2920593"
          :version nil}
         {:episode "12"
@@ -111,7 +106,6 @@
          :name ""
          :season "3"
          :show "The Walking Dead"
-         :source 1
          :url "http://www.podnapisi.net/en/the-walking-dead-2010-subtitles-p2920594"
          :version nil}
         {:episode "10"
@@ -119,7 +113,6 @@
          :name ""
          :season "2"
          :show "Teenage Mutant Ninja Tu..."
-         :source 1
          :url "http://www.podnapisi.net/en/teenage-mutant-ninja-turtles-2012-subtitles-p2920523"
          :version nil}
         {:episode "10"
@@ -127,7 +120,6 @@
          :name ""
          :season "2"
          :show "Teenage Mutant Ninja Tu..."
-         :source 1
          :url "http://www.podnapisi.net/en/teenage-mutant-ninja-turtles-2012-subtitles-p2920562"
          :version "Teenage.Mutant.Ninja.Turtles.(2012).-.02x10.-.Fun..."}
         {:episode "10"
@@ -135,7 +127,6 @@
          :name ""
          :season "2"
          :show "Teenage Mutant Ninja Tu..."
-         :source 1
          :url "http://www.podnapisi.net/en/teenage-mutant-ninja-turtles-2012-subtitles-p2920571"
          :version nil}
         {:episode "7"
@@ -143,7 +134,6 @@
          :name ""
          :season "1"
          :show "Intelligence"
-         :source 1
          :url "http://www.podnapisi.net/en/intelligence-2014-subtitles-p2920412"
          :version nil}
         {:episode "11"
@@ -151,7 +141,6 @@
          :name ""
          :season "2"
          :show "House of Cards"
-         :source 1
          :url "http://www.podnapisi.net/en/house-of-cards-2013-subtitles-p2919825"
          :version "House.of.Cards.2013.S02E11.WEBRip.x264-2HD"}
         {:episode "16"
@@ -159,7 +148,6 @@
          :name ""
          :season "1"
          :show "The Fosters"
-         :source 1
          :url "http://www.podnapisi.net/en/the-fosters-2013-subtitles-p2920411"
          :version "The.Fosters.2013.S01E16.HDTV.x264-EXCELLENCEThe...."}
         {:episode "16"
@@ -167,7 +155,6 @@
          :name ""
          :season "1"
          :show "The Fosters"
-         :source 1
          :url "http://www.podnapisi.net/en/the-fosters-2013-subtitles-p2920409"
          :version "The.Fosters.2013.S01E16.HDTV.x264-EXCELLENCEThe...."}
         {:episode "5"
@@ -175,7 +162,6 @@
          :name ""
          :season "2"
          :show "The Following"
-         :source 1
          :url "http://www.podnapisi.net/en/the-following-2013-subtitles-p2920408"
          :version "The.Following.S02E05.HDTV.x264-LOLThe.Following...."}
         {:episode "6"
@@ -183,7 +169,6 @@
          :name ""
          :season "3"
          :show "Switched at Birth"
-         :source 1
          :url "http://www.podnapisi.net/en/switched-at-birth-2011-subtitles-p2920378"
          :version nil}
         {:episode "6"
@@ -191,7 +176,6 @@
          :name ""
          :season "3"
          :show "Switched at Birth"
-         :source 1
          :url "http://www.podnapisi.net/en/switched-at-birth-2011-subtitles-p2920354"
          :version nil}
         {:episode ""
@@ -199,7 +183,6 @@
          :name ""
          :season ""
          :show "Čuvar plaže u zimskom periodu"
-         :source 1
          :url "http://www.podnapisi.net/en/uvar-plaze-u-zimskom-periodu-1976-subtitles-p2917672"
          :version nil}
         {:episode "10"
@@ -207,7 +190,6 @@
          :name ""
          :season "1"
          :show "Bates Motel"
-         :source 1
          :url "http://www.podnapisi.net/en/bates-motel-2013-subtitles-p2920123"
          :version "Bates.Motel.S01E10.Midnight.720p.BluRay.x264-DEMAND"}
         {:episode ""
@@ -215,7 +197,6 @@
          :name ""
          :season ""
          :show "Beastmaster, The"
-         :source 1
          :url "http://www.podnapisi.net/en/beastmaster-the-1982-subtitles-p2920089"
          :version nil}
         {:episode "1"
@@ -223,7 +204,6 @@
          :name ""
          :season "5"
          :show "Star Wars: The Clone Wars"
-         :source 1
          :url "http://www.podnapisi.net/en/star-wars-the-clone-wars-2008-subtitles-p2919969"
          :version nil}
         {:episode "4"
@@ -231,7 +211,6 @@
          :name ""
          :season "53"
          :show "Horizon"
-         :source 1
          :url "http://www.podnapisi.net/en/horizon-1964-subtitles-p2919927"
          :version nil}
         {:episode ""
@@ -239,7 +218,6 @@
          :name ""
          :season ""
          :show "Brève traversée"
-         :source 1
          :url "http://www.podnapisi.net/en/br-ve-travers-e-2001-subtitles-p2919915"
          :version "Brief.Crossing.2001.PAL.DVD.x264-Tree"}
         {:episode ""
@@ -247,7 +225,6 @@
          :name ""
          :season ""
          :show "Magnificent Ambersons, The"
-         :source 1
          :url "http://www.podnapisi.net/en/magnificent-ambersons-the-2002-subtitles-p2919913"
          :version "The.Magnificent.Ambersons.2002.DVDRip.Xvid"}
         {:episode "1"
@@ -255,7 +232,6 @@
          :name ""
          :season "3"
          :show "Sherlock"
-         :source 1
          :url "http://www.podnapisi.net/en/sherlock-2010-subtitles-p2919896"
          :version "Sherlock.S03E01.720p.WEB-DL.DD5.1.H.264-BSSherlo..."}
         {:episode "1"
@@ -263,7 +239,6 @@
          :name ""
          :season "3"
          :show "Sherlock"
-         :source 1
          :url "http://www.podnapisi.net/en/sherlock-2010-subtitles-p2919899"
          :version "Sherlock.S03E01.720p.WEB-DL.DD5.1.H.264-BSSherlo..."}
         {:episode ""
@@ -271,7 +246,6 @@
          :name ""
          :season ""
          :show "Anatomie de l'enfer"
-         :source 1
          :url "http://www.podnapisi.net/en/anatomie-de-l-enfer-2004-subtitles-p2919664"
          :version "Anatomy.of.Hell.2004.NTSC.DVD.x264-Tree"}
         {:episode "9"
@@ -279,7 +253,6 @@
          :name ""
          :season "1"
          :show "Bates Motel"
-         :source 1
          :url "http://www.podnapisi.net/en/bates-motel-2013-subtitles-p2919655"
          :version "Bates.Motel.S01E09.Underwater.720p.BluRay.x264-DE..."}
         {:episode "9"
@@ -287,7 +260,6 @@
          :name ""
          :season "1"
          :show "Bates Motel"
-         :source 1
          :url "http://www.podnapisi.net/en/bates-motel-2013-subtitles-p2919642"
          :version nil}
         {:episode "9"
@@ -295,7 +267,6 @@
          :name ""
          :season "1"
          :show "Bates Motel"
-         :source 1
          :url "http://www.podnapisi.net/en/bates-motel-2013-subtitles-p2919644"
          :version "Bates.Motel.S01E09.HDTV.XviD.FUMBates.Motel.S01E..."}
         {:episode "11"
@@ -303,6 +274,5 @@
          :name ""
          :season "1"
          :show "Almost Human"
-         :source 1
          :url "http://www.podnapisi.net/en/almost-human-2013-subtitles-p2919537"
          :version "Almost.Human.S01E11.HDTV.x264-LOL"}]))

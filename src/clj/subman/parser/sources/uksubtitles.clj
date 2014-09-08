@@ -64,7 +64,6 @@
     (map #(assoc %
            :url (:url article)
            :lang force-lang
-           :source const/type-uksubtitles
            :name "")
          subtitles)))
 
@@ -81,5 +80,6 @@
         flatten))
 
 (defsource uksubtitles-source
+  :type-id const/type-uksubtitles
   :get-htmls-for-parse get-htmls-for-parse
   :get-subtitles get-subtitles)

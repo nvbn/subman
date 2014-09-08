@@ -67,8 +67,7 @@
         :name "The Master In The Slop"
         :season "9"
         :url "http://notabenoid.com/book/43718/195318/ready"
-        :version ""
-        :source const/type-notabenoid}))
+        :version ""}))
 
 (deftest test-episodes-from-book
   (testing "should create for all ready episodes"
@@ -90,7 +89,6 @@
            :name "Episode 1"
            :season "1"
            :show "Shetland"
-           :source 4
            :url "http://notabenoid.com/book/38401/140024/ready"
            :version ""}
           {:episode "2"
@@ -98,7 +96,6 @@
            :name "Episode 2"
            :season "1"
            :show "Shetland"
-           :source 4
            :url "http://notabenoid.com/book/38401/140260/ready"
            :version ""}
           {:episode "1"
@@ -106,7 +103,6 @@
            :name "Raven Black (Part 1) (HDTV x264-TLA)"
            :season "2"
            :show "Shetland"
-           :source 4
            :url "http://notabenoid.com/book/38401/204663/ready"
            :version ""}
           {:episode "2"
@@ -114,7 +110,6 @@
            :name "Part 2 (720p.HDTV-MOS)"
            :season "2"
            :show "Shetland"
-           :source 4
            :url "http://notabenoid.com/book/38401/206073/ready"
            :version ""}
           {:episode "3"
@@ -122,7 +117,6 @@
            :name "Dead Water (Part 1)"
            :season "2"
            :show "Shetland"
-           :source 4
            :url "http://notabenoid.com/book/38401/207603/ready"
            :version ""}
           {:episode "4"
@@ -130,7 +124,6 @@
            :name "Part 2 (RiVER)"
            :season "2"
            :show "Shetland"
-           :source 4
            :url "http://notabenoid.com/book/38401/209212/ready"
            :version ""}
           {:episode "5"
@@ -138,6 +131,5 @@
            :name "Part 1 (RIVER)"
            :season "2"
            :show "Shetland"
-           :source 4
            :url "http://notabenoid.com/book/38401/210731/ready"
            :version ""}]))

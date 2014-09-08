@@ -83,8 +83,7 @@
      :lang force-lang
      :name (get-episode-name title)
      :url (get-episode-url line)
-     :version ""
-     :source const/type-notabenoid}))
+     :version ""}))
 
 (defn- episodes-from-book
   "Get episodes from translation book"
@@ -110,5 +109,6 @@
   (episodes-from-book (helpers/get-from-line html)))
 
 (defsource notabenoid-source
+  :type-id const/type-notabenoid
   :get-htmls-for-parse get-htmls-for-parse
   :get-subtitles get-subtitles)

@@ -43,7 +43,6 @@
         :lang "English"
         :season "2"
         :show "The Following - Second Season"
-        :source const/type-subscene
         :url "http://subscene.com/subtitle/download?mac=ikZXBjGYgmyy4BOymnZ6mFbLF_YeiqKwsB62_ws6DQGSI_xttB_x5LpWFRUVivJ10"
         :version "The.Following.S02E05.720p.HDTV.X264-DIMENSION, The.Following.S02E05.480p.HDTV.x264-Micromkv, The.Following.S02E05.480p.HDTV.x264-mSD, The.Following.S02E05.HDTV.x264-LOL, The.Following.S02E05.HDTV.XviD-FUM, The.Following.S02E05.HDTV.XviD-AFG, The.Following.S02E05.HDTV.x264-GWC"}))
 
@@ -64,5 +63,4 @@
          :episode "5"
          :version "The.Following.S02E05.720p.HDTV.X264-DIMENSION, The.Following.S02E05.480p.HDTV.x264-Micromkv, The.Following.S02E05.480p.HDTV.x264-mSD, The.Following.S02E05.HDTV.x264-LOL, The.Following.S02E05.HDTV.XviD-FUM, The.Following.S02E05.HDTV.XviD-AFG, The.Following.S02E05.HDTV.x264-GWC"
          :url "http://subscene.com/subtitle/download?mac=ikZXBjGYgmyy4BOymnZ6mFbLF_YeiqKwsB62_ws6DQGSI_xttB_x5LpWFRUVivJ10"
-         :source 3
          :lang "English"}]))
