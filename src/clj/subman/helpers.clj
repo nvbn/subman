@@ -6,33 +6,6 @@
             [clj-http.client :as client]
             [subman.const :as const]))
 
-(defn remove-first-0
-  "Remove first 0 from string"
-  [query]
-  (clojure.string/replace query #"^(0+)" ""))
-
-(defn get-from-line
-  "Get parsed html from line"
-  [line]
-  (html/html-resource (StringReader. line)))
-
-(defn download
-  [url]
-  (:body (client/get url {:socket-timeout const/conection-timeout
-                          :conn-timeout const/conection-timeout})))
-
-(defn fetch
-  "Fetch url content"
-  [url]
-  (get-from-line (download url)))
-
-(defn nil-to-blank
-  "Replace nil with blank string"
-  [item]
-  (if (nil? item)
-    ""
-    item))
-
 (defn make-safe
   "Make fnc call safe"
   [fnc fallback]
@@ -48,6 +21,33 @@
     `(defsafe ~name ~@(rest body))
     `(def ~name (make-safe (fn ~@body)
                            nil))))
+
+(defn remove-first-0
+  "Remove first 0 from string"
+  [query]
+  (clojure.string/replace query #"^(0+)" ""))
+
+(defn get-from-line
+  "Get parsed html from line"
+  [line]
+  (html/html-resource (StringReader. line)))
+
+(defsafe download
+  [url]
+  (:body (client/get url {:socket-timeout const/conection-timeout
+                          :conn-timeout const/conection-timeout})))
+
+(defsafe fetch
+  "Fetch url content"
+  [url]
+  (get-from-line (download url)))
+
+(defn nil-to-blank
+  "Replace nil with blank string"
+  [item]
+  (if (nil? item)
+    ""
+    item))
 
 (defn get-season-episode-part
   [text]
