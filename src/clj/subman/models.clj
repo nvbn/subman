@@ -4,6 +4,7 @@
             [clojurewerkz.elastisch.rest.index :as esi]
             [clojurewerkz.elastisch.rest.document :as esd]
             [clojurewerkz.elastisch.query :as q]
+            [environ.core :refer [env]]
             [subman.helpers :as helpers :refer [defsafe]]
             [subman.const :as const]))
 
@@ -13,19 +14,19 @@
   "Connect to elastic"
   []
   (reset! connection
-          (esr/connect const/db-host)))
+          (esr/connect (env :db-host))))
 
 (defn get-total-count
   "Update total count of subtitles"
   []
-  (-> (esd/search @connection const/index-name "subtitle" :filter {})
+  (-> (esd/search @connection (env :index-name) "subtitle" :filter {})
       :hits
       :total))
 
 (defsafe create-index!
   "Create database index for subtitles"
   []
-  (esi/create @connection const/index-name
+  (esi/create @connection (env :index-name)
               :mappings {"subtitle"
                          {:properties {:show {:type "string"}
                                        :season {:type "string"
@@ -42,12 +43,12 @@
 (defsafe create-document!
   "Put document into elastic"
   [doc]
-  (esd/create @connection const/index-name "subtitle" doc))
+  (esd/create @connection (env :index-name) "subtitle" doc))
 
 (defn delete-all!
   "Delete all documents"
   []
-  (esd/delete-by-query-across-all-types @connection const/index-name (q/match-all)))
+  (esd/delete-by-query-across-all-types @connection (env :index-name) (q/match-all)))
 
 (defn- get-season-episode-parts
   "Get season episode parts"
@@ -93,7 +94,7 @@
   "Search for documents"
   [& {:keys [query offset lang source]}]
   (->> (apply esd/search @connection
-              const/index-name
+              (env :index-name)
               "subtitle"
               :from offset
               (build-query query lang source))
@@ -106,7 +107,7 @@
   [subtitle]
   (-> (let [url (:url subtitle)]
         (esd/search @connection
-                    const/index-name
+                    (env :index-name)
                     "subtitle"
                     :filter (q/term :url url)))
       :hits
@@ -117,7 +118,7 @@
   "List languages with count"
   []
   (-> (esd/search @connection
-                  const/index-name
+                  (env :index-name)
                   "subtitle"
                   :query (q/match-all)
                   :facets {:tag {:terms {:field :lang
@@ -129,7 +130,7 @@
 (defn get-show-season-episode-set
   [from]
   (->> (esd/search @connection
-                   const/index-name
+                   (env :index-name)
                    "subtitle"
                    :fields [:show :season :episode]
                    :size const/result-size
