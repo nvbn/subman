@@ -19,10 +19,13 @@
   []
   (let [pool (at-at/mk-pool)]
     (at-at/every const/update-period
-                 #(future (parser/update-all))
+                 #(future (parser/load-new-subtitles))
                  pool)
     (at-at/every const/sitemap-period
                  #(future (models/update-unique-show-season-episode!))
+                 pool)
+    (at-at/every const/crawl-period
+                 #(future (parser/load-all))
                  pool)))
 
 (defn init-models

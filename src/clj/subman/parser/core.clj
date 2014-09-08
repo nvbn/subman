@@ -1,6 +1,7 @@
 (ns subman.parser.core
   (:require [clojure.core.async :as async :refer [<!! >!]]
             [clojure.tools.logging :as log]
+            [itsy.core :refer [crawl]]
             [subman.parser.sources.addicted :refer [addicted-source]]
             [subman.parser.sources.podnapisi :refer [podnapisi-source]]
             [subman.parser.sources.opensubtitles :refer [opensubtitles-source]]
@@ -9,7 +10,7 @@
             [subman.parser.sources.uksubtitles :refer [uksubtitles-source]]
             [subman.models :as models]
             [subman.const :as const]
-            [subman.helpers :as helpers]))
+            [subman.helpers :as helpers :refer [defsafe]]))
 
 (def sources (atom [addicted-source
                     podnapisi-source
@@ -41,10 +42,10 @@
                          (async/close! result)))))
     result))
 
-(defn update-all
+(defn load-new-subtitles
   "Receive update from all sources"
   []
-  (let [ch (async/merge (map #(get-new-subtitles-in-chan % models/in-db)
+  (let [ch (async/merge (map #(get-new-subtitles-in-chan % (complement models/in-db))
                              @sources))
         update-id (gensym)]
     (log/info (str "Start update " update-id))
@@ -55,3 +56,20 @@
               (log/info (str "Update " update-id " progress: " i)))
             (recur (inc i)))
         (log/info (str "Update " update-id " finished: " i))))))
+
+(defsafe crawl-handler
+  [source {:keys [body url]}]
+  (doseq [subtitle (.get-subtitles @source body)
+          :when (not (models/in-db subtitle))]
+    (models/create-document! subtitle)
+    (log/info (str "Success crawled" url))))
+
+(defn load-all
+  "Load all subtitles from all pages"
+  []
+  (doseq [source @sources]
+    (crawl {:url (.make-url source "/")
+            :workers const/crawl-workers
+            :url-limit -1
+            :host-limit true
+            :handler (partial crawl-handler source)})))

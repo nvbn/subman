@@ -34,6 +34,8 @@
 
 (def sitemap-period (* 60 60 1000))
 
+(def crawl-period (* 6 60 60 1000))
+
 (def result-size 100)
 
 (def default-port "3000")
@@ -57,3 +59,5 @@
 (def input-timeout 300)
 
 (def sitemap-size 40000)
+
+(def crawl-workers 3)

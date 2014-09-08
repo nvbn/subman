@@ -36,6 +36,6 @@
     (is= {:exists false :source -1} (<!! ch))
     (is= nil (<!! ch))))
 
-(deftest test-update-all
+(deftest test-load-new-subtitles
   (with-atom [parser/sources []]
-    (parser/update-all)))
+    (parser/load-new-subtitles)))
