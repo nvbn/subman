@@ -141,4 +141,5 @@
 (defsource addicted-source
   :type-id const/type-addicted
   :get-htmls-for-parse get-htmls-for-parse
-  :get-subtitles get-subtitles)
+  :get-subtitles get-subtitles
+  :make-url make-url)

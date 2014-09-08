@@ -91,4 +91,5 @@
 (defsource subscene-source
   :type-id const/type-subscene
   :get-htmls-for-parse get-htmls-for-parse
-  :get-subtitles get-subtitles)
+  :get-subtitles get-subtitles
+  :make-url make-url)

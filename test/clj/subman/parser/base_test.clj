@@ -6,7 +6,8 @@
 (b/defsource test-source
   :type-id -1
   :get-htmls-for-parse (fn [_] [nil :html])
-  :get-subtitles (fn [_] [nil {:a 1} nil {:b 2}]))
+  :get-subtitles (fn [_] [nil {:a 1} nil {:b 2}])
+  :make-url (fn [url] (str "http://nvbn.info" url)))
 
 (deftest test-source-name
   (is= (.source-name test-source) "test-source"))
@@ -25,3 +26,7 @@
   (is= (.get-subtitles test-source "")
        [{:a 1 :source -1}
         {:b 2 :source -1}]))
+
+(deftest test-make-url
+  (is= (.make-url test-source "/test-1/test-2")
+       "http://nvbn.info/test-1/test-2"))

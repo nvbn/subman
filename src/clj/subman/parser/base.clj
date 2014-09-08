@@ -5,11 +5,13 @@
   (download-enabled? [this])
   (get-htmls-for-parse [this page])
   (get-subtitles [this html])
-  (get-type [this]))
+  (get-type [this])
+  (make-url [this url]))
 
 (defmacro defsource
   "Define source"
-  [name & {:keys [download-enabled? get-htmls-for-parse get-subtitles type-id]
+  [name & {:keys [download-enabled? get-htmls-for-parse get-subtitles
+                  type-id make-url]
            :or {download-enabled? true}}]
   `(def ~name
      (reify IndexSource
@@ -19,4 +21,5 @@
        (get-htmls-for-parse [_ page#] (remove nil? (~get-htmls-for-parse page#)))
        (get-subtitles [this# html#] (->> (~get-subtitles html#)
                                          (remove nil?)
-                                         (map #(assoc % :source (.get-type this#))))))))
+                                         (map #(assoc % :source (.get-type this#)))))
+       (make-url [_ url#] (~make-url url#)))))

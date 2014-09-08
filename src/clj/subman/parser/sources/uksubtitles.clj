@@ -8,13 +8,16 @@
 
 (def force-lang "english")
 
+(defn make-url
+  [url]
+  (str "http://uksubtitles.ru" url))
+
 (defn- get-release-page-url
   "Get url of release page"
   [page]
-  (str "http://uksubtitles.ru/"
-       (if (> page 1)
-         (str "page/" page "/")
-         "")))
+  (make-url (if (> page 1)
+              (str "/page/" page "/")
+              "/")))
 
 (defn- get-articles
   "Get articles from page html"
@@ -82,4 +85,5 @@
 (defsource uksubtitles-source
   :type-id const/type-uksubtitles
   :get-htmls-for-parse get-htmls-for-parse
-  :get-subtitles get-subtitles)
+  :get-subtitles get-subtitles
+  :make-url make-url)

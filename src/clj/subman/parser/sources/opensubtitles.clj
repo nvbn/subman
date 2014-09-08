@@ -117,4 +117,5 @@
 (defsource opensubtitles-source
   :type-id const/type-podnapisi
   :get-htmls-for-parse get-htmls-for-parse
-  :get-subtitles get-subtitles)
+  :get-subtitles get-subtitles
+  :make-url make-url)
