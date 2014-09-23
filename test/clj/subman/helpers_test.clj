@@ -38,3 +38,13 @@
 
 (deftest test-remove-spec-symbols
   (is= (helpers/remove-spec-symbols "\t\ntest\t\n") "test"))
+
+(deftest test-download-with-url
+  (testing "when download works"
+    (with-redefs [helpers/download (constantly "content")]
+      (is= (helpers/download-with-url "url")
+           {:url "url"
+            :content "content"})))
+  (testing "when download fails"
+    (with-redefs [helpers/download (constantly nil)]
+      (is-do nil? (helpers/download-with-url "url")))))

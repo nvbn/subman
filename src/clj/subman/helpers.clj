@@ -37,6 +37,12 @@
   (:body (client/get url {:socket-timeout const/conection-timeout
                           :conn-timeout const/conection-timeout})))
 
+(defn download-with-url
+  [url]
+  (when-let [downloaded (download url)]
+    {:url url
+     :content downloaded}))
+
 (defsafe fetch
   "Fetch url content"
   [url]
