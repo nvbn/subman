@@ -25,7 +25,7 @@
   (-> (:attrs line)
       :href
       make-url
-      helpers/download))
+      helpers/download-with-url))
 
 (defn- get-book-title
   "Get title from book"
@@ -105,7 +105,7 @@
 
 (defsafe get-subtitles
   "Get subtitles from html"
-  [html]
+  [html _]
   (episodes-from-book (helpers/get-from-line html)))
 
 (defsource notabenoid-source

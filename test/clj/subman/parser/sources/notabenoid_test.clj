@@ -18,8 +18,36 @@
 
 (def book-html (slurp book-filename))
 
+(def urls ["http://notabenoid.com/book/50607" "http://notabenoid.com/book/44311"
+           "http://notabenoid.com/book/50635" "http://notabenoid.com/book/45802"
+           "http://notabenoid.com/book/36436" "http://notabenoid.com/book/38401"
+           "http://notabenoid.com/book/49992" "http://notabenoid.com/book/44312"
+           "http://notabenoid.com/book/41972" "http://notabenoid.com/book/36828"
+           "http://notabenoid.com/book/43718" "http://notabenoid.com/book/45125"
+           "http://notabenoid.com/book/43881" "http://notabenoid.com/book/50461"
+           "http://notabenoid.com/book/50532" "http://notabenoid.com/book/43420"
+           "http://notabenoid.com/book/50147" "http://notabenoid.com/book/50612"
+           "http://notabenoid.com/book/44146" "http://notabenoid.com/book/49011"
+           "http://notabenoid.com/book/50385" "http://notabenoid.com/book/47140"
+           "http://notabenoid.com/book/49875" "http://notabenoid.com/book/50500"
+           "http://notabenoid.com/book/36958" "http://notabenoid.com/book/47235"
+           "http://notabenoid.com/book/50487" "http://notabenoid.com/book/49212"
+           "http://notabenoid.com/book/50615" "http://notabenoid.com/book/50142"
+           "http://notabenoid.com/book/50306" "http://notabenoid.com/book/49994"
+           "http://notabenoid.com/book/49951" "http://notabenoid.com/book/46612"
+           "http://notabenoid.com/book/50552" "http://notabenoid.com/book/44613"
+           "http://notabenoid.com/book/50496" "http://notabenoid.com/book/41291"
+           "http://notabenoid.com/book/43991" "http://notabenoid.com/book/41235"
+           "http://notabenoid.com/book/50129" "http://notabenoid.com/book/49715"
+           "http://notabenoid.com/book/48856" "http://notabenoid.com/book/50351"
+           "http://notabenoid.com/book/33498" "http://notabenoid.com/book/41604"
+           "http://notabenoid.com/book/44167" "http://notabenoid.com/book/50340"
+           "http://notabenoid.com/book/42904" "http://notabenoid.com/book/49241"])
+
 (def release-line
-  (get-from-line "<a href=\"/book/36828\">Da Vinci's Demons</a>"))
+  (-> (get-from-line "<a href=\"/book/36828\">Da Vinci's Demons</a>")
+      (html/select [:a])
+      first))
 
 (def episode-line
   (get-from-file "resources/fixtures/notabenoid_episode.html"))
@@ -36,7 +64,8 @@
 
 (deftest test-book-from-line
   (with-redefs [helpers/download (constantly "content")]
-    (is= (#'notabenoid/book-from-line release-line) "content")))
+    (is= (#'notabenoid/book-from-line release-line) {:content "content"
+                                                     :url "http://notabenoid.com/book/36828"})))
 
 (deftest test-get-book-title
   (is= (#'notabenoid/get-book-title book-page)
@@ -80,10 +109,11 @@
   (with-redefs [helpers/fetch (constantly release-page)
                 helpers/download (constantly book-html)]
     (is= (notabenoid/get-htmls-for-parse 1)
-         (repeat 50 book-html))))
+         (for [url urls] {:url url
+                          :content book-html}))))
 
 (deftest test-get-subtitles
-  (is= (notabenoid/get-subtitles book-html)
+  (is= (notabenoid/get-subtitles book-html "")
          [{:episode "1"
            :lang "russian"
            :name "Episode 1"
