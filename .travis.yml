@@ -11,6 +11,7 @@ install:
  - lein2 deps
  - lein2 cljx once
  - lein2 bower install
+ - lein2 garden once
 script:
  - lein2 test
  - lein2 cljsbuild test
