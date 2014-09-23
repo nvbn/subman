@@ -95,10 +95,11 @@
 (deftest test-get-htmls-for-parse
   (with-redefs [helpers/download (constantly release-page-html)]
     (is= (uksubtitles/get-htmls-for-parse 1)
-         [release-page-html])))
+         [{:url "http://uksubtitles.ru/"
+           :content release-page-html}])))
 
 (deftest test-get-subtitles
-  (is= (uksubtitles/get-subtitles release-page-html)
+  (is= (uksubtitles/get-subtitles release-page-html "")
        [{:episode "6"
          :lang "english"
          :name ""

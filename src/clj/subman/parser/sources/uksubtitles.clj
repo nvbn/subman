@@ -72,10 +72,10 @@
 
 (defsafe get-htmls-for-parse
   [page]
-  [(helpers/download (get-release-page-url page))])
+  [(helpers/download-with-url (get-release-page-url page))])
 
 (defsafe get-subtitles
-  [html]
+  [html _]
   (-<>> (helpers/get-from-line html)
         get-articles
         (map parse-article)
