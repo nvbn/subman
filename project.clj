@@ -38,7 +38,6 @@
                       [lein-ancient "0.5.5"]
                       [com.cemerick/clojurescript.test "0.3.1"]
                       [lein-bower "0.5.1"]]
-            :main subman.core
             :profiles {:dev {:cljsbuild {:builds
                                          {:main {:source-paths ["src/cljs" "target/generated-cljs"]
                                                  :compiler {:output-to "resources/public/main.js"

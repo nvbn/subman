@@ -83,7 +83,6 @@
 (deftest test-get-htmls-for-parse
   (with-redefs [helpers/fetch (fn [_] release)
                 helpers/download (fn [_] release-html)]
-    (println (addicted/get-htmls-for-parse 1))
     (is= (addicted/get-htmls-for-parse 1)
          (for [url release-urls] {:url url
                                   :content release-html}))))
