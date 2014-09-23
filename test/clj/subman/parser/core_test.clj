@@ -10,8 +10,9 @@
 
 (defsource test-source
   :type-id -1
-  :get-htmls-for-parse (fn [x] [x])
-  :get-subtitles (fn [x]
+  :get-htmls-for-parse (fn [x] [{:content x
+                                :url "url"}])
+  :get-subtitles (fn [x url]
                    (case x
                      4 [{:exists true}]
                      3 [{:exists true}]

@@ -22,8 +22,8 @@
 (defn- get-new-for-page
   "Get new subtitles for page"
   [source checker page]
-  (for [html (.get-htmls-for-parse source page)
-        subtitle (.get-subtitles source html)
+  (for [{:keys [content url]} (.get-htmls-for-parse source page)
+        subtitle (.get-subtitles source content url)
         :when (checker subtitle)]
     subtitle))
 
@@ -59,7 +59,7 @@
 
 (defsafe crawl-handler
   [source {:keys [body url]}]
-  (doseq [subtitle (.get-subtitles @source body)
+  (doseq [subtitle (.get-subtitles @source body url)
           :when (not (models/in-db subtitle))]
     (models/create-document! subtitle)))
 
