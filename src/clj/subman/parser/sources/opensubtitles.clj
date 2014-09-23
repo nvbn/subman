@@ -105,10 +105,10 @@
 
 (defsafe get-htmls-for-parse
   [page]
-  [(helpers/download (get-page-url page))])
+  [(helpers/download-with-url (get-page-url page))])
 
 (defsafe get-subtitles
-  [html]
+  [html _]
   (-<> (helpers/get-from-line html)
        (html/select [:table#search_results
                      [:tr.expandable (html/has [:strong])]])

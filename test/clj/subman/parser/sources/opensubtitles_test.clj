@@ -80,10 +80,11 @@
 (deftest test-get-htmls-for-parse
   (with-redefs [helpers/download (constantly release-html)]
     (is= (opensubtitles/get-htmls-for-parse 1)
-         [release-html])))
+         [{:content release-html
+           :url "http://www.opensubtitles.org/en/search/sublanguageid-all/offset-0"}])))
 
 (deftest test-get-subtitles
-  (is= (opensubtitles/get-subtitles release-html)
+  (is= (opensubtitles/get-subtitles release-html "")
        [{:episode "7"
          :lang "Hebrew"
          :name "Studies in Modern Movement"
