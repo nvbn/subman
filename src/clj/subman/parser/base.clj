@@ -4,7 +4,7 @@
   (source-name [this])
   (download-enabled? [this])
   (get-htmls-for-parse [this page])
-  (get-subtitles [this html])
+  (get-subtitles [this html url])
   (get-type [this])
   (make-url [this url]))
 
@@ -19,7 +19,7 @@
        (download-enabled? [_] ~download-enabled?)
        (get-type [_] ~type-id)
        (get-htmls-for-parse [_ page#] (remove nil? (~get-htmls-for-parse page#)))
-       (get-subtitles [this# html#] (->> (~get-subtitles html#)
+       (get-subtitles [this# html# url#] (->> (~get-subtitles html# url#)
                                          (remove nil?)
                                          (map #(assoc % :source (.get-type this#)))))
        (make-url [_ url#] (~make-url url#)))))
