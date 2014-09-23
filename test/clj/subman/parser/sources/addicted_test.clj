@@ -17,6 +17,17 @@
 
 (def episode (get-from-file episode-file-name))
 
+(def release-urls ["http://www.addic7ed.com/serie/The_Following/2/4/Family_Affair"
+                   "http://www.addic7ed.com/serie/Midsomer_Murders/16/5/The_Killings_at_Copenhagen"
+                   "http://www.addic7ed.com/serie/Rick_and_Morty/1/1/Pilot"
+                   "http://www.addic7ed.com/serie/Lab_Rats_%28US%29/3/1/Sink_or_Swim"
+                   "http://www.addic7ed.com/serie/Lost_Girl/4/13/Dark_Horse"
+                   "http://www.addic7ed.com/serie/The_Walking_Dead/4/10/Inmates"
+                   "http://www.addic7ed.com/serie/Episodes/3/6/Episode_Six"
+                   "http://www.addic7ed.com/serie/Episodes/3/6/Episode_Six"
+                   "http://www.addic7ed.com/serie/The_Haunted_Hathaways/1/19/haunted_Crushing"
+                   "http://www.addic7ed.com/serie/The_Haunted_Hathaways/1/19/haunted_Crushing"])
+
 (deftest test-is-version-line?
   (testing "when version line passed"
     (is-do true? (#'addicted/is-version-line? (get-from-line
@@ -67,22 +78,15 @@
 
 (deftest test-get-urls-from-list
   (is= (addicted/get-urls-from-list release)
-       ["http://www.addic7ed.com/serie/The_Following/2/4/Family_Affair"
-        "http://www.addic7ed.com/serie/Midsomer_Murders/16/5/The_Killings_at_Copenhagen"
-        "http://www.addic7ed.com/serie/Rick_and_Morty/1/1/Pilot"
-        "http://www.addic7ed.com/serie/Lab_Rats_%28US%29/3/1/Sink_or_Swim"
-        "http://www.addic7ed.com/serie/Lost_Girl/4/13/Dark_Horse"
-        "http://www.addic7ed.com/serie/The_Walking_Dead/4/10/Inmates"
-        "http://www.addic7ed.com/serie/Episodes/3/6/Episode_Six"
-        "http://www.addic7ed.com/serie/Episodes/3/6/Episode_Six"
-        "http://www.addic7ed.com/serie/The_Haunted_Hathaways/1/19/haunted_Crushing"
-        "http://www.addic7ed.com/serie/The_Haunted_Hathaways/1/19/haunted_Crushing"]))
+       release-urls))
 
 (deftest test-get-htmls-for-parse
   (with-redefs [helpers/fetch (fn [_] release)
                 helpers/download (fn [_] release-html)]
+    (println (addicted/get-htmls-for-parse 1))
     (is= (addicted/get-htmls-for-parse 1)
-         (repeat 10 release-html))))
+         (for [url release-urls] {:url url
+                                  :content release-html}))))
 
 (deftest test-get-episode-name-string
   (is= (addicted/get-episode-name-string episode)
@@ -116,7 +120,7 @@
            :langs ["us"]}])))
 
 (deftest test-get-subtitles
-  (is= (addicted/get-subtitles episode-html)
+  (is= (addicted/get-subtitles episode-html "")
        [{:episode "12"
          :lang "Bulgarian"
          :name "Hot Dish"

@@ -86,7 +86,7 @@
   (get-version-langs (html/select episode-page
                                   [:table.tabel95 :table.tabel95 :tr])))
 
-(defn- get-releases-url
+(defn get-releases-url
   "Get releases url for page"
   [page]
   (str "http://www.addic7ed.com/log.php?mode=versions&page=" page))
@@ -102,10 +102,10 @@
 (defsafe get-htmls-for-parse
   "Get list of htmls of subtitle pages"
   [page]
-  (-<>> (get-releases-url page)
-        helpers/fetch
-        get-urls-from-list
-        (map helpers/download)))
+  (->> (get-releases-url page)
+       helpers/fetch
+       get-urls-from-list
+       (map helpers/download-with-url)))
 
 (defn get-episode-name-string
   "Get string with episode name"
@@ -129,7 +129,7 @@
 
 (defsafe get-subtitles
   "Get subtitles entries from html"
-  [html]
+  [html _]
   (let [page (helpers/get-from-line html)
         info (get-episode-information page)]
     (for [version (get-versions page)
