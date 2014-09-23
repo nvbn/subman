@@ -50,25 +50,16 @@
        (re-find #"Download (.*) Subtitle")
        last))
 
-(defn get-url
-  "Get url from page"
-  [page]
-  (-> (html/select page [:div.download :a])
-      first
-      :attrs
-      :href
-      make-url))
-
 (defsafe create-subtitle
   "Create subtitle from page url"
-  [page]
+  [page url]
   (let [version (get-version page)
         season-episode (helpers/get-season-episode version)]
     {:show (get-show page)
      :season (get season-episode 0)
      :episode (get season-episode 1)
      :version version
-     :url (get-url page)
+     :url url
      :lang (get-lang page)}))
 
 (defsafe get-htmls-for-parse
@@ -82,11 +73,11 @@
                   :href
                   make-url))
         set
-        (map helpers/download)))
+        (map helpers/download-with-url)))
 
 (defsafe get-subtitles
-  [html]
-  [(create-subtitle (helpers/get-from-line html))])
+  [html url]
+  [(create-subtitle (helpers/get-from-line html) url)])
 
 (defsource subscene-source
   :type-id const/type-subscene
