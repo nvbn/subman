@@ -62,10 +62,11 @@
 (deftest test-get-htmls-for-parse
   (with-redefs [helpers/download (constantly release-html)]
     (is= (podnapisi/get-htmls-for-parse 1)
-         [release-html])))
+         [{:content release-html
+           :url "http://www.podnapisi.net/en/ppodnapisi/search/sJ/-1/sS/time/sO/desc/sT/-1/sM/0/sA/0/sK//sOA/0/sOT/0/sOL/0/sOI/0/sOE/0/sOD/0/sOH/0/sY//sOCS/0/sFT/0/sR//sTS//sTE//sAKA/1/sH//sI//tbsl/1/asdp/0/page//page/1"}])))
 
 (deftest test-get-subtitles
-  (is= (podnapisi/get-subtitles release-html)
+  (is= (podnapisi/get-subtitles release-html "")
        [{:episode "1"
          :lang "English"
          :name ""

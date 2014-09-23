@@ -88,11 +88,11 @@
 (defsafe get-htmls-for-parse
   "Get htmls for parse subtitles"
   [page]
-  [(helpers/download (get-release-page-url page))])
+  [(helpers/download-with-url (get-release-page-url page))])
 
 (defsafe get-subtitles
   "Get subtitles from html"
-  [html]
+  [html _]
   (flatten (parse-list-page html)))
 
 (defsource podnapisi-source
