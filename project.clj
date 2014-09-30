@@ -62,7 +62,7 @@
                                    :site-url "http://localhost:3000/"
                                    :db-host "http://127.0.0.1:9200"
                                    :index-name "subman7"}
-                             :jvm-opts ["-Xss16m" "-XX:+TieredCompilation" "-XX:TieredStopAtLevel=1"]}
+                             :jvm-opts ["-Xss16m"]}
                        :production {:aot :all
                                     :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                                           :compiler {:externs ["resources/public/components/jquery/dist/jquery.min.js"
