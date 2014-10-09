@@ -1,8 +1,9 @@
 (ns subman.models
-  (:require-macros [cljs.core.async.macros :refer [go]])
+  (:require-macros [cljs.core.async.macros :refer [go]]
+                   [clj-di.core :refer [let-deps]])
   (:require [clojure.string :as string]
             [cognitect.transit :as tr]
-            [subman.deps :refer [http-get sources]]
+            [clj-di.core :refer [get-dep]]
             [cljs.core.async :refer [<!]]
             [subman.const :as const]))
 
@@ -38,7 +39,7 @@
               (map (fn [el]
                      {(-> el val str string/lower-case)
                       (key el)})
-                   @sources))
+                   (get-dep :sources)))
        (string/lower-case source)
        const/type-none))
 
@@ -67,28 +68,32 @@
 (defn get-search-result
   "Get search result from query"
   [query offset lang source]
-  (go (-> (create-search-url query offset lang source)
-          (@http-get)
-          <!
-          :body)))
+  (let-deps [http-get :http-get]
+    (go (-> (create-search-url query offset lang source)
+            http-get
+            <!
+            :body))))
 
 (defn get-total-count
   "Get total count of indexed subtitles"
   []
-  (go (-> (@http-get "/api/count/")
-          <!
-          :body
-          :total-count)))
+  (let-deps [http-get :http-get]
+    (go (-> (http-get "/api/count/")
+            <!
+            :body
+            :total-count))))
 
 (defn get-languages
   "Get all languages list"
   []
-  (go (->> (@http-get "/api/list-languages/")
-           <!
-           :body
-           (map #(:term %)))))
+  (let-deps [http-get :http-get]
+    (go (->> (http-get "/api/list-languages/")
+             <!
+             :body
+             (map #(:term %))))))
 
 (defn get-sources
   "Get all sources list"
   []
-  (go (map string/lower-case (vals @sources))))
+  (let-deps [sources :sources]
+    (go (map string/lower-case (vals sources)))))

@@ -2,7 +2,6 @@
   (:require [om.core :as om :include-macros true]
             [sablono.core :refer-macros [html]]
             [om-tools.core :refer-macros [defcomponent]]
-            [subman.const :as const]
             [subman.components.result-entry :refer [result-entry]]))
 
 (defn search-resul-list

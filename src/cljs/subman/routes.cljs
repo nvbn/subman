@@ -2,7 +2,7 @@
   (:require [secretary.core :as secretary :refer-macros [defroute]]
             [goog.events :as gevents]
             [goog.history.EventType :as history-event]
-            [subman.deps :as d]))
+            [clj-di.core :refer [get-dep]]))
 
 (defn set-search-query
   "Set value of stable search query"
@@ -15,17 +15,17 @@
 (defn change-url!
   "Change page url"
   [url title]
-  (when @d/history
-    (.setToken @d/history url title)
+  (when-let [history (get-dep :history)]
+    (.setToken history url title)
     (set! (.-title js/document) title)))
 
 (defn init-routes
   "Init history and spy to atom"
   [state]
-  (when @d/history
+  (when-let [history (get-dep :history)]
     (secretary/set-config! :state state)
-    (secretary/dispatch! (.getToken @d/history))
-    (gevents/listen @d/history history-event/NAVIGATE
+    (secretary/dispatch! (.getToken history))
+    (gevents/listen history history-event/NAVIGATE
                     #(when (.-isNavigation %)
                       (secretary/dispatch! (.-token %))))))
 

@@ -4,12 +4,12 @@
             [test-sugar.core :refer [is=]]
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
+            [clj-di.core :refer [register!]]
             [subman.const :as const]
-            [subman.deps :as d]
             [subman.models :as m]))
 
 (deftest test-create-search-url
-  (reset! d/sources const/type-names)
+  (register! :sources const/type-names)
   (testing "with query"
     (is= "/api/search/?lang=english&source=-1&query=test&offset=0"
          (m/create-search-url "test" 0 "english" "all")))
@@ -27,7 +27,7 @@
          (m/create-search-url "test :source addicted :lang uk" 0 "english" "all"))))
 
 (deftest test-get-source-id
-  (reset! d/sources const/type-names)
+  (register! :sources const/type-names)
   (testing "for source"
     (is= 0 (m/get-source-id "addicted")))
   (testing "for source in wrong case"
@@ -38,32 +38,32 @@
     (is= -2 (m/get-source-id "wtf-this-source"))))
 
 (deftest ^:async test-get-search-result
-  (go (reset! d/http-get (fn [url]
-                           (go (when (= url "/api/search/?lang=uk&source=0&query=test&offset=0")
-                                 {:body [:test-search-result]}))))
+  (go (register! :http-get (fn [url]
+                             (go (when (= url "/api/search/?lang=uk&source=0&query=test&offset=0")
+                                   {:body [:test-search-result]}))))
       (is (= (<! (m/get-search-result "test :source addicted :lang uk"
                                       0 "english" "all"))
              [:test-search-result]))
       (done)))
 
 (deftest ^:async test-get-total-count
-  (go (reset! d/http-get (fn [_]
-                           (go {:body {:total-count 999}})))
+  (go (register! :http-get (fn [_]
+                             (go {:body {:total-count 999}})))
       (is (= 999 (<! (m/get-total-count))))
       (done)))
 
 (deftest ^:async test-get-languages
-  (go (reset! d/http-get (fn [_]
-                           (go {:body [{:term "english"}
-                                       {:term "spanish"}
-                                       {:term "russian"}]})))
+  (go (register! :http-get (fn [_]
+                             (go {:body [{:term "english"}
+                                         {:term "spanish"}
+                                         {:term "russian"}]})))
       (is (= (<! (m/get-languages))
              ["english" "spanish" "russian"])))
   (done))
 
 (deftest ^:async test-get-sources
-  (go (reset! d/sources {:addicted "Addicted"
-                         :opensubtitles "opensubtitles"})
+  (go (register! :sources {:addicted "Addicted"
+                           :opensubtitles "opensubtitles"})
       (is (= (apply hash-set (<! (m/get-sources)))
              #{"addicted" "opensubtitles"}))
       (done)))

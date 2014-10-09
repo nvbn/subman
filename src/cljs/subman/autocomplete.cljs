@@ -1,6 +1,5 @@
 (ns subman.autocomplete
-  (:require [clojure.string :as string]
-            [subman.const :as const]))
+  (:require [clojure.string :as string]))
 
 (defn only-contains
   "Get only contains from list"

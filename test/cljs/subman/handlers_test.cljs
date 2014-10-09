@@ -1,11 +1,12 @@
 (ns subman.handlers-test
-  (:require-macros [cljs.core.async.macros :refer [go]])
+  (:require-macros [cljs.core.async.macros :refer [go]]
+                   [clj-di.core :refer [let-deps]])
   (:require [cemerick.cljs.test :refer-macros [deftest done testing is]]
             [cljs.core.async :refer [<! timeout]]
+            [clj-di.core :refer [register!]]
             [subman.helpers :refer [DummyHistory]]
             [subman.const :as const]
             [subman.models :as m]
-            [subman.deps :as d]
             [subman.handlers :as h]))
 
 (deftest ^:async test-handle-search-query!
@@ -29,38 +30,39 @@
         state (atom {:stable-search-query ""})
         options (atom {:source "all"
                        :language "english"})]
-    (reset! d/history (DummyHistory. ""))
+    (register! :history (DummyHistory. ""))
     (h/handle-stable-search-query! state options)
-    (go (reset! d/http-get (fn [url]
-                             (reset! search-url url)
-                             (go {:body [{:test :test}]})))
-        (testing "do nothing without search query change"
+    (go (register! :http-get (fn [url]
+                               (reset! search-url url)
+                               (go {:body [{:test :test}]})))
+        (let-deps [history :history]
+          (testing "do nothing without search query change"
+            (swap! state assoc
+                   :offset 10)
+            (is (= @search-url ""))
+            (is (= (.-token history ""))))
           (swap! state assoc
-                 :offset 10)
-          (is (= @search-url ""))
-          (is (= (.-token @d/history ""))))
-        (swap! state assoc
-               :stable-search-query "test-query")
-        (<! (timeout 1000))
-        (testing "call server when query changed"
-          (is (re-find #"test-query" @search-url)))
-        (testing "update search result"
-          (is (= (:results @state) [{:test :test}])))
-        (testing "reset offset"
-          (is (= (:offset @state) 0)))
-        (testing "change url with query"
-          (is (= (.-token @d/history "/search/test-query"))))
-        (testing "change url with blank query"
-          (swap! state assoc
-                 :stable-search-query "")
+                 :stable-search-query "test-query")
           (<! (timeout 1000))
-          (is (= (.-token @d/history "/"))))
-        (done))))
+          (testing "call server when query changed"
+            (is (re-find #"test-query" @search-url)))
+          (testing "update search result"
+            (is (= (:results @state) [{:test :test}])))
+          (testing "reset offset"
+            (is (= (:offset @state) 0)))
+          (testing "change url with query"
+            (is (= (.-token history "/search/test-query"))))
+          (testing "change url with blank query"
+            (swap! state assoc
+                   :stable-search-query "")
+            (<! (timeout 1000))
+            (is (= (.-token history "/"))))
+          (done)))))
 
 (deftest ^:async test-handle-total-count!
   (let [state (atom {})]
-    (go (reset! d/http-get (fn [_]
-                             (go {:body {:total-count 9999}})))
+    (go (register! :http-get (fn [_]
+                               (go {:body {:total-count 9999}})))
         (h/handle-total-count! state)
         (<! (timeout 1000))
         (is (= (:total-count @state) 9999))
@@ -92,12 +94,12 @@
         (done))))
 
 (deftest ^:async test-handle-options!
-  (go (reset! d/http-get (fn [_]
-                           (go {:body [{:term "english"}
-                                       {:term "china"}]})))
-      (reset! d/sources {const/type-addicted "Addicted"
-                         const/type-opensubtitles "opensubtitles"
-                         const/type-all "All"})
+  (go (register! :http-get (fn [_]
+                             (go {:body [{:term "english"}
+                                         {:term "china"}]})))
+      (register! :sources {const/type-addicted "Addicted"
+                           const/type-opensubtitles "opensubtitles"
+                           const/type-all "All"})
       (let [state (atom {})
             options (atom {:language const/default-language
                            :source (get const/type-names

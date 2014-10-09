@@ -1,7 +1,7 @@
 (ns subman.components.result-entry
   (:require [sablono.core :refer-macros [html]]
             [om-tools.core :refer-macros [defcomponent]]
-            [subman.const :as const]
+            [clj-di.core :refer-macros [let-deps]]
             [subman.helpers :refer [is-filled? format-season-episode]]))
 
 (defn get-result-entry-title
@@ -21,7 +21,8 @@
 (defn get-result-source
   "Get formatted source of result entry"
   [{:keys [source]}]
-  (str "Source: " (const/type-names source)))
+  (let-deps [sources :sources]
+    (str "Source: " (sources source))))
 
 (defn get-result-lang
   "Get formatted language of result entry"
