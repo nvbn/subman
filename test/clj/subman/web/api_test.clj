@@ -40,3 +40,6 @@
            :count 100}
           {:term "russian"
            :count 50}])))
+
+(deftest test-api-list-sources
+  (is= (api/list-sources) const/type-names))

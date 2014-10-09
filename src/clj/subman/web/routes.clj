@@ -13,6 +13,7 @@
   (GET "/api/search/" {params :params} {:body (api/search params)})
   (GET "/api/count/" [] {:body (api/total-count)})
   (GET "/api/list-languages/" [] {:body (api/list-languages)})
+  (GET "/api/list-sources/" [] {:body (api/list-sources)})
   (GET "/sitemap.:n.xml" [n] (content-type
                                {:body (views/sitemap-page (Integer/parseInt n))}
                                "application/xml"))

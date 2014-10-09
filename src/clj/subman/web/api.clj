@@ -27,3 +27,8 @@
   "List all available languages with counts"
   []
   (models/list-languages))
+
+(defn list-sources
+  "List all available sources with names."
+  []
+  const/type-names)

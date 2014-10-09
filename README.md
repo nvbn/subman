@@ -17,7 +17,9 @@ All languages with subtitles count available in:
 
 You can specifie subtitles source by `GET` paramenter `source=id`, by default used `-1` (equal `all`).
 
-All sources with ids available in [const.cljx](https://github.com/nvbn/subman/blob/master/src/cljx/subman/const.cljx).
+All sources with names available in:
+
+    http://subman.io/api/list-sources/
 
 You can get total subtitles count in:
 
