@@ -38,4 +38,5 @@
   "Init ring handler"
   []
   (init-models)
+  (parser/inject!)
   (future (init-pool)))

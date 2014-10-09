@@ -2,6 +2,7 @@
   (:require [clojure.core.async :as async :refer [<!! >!]]
             [clojure.tools.logging :as log]
             [itsy.core :refer [crawl]]
+            [clj-di.core :refer [register! get-dep]]
             [subman.parser.sources.addicted :refer [addicted-source]]
             [subman.parser.sources.podnapisi :refer [podnapisi-source]]
             [subman.parser.sources.opensubtitles :refer [opensubtitles-source]]
@@ -12,12 +13,15 @@
             [subman.const :as const]
             [subman.helpers :as helpers :refer [defsafe]]))
 
-(def sources (atom [addicted-source
-                    podnapisi-source
-                    opensubtitles-source
-                    subscene-source
-                    notabenoid-source
-                    uksubtitles-source]))
+(defn inject!
+  "Inject sources as a dependency."
+  []
+  (register! :sources [addicted-source
+                       podnapisi-source
+                       opensubtitles-source
+                       subscene-source
+                       notabenoid-source
+                       uksubtitles-source]))
 
 (defn- get-new-for-page
   "Get new subtitles for page"
@@ -46,7 +50,7 @@
   "Receive update from all sources"
   []
   (let [ch (async/merge (map #(get-new-subtitles-in-chan % (complement models/in-db))
-                             @sources))
+                             (get-dep :sources)))
         update-id (gensym)]
     (log/info (str "Start update " update-id))
     (loop [i 0]
@@ -66,7 +70,7 @@
 (defn load-all
   "Load all subtitles from all pages"
   []
-  (doseq [source @sources]
+  (doseq [source (get-dep :sources)]
     (crawl {:url (.make-url source "/")
             :workers const/crawl-workers
             :url-limit const/crawl-limit

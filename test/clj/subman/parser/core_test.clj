@@ -2,6 +2,7 @@
   (:require [clojure.test :refer [deftest testing is]]
             [clojure.core.async :as async :refer [<!!]]
             [test-sugar.core :refer [is=]]
+            [clj-di.core :refer [with-registered]]
             [subman.models :as models]
             [subman.parser.base :refer [defsource]]
             [subman.const :as const]
@@ -39,5 +40,5 @@
     (is= nil (<!! ch))))
 
 (deftest test-load-new-subtitles
-  (with-atom [parser/sources []]
+  (with-registered [:sources []]
     (parser/load-new-subtitles)))
