@@ -8,14 +8,17 @@ Service for fast subtitle searching.
 For using api send GET request like:
 
     http://subman.io/api/search/?query=file-name
+    
+Available params:
 
-You can specifie language by `GET` parameter `lang=name`, by default used `english`.
-
+* `lang` &mdash; language, by default used `english`;
+* `source` &mdash; source id, by default used `-1` (equals `all`);
+* `limit` &mdash; limit of result, by default used `100`;
+* `offset` &mdash; result offset, by default used `0`.
+    
 All languages with subtitles count available in:
 
     http://subman.io/api/list-languages/
-
-You can specifie subtitles source by `GET` paramenter `source=id`, by default used `-1` (equal `all`).
 
 All sources with names available in:
 

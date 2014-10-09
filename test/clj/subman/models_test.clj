@@ -30,7 +30,7 @@
 (deftest test-build-query
   (testing "should build query"
     (is= (#'models/build-query "Dads.2013.S01E18.HDTV.x264-EXCELLENCE[rartv]"
-          "en" const/type-all)
+          "en" const/type-all const/result-size)
          [:query {:bool {:must
                          [{:fuzzy_like_this
                            {:boost 5
@@ -44,7 +44,7 @@
                                    :like_text "Dads 2013 S01E18 HDTV x264-EXCELLENCE[rartv]"}}}}
           :filter {:term {:lang "en"}} :size 100]))
   (testing "should build query with filter by source"
-    (is= (#'models/build-query "query" "ru" const/type-addicted)
+    (is= (#'models/build-query "query" "ru" const/type-addicted const/result-size)
          [:query {:bool {:must
                          [{:fuzzy_like_this
                            {:boost 5
@@ -63,7 +63,8 @@
                                {:hits {:hits [{:_source "test"}]}}))]
     (is= ["test"] (models/search :query "test"
                                  :offset 10
-                                 :lang "en"))))
+                                 :lang "en"
+                                 :limit const/result-size))))
 
 (deftest test-in-db
   (with-redefs [esd/search (fn [_ _ _ & {:keys [filter]}]

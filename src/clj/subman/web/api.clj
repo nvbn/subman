@@ -10,9 +10,10 @@
 
 (defn search
   "Search for subtitles with params"
-  [{:keys [query offset lang source] :or {offset 0
-                                          lang const/default-language
-                                          source (str const/default-type)}}]
+  [{:keys [query offset lang source limit] :or {offset 0
+                                                lang const/default-language
+                                                source (str const/default-type)
+                                                limit const/result-size}}]
   (models/search :query query
                  :offset offset
                  :lang lang

@@ -75,7 +75,7 @@
 
 (defn- build-query
   "Build search query"
-  [query lang source]
+  [query lang source limit]
   (-> (let [prepared (clojure.string/replace query #"\." " ")]
         {:query (q/bool :must (concat [(q/fuzzy-like-this
                                          :like_text prepared
@@ -88,18 +88,18 @@
                                   :fields [:version]
                                   :boost const/version-boost))
          :filter (q/term :lang lang)
-         :size const/result-size})
+         :size limit})
       vec
       flatten))
 
 (defn search
   "Search for documents"
-  [& {:keys [query offset lang source]}]
+  [& {:keys [query offset lang source limit]}]
   (->> (apply esd/search (get-dep :db-connection)
               (env :index-name)
               "subtitle"
               :from offset
-              (build-query query lang source))
+              (build-query query lang source limit))
        :hits
        :hits
        (map :_source)))
