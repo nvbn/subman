@@ -1,5 +1,6 @@
 (ns subman.web.api
   (:require [subman.models :as models]
+            [subman.helpers :as h]
             [subman.const :as const]))
 
 (defn- read-source
@@ -26,13 +27,14 @@
                                                   lang const/default-language
                                                   source (str const/default-type)
                                                   limit const/result-size}}]
-  (into {} (pmap (fn [query]
-                   [query (search {:query query
-                                   :offset offset
-                                   :lang lang
-                                   :source source
-                                   :limit limit})])
-                 queries)))
+  (into {} (h/chunked-pmap (fn [query]
+                             [query (search {:query query
+                                             :offset offset
+                                             :lang lang
+                                             :source source
+                                             :limit limit})])
+                           const/chunk-size
+                           queries)))
 
 (defn total-count
   "Get total subtitles count"

@@ -59,3 +59,5 @@
 (def crawl-workers 1)
 
 (def crawl-limit 100000)
+
+(def chunk-size 10)

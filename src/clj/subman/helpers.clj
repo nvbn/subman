@@ -107,3 +107,10 @@
   "Remove spec symbols"
   [text]
   (clojure.string/replace text #"[\t\n]" ""))
+
+(defn chunked-pmap
+  "Like pmap but runs on chunks of data"
+  [fnc chunk-size coll]
+  (->> (partition-all chunk-size coll)
+       (pmap (comp doall (partial map fnc)))
+       (apply concat)))
