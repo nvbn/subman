@@ -26,13 +26,13 @@
                                                   lang const/default-language
                                                   source (str const/default-type)
                                                   limit const/result-size}}]
-  (into {} (map (fn [query]
-                  [query (search {:query query
-                                  :offset offset
-                                  :lang lang
-                                  :source source
-                                  :limit limit})])
-                queries)))
+  (into {} (pmap (fn [query]
+                   [query (search {:query query
+                                   :offset offset
+                                   :lang lang
+                                   :source source
+                                   :limit limit})])
+                 queries)))
 
 (defn total-count
   "Get total subtitles count"
