@@ -1,6 +1,6 @@
 (ns subman.web.routes
   (:require [compojure.route :as route]
-            [compojure.core :refer [defroutes GET]]
+            [compojure.core :refer [defroutes GET POST]]
             [ring.util.response :refer [content-type]]
             [subman.models :as models]
             [subman.const :as const]
@@ -11,6 +11,7 @@
   (GET "/" [] (views/index-page))
   (GET "/search/*" [] (views/index-page))
   (GET "/api/search/" {params :params} {:body (api/search params)})
+  (POST "/api/bulk-search/" request {:body (api/bulk-search (:body request))})
   (GET "/api/count/" [] {:body (api/total-count)})
   (GET "/api/list-languages/" [] {:body (api/list-languages)})
   (GET "/api/list-sources/" [] {:body (api/list-sources)})

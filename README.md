@@ -5,13 +5,20 @@ Service for fast subtitle searching.
 
 ## Api
 
-For using api send GET request like:
+For search send GET request like:
 
     http://subman.io/api/search/?query=file-name
     
 Available params:
 
 * `lang` &mdash; language, by default used `english`;
+* `source` &mdash; source id, by default used `-1` (equals `all`);
+* `limit` &mdash; limit of result, by default used `100`;
+* `offset` &mdash; result offset, by default used `0`.
+
+For bulk search send POST request to `http://subman.io/api/bulk-search/` with transit-encoded body with:
+
+* `queries` &mdash; list of queries to search;
 * `source` &mdash; source id, by default used `-1` (equals `all`);
 * `limit` &mdash; limit of result, by default used `100`;
 * `offset` &mdash; result offset, by default used `0`.

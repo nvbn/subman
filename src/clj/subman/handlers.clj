@@ -3,7 +3,7 @@
             [overtone.at-at :as at-at]
             [hiccup.middleware :refer [wrap-base-url]]
             [ring.middleware.reload :refer [wrap-reload]]
-            [ring.middleware.transit :refer [wrap-transit-response]]
+            [ring.middleware.transit :refer [wrap-transit-response wrap-transit-body]]
             [subman.web.routes :as routes]
             [subman.parser.core :as parser]
             [subman.const :as const]
@@ -11,6 +11,7 @@
 
 (def app (-> (handler/site routes/main-routes)
              (wrap-transit-response {:encoding :json})
+             (wrap-transit-body {:encoding :json})
              wrap-base-url
              wrap-reload))
 

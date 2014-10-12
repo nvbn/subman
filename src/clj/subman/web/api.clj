@@ -17,7 +17,22 @@
   (models/search :query query
                  :offset offset
                  :lang lang
-                 :source (read-source source)))
+                 :source (read-source source)
+                 :limit limit))
+
+(defn bulk-search
+  "Bulk search reuqyest, equals to many calls of `seach`."
+  [{:keys [queries offset lang source limit] :or {offset 0
+                                                  lang const/default-language
+                                                  source (str const/default-type)
+                                                  limit const/result-size}}]
+  (into {} (map (fn [query]
+                  [query (search {:query query
+                                  :offset offset
+                                  :lang lang
+                                  :source source
+                                  :limit limit})])
+                queries)))
 
 (defn total-count
   "Get total subtitles count"
