@@ -41,7 +41,18 @@
                      [:p "Total indexed subtitles count: "
                       total-count
                       "."]
-                     [:a {:href "https://github.com/nvbn/subman"
-                          :target "_blank"}
-                      [:i.fa.fa-github]
-                      " github"]])))
+                     [:p
+                      [:a {:href "https://chrome.google.com/webstore/detail/submanio-for-chrome/dgbmdkdhhigobcaigjgbcnpgohdogbfn"
+                           :target "_blank"}
+                       [:i.fa.fa-puzzle-piece]
+                       " Download chrome extension"]]
+                     [:p
+                      [:a {:href "https://github.com/nvbn/subman"
+                           :target "_blank"}
+                       [:i.fa.fa-github]
+                       " Sources"]
+                      " "
+                      [:a {:href "https://github.com/nvbn/subman-chrome"
+                           :target "_blank"}
+                       [:i.fa.fa-github]
+                       " Extension sources"]]])))
