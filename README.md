@@ -1,7 +1,9 @@
-# Subman
+# [subman.io](http://subman.io/)
 [![Build Status](https://travis-ci.org/nvbn/subman.svg?branch=master)](https://travis-ci.org/nvbn/subman)
 
 Service for fast subtitle searching.
+
+[Chrome extension sources.](https://github.com/nvbn/subman-chrome)
 
 ## Api
 
