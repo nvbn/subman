@@ -23,7 +23,7 @@
                            [alandipert/storage-atom "1.2.3"]
                            [secretary "1.2.1"]
                            [sablono "0.2.22"]
-                           [prismatic/om-tools "0.3.3"]
+                           [prismatic/om-tools "0.3.3" :exclusions [org.clojure/clojure]]
                            [com.cognitect/transit-clj "0.8.259"]
                            [com.cognitect/transit-cljs "0.8.188"]
                            [ring-transit "0.1.2"]
