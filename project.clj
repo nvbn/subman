@@ -64,24 +64,22 @@
                                    :db-host "http://127.0.0.1:9200"
                                    :index-name "subman7"}
                              :jvm-opts ["-Xss16m"]}
-                       :production {:aot :all
-                                    :cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
+                       :production {:cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                                           :compiler {:externs ["resources/public/components/jquery/dist/jquery.min.js"
                                                                                "resources/public/components/bootstrap/dist/js/bootstrap.min.js"
                                                                                "resources/public/components/typeahead.js/dist/typeahead.jquery.min.js"
                                                                                "resources/public/components/react/react.min.js"]
                                                                      :output-to "resources/public/main.js"
                                                                      :optimizations :advanced
-                                                                     :pretty-print false}
-                                                          :jar true}]}
+                                                                     :pretty-print false}}]}
                                     :env {:is-debug false
                                           :ga-id "UA-54135564-1"
-                                          :site-url "http://subman.io/"}
-                                    :hooks [cljx.hooks
-                                            leiningen.cljsbuild
-                                            leiningen.garden]}}
+                                          :site-url "http://subman.io/"
+                                          :db-host "http://127.0.0.1:9200"
+                                          :index-name "subman7"}}}
             :source-paths ["src/clj"]
             :test-paths ["test/clj"]
+            :main subman.core
             :cljx {:builds [{:source-paths ["src/cljx"]
                              :output-path "target/classes"
                              :rules :clj}
