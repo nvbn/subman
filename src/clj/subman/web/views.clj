@@ -46,8 +46,15 @@
         ga('create', '" ga-id "', 'auto');
         ga('send', 'pageview');"))
 
+(defn is-debug?
+  []
+  (let [val (env :is-debug)]
+    (if (= "false" val)
+      false
+      val)))
+
 (defn index-page []
-  (let [is-debug (env :is-debug)
+  (let [is-debug (is-debug?)
         ga-id (env :ga-id)]
     (html5 [:head
             [:link {:rel "icon"

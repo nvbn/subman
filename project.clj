@@ -32,7 +32,7 @@
                            [itsy "0.1.1"]
                            [clj-di "0.1.3"]]
             :plugins [[lein-cljsbuild "1.0.3"]
-                      [com.keminglabs/cljx "0.4.0"]
+                      [com.keminglabs/cljx "0.4.0" :exclusions [org.clojure/clojure]]
                       [lein-garden "0.2.1"]
                       [lein-environ "1.0.0"]
                       [lein-ring "0.8.11"]
