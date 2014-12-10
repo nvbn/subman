@@ -71,12 +71,13 @@
                                                                                "resources/public/components/react/react.min.js"]
                                                                      :output-to "resources/public/main.js"
                                                                      :optimizations :advanced
-                                                                     :pretty-print false}}]}
-                                    :env {:is-debug false
-                                          :ga-id "UA-54135564-1"
-                                          :site-url "http://subman.io/"
-                                          :db-host "http://127.0.0.1:9200"
-                                          :index-name "subman7"}}}
+                                                                     :pretty-print false}}]}}
+                       :uberjar {:aot :all
+                                 :env {:is-debug false
+                                       :ga-id "UA-54135564-1"
+                                       :site-url "http://subman.io/"
+                                       :db-host "http://127.0.0.1:9200"
+                                       :index-name "subman7"}}}
             :source-paths ["src/clj"]
             :test-paths ["test/clj"]
             :main subman.core
