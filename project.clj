@@ -78,11 +78,11 @@
                                        :site-url "http://subman.io/"
                                        :db-host "http://127.0.0.1:9200"
                                        :index-name "subman7"}}}
-            :source-paths ["src/clj"]
+            :source-paths ["src/clj", "target/generated-clj"]
             :test-paths ["test/clj"]
             :main subman.core
             :cljx {:builds [{:source-paths ["src/cljx"]
-                             :output-path "target/classes"
+                             :output-path "target/generated-clj"
                              :rules :clj}
                             {:source-paths ["src/cljx"]
                              :output-path "target/generated-cljs"
