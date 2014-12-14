@@ -4,16 +4,16 @@ elasticsearch:
     - "9200"
     - "9300"
   volumes:
-    - deploy/data/elasticsearch/:/data/data/
-    - deploy/logs/elasticsearch/:/data/log/
+    - deploy/data/elasticsearch:/data/data
+    - deploy/logs/elasticsearch:/data/log
 nginx:
   image: dockerfile/nginx
   domainname: subman.io
   links:
     - web
   volumes:
-    - deploy/config/nginx/:/etc/nginx/sites-enabled/
-    - deploy/log/nginx/:/var/log/nginx/
+    - deploy/config/nginx:/etc/nginx/sites-enabled
+    - deploy/logs/nginx:/var/log/nginx
   volumes_from:
     - web
   ports:
