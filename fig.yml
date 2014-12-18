@@ -23,7 +23,7 @@ nginx:
     - web
   ports:
     - "8080:80"
-parser:
+parser: &SUBMAN
   image: nvbn/subman
   links:
     - elasticsearch
@@ -37,17 +37,7 @@ parser:
     RAW_DB_PORT: "27017"
     RAW_DB_NAME: "subman7"
 web:
-  image: nvbn/subman
+  <<: *SUBMAN
   expose:
     - "3000"
-  links:
-    - elasticsearch
-    - mongodb
   command: bash deploy/scripts/run_web.sh
-  environment:
-    DB_HOST: "http://elasticsearch:9200"
-    INDEX_NAME: "subman7"
-    IS_DEBUG: "false"
-    RAW_DB_HOST: "mongodb"
-    RAW_DB_PORT: "27017"
-    RAW_DB_NAME: "subman7"
