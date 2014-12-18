@@ -30,7 +30,8 @@
                            [org.clojure/tools.logging "0.3.1"]
                            [com.cemerick/url "0.1.1"]
                            [itsy "0.1.1"]
-                           [clj-di "0.1.3"]]
+                           [clj-di "0.1.3"]
+                           [com.novemberain/monger "2.0.0"]]
             :plugins [[lein-cljsbuild "1.0.3"]
                       [com.keminglabs/cljx "0.4.0" :exclusions [org.clojure/clojure]]
                       [lein-garden "0.2.1"]
@@ -62,7 +63,10 @@
                                    :ga-id ""
                                    :site-url "http://localhost:3000/"
                                    :db-host "http://127.0.0.1:9200"
-                                   :index-name "subman7"}
+                                   :index-name "subman7"
+                                   :raw-db-host "localhost"
+                                   :raw-db-port 27017
+                                   :raw-db-name "subman7"}
                              :jvm-opts ["-Xss16m"]}
                        :production {:cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]
                                                           :compiler {:externs ["resources/public/components/jquery/dist/jquery.min.js"

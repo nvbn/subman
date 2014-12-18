@@ -4,6 +4,8 @@
             [clojurewerkz.elastisch.rest.index :as esi]
             [clojurewerkz.elastisch.rest.document :as esd]
             [clojurewerkz.elastisch.query :as q]
+            [monger.core :as mg]
+            [monger.collection :as mc]
             [environ.core :refer [env]]
             [clj-di.core :refer [register! get-dep]]
             [subman.helpers :as helpers :refer [defsafe]]
@@ -12,7 +14,9 @@
 (defn connect!
   "Connect to elastic"
   []
-  (register! :db-connection (esr/connect (env :db-host))))
+  (register! :db-connection (esr/connect (env :db-host)))
+  (register! :raw-db-connection (mg/connect {:host (env :raw-db-host)
+                                             :port (env :raw-db-port)})))
 
 (defn get-total-count
   "Update total count of subtitles"
@@ -40,11 +44,23 @@
                                              :index "not_analyzed"}
                                        :source {:type "integer"}}}}))
 
+(defsafe create-raw-index!
+  []
+  (let [raw-db (mg/get-db (get-dep :raw-db-connection) (env :raw-db-name))]
+    (mc/ensure-index raw-db "subtitle" (array-map :url 1) {:uniquer true})))
+
+(defn prepare-to-index
+  "Prepare document to putting in index."
+  [doc]
+  doc)
+
 (defsafe create-document!
   "Put document into elastic"
   [doc]
+  (let [raw-db (mg/get-db (get-dep :raw-db-connection) (env :raw-db-name))]
+    (mc/insert raw-db "subtitle" doc))
   (esd/create (get-dep :db-connection)
-              (env :index-name) "subtitle" doc))
+              (env :index-name) "subtitle" (prepare-to-index doc)))
 
 (defn delete-all!
   "Delete all documents"

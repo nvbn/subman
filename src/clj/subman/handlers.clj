@@ -16,7 +16,8 @@
   "Init db connection and schema"
   []
   (models/connect!)
-  (models/create-index!))
+  (models/create-index!)
+  (models/create-raw-index!))
 
 (defn init
   "Init ring handler"
