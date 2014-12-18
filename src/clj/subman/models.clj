@@ -66,12 +66,6 @@
   (esd/create (get-dep :db-connection)
               (env :index-name) "subtitle" (prepare-to-index doc)))
 
-(defn delete-all!
-  "Delete all documents"
-  []
-  (esd/delete-by-query-across-all-types (get-dep :db-connection)
-                                        (env :index-name) (q/match-all)))
-
 (defn- get-season-episode-parts
   "Get season episode parts"
   [text]
