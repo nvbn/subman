@@ -2,10 +2,15 @@ elasticsearch:
   image: dockerfile/elasticsearch
   expose:
     - "9200"
-    - "9300"
   volumes:
     - deploy/data/elasticsearch:/data/data
     - deploy/logs/elasticsearch:/data/log
+mongodb:
+  image: dockerfile/mongodb
+  expose:
+    - "27017"
+  volumes:
+    - deploy/data/mongodb:/data/db
 nginx:
   image: dockerfile/nginx
   domainname: subman.io
@@ -18,23 +23,31 @@ nginx:
     - web
   ports:
     - "8080:80"
+parser:
+  image: nvbn/subman
+  links:
+    - elasticsearch
+    - mongodb
+  command: bash deploy/scripts/run_parser.sh
+  environment:
+    DB_HOST: "http://elasticsearch:9200"
+    INDEX_NAME: "subman7"
+    IS_DEBUG: "false"
+    RAW_DB_HOST: "mongodb"
+    RAW_DB_PORT: "27017"
+    RAW_DB_NAME: "subman7"
 web:
   image: nvbn/subman
   expose:
     - "3000"
   links:
     - elasticsearch
+    - mongodb
   command: bash deploy/scripts/run_web.sh
   environment:
     DB_HOST: "http://elasticsearch:9200"
     INDEX_NAME: "subman7"
     IS_DEBUG: "false"
-parser:
-  image: nvbn/subman
-  links:
-    - elasticsearch
-  command: bash deploy/scripts/run_parser.sh
-  environment:
-    DB_HOST: "http://elasticsearch:9200"
-    INDEX_NAME: "subman7"
-    IS_DEBUG: "false"
+    RAW_DB_HOST: "mongodb"
+    RAW_DB_PORT: "27017"
+    RAW_DB_NAME: "subman7"

@@ -4,7 +4,7 @@ MAINTAINER Vladimir Iakovlev <nvbn.rm@gmail.com>
 RUN adduser --disabled-password --gecos "" subman
 RUN adduser subman sudo
 
-ENV "VERSION" 2014_12_14_18_07
+ENV "VERSION" 2014_12_18_22_58
 
 RUN apt-get update -yqq
 RUN apt-get upgrade -yqq

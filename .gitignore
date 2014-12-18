@@ -19,5 +19,6 @@ hs_err*
 .idea
 *iml
 deploy/data/elasticsearch/*
+deploy/data/mongodb/*
 deploy/logs/elasticsearch/*
 deploy/logs/nginx/*
