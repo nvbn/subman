@@ -18,11 +18,15 @@
   (register! :raw-db-connection (mg/connect {:host (env :raw-db-host)
                                              :port (env :raw-db-port)})))
 
+(defn get-raw-db
+  []
+  (mg/get-db (get-dep :raw-db-connection) (env :raw-db-name)))
+
 (defn get-total-count
   "Update total count of subtitles"
   []
   (-> (esd/search (get-dep :db-connection)
-                  (env :index-name) "subtitle" :filter {})
+                  (env :index-name) "subtitle")
       :hits
       :total))
 
@@ -46,7 +50,7 @@
 
 (defsafe create-raw-index!
   []
-  (let [raw-db (mg/get-db (get-dep :raw-db-connection) (env :raw-db-name))]
+  (let [raw-db (get-raw-db)]
     (mc/ensure-index raw-db "subtitle" (array-map :url 1) {:uniquer true})))
 
 (defn prepare-to-index
@@ -57,7 +61,7 @@
 (defsafe create-document!
   "Put document into elastic"
   [doc]
-  (let [raw-db (mg/get-db (get-dep :raw-db-connection) (env :raw-db-name))]
+  (let [raw-db (get-raw-db)]
     (mc/insert raw-db "subtitle" doc))
   (esd/create (get-dep :db-connection)
               (env :index-name) "subtitle" (prepare-to-index doc)))
@@ -123,13 +127,7 @@
 (defn in-db
   "Check subtitle already in db"
   [subtitle]
-  (-> (esd/search (get-dep :db-connection)
-                  (env :index-name)
-                  "subtitle"
-                  :filter (q/term :url (:url subtitle)))
-      :hits
-      :total
-      (> 0)))
+  (mc/any? (get-raw-db) "subtitle" {:url (:url subtitle)}))
 
 (defn list-languages
   "List languages with count"
