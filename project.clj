@@ -65,7 +65,7 @@
                                    :db-host "http://127.0.0.1:9200"
                                    :index-name "subman7"
                                    :raw-db-host "localhost"
-                                   :raw-db-port 27017
+                                   :raw-db-port "27017"
                                    :raw-db-name "subman7"}
                              :jvm-opts ["-Xss16m"]}
                        :production {:cljsbuild {:builds [{:source-paths ["src/cljs" "target/generated-cljs"]

@@ -16,7 +16,7 @@
   []
   (register! :db-connection (esr/connect (env :db-host)))
   (register! :raw-db-connection (mg/connect {:host (env :raw-db-host)
-                                             :port (env :raw-db-port)})))
+                                             :port (-> :raw-db-port env Integer.)})))
 
 (defn get-raw-db
   []
