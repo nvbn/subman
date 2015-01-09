@@ -11,18 +11,6 @@ mongodb:
     - "27017"
   volumes:
     - deploy/data/mongodb:/data/db
-nginx:
-  image: dockerfile/nginx
-  domainname: subman.io
-  links:
-    - web
-  volumes:
-    - deploy/config/nginx:/etc/nginx/sites-enabled
-    - deploy/logs/nginx:/var/log/nginx
-  volumes_from:
-    - web
-  ports:
-    - "8080:80"
 parser: &SUBMAN
   image: nvbn/subman
   links:
@@ -41,3 +29,14 @@ web:
   expose:
     - "3000"
   command: bash deploy/scripts/run_web.sh
+nginx:
+  image: nvbn/nginx
+  domainname: subman.io
+  links:
+    - web
+  volumes:
+    - deploy/logs/nginx:/var/log/nginx
+  volumes_from:
+    - web
+  ports:
+    - "8080:80"
