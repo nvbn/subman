@@ -4,7 +4,9 @@
             [test-sugar.core :refer [is= is-do]]
             [subman.helpers :refer [with-atom]]
             [subman.const :as const]
-            [subman.models :as models]))
+            [subman.models :as models]
+            [monger.collection :as mc]
+            [monger.core :as mg]))
 
 (deftest test-get-total-count
   (with-redefs [esd/search (constantly {:hits {:total 10}})]
@@ -30,7 +32,7 @@
 (deftest test-build-query
   (testing "should build query"
     (is= (#'models/build-query "Dads.2013.S01E18.HDTV.x264-EXCELLENCE[rartv]"
-          "en" const/type-all const/result-size)
+           "en" const/type-all const/result-size)
          [:query {:bool {:must
                          [{:fuzzy_like_this
                            {:boost 5
@@ -67,9 +69,9 @@
                                  :limit const/result-size))))
 
 (deftest test-in-db
-  (with-redefs [esd/search (fn [_ _ _ & {:keys [filter]}]
-                             (when (= filter {:term {:url "test"}})
-                               {:hits {:total 5}}))]
+  (with-redefs [mc/any? (fn [_ _ {:keys [url]}]
+                          (= url "test"))
+                mg/get-db (constantly nil)]
     (is-do true? (models/in-db {:url "test"}))))
 
 (deftest test-list-languages
