@@ -30,7 +30,7 @@ web:
     - "3000"
   command: bash deploy/scripts/run_web.sh
 nginx:
-  image: nvbn/nginx
+  image: submanio/nginx
   domainname: subman.io
   links:
     - web
