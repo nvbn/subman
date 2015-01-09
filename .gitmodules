@@ -1,0 +1,3 @@
+[submodule "deploy/config/nginx"]
+	path = deploy/config/nginx
+	url = git@github.com:submanio/nginx.git
