@@ -1,26 +1,13 @@
 (ns subman.models
   (:require [clojure.set :refer [union]]
-            [clojurewerkz.elastisch.rest :as esr]
-            [clojurewerkz.elastisch.rest.index :as esi]
             [clojurewerkz.elastisch.rest.document :as esd]
             [clojurewerkz.elastisch.query :as q]
-            [monger.core :as mg]
             [monger.collection :as mc]
             [environ.core :refer [env]]
             [clj-di.core :refer [register! get-dep]]
             [subman.helpers :as helpers :refer [defsafe]]
-            [subman.const :as const]))
-
-(defn connect!
-  "Connect to elastic"
-  []
-  (register! :db-connection (esr/connect (env :db-host)))
-  (register! :raw-db-connection (mg/connect {:host (env :raw-db-host)
-                                             :port (-> :raw-db-port env Integer.)})))
-
-(defn get-raw-db
-  []
-  (mg/get-db (get-dep :raw-db-connection) (env :raw-db-name)))
+            [subman.const :as const]
+            [subman.db :refer [get-raw-db]]))
 
 (defn get-total-count
   "Update total count of subtitles"
@@ -29,29 +16,6 @@
                   (env :index-name) "subtitle")
       :hits
       :total))
-
-(defsafe create-index!
-  "Create database index for subtitles"
-  []
-  (esi/create (get-dep :db-connection)
-              (env :index-name)
-              :mappings {"subtitle"
-                         {:properties {:show {:type "string"}
-                                       :season {:type "string"
-                                                :index "not_analyzed"}
-                                       :episode {:type "string"
-                                                 :index "not_analyzed"}
-                                       :name {:type "string"}
-                                       :lang {:type "string"}
-                                       :version {:type "string"}
-                                       :url {:type "string"
-                                             :index "not_analyzed"}
-                                       :source {:type "integer"}}}}))
-
-(defsafe create-raw-index!
-  []
-  (let [raw-db (get-raw-db)]
-    (mc/ensure-index raw-db "subtitle" (array-map :url 1) {:uniquer true})))
 
 (defn prepare-to-index
   "Prepare document to putting in index."

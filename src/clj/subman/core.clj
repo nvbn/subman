@@ -3,7 +3,8 @@
             [subman.handlers :as h]
             [subman.parser.core :as parser]
             [subman.const :as const]
-            [subman.models :as models]))
+            [subman.models :as models]
+            [subman.db :refer [init-db!]]))
 
 (defn init-pool
   "Init pull for running periodic tasks"
@@ -23,5 +24,5 @@
   [& _]
   (println "Start parsers")
   (parser/inject!)
-  (h/init-models)
+  (init-db!)
   (init-pool))
