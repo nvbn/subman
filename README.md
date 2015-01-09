@@ -39,10 +39,9 @@ You can get total subtitles count in:
 
 For decoding api response you should use [transit](https://github.com/cognitect/transit-format).
 
-Installation
-------------
+## Installation
 
-First you need to install lein, bower and elasticsearch.
+First you need to install lein, bower, mongodb and elasticsearch.
 
 Then install deps:
 
@@ -81,4 +80,36 @@ For client side test install phantomjs and run:
 
 ```bash
 lein cljsbuild test
+```
+
+## Deploy
+
+For running:
+
+```bash
+fig up
+```
+
+For testing local changes you need to build docker image:
+
+```bash
+docker build -t nvbn/subman .
+```
+
+## Major migrations
+
+### 2015-01-10 Presentation db support
+
+In separate shells run:
+
+```bash
+fig up elasticsearch mongodb
+fig run web lein repl
+```
+
+And execute in REPL:
+
+```clojure
+(require '[subman.migrations :refer [from-index-to-raw-db!]])
+(from-index-to-raw-db!)
 ```

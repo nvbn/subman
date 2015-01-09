@@ -4,12 +4,12 @@
             [clojurewerkz.elastisch.rest.document :as esd]
             [environ.core :refer [env]]
             [clj-di.core :refer [get-dep]]
-            [subman.handlers :refer [init-models]]
-            [subman.models :refer [get-raw-db get-total-count]]))
+            [subman.db :refer [init-db! get-raw-db]]
+            [subman.models :refer [get-total-count]]))
 
 (defn from-index-to-raw-db!
   []
-  (init-models)
+  (init-db!)
   (let [raw-db (get-raw-db)
         total-count (get-total-count)
         limit 1000]
